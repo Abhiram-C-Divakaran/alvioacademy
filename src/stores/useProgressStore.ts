@@ -2,6 +2,7 @@
 // Progress Store — Zustand state for learning progress
 // ============================================================
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { LearningProgress, TopicProgress, DashboardStats, WeeklyActivity } from '../types/user';
 import { dbService } from '../services/db';
 
@@ -65,186 +66,185 @@ const calculateStats = (progress: LearningProgress): DashboardStats => {
   };
 };
 
-const useProgressStore = create<ProgressState & ProgressActions>((set, get) => ({
-  progress: null,
-  stats: null,
-  isLoading: false,
+const useProgressStore = create<ProgressState & ProgressActions>()(
+  persist(
+    (set, get) => ({
+      progress: null,
+      stats: null,
+      isLoading: false,
 
-  setProgress: (progress) => {
-    const stats = calculateStats(progress);
-    set({ progress, stats });
-  },
+      setProgress: (progress) => {
+        const stats = calculateStats(progress);
+        set({ progress, stats });
+      },
 
-  updateTopicProgress: async (topicId, updates) => {
-    const { progress } = get();
-    if (!progress) return;
+      updateTopicProgress: async (topicId, updates) => {
+        const { progress } = get();
+        if (!progress) return;
 
-    const now = new Date().toISOString();
-    const updatedTopics = progress.topics.map((t) => {
-      if (t.topicId === topicId) {
-        const newStatus = updates.status || t.status;
-        const newPercent = updates.completionPercent !== undefined ? updates.completionPercent : t.completionPercent;
-        
-        return {
-          ...t,
-          ...updates,
-          status: newPercent === 100 ? 'completed' : newStatus,
-          lastAccessed: now,
+        const now = new Date().toISOString();
+        const updatedTopics = progress.topics.map((t) => {
+          if (t.topicId === topicId) {
+            const newStatus = updates.status || t.status;
+            const newPercent = updates.completionPercent !== undefined ? updates.completionPercent : t.completionPercent;
+            
+            return {
+              ...t,
+              ...updates,
+              status: newPercent === 100 ? 'completed' : newStatus,
+              lastAccessed: now,
+            };
+          }
+          return t;
+        });
+
+        const updatedProgress: LearningProgress = {
+          ...progress,
+          topics: updatedTopics,
         };
-      }
-      return t;
-    });
 
-    const updatedProgress: LearningProgress = {
-      ...progress,
-      topics: updatedTopics,
-    };
+        const stats = calculateStats(updatedProgress);
+        set({ progress: updatedProgress, stats });
 
-    const stats = calculateStats(updatedProgress);
-    set({ progress: updatedProgress, stats });
+        try {
+          await dbService.saveProgress(updatedProgress);
+        } catch (err) {
+          console.warn('Failed to sync progress to database:', err);
+        }
+      },
 
-    // Sync to database
-    try {
-      await dbService.saveProgress(updatedProgress);
-    } catch (err) {
-      console.warn('Failed to sync progress to database:', err);
-    }
-  },
+      saveTopicQuizScore: async (topicId, score) => {
+        const { progress } = get();
+        if (!progress) return;
 
-  saveTopicQuizScore: async (topicId, score) => {
-    const { progress } = get();
-    if (!progress) return;
+        const now = new Date().toISOString();
+        const updatedTopics = progress.topics.map((t) => {
+          if (t.topicId === topicId) {
+            const currentScore = t.quizScore;
+            const newScore = currentScore === null ? score : Math.max(currentScore, score);
+            
+            return {
+              ...t,
+              status: 'completed' as const,
+              completionPercent: 100,
+              quizScore: newScore,
+              lastAccessed: now,
+            };
+          }
+          return t;
+        });
 
-    const now = new Date().toISOString();
-    const updatedTopics = progress.topics.map((t) => {
-      if (t.topicId === topicId) {
-        // Taking a quiz completes the topic if they score well, or at least updates it
-        const currentScore = t.quizScore;
-        const newScore = currentScore === null ? score : Math.max(currentScore, score);
+        const quizScores = updatedTopics.filter((t) => t.quizScore !== null).map((t) => t.quizScore as number);
+        const overallScore = quizScores.length > 0 
+          ? Math.round(quizScores.reduce((a, b) => a + b, 0) / quizScores.length) 
+          : 0;
+
+        const badges = [...progress.badges];
+        const completedCount = updatedTopics.filter((t) => t.status === 'completed').length;
         
-        return {
-          ...t,
-          status: 'completed' as const,
-          completionPercent: 100,
-          quizScore: newScore,
-          lastAccessed: now,
+        if (completedCount >= 1 && !badges.some(b => b.id === 'first-steps')) {
+          badges.push({
+            id: 'first-steps',
+            name: 'First Steps',
+            description: 'Completed your first DSA topic',
+            icon: 'Award',
+            earnedAt: now
+          });
+        }
+
+        const tempProgress = { ...progress, topics: updatedTopics };
+        const tempStats = calculateStats(tempProgress);
+
+        if (tempStats.level >= 2 && !badges.some(b => b.id === 'level-2')) {
+          badges.push({ id: 'level-2', name: 'Apprentice', description: 'Reached Level 2', icon: 'Award', earnedAt: now });
+        }
+        if (tempStats.level >= 3 && !badges.some(b => b.id === 'level-3')) {
+          badges.push({ id: 'level-3', name: 'Scholar', description: 'Reached Level 3', icon: 'Award', earnedAt: now });
+        }
+        if (tempStats.level >= 4 && !badges.some(b => b.id === 'level-4')) {
+          badges.push({ id: 'level-4', name: 'Master', description: 'Solved the toughest coding challenges to reach Level 4', icon: 'Award', earnedAt: now });
+        }
+        if (tempStats.level >= 5 && !badges.some(b => b.id === 'level-5')) {
+          badges.push({ id: 'level-5', name: 'Grandmaster', description: 'Attained by only a handful of elite engineers', icon: 'Award', earnedAt: now });
+        }
+
+        const updatedProgress: LearningProgress = {
+          ...progress,
+          topics: updatedTopics,
+          overallScore,
+          badges,
         };
-      }
-      return t;
-    });
 
-    // Update overall score (average of completed quiz scores)
-    const quizScores = updatedTopics.filter((t) => t.quizScore !== null).map((t) => t.quizScore as number);
-    const overallScore = quizScores.length > 0 
-      ? Math.round(quizScores.reduce((a, b) => a + b, 0) / quizScores.length) 
-      : 0;
+        const stats = calculateStats(updatedProgress);
+        set({ progress: updatedProgress, stats });
 
-    // Check if we should award badges based on stats calculated from topics
-    const badges = [...progress.badges];
-    const completedCount = updatedTopics.filter((t) => t.status === 'completed').length;
-    
-    if (completedCount >= 1 && !badges.some(b => b.id === 'first-steps')) {
-      badges.push({
-        id: 'first-steps',
-        name: 'First Steps',
-        description: 'Completed your first DSA topic',
-        icon: 'Award',
-        earnedAt: now
-      });
+        try {
+          await dbService.saveProgress(updatedProgress);
+        } catch (err) {
+          console.warn('Failed to sync progress to database:', err);
+        }
+      },
+
+      addTimeSpent: async (minutes) => {
+        const { progress } = get();
+        if (!progress) return;
+
+        const todayIndex = new Date().getDay();
+        const todayName = daysOfWeek[todayIndex];
+
+        const weeklyActivity = (progress as any).weeklyActivity 
+          ? [...(progress as any).weeklyActivity] 
+          : getInitialWeeklyActivity();
+          
+        const updatedWeeklyActivity = weeklyActivity.map((act) => {
+          if (act.day === todayName) {
+            return { ...act, minutes: act.minutes + minutes };
+          }
+          return act;
+        });
+
+        const updatedProgress: LearningProgress = {
+          ...progress,
+          totalTimeSpentMinutes: progress.totalTimeSpentMinutes + minutes,
+          weeklyActivity: updatedWeeklyActivity,
+        } as any;
+
+        const stats = calculateStats(updatedProgress);
+        set({ progress: updatedProgress, stats });
+
+        try {
+          await dbService.saveProgress(updatedProgress);
+        } catch (err) {
+          console.warn('Failed to sync progress to database:', err);
+        }
+      },
+
+      addXp: async (xp) => {
+        const { progress } = get();
+        if (!progress) return;
+
+        const currentXp = (progress as any).totalXp || 0;
+        const updatedProgress: LearningProgress = {
+          ...progress,
+          totalXp: currentXp + xp,
+        } as any;
+
+        const stats = calculateStats(updatedProgress);
+        set({ progress: updatedProgress, stats });
+
+        try {
+          await dbService.saveProgress(updatedProgress);
+        } catch (err) {
+          console.warn('Failed to sync progress to database:', err);
+        }
+      },
+
+      setLoading: (isLoading) => set({ isLoading }),
+    }),
+    {
+      name: 'alvio-progress-storage',
     }
-
-    const tempProgress = { ...progress, topics: updatedTopics };
-    const tempStats = calculateStats(tempProgress);
-
-    if (tempStats.level >= 2 && !badges.some(b => b.id === 'level-2')) {
-      badges.push({ id: 'level-2', name: 'Apprentice', description: 'Reached Level 2', icon: 'Award', earnedAt: now });
-    }
-    if (tempStats.level >= 3 && !badges.some(b => b.id === 'level-3')) {
-      badges.push({ id: 'level-3', name: 'Scholar', description: 'Reached Level 3', icon: 'Award', earnedAt: now });
-    }
-    if (tempStats.level >= 4 && !badges.some(b => b.id === 'level-4')) {
-      badges.push({ id: 'level-4', name: 'Master', description: 'Solved the toughest coding challenges to reach Level 4', icon: 'Award', earnedAt: now });
-    }
-    if (tempStats.level >= 5 && !badges.some(b => b.id === 'level-5')) {
-      badges.push({ id: 'level-5', name: 'Grandmaster', description: 'Attained by only a handful of elite engineers', icon: 'Award', earnedAt: now });
-    }
-
-    const updatedProgress: LearningProgress = {
-      ...progress,
-      topics: updatedTopics,
-      overallScore,
-      badges,
-    };
-
-    const stats = calculateStats(updatedProgress);
-    set({ progress: updatedProgress, stats });
-
-    // Sync to database
-    try {
-      await dbService.saveProgress(updatedProgress);
-    } catch (err) {
-      console.warn('Failed to sync progress to database:', err);
-    }
-  },
-
-  addTimeSpent: async (minutes) => {
-    const { progress } = get();
-    if (!progress) return;
-
-    // Get current day of week (e.g. 'Mon')
-    const todayIndex = new Date().getDay();
-    const todayName = daysOfWeek[todayIndex];
-
-    const weeklyActivity = (progress as any).weeklyActivity 
-      ? [...(progress as any).weeklyActivity] 
-      : getInitialWeeklyActivity();
-      
-    const updatedWeeklyActivity = weeklyActivity.map((act) => {
-      if (act.day === todayName) {
-        return { ...act, minutes: act.minutes + minutes };
-      }
-      return act;
-    });
-
-    const updatedProgress: LearningProgress = {
-      ...progress,
-      totalTimeSpentMinutes: progress.totalTimeSpentMinutes + minutes,
-      weeklyActivity: updatedWeeklyActivity,
-    } as any;
-
-    const stats = calculateStats(updatedProgress);
-    set({ progress: updatedProgress, stats });
-
-    // Sync to database
-    try {
-      await dbService.saveProgress(updatedProgress);
-    } catch (err) {
-      console.warn('Failed to sync progress to database:', err);
-    }
-  },
-
-  addXp: async (xp) => {
-    const { progress } = get();
-    if (!progress) return;
-
-    const currentXp = (progress as any).totalXp || 0;
-    const updatedProgress: LearningProgress = {
-      ...progress,
-      totalXp: currentXp + xp,
-    } as any;
-
-    const stats = calculateStats(updatedProgress);
-    set({ progress: updatedProgress, stats });
-
-    // Sync to database
-    try {
-      await dbService.saveProgress(updatedProgress);
-    } catch (err) {
-      console.warn('Failed to sync progress to database:', err);
-    }
-  },
-
-  setLoading: (isLoading) => set({ isLoading }),
-}));
+  )
+);
 
 export default useProgressStore;
