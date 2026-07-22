@@ -2,8 +2,9 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, Stars, Sparkles, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
-import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Pause, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import Editor, { useMonaco } from '@monaco-editor/react';
+import { initAudio, playPing, playSwoosh } from '../../utils/audio';
 import Asteroids from '../visualizer/Asteroids';
 import Array3D from '../visualizer/Array3D';
 import Graph3D from '../visualizer/Graph3D';
@@ -59,6 +60,7 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [localStructure, setLocalStructure] = useState<DataStructure | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   
   const monaco = useMonaco();
   const editorRef = useRef<any>(null);
@@ -174,6 +176,33 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
 
   const stepCount = parsedData.steps.length;
   const currentStepData = parsedData.steps[Math.min(currentStep, stepCount - 1)];
+
+  // Audio & Voice Narration
+  useEffect(() => {
+    if (!soundEnabled) {
+      window.speechSynthesis.cancel();
+      return;
+    }
+
+    // Play SFX
+    if (currentStepData.activeLine || (currentStepData.highlight && currentStepData.highlight.length > 0)) {
+      playPing();
+    }
+    playSwoosh();
+
+    // Text to Speech
+    window.speechSynthesis.cancel();
+    if (currentStepData.description) {
+      const utterance = new SpeechSynthesisUtterance(currentStepData.description);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+    
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, [currentStep, soundEnabled, currentStepData]);
 
   // Auto-play interval
   useEffect(() => {
@@ -346,20 +375,42 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={() => {
+                if (!soundEnabled) initAudio();
+                setSoundEnabled(!soundEnabled);
+              }}
+              className={`px-3 py-1.5 flex items-center gap-1 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${
+                soundEnabled ? 'bg-purple-500/20 text-purple-400 hover:bg-purple-500/30' : 'bg-gray-500/20 text-gray-400 hover:bg-gray-500/30'
+              }`}
+            >
+              {soundEnabled ? <><Volume2 size={14} /> Sound On</> : <><VolumeX size={14} /> Muted</>}
+            </button>
+            <button
+              onClick={() => {
+                if (!isPlaying) initAudio();
+                setIsPlaying(!isPlaying);
+              }}
               className="px-3 py-1.5 flex items-center gap-1 text-xs font-bold uppercase tracking-wider rounded-md bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
             >
               {isPlaying ? <><Pause size={14} /> Pause</> : <><Play size={14} /> Auto-Play</>}
             </button>
             <button
-              onClick={() => { setCurrentStep(prev => Math.max(0, prev - 1)); setIsPlaying(false); }}
+              onClick={() => { 
+                initAudio();
+                setCurrentStep(prev => Math.max(0, prev - 1)); 
+                setIsPlaying(false); 
+              }}
               disabled={currentStep === 0}
               className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={18} className="text-white" />
             </button>
             <button
-              onClick={() => { setCurrentStep(prev => Math.min(stepCount - 1, prev + 1)); setIsPlaying(false); }}
+              onClick={() => { 
+                initAudio();
+                setCurrentStep(prev => Math.min(stepCount - 1, prev + 1)); 
+                setIsPlaying(false); 
+              }}
               disabled={currentStep === stepCount - 1}
               className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
