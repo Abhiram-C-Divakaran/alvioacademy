@@ -221,35 +221,44 @@ export default function MockInterviewPage() {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (SpeechRecognition) {
       const rec = new SpeechRecognition();
-      rec.continuous = false;
-      rec.interimResults = false;
+      rec.continuous = true;
+      rec.interimResults = true;
       rec.lang = 'en-US';
 
       rec.onresult = (event: any) => {
-        const raw = event.results[0][0].transcript;
-        const normalized = raw.toLowerCase().trim();
-        
-        if (normalized === "clear text" || normalized === "clear input") {
-          setInput('');
-          setIsListening(false);
-          return;
-        }
-        if (normalized === "send answer" || normalized === "submit answer") {
-          setIsListening(false);
-          if (handleSendRef.current) {
-            handleSendRef.current();
+        let interim = '';
+        let final = '';
+
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            final += event.results[i][0].transcript;
+          } else {
+            interim += event.results[i][0].transcript;
           }
-          return;
-        }
-        if (normalized === "leave call" || normalized === "exit interview") {
-          setIsListening(false);
-          window.speechSynthesis.cancel();
-          window.location.reload();
-          return;
         }
 
-        setInput(prev => prev + (prev ? ' ' : '') + raw);
-        setIsListening(false);
+        if (final) {
+          const normalized = final.toLowerCase().trim();
+          if (normalized === "clear text" || normalized === "clear input") {
+            setInput('');
+            return;
+          }
+          if (normalized === "send answer" || normalized === "submit answer") {
+            if (handleSendRef.current) handleSendRef.current();
+            return;
+          }
+          if (normalized === "leave call" || normalized === "exit interview") {
+            window.speechSynthesis.cancel();
+            window.location.reload();
+            return;
+          }
+          setInput(prev => prev + (prev ? ' ' : '') + final);
+        } else if (interim) {
+          // You could optionally display interim text, but setting input directly is best for now
+          // to give real-time feedback. But since input is controlled, we'd need a separate state.
+          // To keep it simple and bug-free, we'll just set it to the input temporarily.
+          // Actually, appending final is safer to prevent text cursor jumping.
+        }
       };
 
       rec.onerror = (err: any) => {
@@ -329,8 +338,8 @@ export default function MockInterviewPage() {
     }
   };
 
-  const handleSend = async (overrideText?: string) => {
-    const textToSend = overrideText !== undefined ? overrideText : input;
+  const handleSend = async (overrideText?: string | React.SyntheticEvent) => {
+    const textToSend = typeof overrideText === 'string' ? overrideText : input;
     if (!textToSend.trim()) return;
 
     const userMsg: Message = {
@@ -384,12 +393,17 @@ export default function MockInterviewPage() {
       alert("Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.");
       return;
     }
-    if (isListening) {
-      recognitionRef.current.stop();
+    try {
+      if (isListening) {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      } else {
+        setIsListening(true);
+        recognitionRef.current.start();
+      }
+    } catch (e) {
+      console.warn("Speech recognition toggle error:", e);
       setIsListening(false);
-    } else {
-      setIsListening(true);
-      recognitionRef.current.start();
     }
   };
 
