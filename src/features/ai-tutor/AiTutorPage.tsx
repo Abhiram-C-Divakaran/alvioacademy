@@ -281,7 +281,7 @@ export default function AiTutorPage() {
                       remarkPlugins={[remarkGfm]}
                       components={{
                         code({ node, inline, className, children, ...props }: any) {
-                          const match = /language-(\w+)/.exec(className || '');
+                          const match = /language-([a-zA-Z0-9_-]+)/.exec(className || '');
                           const type = String(children).replace(/\n$/, '');
                           
                           if (match && match[1] === 'ds-visualizer') {
