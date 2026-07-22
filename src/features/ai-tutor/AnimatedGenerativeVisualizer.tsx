@@ -1,6 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Visualization3D from '../workspace/Visualization3D';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment, Stars, Sparkles, ContactShadows } from '@react-three/drei';
+import Asteroids from '../visualizer/Asteroids';
+import Array3D from '../visualizer/Array3D';
+import Graph3D from '../visualizer/Graph3D';
+import BinaryTree3D from '../visualizer/BinaryTree3D';
+import LinkedList3D from '../visualizer/LinkedList3D';
 import type { DataStructure, DSANode, DSAEdge } from '../../types/dataStructures';
 
 interface AnimatedStep {
@@ -130,6 +136,29 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
   const stepCount = parsedData.steps.length;
   const currentStepData = parsedData.steps[Math.min(currentStep, stepCount - 1)];
 
+  const render3DComponent = () => {
+    if (!parsedData || !structure) return null;
+    const type = parsedData.type;
+    const step = parsedData.steps[Math.min(currentStep, parsedData.steps.length - 1)];
+    const activeIndex = step.highlight || [];
+    
+    // Convert array values for linear data structures
+    const linearData = step.values ? step.values.map(v => v === null ? null : (isNaN(Number(v)) ? v : Number(v))) : [];
+
+    switch (type) {
+      case 'array':
+        return <Array3D data={linearData} activeIndex={activeIndex as number[]} variant="Static Array" />;
+      case 'linked-list':
+        return <LinkedList3D data={linearData} activeIndex={activeIndex as number[]} variant="Singly Linked" />;
+      case 'binary-tree':
+        return <BinaryTree3D activeIndex={activeIndex as number[]} variant="Standard BST" dsState={structure as any} />;
+      case 'graph':
+        return <Graph3D activeIndex={activeIndex as any} variant="Directed" dsState={structure as any} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="my-6 rounded-xl overflow-hidden bg-black/40 border border-[var(--color-border-subtle)] shadow-lg relative flex flex-col w-full">
       <div className="absolute top-2 left-3 z-10 flex flex-col gap-1">
@@ -139,8 +168,36 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
       </div>
       
       {/* 3D Scene */}
-      <div className="h-[300px] w-full pointer-events-auto relative z-0">
-        <Visualization3D structure={structure} />
+      <div className="h-[350px] w-full pointer-events-auto relative z-0 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
+        <Canvas camera={{ position: [0, 4, 12], fov: 45 }}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+          <pointLight position={[-10, 10, -10]} intensity={0.5} />
+          <Environment preset="city" />
+          
+          <Stars radius={50} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+          <Asteroids count={100} />
+          <Sparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
+
+          {render3DComponent()}
+
+          <ContactShadows 
+            position={[0, -2, 0]} 
+            opacity={0.5} 
+            scale={20} 
+            blur={2} 
+            far={4} 
+            color="#000000"
+          />
+
+          <OrbitControls 
+            makeDefault
+            enablePan={false}
+            minDistance={5}
+            maxDistance={20}
+            maxPolarAngle={Math.PI / 2 + 0.1}
+          />
+        </Canvas>
       </div>
 
       {/* Controls & Description */}
