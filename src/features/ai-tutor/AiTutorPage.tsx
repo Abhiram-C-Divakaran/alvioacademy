@@ -7,14 +7,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Visualization3D from '../workspace/Visualization3D';
 import type { DataStructure } from '../../types/dataStructures';
-import { VideoRecommendationSection } from './VideoRecommendation';
+import { GenerativeVisualizer } from './GenerativeVisualizer';
 
-import arrVideo from '../../assets/i_want_the_video_to_explain_ab.mp4';
-import llVideo from '../../assets/ll.mp4';
-import queueVideo from '../../assets/PixVerse_V6_Image_Text_540P_make_a_game_like_v.mp4';
-import btVideo from '../../assets/bt.mp4';
-import hashVideo from '../../assets/hash.mp4';
-import heapVideo from '../../assets/WhatsApp Video 2026-07-22 at 10.44.31 AM.mp4';
 
 interface Message {
   id: string;
@@ -23,19 +17,23 @@ interface Message {
   timestamp: Date;
 }
 
-const SYSTEM_PROMPT = `You are a highly experienced, friendly, and patient Data Structures & Algorithms (DSA) tutor.\nYour goal is to help students easily understand complex CS concepts by breaking them down into simple, digestible pieces. Use relatable real-world analogies, step-by-step explanations, and avoid overly academic jargon unless you also explain it simply.\nMake sure your answers can be easily understood by beginners and students. Use Markdown formatting for readability, keep explanations clear and well-structured, and always encourage the student to ask questions!
+const SYSTEM_PROMPT = `You are a highly experienced, friendly, and patient Data Structures & Algorithms (DSA) tutor.
+Your goal is to help students easily understand complex CS concepts by breaking them down into simple, digestible pieces. Use relatable real-world analogies, step-by-step explanations, and avoid overly academic jargon unless you also explain it simply.
+Make sure your answers can be easily understood by beginners and students. Use Markdown formatting for readability, keep explanations clear and well-structured, and always encourage the student to ask questions!
 
-CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List), you MUST include an interactive 3D visualizer in your response. To do this, include a markdown code block with the language "ds-visualizer" and the name of the data structure inside it. Example:
-\`\`\`ds-visualizer
-graph
-\`\`\`
-Supported values are strictly: graph, binary-tree, array, linked-list. Do not include anything else inside the code block except the data structure name.
+CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List), you MUST generate an interactive 3D simulation of it for the user.
+To do this, include a markdown code block with the language "generative-3d" containing a valid JSON object. 
+Supported types and their expected JSON formats:
+- graph: {"type": "graph", "nodes": ["A", "B", "C"], "edges": [["A", "B"], ["B", "C"]]}
+- binary-tree: {"type": "binary-tree", "values": [10, 5, 15, 2, 7]}
+- array: {"type": "array", "values": [1, 2, 3, 4, 5]}
+- linked-list: {"type": "linked-list", "values": [1, 2, 3, 4, 5]}
 
-CRITICAL VIDEO RECOMMENDATIONS: At the very end of EVERY educational explanation, you MUST provide a search query for 3D and 2D videos so the system can automatically fetch related learning videos for the student. Do this by outputting a JSON block with the language "video-search". Example:
-\`\`\`video-search
-{"topic": "Dijkstra's Shortest Path Algorithm"}
+Example:
+\`\`\`generative-3d
+{"type": "graph", "nodes": ["A", "B"], "edges": [["A", "B"]]}
 \`\`\`
-Ensure the topic is highly relevant to the student's question so they get the best video recommendations!`;
+Do not include any other markdown tags. Use EXACTLY the JSON schema shown above. Ensure you use values relevant to the specific example you are teaching!`;
 
 const sampleMessages: Message[] = [
   {
@@ -46,99 +44,7 @@ const sampleMessages: Message[] = [
   },
 ];
 
-function MiniVideoPlayer({ type }: { type: string }) {
-  const t = type.toLowerCase().trim();
-  let videoSrc = '';
-  
-  if (t.includes('array')) videoSrc = arrVideo;
-  else if (t.includes('linked')) videoSrc = llVideo;
-  else if (t.includes('queue')) videoSrc = queueVideo;
-  else if (t.includes('tree') || t.includes('bst')) videoSrc = btVideo;
-  else if (t.includes('hash')) videoSrc = hashVideo;
-  else if (t.includes('heap')) videoSrc = heapVideo;
 
-  if (!videoSrc) return null;
-
-  return (
-    <div className="my-4 rounded-xl overflow-hidden border border-[var(--color-border-subtle)] shadow-lg bg-black">
-      <video controls className="w-full aspect-video outline-none">
-        <source src={videoSrc} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
-}
-
-function MiniVisualizer({ type }: { type: string }) {
-  let structure: DataStructure | null = null;
-  const t = type.toLowerCase().trim();
-  
-  if (t.includes('graph')) {
-    structure = {
-      type: 'graph',
-      nodes: [
-        { id: 'A', value: 'A', position: { x: -2, y: 2, z: 0 }, state: { highlighted: false, active: false } },
-        { id: 'B', value: 'B', position: { x: 2, y: 1, z: 0 }, state: { highlighted: false, active: false } },
-        { id: 'C', value: 'C', position: { x: -1, y: -2, z: 0 }, state: { highlighted: false, active: false } },
-        { id: 'D', value: 'D', position: { x: 1, y: -1, z: 0 }, state: { highlighted: false, active: false } },
-      ],
-      edges: [
-        { id: 'e1', from: 'A', to: 'B', directed: false, state: { highlighted: false, active: false } },
-        { id: 'e2', from: 'A', to: 'C', directed: false, state: { highlighted: false, active: false } },
-        { id: 'e3', from: 'B', to: 'D', directed: false, state: { highlighted: false, active: false } },
-        { id: 'e4', from: 'C', to: 'D', directed: false, state: { highlighted: false, active: false } },
-      ],
-      directed: false,
-      weighted: false,
-    };
-  } else if (t.includes('tree') || t.includes('bst')) {
-    structure = {
-      type: 'binary-tree',
-      root: '1',
-      nodes: [
-        { id: '1', value: 10, position: { x: 0, y: 3, z: 0 }, state: { highlighted: false, active: false }, left: '2', right: '3' },
-        { id: '2', value: 5, position: { x: -2, y: 1, z: 0 }, state: { highlighted: false, active: false }, left: '4', right: '5' },
-        { id: '3', value: 15, position: { x: 2, y: 1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: '6' },
-        { id: '4', value: 2, position: { x: -3, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
-        { id: '5', value: 7, position: { x: -1, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
-        { id: '6', value: 20, position: { x: 3, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
-      ]
-    };
-  } else if (t.includes('array')) {
-    structure = {
-      type: 'array',
-      capacity: 5,
-      elements: [
-        { id: '1', value: 42, position: { x: -2, y: 0, z: 0 }, state: { highlighted: false, active: false } },
-        { id: '2', value: 7, position: { x: -1, y: 0, z: 0 }, state: { highlighted: false, active: false } },
-        { id: '3', value: 19, position: { x: 0, y: 0, z: 0 }, state: { highlighted: false, active: false } },
-        { id: '4', value: 99, position: { x: 1, y: 0, z: 0 }, state: { highlighted: false, active: false } },
-        { id: '5', value: 3, position: { x: 2, y: 0, z: 0 }, state: { highlighted: false, active: false } },
-      ]
-    };
-  } else if (t.includes('linked-list')) {
-    structure = {
-      type: 'linked-list',
-      head: '1',
-      nodes: [
-        { id: '1', value: 10, position: { x: -2, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: '2' },
-        { id: '2', value: 20, position: { x: 0, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: '3' },
-        { id: '3', value: 30, position: { x: 2, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: null },
-      ]
-    };
-  }
-
-  if (!structure) {
-    return <div className="text-xs text-red-400 p-2 border border-red-500/20 rounded-md">Unsupported 3D Visualizer: {type}</div>;
-  }
-
-  return (
-    <div className="my-4 rounded-xl overflow-hidden bg-black/40 border border-[var(--color-border-subtle)] shadow-lg relative h-[300px] w-full pointer-events-auto">
-      <div className="absolute top-2 left-3 z-10 text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-2 py-1 rounded-md">{type} Visualizer</div>
-      <Visualization3D structure={structure} />
-    </div>
-  );
-}
 
 export default function AiTutorPage() {
   const [messages, setMessages] = useState<Message[]>(sampleMessages);
@@ -291,30 +197,13 @@ export default function AiTutorPage() {
                             blockType = match[1];
                           } 
                           // 2. Fallback if LLM put the type inside the code block instead of the language tag
-                          else if (rawType.startsWith('ds-visualizer\n')) {
-                            blockType = 'ds-visualizer';
-                            blockContent = rawType.replace('ds-visualizer\n', '').trim();
-                          } else if (rawType.startsWith('ds-video\n')) {
-                            blockType = 'ds-video';
-                            blockContent = rawType.replace('ds-video\n', '').trim();
-                          } else if (rawType.startsWith('video-search\n')) {
-                            blockType = 'video-search';
-                            blockContent = rawType.replace('video-search\n', '').trim();
+                          else if (rawType.startsWith('generative-3d\n')) {
+                            blockType = 'generative-3d';
+                            blockContent = rawType.replace('generative-3d\n', '').trim();
                           }
 
-                          if (blockType === 'ds-visualizer') {
-                            return <MiniVisualizer type={blockContent} />;
-                          } else if (blockType === 'ds-video') {
-                            return <MiniVideoPlayer type={blockContent} />;
-                          } else if (blockType === 'video-search') {
-                            let topic = blockContent;
-                            try {
-                              const parsed = JSON.parse(blockContent);
-                              if (parsed.topic) topic = parsed.topic;
-                            } catch (e) {
-                              console.warn('Could not parse video-search JSON, using raw string as topic:', blockContent);
-                            }
-                            return <VideoRecommendationSection topic={topic} />;
+                          if (blockType === 'generative-3d') {
+                            return <GenerativeVisualizer data={blockContent} />;
                           }
                           return <code className={className} {...props}>{children}</code>;
                         }

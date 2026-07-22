@@ -32,7 +32,6 @@
     "recharts": "^3.9.2",
     "remark-gfm": "^4.0.1",
     "three": "^0.185.1",
-    "yt-search": "^2.13.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

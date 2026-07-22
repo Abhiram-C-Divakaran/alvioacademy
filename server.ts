@@ -7,7 +7,6 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import ytSearch from "yt-search";
 import db from "./server/db";
 
 dotenv.config();
@@ -67,46 +66,6 @@ async function startServer() {
     }
   });
 
-  app.get("/api/videos/search", async (req, res) => {
-    try {
-      const { q } = req.query;
-      if (!q || typeof q !== "string") {
-        return res.status(400).json({ error: "Query parameter 'q' is required" });
-      }
-
-      const query3d = `${q} 3D animation simulation science`;
-      const searchResult3d = await ytSearch(query3d);
-      const videos3d = searchResult3d.videos.slice(0, 3).map(v => ({
-        id: v.videoId,
-        title: v.title,
-        duration: v.timestamp,
-        channel: v.author.name,
-        description: v.description,
-        thumbnail: v.thumbnail,
-        url: v.url
-      }));
-
-      const query2d = `${q} educational course`;
-      const searchResult2d = await ytSearch(query2d);
-      const videos2d = searchResult2d.videos.slice(0, 3).map(v => ({
-        id: v.videoId,
-        title: v.title,
-        duration: v.timestamp,
-        channel: v.author.name,
-        description: v.description,
-        thumbnail: v.thumbnail,
-        url: v.url
-      }));
-
-      res.json({
-        videos3d,
-        videos2d
-      });
-    } catch (error) {
-      console.error("Video search error:", error);
-      res.status(500).json({ error: "Failed to search for videos" });
-    }
-  });
 
   const JWT_SECRET = process.env.JWT_SECRET || "super-secret-alvio-key";
 
