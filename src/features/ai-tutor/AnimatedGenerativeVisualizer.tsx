@@ -1,7 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, Stars, Sparkles, ContactShadows } from '@react-three/drei';
+import * as THREE from 'three';
+import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import Editor, { useMonaco } from '@monaco-editor/react';
 import Asteroids from '../visualizer/Asteroids';
 import Array3D from '../visualizer/Array3D';
 import Graph3D from '../visualizer/Graph3D';
@@ -16,11 +18,13 @@ interface AnimatedStep {
   nodes?: string[];
   edges?: [string, string][];
   highlight?: (number | string)[];
+  activeLine?: number;
   description: string;
 }
 
 interface AnimatedData {
   type: string;
+  code?: string;
   steps: AnimatedStep[];
 }
 
@@ -28,9 +32,37 @@ interface AnimatedGenerativeVisualizerProps {
   data: string;
 }
 
+function CinematicCamera({ isPlaying }: { isPlaying: boolean }) {
+  const { camera } = useThree();
+  const vec = new THREE.Vector3();
+
+  useFrame((state, delta) => {
+    if (isPlaying) {
+      const time = state.clock.getElapsedTime();
+      const radius = 12 + Math.sin(time * 0.2) * 2; // subtle zoom in/out
+      const height = 4 + Math.sin(time * 0.4) * 1.5;
+      
+      const targetX = Math.sin(time * 0.15) * radius;
+      const targetZ = Math.cos(time * 0.15) * radius;
+      
+      vec.set(targetX, height, targetZ);
+      
+      camera.position.lerp(vec, delta * 1.5);
+      camera.lookAt(0, 0, 0);
+    }
+  });
+
+  return null;
+}
+
 export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisualizerProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [localStructure, setLocalStructure] = useState<DataStructure | null>(null);
+  
+  const monaco = useMonaco();
+  const editorRef = useRef<any>(null);
+  const decorationsRef = useRef<any>([]);
 
   const parsedData = useMemo<AnimatedData | null>(() => {
     try {
@@ -143,6 +175,47 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
   const stepCount = parsedData.steps.length;
   const currentStepData = parsedData.steps[Math.min(currentStep, stepCount - 1)];
 
+  // Auto-play interval
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (isPlaying) {
+      interval = setInterval(() => {
+        setCurrentStep((prev) => {
+          if (prev >= stepCount - 1) {
+            setIsPlaying(false);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 3500); // 3.5 seconds per step
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, stepCount]);
+
+  // Update Monaco Editor decorations for active line highlighting
+  useEffect(() => {
+    if (editorRef.current && monaco && currentStepData?.activeLine) {
+      decorationsRef.current = editorRef.current.deltaDecorations(
+        decorationsRef.current,
+        [
+          {
+            range: new monaco.Range(currentStepData.activeLine, 1, currentStepData.activeLine, 1),
+            options: {
+              isWholeLine: true,
+              className: 'bg-blue-500/20 border-l-2 border-blue-400'
+            }
+          }
+        ]
+      );
+    } else if (editorRef.current && monaco) {
+      decorationsRef.current = editorRef.current.deltaDecorations(decorationsRef.current, []);
+    }
+  }, [currentStepData?.activeLine, monaco]);
+
+  const handleEditorMount = (editor: any) => {
+    editorRef.current = editor;
+  };
+
   const handleInsert = (val: string, idx?: number) => {
     if (localStructure) {
       setLocalStructure(insertValue(localStructure, val, idx, ''));
@@ -197,37 +270,72 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
         <VisualizerToolbar onInsert={handleInsert} onDelete={handleDelete} activeDs={activeDsFormatted} />
       </div>
       
-      {/* 3D Scene */}
-      <div className="h-[350px] w-full pointer-events-auto relative z-0 bg-gradient-to-b from-[#0f172a] to-[#1e293b]">
-        <Canvas camera={{ position: [0, 4, 12], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-          <pointLight position={[-10, 10, -10]} intensity={0.5} />
-          <Environment preset="city" />
-          
-          <Stars radius={50} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
-          <Asteroids count={100} />
-          <Sparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
+      {/* 3D Scene and Code Layout */}
+      <div className={`w-full relative z-0 flex ${parsedData.code ? 'flex-col lg:flex-row' : 'flex-col'}`}>
+        
+        {/* Canvas Area */}
+        <div className={`${parsedData.code ? 'h-[300px] lg:h-[400px] lg:flex-1' : 'h-[350px] w-full'} pointer-events-auto relative bg-gradient-to-b from-[#0f172a] to-[#1e293b]`}>
+          <Canvas camera={{ position: [0, 4, 12], fov: 45 }}>
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+            <pointLight position={[-10, 10, -10]} intensity={0.5} />
+            <Environment preset="city" />
+            
+            <Stars radius={50} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+            <Asteroids count={100} />
+            <Sparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
 
-          {render3DComponent()}
+            {render3DComponent()}
+            <CinematicCamera isPlaying={isPlaying} />
 
-          <ContactShadows 
-            position={[0, -2, 0]} 
-            opacity={0.5} 
-            scale={20} 
-            blur={2} 
-            far={4} 
-            color="#000000"
-          />
+            <ContactShadows 
+              position={[0, -2, 0]} 
+              opacity={0.5} 
+              scale={20} 
+              blur={2} 
+              far={4} 
+              color="#000000"
+            />
 
-          <OrbitControls 
-            makeDefault
-            enablePan={false}
-            minDistance={5}
-            maxDistance={20}
-            maxPolarAngle={Math.PI / 2 + 0.1}
-          />
-        </Canvas>
+            <OrbitControls 
+              makeDefault
+              enablePan={false}
+              minDistance={5}
+              maxDistance={20}
+              maxPolarAngle={Math.PI / 2 + 0.1}
+            />
+          </Canvas>
+        </div>
+
+        {/* Live Code Viewer Area */}
+        {parsedData.code && (
+          <div className="lg:w-[400px] h-[300px] lg:h-[400px] border-t lg:border-t-0 lg:border-l border-[var(--color-border-subtle)] bg-[#1e1e1e] relative">
+            <div className="absolute top-0 left-0 right-0 bg-[#252526] text-[10px] uppercase font-bold text-gray-400 px-3 py-1 border-b border-[#3c3c3c] flex justify-between items-center z-10">
+              <span>Execution State</span>
+              {currentStepData.activeLine && <span className="text-blue-400">Line: {currentStepData.activeLine}</span>}
+            </div>
+            <div className="h-full pt-6">
+              <Editor
+                height="100%"
+                defaultLanguage="python"
+                value={parsedData.code}
+                theme="vs-dark"
+                onMount={handleEditorMount}
+                options={{
+                  readOnly: true,
+                  minimap: { enabled: false },
+                  fontSize: 13,
+                  lineNumbers: 'on',
+                  scrollBeyondLastLine: false,
+                  wordWrap: 'on',
+                  padding: { top: 12, bottom: 12 },
+                  renderLineHighlight: 'none',
+                  scrollbar: { alwaysConsumeMouseWheel: false }
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Controls & Description */}
@@ -238,14 +346,20 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
           </div>
           <div className="flex gap-2">
             <button
-              onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="px-3 py-1.5 flex items-center gap-1 text-xs font-bold uppercase tracking-wider rounded-md bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
+            >
+              {isPlaying ? <><Pause size={14} /> Pause</> : <><Play size={14} /> Auto-Play</>}
+            </button>
+            <button
+              onClick={() => { setCurrentStep(prev => Math.max(0, prev - 1)); setIsPlaying(false); }}
               disabled={currentStep === 0}
               className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={18} className="text-white" />
             </button>
             <button
-              onClick={() => setCurrentStep(prev => Math.min(stepCount - 1, prev + 1))}
+              onClick={() => { setCurrentStep(prev => Math.min(stepCount - 1, prev + 1)); setIsPlaying(false); }}
               disabled={currentStep === stepCount - 1}
               className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >

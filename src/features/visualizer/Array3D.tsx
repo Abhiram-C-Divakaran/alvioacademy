@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, RoundedBox, Billboard, Edges } from '@react-three/drei';
 import * as THREE from 'three';
+import { useSpring, animated } from '@react-spring/three';
 
 interface Array3DProps {
   data?: number[];
@@ -93,71 +94,79 @@ export default function Array3D({ data = [], activeIndex = null, variant = 'Stat
         // --- 1D / DYNAMIC ARRAY RENDER ---
         <group scale={scale}>
           {renderData.map((value, index) => {
-          const isGhost = value === null;
-          const isActive = (Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index) && !isGhost;
-          const color = isGhost ? '#94a3b8' : (isActive ? '#3b82f6' : '#2dd4bf');
-        const xPos = startX + index * spacing;
-        const yPos = isActive ? 0.4 : 0; // Lift active item slightly
+            const isGhost = value === null;
+            const isActive = (Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index) && !isGhost;
+            const color = isGhost ? '#94a3b8' : (isActive ? '#3b82f6' : '#2dd4bf');
+            const xPos = startX + index * spacing;
+            const yPos = isActive ? 0.4 : 0; // Lift active item slightly
 
-        return (
-          <group key={index} position={[xPos, yPos, 0]}>
-            {/* The Box */}
-            <RoundedBox
-              args={[1.1, 1.1, 1.1]}
-              radius={0.15}
-              smoothness={4}
-            >
-              <meshStandardMaterial
+            return (
+              <AnimatedArrayItem 
+                key={`${index}-${value}`}
+                index={index}
+                value={value}
+                xPos={xPos}
+                yPos={yPos}
                 color={color}
-                roughness={0.1}
-                metalness={0.8}
-                envMapIntensity={2}
-                transparent={isGhost}
-                opacity={isGhost ? 0.2 : 0.9}
-                emissive={isActive ? '#3b82f6' : '#000000'}
-                emissiveIntensity={isActive ? 0.5 : 0}
+                isActive={isActive}
+                isGhost={isGhost}
+                isDynamic={isDynamic}
               />
-              {isGhost && <Edges scale={1.0} threshold={15} color="#94a3b8" />}
-            </RoundedBox>
-            
-            {/* Tech Platform under each item */}
-            <mesh position={[0, -0.65, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[0.5, 0.7, 32]} />
-              <meshStandardMaterial color={isActive ? '#3b82f6' : '#2dd4bf'} emissive={isActive ? '#3b82f6' : '#2dd4bf'} emissiveIntensity={isActive ? 2 : 0.5} />
-            </mesh>
-            
-            {/* Value Text (Front of Box) */}
-            {!isGhost && (
-              <Billboard position={[0, 0, 0.58]}>
-                <Text
-                  fontSize={0.5}
-                  color="white"
-                  anchorX="center"
-                  anchorY="middle"
-                  outlineWidth={0.02}
-                  outlineColor="black"
-                >
-                  {value}
-                </Text>
-              </Billboard>
-            )}
-
-            {/* Index Text (Below Box) */}
-            <Billboard position={[0, -1, 0]}>
-              <Text
-                fontSize={0.3}
-                color="#94a3b8"
-                anchorX="center"
-                anchorY="middle"
-              >
-                [{index}]
-              </Text>
-            </Billboard>
-          </group>
-        );
-      })}
+            );
+          })}
         </group>
       )}
     </group>
+  );
+}
+
+function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost, isDynamic }: any) {
+  const { position } = useSpring({
+    position: [xPos, yPos, 0],
+    config: { mass: 1, tension: 170, friction: 20 }
+  });
+
+  return (
+    <animated.group position={position as any}>
+      <RoundedBox args={[1.4, 1.4, 1.4]} radius={0.15} smoothness={4}>
+        <meshStandardMaterial 
+          color={color} 
+          roughness={0.1} 
+          metalness={0.8} 
+          envMapIntensity={2}
+          transparent={isGhost}
+          opacity={isGhost ? 0.2 : 1}
+          emissive={isActive ? '#3b82f6' : '#000000'}
+          emissiveIntensity={isActive ? 0.5 : 0}
+        />
+        {/* Ghost wireframe effect for empty capacity slots */}
+        {isGhost && (
+          <Edges scale={1.01} threshold={15} color="#94a3b8" />
+        )}
+      </RoundedBox>
+      
+      {/* Tech Platform under each item */}
+      <mesh position={[0, -0.75, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.5, 0.7, 32]} />
+        <meshStandardMaterial color={isActive ? '#3b82f6' : '#2dd4bf'} emissive={isActive ? '#3b82f6' : '#2dd4bf'} emissiveIntensity={isActive ? 2 : 0.5} />
+      </mesh>
+
+      {!isGhost && (
+        <Billboard position={[0, 0, 1.05]}>
+          <Text fontSize={0.6} color="white" anchorX="center" anchorY="middle" outlineWidth={0.02} outlineColor="#000">
+            {value}
+          </Text>
+        </Billboard>
+      )}
+
+      {/* Array Index Property */}
+      {(!isGhost || isDynamic) && (
+        <Billboard position={[0, -1.2, 0]}>
+          <Text fontSize={0.3} color="#94a3b8" anchorX="center" anchorY="middle">
+            [{index}]
+          </Text>
+        </Billboard>
+      )}
+    </animated.group>
   );
 }

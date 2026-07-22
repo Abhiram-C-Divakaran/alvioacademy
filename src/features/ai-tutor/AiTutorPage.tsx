@@ -22,15 +22,16 @@ Make sure your answers can be easily understood by beginners and students. Use M
 
 CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List) or solve an algorithmic problem, you MUST generate an interactive step-by-step 3D animation for the user to visualize the solution.
 To do this, include a markdown code block with the language "animated-3d" containing a valid JSON object. 
-The JSON must have a "type" (graph, binary-tree, array, linked-list) and an array of "steps". Each step defines the state of the structure and a "description" of what is happening. Use "highlight" (an array of indices/IDs) to highlight active elements.
+The JSON must have a "type" (graph, binary-tree, array, linked-list), an optional "code" string containing the implementation code, and an array of "steps". Each step defines the state of the structure, a "description" of what is happening, and an optional "activeLine" (1-indexed) indicating which line of the code is executing. Use "highlight" (an array of indices/IDs) to highlight active elements.
 
 Example for sorting an array:
 \`\`\`animated-3d
 {
   "type": "array",
+  "code": "def bubble_sort(arr):\\n    n = len(arr)\\n    for i in range(n):\\n        for j in range(0, n-i-1):\\n            if arr[j] > arr[j+1]:\\n                arr[j], arr[j+1] = arr[j+1], arr[j]",
   "steps": [
-    { "values": [5, 3, 8], "highlight": [0, 1], "description": "Comparing 5 and 3." },
-    { "values": [3, 5, 8], "highlight": [0, 1], "description": "5 is greater than 3, so we swap them." }
+    { "values": [5, 3, 8], "highlight": [0, 1], "activeLine": 5, "description": "Comparing 5 and 3." },
+    { "values": [3, 5, 8], "highlight": [0, 1], "activeLine": 6, "description": "5 is greater than 3, so we swap them." }
   ]
 }
 \`\`\`
