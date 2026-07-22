@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Stars, Sparkles, ContactShadows } from '@react-three/drei';
@@ -7,6 +7,8 @@ import Array3D from '../visualizer/Array3D';
 import Graph3D from '../visualizer/Graph3D';
 import BinaryTree3D from '../visualizer/BinaryTree3D';
 import LinkedList3D from '../visualizer/LinkedList3D';
+import VisualizerToolbar from '../visualizer/VisualizerToolbar';
+import { insertValue, deleteValue } from '../workspace/dataStructureOps';
 import type { DataStructure, DSANode, DSAEdge } from '../../types/dataStructures';
 
 interface AnimatedStep {
@@ -28,6 +30,7 @@ interface AnimatedGenerativeVisualizerProps {
 
 export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisualizerProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [localStructure, setLocalStructure] = useState<DataStructure | null>(null);
 
   const parsedData = useMemo<AnimatedData | null>(() => {
     try {
@@ -40,7 +43,7 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
     }
   }, [data]);
 
-  const structure = useMemo<DataStructure | null>(() => {
+  const baseStructure = useMemo<DataStructure | null>(() => {
     if (!parsedData || parsedData.steps.length === 0) return null;
     
     const type = parsedData.type;
@@ -125,7 +128,11 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
     return null;
   }, [parsedData, currentStep]);
 
-  if (!parsedData || !structure) {
+  useEffect(() => {
+    setLocalStructure(baseStructure);
+  }, [baseStructure]);
+
+  if (!parsedData || !baseStructure) {
     return (
       <div className="my-4 rounded-xl overflow-hidden bg-red-900/20 border border-red-500/30 p-4 text-xs text-red-400">
         Could not generate 3D animation. Invalid data format.
@@ -136,28 +143,47 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
   const stepCount = parsedData.steps.length;
   const currentStepData = parsedData.steps[Math.min(currentStep, stepCount - 1)];
 
+  const handleInsert = (val: string, idx?: number) => {
+    if (localStructure) {
+      setLocalStructure(insertValue(localStructure, val, idx, ''));
+    }
+  };
+
+  const handleDelete = (val: string, idx?: number) => {
+    if (localStructure) {
+      setLocalStructure(deleteValue(localStructure, val, idx));
+    }
+  };
+
   const render3DComponent = () => {
-    if (!parsedData || !structure) return null;
+    if (!parsedData || !localStructure) return null;
     const type = parsedData.type;
     const step = parsedData.steps[Math.min(currentStep, parsedData.steps.length - 1)];
     const activeIndex = step.highlight || [];
     
-    // Convert array values for linear data structures
-    const linearData = step.values ? step.values.map(v => v === null ? null : (isNaN(Number(v)) ? v : Number(v))) : [];
+    // Extract linear data from the mutated structure instead of static step values
+    const linearData = (localStructure.type === 'array' || localStructure.type === 'stack' || localStructure.type === 'queue')
+      ? localStructure.elements.map(e => Number(e.value) || e.value)
+      : (localStructure.type === 'linked-list' ? localStructure.nodes.map(n => Number(n.value) || n.value) : []);
+
+    const activeDsFormatted = type === 'linked-list' ? 'Linked List' : type === 'binary-tree' ? 'Binary Tree' : type === 'graph' ? 'Graph' : 'Array';
 
     switch (type) {
       case 'array':
-        return <Array3D data={linearData} activeIndex={activeIndex as number[]} variant="Static Array" />;
+        return <Array3D data={linearData as any} activeIndex={activeIndex as number[]} variant="Dynamic Array" capacity={(localStructure as any).capacity || 10} />;
       case 'linked-list':
-        return <LinkedList3D data={linearData} activeIndex={activeIndex as number[]} variant="Singly Linked" />;
+        return <LinkedList3D data={linearData as any} activeIndex={activeIndex as number[]} variant="Singly Linked" />;
       case 'binary-tree':
-        return <BinaryTree3D activeIndex={activeIndex as number[]} variant="Standard BST" dsState={structure as any} />;
+        return <BinaryTree3D activeIndex={activeIndex as number[]} variant="Standard BST" dsState={localStructure as any} />;
       case 'graph':
-        return <Graph3D activeIndex={activeIndex as any} variant="Directed" dsState={structure as any} />;
+        return <Graph3D activeIndex={activeIndex as any} variant="Directed" dsState={localStructure as any} />;
       default:
         return null;
     }
   };
+
+  // Convert the type string into a readable format for the Toolbar
+  const activeDsFormatted = parsedData.type === 'linked-list' ? 'Linked List' : parsedData.type === 'binary-tree' ? 'Binary Tree' : parsedData.type === 'graph' ? 'Graph' : 'Array';
 
   return (
     <div className="my-6 rounded-xl overflow-hidden bg-black/40 border border-[var(--color-border-subtle)] shadow-lg relative flex flex-col w-full">
@@ -165,6 +191,10 @@ export function AnimatedGenerativeVisualizer({ data }: AnimatedGenerativeVisuali
         <div className="text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-md shadow-sm w-max">
           🎬 AI Animated 3D Simulation
         </div>
+      </div>
+
+      <div className="absolute top-2 right-2 z-10">
+        <VisualizerToolbar onInsert={handleInsert} onDelete={handleDelete} activeDs={activeDsFormatted} />
       </div>
       
       {/* 3D Scene */}
