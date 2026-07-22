@@ -338,8 +338,8 @@ export default function MockInterviewPage() {
     }
   };
 
-  const handleSend = async (overrideText?: string | React.SyntheticEvent) => {
-    const textToSend = typeof overrideText === 'string' ? overrideText : input;
+  const handleSend = async (overrideText?: string) => {
+    const textToSend = overrideText !== undefined ? overrideText : input;
     if (!textToSend.trim()) return;
 
     const userMsg: Message = {
@@ -782,7 +782,7 @@ export default function MockInterviewPage() {
                 className="flex-1 bg-[#2C2C32] border border-white/5 rounded-xl pl-4 pr-16 py-3.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner disabled:opacity-50"
               />
               <button
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 disabled={!input.trim() || isTyping}
                 className="absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center rounded-lg bg-white text-black hover:bg-gray-200 disabled:opacity-50 disabled:bg-[var(--color-bg-hover)] disabled:text-[var(--color-text-muted)] transition-colors shadow-sm"
               >
