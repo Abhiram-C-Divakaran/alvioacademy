@@ -7,8 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Visualization3D from '../workspace/Visualization3D';
 import type { DataStructure } from '../../types/dataStructures';
-import { GenerativeVisualizer } from './GenerativeVisualizer';
-
+import { AnimatedGenerativeVisualizer } from './AnimatedGenerativeVisualizer';
 
 interface Message {
   id: string;
@@ -21,18 +20,32 @@ const SYSTEM_PROMPT = `You are a highly experienced, friendly, and patient Data 
 Your goal is to help students easily understand complex CS concepts by breaking them down into simple, digestible pieces. Use relatable real-world analogies, step-by-step explanations, and avoid overly academic jargon unless you also explain it simply.
 Make sure your answers can be easily understood by beginners and students. Use Markdown formatting for readability, keep explanations clear and well-structured, and always encourage the student to ask questions!
 
-CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List), you MUST generate an interactive 3D simulation of it for the user.
-To do this, include a markdown code block with the language "generative-3d" containing a valid JSON object. 
-Supported types and their expected JSON formats:
-- graph: {"type": "graph", "nodes": ["A", "B", "C"], "edges": [["A", "B"], ["B", "C"]]}
-- binary-tree: {"type": "binary-tree", "values": [10, 5, 15, 2, 7]}
-- array: {"type": "array", "values": [1, 2, 3, 4, 5]}
-- linked-list: {"type": "linked-list", "values": [1, 2, 3, 4, 5]}
+CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List) or solve an algorithmic problem, you MUST generate an interactive step-by-step 3D animation for the user to visualize the solution.
+To do this, include a markdown code block with the language "animated-3d" containing a valid JSON object. 
+The JSON must have a "type" (graph, binary-tree, array, linked-list) and an array of "steps". Each step defines the state of the structure and a "description" of what is happening. Use "highlight" (an array of indices/IDs) to highlight active elements.
 
-Example:
-\`\`\`generative-3d
-{"type": "graph", "nodes": ["A", "B"], "edges": [["A", "B"]]}
+Example for sorting an array:
+\`\`\`animated-3d
+{
+  "type": "array",
+  "steps": [
+    { "values": [5, 3, 8], "highlight": [0, 1], "description": "Comparing 5 and 3." },
+    { "values": [3, 5, 8], "highlight": [0, 1], "description": "5 is greater than 3, so we swap them." }
+  ]
+}
 \`\`\`
+
+Example for a graph:
+\`\`\`animated-3d
+{
+  "type": "graph",
+  "steps": [
+    { "nodes": ["A", "B", "C"], "edges": [["A", "B"]], "highlight": ["A"], "description": "Starting at node A." },
+    { "nodes": ["A", "B", "C"], "edges": [["A", "B"]], "highlight": ["B"], "description": "Traversing to node B." }
+  ]
+}
+\`\`\`
+
 Do not include any other markdown tags. Use EXACTLY the JSON schema shown above. Ensure you use values relevant to the specific example you are teaching!`;
 
 const sampleMessages: Message[] = [
@@ -197,13 +210,21 @@ export default function AiTutorPage() {
                             blockType = match[1];
                           } 
                           // 2. Fallback if LLM put the type inside the code block instead of the language tag
-                          else if (rawType.startsWith('generative-3d\n')) {
-                            blockType = 'generative-3d';
-                            blockContent = rawType.replace('generative-3d\n', '').trim();
+                          else if (rawType.startsWith('animated-3d\n') || rawType.startsWith('generative-3d\n')) {
+                            blockType = 'animated-3d';
+                            blockContent = rawType.replace(/^(animated-3d|generative-3d)\n/, '').trim();
                           }
 
-                          if (blockType === 'generative-3d') {
-                            return <GenerativeVisualizer data={blockContent} />;
+                          if (blockType === 'animated-3d' || blockType === 'generative-3d') {
+                            // If the LLM generates the old static schema without 'steps', wrap it in a step to avoid breaking
+                            try {
+                                const check = JSON.parse(blockContent);
+                                if (!check.steps) {
+                                    blockContent = JSON.stringify({ type: check.type, steps: [ { ...check, description: "Interactive 3D visualization." } ] });
+                                }
+                            } catch (e) {}
+                            
+                            return <AnimatedGenerativeVisualizer data={blockContent} />;
                           }
                           return <code className={className} {...props}>{children}</code>;
                         }
