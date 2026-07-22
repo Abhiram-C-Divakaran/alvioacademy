@@ -49,7 +49,7 @@ async function startServer() {
       const groq = new Groq({ apiKey });
 
       const response = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
+        model: "llama3-8b-8192",
         messages: messages.map((m: any) => ({
           role: m.role,
           content: m.content
