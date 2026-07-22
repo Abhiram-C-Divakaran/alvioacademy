@@ -280,24 +280,41 @@ export default function AiTutorPage() {
                     <ReactMarkdown 
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        code({ node, inline, className, children, ...props }: any) {
+                        code({ node, className, children, ...props }: any) {
+                          const rawType = String(children).replace(/\n$/, '');
+                          let blockType = '';
+                          let blockContent = rawType;
+
+                          // 1. Try to get type from className (e.g. ```ds-visualizer)
                           const match = /language-([a-zA-Z0-9_-]+)/.exec(className || '');
-                          const type = String(children).replace(/\n$/, '');
-                          
-                          if (match && match[1] === 'ds-visualizer') {
-                            return <MiniVisualizer type={type} />;
-                          } else if (match && match[1] === 'ds-video') {
-                            return <MiniVideoPlayer type={type} />;
-                          } else if (match && match[1] === 'video-search') {
+                          if (match) {
+                            blockType = match[1];
+                          } 
+                          // 2. Fallback if LLM put the type inside the code block instead of the language tag
+                          else if (rawType.startsWith('ds-visualizer\n')) {
+                            blockType = 'ds-visualizer';
+                            blockContent = rawType.replace('ds-visualizer\n', '').trim();
+                          } else if (rawType.startsWith('ds-video\n')) {
+                            blockType = 'ds-video';
+                            blockContent = rawType.replace('ds-video\n', '').trim();
+                          } else if (rawType.startsWith('video-search\n')) {
+                            blockType = 'video-search';
+                            blockContent = rawType.replace('video-search\n', '').trim();
+                          }
+
+                          if (blockType === 'ds-visualizer') {
+                            return <MiniVisualizer type={blockContent} />;
+                          } else if (blockType === 'ds-video') {
+                            return <MiniVideoPlayer type={blockContent} />;
+                          } else if (blockType === 'video-search') {
+                            let topic = blockContent;
                             try {
-                              const parsed = JSON.parse(type);
-                              if (parsed.topic) {
-                                return <VideoRecommendationSection topic={parsed.topic} />;
-                              }
+                              const parsed = JSON.parse(blockContent);
+                              if (parsed.topic) topic = parsed.topic;
                             } catch (e) {
-                              console.error('Failed to parse video-search block:', e);
+                              console.warn('Could not parse video-search JSON, using raw string as topic:', blockContent);
                             }
-                            return null;
+                            return <VideoRecommendationSection topic={topic} />;
                           }
                           return <code className={className} {...props}>{children}</code>;
                         }
