@@ -56,8 +56,20 @@ function App() {
         <Route element={<AuthGuard />}>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/skill-tree" element={<SkillTreeMap />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/workspace" element={<WorkspacePage />} />
+            <Route path="/workspace/pvp" element={<PvPShowdown />} />
+            <Route path="/ai-tutor" element={<AiTutorPage />} />
+            <Route path="/mock-interview" element={<MockInterviewPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/coding" element={<CodingPage />} />
+            <Route path="/3d-visualizer" element={<VisualizerPage />} />
+            <Route path="/algorithms-visualizer" element={<AlgorithmVisualizerPage />} />
+            <Route path="/video-learning" element={<VideoLearningPage />} />
+            
             <Route path="/learn" element={<DataStructuresHubPage />} />
             <Route path="/learn/array" element={<ArrayPage />} />
             <Route path="/learn/linked-list" element={<LinkedListPage />} />
@@ -74,7 +86,6 @@ function App() {
             <Route path="/learn/searching" element={<SearchingHubPage />} />
             <Route path="/learn/algorithms/:algo" element={<AlgorithmDetailsPage />} />
             <Route path="/learn/complexity" element={<Complexity3DPage />} />
-            <Route path="/algorithms-visualizer" element={<AlgorithmVisualizerPage />} />
             <Route path="/learn/divide-conquer" element={<DivideConquerPage />} />
             <Route path="/learn/dynamic-programming" element={<DynamicProgrammingPage />} />
             <Route path="/learn/greedy" element={<GreedyPage />} />

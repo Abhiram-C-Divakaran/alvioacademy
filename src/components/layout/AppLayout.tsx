@@ -10,6 +10,15 @@ export default function AppLayout() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[var(--color-bg-primary)] text-white font-sans relative">
+      {/* Glow Backdrops - Neon Theme */}
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#1e3a8a]/40 rounded-full blur-[180px] pointer-events-none mix-blend-screen z-0" />
+      <div className="absolute top-[20%] right-[-20%] w-[70%] h-[80%] bg-[#a21caf]/40 rounded-full blur-[200px] pointer-events-none mix-blend-screen z-0" />
+      
+      {/* Grid Pattern overlay */}
+      <div 
+        className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-soft-light z-0"
+      />
+      
       <TopBar onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />
       <div className="flex-1 flex min-h-0 overflow-hidden">
         <Sidebar collapsed={sidebarCollapsed} />

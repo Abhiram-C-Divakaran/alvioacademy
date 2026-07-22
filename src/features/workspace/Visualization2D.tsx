@@ -273,6 +273,7 @@ export default function Visualization2D({ structure }: { structure: DataStructur
       break;
     case 'binary-tree':
     case 'avl-tree':
+    case 'heap':
       collect(structure.nodes);
       break;
     case 'graph':

@@ -45,34 +45,6 @@ const lessons: VideoLesson[] = [
     ]
   },
   {
-    id: 'linked-list-viz',
-    title: 'Linked List Node Pointers',
-    duration: 'Visualizer',
-    description: 'Interactive 3D pointers, nodes, and chains.',
-    completed: false,
-    type: 'ds',
-    target: 'Linked List',
-    transcript: [
-      "Interactive 3D Sandbox for Linked Lists.",
-      "Use the controls inside the visualizer panel to perform inserts, deletes, and searches.",
-      "Observe how node addresses dynamically update and links align in 3D space."
-    ]
-  },
-  {
-    id: 'binary-search-algo',
-    title: 'Binary Search Algorithm',
-    duration: 'Workspace',
-    description: 'Practice division logic in coding sandbox.',
-    completed: false,
-    type: 'algo',
-    target: 'binary-search',
-    transcript: [
-      "Launch binary search execution workspace.",
-      "Observe pointers low, high and mid calculate middle boundaries dynamically.",
-      "Solve the challenge and hit submit to verify correct execution logic."
-    ]
-  },
-  {
     id: 'linked-lists',
     title: 'Linked List Operations',
     duration: '00:10',
@@ -88,7 +60,7 @@ const lessons: VideoLesson[] = [
   },
   {
     id: 'queues',
-    title: 'Circular & Simple Queues',
+    title: 'Queues',
     duration: '00:10',
     description: 'FIFO data transfer and rings.',
     completed: false,
@@ -98,20 +70,6 @@ const lessons: VideoLesson[] = [
     transcript: [
       "A Queue is a linear structure which follows First In First Out order.",
       "Circular Queues wrap the tail back to index zero to maximize memory utilization."
-    ]
-  },
-  {
-    id: 'selection-sort',
-    title: 'Selection Sort Mechanics',
-    duration: '00:10',
-    description: 'Minimum swaps and sorting index.',
-    completed: false,
-    videoUrl: ss,
-    videoType: 'mp4',
-    type: 'video',
-    transcript: [
-      "Selection Sort divides the array into sorted and unsorted portions.",
-      "It repeatedly selects the minimum element from the unsorted part and swaps it to the front."
     ]
   },
   {
@@ -182,13 +140,13 @@ export default function VideoLearningPage() {
   const completedCount = lessons.filter(l => l.completed).length;
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
-      
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-transparent text-[var(--color-text-primary)]">
+
       {/* Premium Header Panel */}
       <div className="flex-shrink-0 px-8 py-6 border-b border-[var(--color-border-subtle)] bg-[var(--color-surface-glass)] backdrop-blur-md z-10 relative overflow-hidden">
         {/* Soft elegant neon glow */}
         <div className="absolute top-0 left-10 w-96 h-20 bg-[var(--color-accent-primary)] opacity-10 rounded-full blur-[80px] pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[var(--color-bg-hover)] border border-[var(--color-border-default)] text-[var(--color-text-accent)] shadow-[var(--shadow-glow)]">
@@ -287,7 +245,7 @@ export default function VideoLearningPage() {
           <div className="flex flex-col gap-4">
             <h3 className="text-xs font-black uppercase tracking-widest text-[var(--color-text-muted)] mb-1 px-1">Syllabus Progression</h3>
 
-            <motion.div 
+            <motion.div
               variants={listVariants}
               initial="hidden"
               animate="show"

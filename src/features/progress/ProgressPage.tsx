@@ -24,8 +24,8 @@ export default function ProgressPage() {
     );
   }
 
-  const topics = progress.topics;
-  const overallProgress = Math.round(topics.reduce((s, t) => s + t.completionPercent, 0) / topics.length);
+  const topics = progress.topics || [];
+  const overallProgress = topics.length > 0 ? Math.round(topics.reduce((s, t) => s + t.completionPercent, 0) / topics.length) : 0;
   
   const quizTopics = topics.filter((t) => t.quizScore !== null);
   const avgQuizScore = quizTopics.length > 0

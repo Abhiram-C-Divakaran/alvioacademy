@@ -260,7 +260,7 @@ export default function MockInterviewPage() {
         } else if (err.error === 'no-speech') {
           msg = "No speech was detected. Please ensure your microphone is connected, unmuted, and speak directly into it.";
         } else if (err.error === 'network') {
-          msg = "Network communication error. Cloud Speech Recognition services are unavailable.";
+          msg = "Network communication error. Speech Recognition requires Google Chrome or Microsoft Edge. Privacy browsers (like Brave) or Firefox block this service by default.";
         } else {
           msg = `Speech recognition error: ${err.error || 'Unknown error code'}`;
         }
@@ -644,14 +644,27 @@ export default function MockInterviewPage() {
         {/* Chat / Evaluation Workspace */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           <div className="max-w-4xl mx-auto space-y-6">
-            {micError && (
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-start gap-3 text-amber-400">
-                <AlertCircle size={18} className="shrink-0 mt-0.5" />
-                <div className="text-xs font-semibold leading-relaxed">
-                  {micError}
-                </div>
-              </div>
-            )}
+            <AnimatePresence>
+              {micError && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-start justify-between gap-3 text-amber-400"
+                >
+                  <div className="flex gap-3">
+                    <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                    <div className="text-xs font-semibold leading-relaxed">
+                      {micError}
+                      <p className="mt-1 text-amber-500/80 font-normal">You can still participate by typing your answers in the chat input below.</p>
+                    </div>
+                  </div>
+                  <button onClick={() => setMicError(null)} className="text-amber-500 hover:text-amber-300 transition-colors p-1 rounded-md hover:bg-amber-500/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
             {!interviewStarted ? (
               <div className="h-96 flex flex-col items-center justify-center text-center gap-4">
                 <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400">

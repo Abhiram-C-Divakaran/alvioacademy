@@ -31,11 +31,12 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
   const user = useAuthStore((s) => s.user);
 
   const getSubNav = (): { title: string, items: NavItem[] } => {
-    if (['/dashboard', '/progress', '/profile'].some(p => location.pathname.startsWith(p))) {
+    if (['/dashboard', '/skill-tree', '/progress', '/profile'].some(p => location.pathname.startsWith(p))) {
       return {
         title: 'Overview',
         items: [
           { label: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={18} /> },
+          { label: '3D Skill Tree', path: '/skill-tree', icon: <Sparkles size={18} />, badge: 'NEW', badgeColor: 'bg-purple-500' },
           { label: 'My Progress', path: '/progress', icon: <TrendingUp size={18} /> },
           { label: 'My Profile', path: '/profile', icon: <User size={18} /> },
         ]
@@ -48,7 +49,6 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
           
           { label: 'Data Structures', path: '/learn', icon: <Layers size={18} /> },
           { label: 'Algorithms', path: '/learn/algorithms', icon: <Code2 size={18} /> },
-          { label: '3D Skill Tree', path: '/learn/skill-tree', icon: <Sparkles size={18} />, badge: 'NEW', badgeColor: 'bg-purple-500' },
           { label: '3D Complexity', path: '/learn/complexity', icon: <TrendingUp size={18} />, badge: '3D', badgeColor: 'bg-emerald-500' },
           { label: 'Video Lessons', path: '/video-learning', icon: <Video size={18} />, badge: 'AI', badgeColor: 'bg-indigo-500' },
           { label: '3D Data Structures', path: '/3d-visualizer', icon: <Box size={18} /> },

@@ -23,6 +23,7 @@ import {
   Tooltip
 } from 'recharts';
 import useAuthStore from '../../stores/useAuthStore';
+import useProgressStore from '../../stores/useProgressStore';
 import { useNavigate } from 'react-router-dom';
 
 export default function DashboardPage() {
@@ -30,42 +31,8 @@ export default function DashboardPage() {
   const token = useAuthStore((s) => s.token);
   const navigate = useNavigate();
   
-  const [dashboardData, setDashboardData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let isMounted = true;
-    
-    const fetchDashboard = async () => {
-      if (!token) return;
-      try {
-        const res = await fetch('/api/dashboard', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (isMounted) setDashboardData(data);
-        } else if (res.status === 401) {
-          useAuthStore.getState().logout();
-          navigate('/auth');
-        }
-      } catch (err) {
-        console.error('Error fetching dashboard:', err);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    fetchDashboard();
-    const intervalId = setInterval(fetchDashboard, 5000);
-    
-    return () => {
-      isMounted = false;
-      clearInterval(intervalId);
-    };
-  }, [token]);
+  const { stats: localStats } = useProgressStore();
+  const [loading, setLoading] = useState(false);
 
   if (loading) {
     return (
@@ -78,39 +45,38 @@ export default function DashboardPage() {
     );
   }
 
-  const { stats, activity, user: dbUser } = dashboardData || {
-    stats: { topicsCompleted: 0, totalTopics: 8, timeSpentMins: 0, dayStreak: 0, onlineUsers: 0, daysActive: 0 },
-    activity: [],
-    user: null
+  const stats = {
+    topicsCompleted: localStats?.coursesCompleted || 0,
+    totalTopics: localStats?.totalCourses || 8,
+    timeSpentMins: localStats?.totalTimeSpent || 0,
+    dayStreak: localStats?.currentStreak || 1,
+    onlineUsers: 1,
+    daysActive: 1
   };
+  const activity: any[] = [];
 
-  const userXp = dbUser?.xp ?? user?.xp ?? 0;
-  const userLevel = dbUser?.level ?? user?.level ?? 'Bronze V';
+  const userXp = localStats?.totalXp || 0;
+  const userLevel = localStats?.levelName || 'Bronze V';
   const achievementsCount = [0, 500, 2000, 5000, 10000].filter(req => userXp >= req).length;
 
   // Calculate actual completion rates
   const totalCompletionPercent = Math.min(100, Math.round((stats.topicsCompleted / stats.totalTopics) * 100)) || 0;
-  const dsPercent = Math.min(100, Math.round((stats.topicsCompleted / 4) * 100));
-  const algoPercent = Math.min(100, Math.round((stats.topicsCompleted / 8) * 100));
+  const dsPercent = Math.min(100, Math.round((stats.topicsCompleted / 4) * 100)) || 0;
+  const algoPercent = Math.min(100, Math.round((stats.topicsCompleted / 8) * 100)) || 0;
 
   // Map real XP values to the line/area chart over the last week
-  const activityData = activity && activity.length > 0 
-    ? [...activity].reverse().slice(-7).map((a: any) => ({
-        name: new Date(a.created_at).toLocaleDateString('en-US', { weekday: 'short' }),
-        value: a.points || 10
-      }))
-    : [
-        { name: 'Sun', value: 0 },
-        { name: 'Mon', value: 0 },
-        { name: 'Tue', value: 0 },
-        { name: 'Wed', value: 0 },
-        { name: 'Thu', value: 0 },
-        { name: 'Fri', value: 0 },
-        { name: 'Sat', value: 0 },
-      ];
+  const activityData = [
+    { name: 'Sun', value: localStats?.weeklyActivity?.[0]?.minutes || 0 },
+    { name: 'Mon', value: localStats?.weeklyActivity?.[1]?.minutes || 0 },
+    { name: 'Tue', value: localStats?.weeklyActivity?.[2]?.minutes || 0 },
+    { name: 'Wed', value: localStats?.weeklyActivity?.[3]?.minutes || 0 },
+    { name: 'Thu', value: localStats?.weeklyActivity?.[4]?.minutes || 0 },
+    { name: 'Fri', value: localStats?.weeklyActivity?.[5]?.minutes || 0 },
+    { name: 'Sat', value: localStats?.weeklyActivity?.[6]?.minutes || 0 },
+  ];
 
   return (
-    <div className="w-full min-h-full bg-[#070214] p-6 md:p-8 lg:p-10 text-gray-100 font-sans overflow-y-auto">
+    <div className="w-full h-full bg-transparent p-6 md:p-8 lg:p-10 text-gray-100 font-sans">
       <div className="max-w-[1450px] mx-auto space-y-8">
         
         {/* Header Block */}
@@ -135,7 +101,7 @@ export default function DashboardPage() {
              {/* Online Users */}
              <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl border border-white/5 bg-white/[0.02] text-[10px] font-bold text-gray-300 uppercase tracking-wider">
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                {stats.onlineUsers || 1240} online
+                {stats.onlineUsers || 1} online
              </div>
           </div>
         </div>
@@ -288,9 +254,9 @@ export default function DashboardPage() {
 
               <div className="space-y-3">
                 {[
-                  { name: 'Linked Lists 3D Representation', desc: 'Active node pointers and memory cells', points: '+50 XP', bg: 'bg-purple-500/10 text-purple-400 border border-purple-500/20', path: '/learn/linked-lists' },
-                  { name: 'Towers of Hanoi recursion', desc: 'Visualize recursive peg stacks in 3D', points: '+100 XP', bg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20', path: '/learn/hanoi' },
-                  { name: 'Dynamic Programming & Knapsack', desc: 'Compute optimal combinations in 3D scene', points: '+200 XP', bg: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20', path: '/learn/knapsack' }
+                  { name: 'Linked Lists 3D Representation', desc: 'Active node pointers and memory cells', points: '+50 XP', bg: 'bg-purple-500/10 text-purple-400 border border-purple-500/20', path: '/learn/linked-list' },
+                  { name: 'Stack & Queue Logic', desc: 'Visualize sequential mechanics', points: '+100 XP', bg: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20', path: '/learn/stack' },
+                  { name: 'Dynamic Programming & Knapsack', desc: 'Compute optimal combinations in 3D scene', points: '+200 XP', bg: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20', path: '/learn/dynamic-programming' }
                 ].map((item, idx) => (
                   <div 
                     key={idx} 

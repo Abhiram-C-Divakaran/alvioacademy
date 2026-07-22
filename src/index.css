@@ -3,15 +3,15 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-bg-primary: #0A051A;
-  --color-bg-secondary: #0F0826;
-  --color-bg-tertiary: #140D33;
-  --color-bg-elevated: #1B113B;
+  --color-bg-primary: #080216;
+  --color-bg-secondary: #080216;
+  --color-bg-tertiary: rgba(255, 255, 255, 0.03);
+  --color-bg-elevated: rgba(255, 255, 255, 0.05);
   --color-bg-hover: rgba(255, 255, 255, 0.06);
   
-  --color-surface-glass: rgba(20, 13, 51, 0.55);
-  --color-surface-glass-hover: rgba(27, 17, 69, 0.75);
-  --color-surface-glass-active: rgba(37, 23, 95, 0.85);
+  --color-surface-glass: rgba(0, 0, 0, 0.55);
+  --color-surface-glass-hover: rgba(0, 0, 0, 0.75);
+  --color-surface-glass-active: rgba(0, 0, 0, 0.85);
   
   --color-border-subtle: rgba(255, 255, 255, 0.06);
   --color-border-default: rgba(255, 255, 255, 0.1);

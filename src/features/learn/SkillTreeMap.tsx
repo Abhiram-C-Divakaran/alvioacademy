@@ -1,15 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, Text, Html } from '@react-three/drei';
+import { OrbitControls, Stars, Text, Html, Environment, ContactShadows, Sparkles, Billboard } from '@react-three/drei';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
+import Asteroids from '../visualizer/Asteroids';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
-import { Sparkles, ArrowLeft, Info, HelpCircle } from 'lucide-react';
+import { Sparkles as SparklesIcon, ArrowLeft, Info, HelpCircle } from 'lucide-react';
 import Card from '../../components/ui/Card';
 
 interface SkillNode {
   id: string;
   name: string;
-  pos: [number, number, number];
+  orbitRadius: number;
+  orbitSpeed: number;
+  angleOffset: number;
   color: string;
   path: string;
   desc: string;
@@ -17,29 +21,36 @@ interface SkillNode {
 }
 
 const skillNodes: SkillNode[] = [
-  { id: 'arrays', name: 'Arrays & Vectors', pos: [-6, 2, 0], color: '#60A5FA', path: '/learn', desc: 'Contiguous memory mapping, indexes and offset arithmetic.', difficulty: 'Easy' },
-  { id: 'linked-lists', name: 'Linked Lists', pos: [-3, 0, 1], color: '#A78BFA', path: '/learn', desc: 'Dynamic node structures, single/double pointer links.', difficulty: 'Easy' },
-  { id: 'stacks-queues', name: 'Stacks & Queues', pos: [0, 1, -1], color: '#F472B6', path: '/learn', desc: 'LIFO & FIFO operational models, rings and buffers.', difficulty: 'Easy' },
-  { id: 'binary-search', name: 'Binary Search', pos: [3, -1, 2], color: '#34D399', path: '/learn/algorithms', desc: 'Divide and conquer logarithmic bounds searching.', difficulty: 'Medium' },
-  { id: 'sorting', name: 'Sorting Algos', pos: [6, 2, -2], color: '#FBBF24', path: '/learn/algorithms', desc: 'Bubble, selection, insertion, merge and quick mechanics.', difficulty: 'Medium' },
-  { id: 'trees', name: 'Trees & BSTs', pos: [0, -3, 3], color: '#F87171', path: '/learn', desc: 'Binary search trees, traversal recursions and AVL balance.', difficulty: 'Medium' },
-  { id: 'graphs', name: 'Graphs & Networks', pos: [5, -4, 0], color: '#EC4899', path: '/learn/algorithms', desc: 'BFS, DFS traversals and Dijkstra shortest path bounds.', difficulty: 'Hard' }
+  { id: 'arrays', name: 'Arrays', orbitRadius: 3.5, orbitSpeed: 0.6, angleOffset: 0, color: '#60A5FA', path: '/3d-visualizer?ds=Array', desc: 'Contiguous memory mapping, indexes and offset arithmetic.', difficulty: 'Easy' },
+  { id: 'linked-lists', name: 'Linked Lists', orbitRadius: 5.0, orbitSpeed: 0.5, angleOffset: Math.PI / 4, color: '#A78BFA', path: '/3d-visualizer?ds=Linked%20List', desc: 'Dynamic node structures, single/double pointer links.', difficulty: 'Easy' },
+  { id: 'stacks', name: 'Stacks', orbitRadius: 6.5, orbitSpeed: 0.4, angleOffset: Math.PI, color: '#F472B6', path: '/3d-visualizer?ds=Stack', desc: 'LIFO operational models, rings and buffers.', difficulty: 'Easy' },
+  { id: 'queues', name: 'Queues', orbitRadius: 8.0, orbitSpeed: 0.35, angleOffset: Math.PI * 1.5, color: '#34D399', path: '/3d-visualizer?ds=Queue', desc: 'FIFO operational models, rings and buffers.', difficulty: 'Easy' },
+  { id: 'binary-tree', name: 'Binary Trees', orbitRadius: 9.5, orbitSpeed: 0.25, angleOffset: Math.PI * 0.75, color: '#F87171', path: '/3d-visualizer?ds=Binary%20Tree', desc: 'Binary search trees, traversal recursions and AVL balance.', difficulty: 'Medium' },
+  { id: 'graphs', name: 'Graphs', orbitRadius: 11.0, orbitSpeed: 0.2, angleOffset: Math.PI * 1.25, color: '#EC4899', path: '/3d-visualizer?ds=Graph', desc: 'BFS, DFS traversals and Dijkstra shortest path bounds.', difficulty: 'Hard' },
+  { id: 'hash-table', name: 'Hash Tables', orbitRadius: 12.5, orbitSpeed: 0.15, angleOffset: Math.PI * 1.8, color: '#FBBF24', path: '/3d-visualizer?ds=Hash%20Table', desc: 'Key-value mapping with hash functions and collision handling.', difficulty: 'Medium' }
 ];
 
 function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: SkillNode | null) => void; onClick: () => void }) {
+  const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
-  // Rotate planet
-  useFrame((state) => {
+  // Rotate planet and revolve around orbit
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      const t = state.clock.getElapsedTime();
+      const angle = (t * node.orbitSpeed) + node.angleOffset;
+      groupRef.current.position.x = Math.cos(angle) * node.orbitRadius;
+      groupRef.current.position.z = Math.sin(angle) * node.orbitRadius;
+    }
     if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.1;
+      meshRef.current.rotation.y += delta * 0.5;
+      meshRef.current.rotation.x += delta * 0.1;
     }
   });
 
   return (
-    <group position={node.pos}>
+    <group ref={groupRef}>
       <mesh
         ref={meshRef}
         onPointerOver={(e) => {
@@ -74,29 +85,74 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
         <meshBasicMaterial color={node.color} side={THREE.DoubleSide} opacity={hovered ? 0.6 : 0.2} transparent />
       </mesh>
 
-      <Text
-        position={[0, 1.1, 0]}
-        fontSize={0.35}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZJhjp-Ek-_eeAmM.woff"
-      >
-        {node.name}
-      </Text>
+      <React.Suspense fallback={null}>
+        <Text
+          position={[0, 1.1, 0]}
+          fontSize={0.35}
+          color="white"
+          anchorX="center"
+          anchorY="middle"
+        >
+          {node.name}
+        </Text>
+      </React.Suspense>
     </group>
   );
 }
 
-// Render connection lines between syllabus planetary paths
-function ConnectionLines() {
-  const points = skillNodes.map(n => new THREE.Vector3(...n.pos));
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+function SunNode() {
+  const sunRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state, delta) => {
+    if (sunRef.current) {
+      sunRef.current.rotation.y += delta * 0.2;
+    }
+  });
 
   return (
-    <line geometry={lineGeometry}>
-      <lineBasicMaterial color="#4F46E5" opacity={0.3} transparent linewidth={1.5} />
-    </line>
+    <group position={[0, 0, 0]}>
+      <mesh ref={sunRef}>
+        <sphereGeometry args={[1.5, 64, 64]} />
+        <meshStandardMaterial
+          color="#FEF08A"
+          emissive="#FDE047"
+          emissiveIntensity={2}
+          roughness={0.4}
+        />
+      </mesh>
+      
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.8, 1.9, 64]} />
+        <meshBasicMaterial color="#FEF08A" side={THREE.DoubleSide} opacity={0.3} transparent />
+      </mesh>
+
+      <React.Suspense fallback={null}>
+        <Text
+          position={[0, 1.9, 0]}
+          fontSize={0.45}
+          color="white"
+          anchorX="center"
+          anchorY="middle"
+          outlineWidth={0.02}
+          outlineColor="#000000"
+        >
+          Data Structures & Algorithms
+        </Text>
+      </React.Suspense>
+    </group>
+  );
+}
+
+function OrbitRings() {
+  return (
+    <group rotation={[Math.PI / 2, 0, 0]}>
+      {skillNodes.map(node => (
+        <mesh key={node.id}>
+          <ringGeometry args={[node.orbitRadius - 0.02, node.orbitRadius + 0.02, 128]} />
+          <meshBasicMaterial color={node.color} side={THREE.DoubleSide} transparent opacity={0.15} />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -105,16 +161,29 @@ export default function SkillTreeMap() {
   const [selectedNode, setSelectedNode] = useState<SkillNode | null>(null);
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#070214] text-white relative">
+    <div className="absolute inset-0 flex flex-col overflow-hidden bg-transparent text-white">
       
       {/* 3D Canvas Viewport */}
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 9], fov: 60 }}>
+        <Canvas camera={{ position: [0, 1, 10.5], fov: 60 }}>
           <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} />
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0.5} fade speed={1} />
+          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+          <pointLight position={[-10, 10, -10]} intensity={0.5} />
+          <Environment preset="city" />
+
+          {/* Ambient Particles for Premium Feel */}
+          <Stars radius={50} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+          <Asteroids count={100} />
+          <Sparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
           
-          <ConnectionLines />
+          <Billboard position={[0, 4.0, -3]}>
+            <Text fontSize={0.6} color="#ffffff" outlineWidth={0.03} outlineColor="#000000" anchorX="center" anchorY="middle">
+              Syllabus Constellation
+            </Text>
+          </Billboard>
+          
+          <SunNode />
+          <OrbitRings />
 
           {skillNodes.map(node => (
             <PlanetNode
@@ -125,14 +194,21 @@ export default function SkillTreeMap() {
             />
           ))}
 
+          <ContactShadows position={[0, -2, 0]} opacity={0.5} scale={20} blur={2} far={4} color="#000000" />
+
           <OrbitControls 
             enableZoom={true} 
             maxDistance={15} 
             minDistance={4} 
-            enablePan={false}
+            enablePan={true}
             autoRotate
             autoRotateSpeed={0.15}
           />
+          
+          <EffectComposer>
+            <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
+            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          </EffectComposer>
         </Canvas>
       </div>
 
@@ -147,7 +223,7 @@ export default function SkillTreeMap() {
           </button>
           <div>
             <h1 className="text-lg font-black tracking-tight flex items-center gap-2">
-              Syllabus Constellation <Sparkles className="text-indigo-400" size={16} />
+              Syllabus Constellation <SparklesIcon className="text-indigo-400" size={16} />
             </h1>
             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Interactive 3D Curriculum Sandbox</p>
           </div>
@@ -176,7 +252,7 @@ export default function SkillTreeMap() {
               <p className="text-xs text-gray-400 font-semibold leading-relaxed mt-1">{selectedNode.desc}</p>
             </div>
             <div className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-1.5 pt-1.5 border-t border-white/5">
-              <Sparkles size={10} /> Click planet to open module
+              <SparklesIcon size={10} /> Click planet to open module
             </div>
           </Card>
         ) : (

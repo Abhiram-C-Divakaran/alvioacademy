@@ -3,137 +3,109 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Award, Lightbulb, Users, ArrowRight, Star, ShieldCheck, Cpu, Database, Play, HelpCircle, Sparkles } from 'lucide-react';
 import Logo from '../../components/ui/Logo';
+import AuthModal from '../auth/AuthModal';
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const [activePlan, setActivePlan] = useState<'monthly' | 'yearly'>('monthly');
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#070214] text-white font-sans overflow-x-hidden selection:bg-purple-500/30">
+    <div className="min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-fuchsia-500/30">
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
       
-      {/* Glow Backdrops */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#6E2EBA]/20 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-[800px] right-1/4 w-[600px] h-[600px] bg-[#3B1C7F]/15 rounded-full blur-[160px] pointer-events-none" />
+      {/* Glow Backdrops - Neon Theme */}
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[80%] bg-[#1e3a8a]/40 rounded-full blur-[180px] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-[10%] right-[-10%] w-[60%] h-[100%] bg-[#a21caf]/40 rounded-full blur-[200px] pointer-events-none mix-blend-screen" />
 
       {/* Navbar Section */}
-      <section className="relative z-50 border-b border-white/5 bg-[#0A051A]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
-          <div className="text-2xl font-bold tracking-tighter flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-            <Logo className="w-9 h-9" />
-            <span className="font-light tracking-[0.2em] text-white">ALVIO.</span>
+      <section className="relative z-50 pt-8">
+        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
+          <div className="text-xl font-black tracking-tighter flex items-center gap-3 cursor-pointer uppercase" onClick={() => navigate('/')}>
+            <Logo className="w-8 h-8" />
+            <span className="text-white">ALVIO</span>
           </div>
           
-          <nav className="hidden md:flex items-center gap-8 text-[12px] font-bold uppercase tracking-widest text-gray-300">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#process" className="hover:text-white transition-colors">Process</a>
-            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-            <Link to="/3d-visualizer" className="hover:text-white transition-colors">3D Sandbox</Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <button 
+              onClick={() => setIsAuthModalOpen(true)}
+              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-widest transition-colors rounded-full border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+            >
+              Sign In / Sign Up
+            </button>
           </nav>
-
-          <div className="flex items-center gap-4">
-            <Link to="/auth" state={{ from: { pathname: '/dashboard' } }}>
-              <button className="px-5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 text-xs font-bold uppercase tracking-wider">
-                Sign In
-              </button>
-            </Link>
-            <Link to="/auth" state={{ from: { pathname: '/dashboard' } }}>
-              <button className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-colors text-xs font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(99,102,241,0.3)]">
-                Get Started
-              </button>
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-24 px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="relative pt-32 pb-24 px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         
         {/* Left Hero Content */}
         <div className="lg:col-span-6 space-y-8 text-left">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-[10px] font-black uppercase tracking-widest">
-              <Sparkles size={12} /> All-in-one Academy for everyone
+            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+              Welcome to Alvio Academy
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.05]">
-              Interactive DSA <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">for Smart Engineers.</span>
+            <h1 className="text-7xl md:text-8xl lg:text-[100px] font-black tracking-tighter text-white leading-[0.9] uppercase break-words">
+              Master The <br/> Code <Sparkles className="inline-block text-white/50 -mt-8 ml-2 w-16 h-16" />
             </h1>
 
-            <p className="text-sm md:text-base text-gray-400 max-w-md leading-relaxed font-medium">
-              With our secure online visualizers and turn-based AI tutor sessions, you can easily master complex data structures anytime, anywhere, with confidence.
+            <p className="text-sm md:text-base text-white/50 max-w-md leading-relaxed pt-6 font-light">
+              Master Data Structures and Algorithms through interactive 3D visualizers, turn-based AI mock interviews, and real-time coding challenges. Prepare for top-tier tech roles with confidence.
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Link to="/auth" state={{ from: { pathname: '/dashboard' } }}>
-              <button className="px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs uppercase tracking-widest transition-all shadow-[0_0_25px_rgba(99,102,241,0.4)] hover:scale-[1.03]">
-                Get Started Now
-              </button>
-            </Link>
-          </div>
-
-          {/* Social Proof */}
-          <div className="flex items-center gap-4 pt-6">
-            <div className="flex -space-x-3">
-              <img className="w-10 h-10 rounded-full border-2 border-[#070214]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="" />
-              <img className="w-10 h-10 rounded-full border-2 border-[#070214]" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" />
-              <img className="w-10 h-10 rounded-full border-2 border-[#070214]" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=100&q=80" alt="" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <span className="text-sm font-black text-white">4.9</span>
-                <div className="flex text-yellow-400"><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /><Star size={12} fill="currentColor" /></div>
-              </div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">15k+ active learners</p>
-            </div>
+          <div className="flex items-center gap-8 pt-8">
+            <button 
+              onClick={() => setIsAuthModalOpen(true)}
+              className="px-10 py-4 bg-[#c026d3] hover:bg-[#a21caf] text-white font-bold text-sm transition-colors rounded-full shadow-[0_0_30px_rgba(192,38,211,0.5)]"
+            >
+              Start Learning
+            </button>
           </div>
         </div>
 
-        {/* Right Hero Visuals (Finanex-style mockups) */}
+        {/* Right Hero Visuals */}
         <div className="lg:col-span-6 relative flex items-center justify-center">
           {/* Main Visualizer Preview Panel */}
-          <div className="relative w-full max-w-lg bg-[#140D33]/60 border border-white/10 rounded-3xl p-6 shadow-2xl backdrop-blur-xl space-y-6">
+          <div className="relative w-full max-w-lg bg-[#2e0939]/80 border border-fuchsia-500/20 p-8 shadow-[0_0_80px_rgba(162,28,175,0.4)] backdrop-blur-xl space-y-6">
             
             {/* Mock Node List Widget */}
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between">
+            <div className="p-4 bg-white/[0.03] border border-white/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                <div className="w-10 h-10 bg-[#c026d3]/20 border border-[#c026d3]/40 flex items-center justify-center text-[#c026d3]">
                   <Database size={18} />
                 </div>
                 <div>
-                  <h4 className="text-xs font-black text-white">Linked List Structure</h4>
-                  <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Contiguous node pointers</p>
+                  <h4 className="text-xs font-black text-white uppercase tracking-wider">Linked List Structure</h4>
+                  <p className="text-[10px] text-white/50 mt-0.5">Contiguous node pointers</p>
                 </div>
               </div>
-              <span className="text-[10px] font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">ACTIVE</span>
+              <span className="text-[10px] font-black text-[#c026d3] tracking-widest">ACTIVE</span>
             </div>
 
             {/* Mock Graph BFS Tracker */}
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
+            <div className="p-4 bg-white/[0.03] border border-white/5 space-y-3">
               <div className="flex justify-between items-center">
-                <h4 className="text-xs font-black text-white">Shortest Path (Dijkstra)</h4>
-                <span className="text-[10px] font-mono text-indigo-400">O(V log V + E)</span>
+                <h4 className="text-xs font-black text-white uppercase tracking-wider">Shortest Path (Dijkstra)</h4>
+                <span className="text-[10px] font-mono text-[#c026d3]">O(V log V + E)</span>
               </div>
-              <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full w-[80%] bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" />
+              <div className="h-1.5 w-full bg-white/5 overflow-hidden">
+                <div className="h-full w-[80%] bg-[#c026d3]" />
               </div>
             </div>
 
             {/* Mock Activity Sparkline */}
-            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between">
+            <div className="p-4 bg-white/[0.03] border border-white/5 flex items-center justify-between">
               <div>
-                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Performance Gain</span>
+                <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Performance Gain</span>
                 <h3 className="text-lg font-black text-white mt-0.5">-45.2% Complexity</h3>
               </div>
-              <div className="text-purple-400 opacity-60 text-xl font-bold">📈</div>
+              <div className="text-[#c026d3] opacity-80 text-xl font-bold">📈</div>
             </div>
 
           </div>
-
-          {/* Floating Neon Shapes */}
-          <div className="absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-tr from-purple-500 to-indigo-500 rounded-2xl opacity-10 rotate-12 blur-sm pointer-events-none" />
-          <div className="absolute -bottom-6 -left-10 w-32 h-32 bg-indigo-500 rounded-full opacity-10 blur-xl pointer-events-none" />
         </div>
 
       </section>
@@ -201,59 +173,6 @@ export default function LandingPage() {
             <StepRow num="01" title="Create an Account" desc="Sign up in seconds. No complex paperwork or credit cards needed to start exploring basic structures." />
             <StepRow num="02" title="Select Your Module" desc="Pick stack arrays, circular queues, AVL trees, or graphs inside our interactive visualizer hub." />
             <StepRow num="03" title="Start Practicing" desc="Follow along step-by-step with 3D visuals and complete tasks to earn XP and level up." />
-          </div>
-
-        </div>
-      </section>
-
-      {/* Flexible Pricing Section */}
-      <section id="pricing" className="py-24 border-t border-white/5 bg-[#090317]/50">
-        <div className="max-w-7xl mx-auto px-8 space-y-12">
-          
-          <div className="text-center space-y-4 max-w-lg mx-auto">
-            <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Alvio Pricing Plan</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Flexible Pricing Plans</h2>
-            <p className="text-xs font-semibold text-gray-400 leading-relaxed">
-              Unlock advanced features like full technical mock interview rooms and direct AI suggestions.
-            </p>
-          </div>
-
-          {/* Pricing Toggle */}
-          <div className="flex items-center justify-center gap-4">
-            <span className={`text-xs font-bold ${activePlan === 'monthly' ? 'text-white' : 'text-gray-400'}`}>Monthly billing</span>
-            <button 
-              onClick={() => setActivePlan(activePlan === 'monthly' ? 'yearly' : 'monthly')}
-              className="w-12 h-6 rounded-full bg-white/10 border border-white/10 relative p-0.5 transition-colors focus:outline-none"
-            >
-              <div className={`w-5 h-5 rounded-full bg-indigo-500 transition-all ${activePlan === 'yearly' ? 'translate-x-6' : 'translate-x-0'}`} />
-            </button>
-            <span className={`text-xs font-bold ${activePlan === 'yearly' ? 'text-white' : 'text-gray-400'}`}>Annual billing (25% OFF)</span>
-          </div>
-
-          {/* Pricing Card List */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PricingCard 
-              name="Starter Plan" 
-              price={activePlan === 'monthly' ? '$0' : '$0'}
-              period={activePlan === 'monthly' ? 'Month' : 'Year'}
-              desc="Explore basic data structures and simple sorted array visualizers."
-              features={['Free Account Access', 'Basic 3D sandbox', 'Daily challenges', 'Static algorithm view']}
-            />
-            <PricingCard 
-              name="Growth Plan" 
-              price={activePlan === 'monthly' ? '$29' : '$259'}
-              period={activePlan === 'monthly' ? 'Month' : 'Year'}
-              desc="Get advanced coding hint aids and interactive LLaMA tutor reviews."
-              features={['Free Account Access', 'All 3D Sandboxes', 'AI Code optimizer reviews', 'Complexity analysis graphs']}
-              active
-            />
-            <PricingCard 
-              name="Premium Plan" 
-              price={activePlan === 'monthly' ? '$59' : '$539'}
-              period={activePlan === 'monthly' ? 'Month' : 'Year'}
-              desc="Unlock complete Senior Engineer Turn-Based Video Mock Interviews."
-              features={['All Growth Plan items', 'Turn-Based Webcams', 'Voice-to-text transcripts', 'Priority leaderboards']}
-            />
           </div>
 
         </div>
