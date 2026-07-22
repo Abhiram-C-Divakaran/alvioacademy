@@ -5,6 +5,8 @@ import Badge from '../../components/ui/Badge';
 import { Send, BrainCircuit, User, Sparkles, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Visualization3D from '../workspace/Visualization3D';
+import type { DataStructure } from '../../types/dataStructures';
 
 interface Message {
   id: string;
@@ -13,7 +15,13 @@ interface Message {
   timestamp: Date;
 }
 
-const SYSTEM_PROMPT = `You are a highly experienced, friendly, and patient Data Structures & Algorithms (DSA) tutor.\nYour goal is to help students easily understand complex CS concepts by breaking them down into simple, digestible pieces. Use relatable real-world analogies, step-by-step explanations, and avoid overly academic jargon unless you also explain it simply.\nMake sure your answers can be easily understood by beginners and students. Use Markdown formatting for readability, keep explanations clear and well-structured, and always encourage the student to ask questions!`;
+const SYSTEM_PROMPT = `You are a highly experienced, friendly, and patient Data Structures & Algorithms (DSA) tutor.\nYour goal is to help students easily understand complex CS concepts by breaking them down into simple, digestible pieces. Use relatable real-world analogies, step-by-step explanations, and avoid overly academic jargon unless you also explain it simply.\nMake sure your answers can be easily understood by beginners and students. Use Markdown formatting for readability, keep explanations clear and well-structured, and always encourage the student to ask questions!
+
+CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tree, Array, Linked List), you MUST include an interactive 3D visualizer in your response. To do this, include a markdown code block with the language "ds-visualizer" and the name of the data structure inside it. Example:
+\`\`\`ds-visualizer
+graph
+\`\`\`
+Supported values are strictly: graph, binary-tree, array, linked-list. Do not include anything else inside the code block except the data structure name.`;
 
 const sampleMessages: Message[] = [
   {
@@ -23,6 +31,77 @@ const sampleMessages: Message[] = [
     timestamp: new Date(),
   },
 ];
+
+function MiniVisualizer({ type }: { type: string }) {
+  let structure: DataStructure | null = null;
+  const t = type.toLowerCase().trim();
+  
+  if (t.includes('graph')) {
+    structure = {
+      type: 'graph',
+      nodes: [
+        { id: 'A', value: 'A', position: { x: -2, y: 2, z: 0 }, state: { highlighted: false, active: false } },
+        { id: 'B', value: 'B', position: { x: 2, y: 1, z: 0 }, state: { highlighted: false, active: false } },
+        { id: 'C', value: 'C', position: { x: -1, y: -2, z: 0 }, state: { highlighted: false, active: false } },
+        { id: 'D', value: 'D', position: { x: 1, y: -1, z: 0 }, state: { highlighted: false, active: false } },
+      ],
+      edges: [
+        { id: 'e1', from: 'A', to: 'B', directed: false, state: { highlighted: false, active: false } },
+        { id: 'e2', from: 'A', to: 'C', directed: false, state: { highlighted: false, active: false } },
+        { id: 'e3', from: 'B', to: 'D', directed: false, state: { highlighted: false, active: false } },
+        { id: 'e4', from: 'C', to: 'D', directed: false, state: { highlighted: false, active: false } },
+      ],
+      directed: false,
+      weighted: false,
+    };
+  } else if (t.includes('tree') || t.includes('bst')) {
+    structure = {
+      type: 'binary-tree',
+      root: '1',
+      nodes: [
+        { id: '1', value: 10, position: { x: 0, y: 3, z: 0 }, state: { highlighted: false, active: false }, left: '2', right: '3' },
+        { id: '2', value: 5, position: { x: -2, y: 1, z: 0 }, state: { highlighted: false, active: false }, left: '4', right: '5' },
+        { id: '3', value: 15, position: { x: 2, y: 1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: '6' },
+        { id: '4', value: 2, position: { x: -3, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
+        { id: '5', value: 7, position: { x: -1, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
+        { id: '6', value: 20, position: { x: 3, y: -1, z: 0 }, state: { highlighted: false, active: false }, left: null, right: null },
+      ]
+    };
+  } else if (t.includes('array')) {
+    structure = {
+      type: 'array',
+      capacity: 5,
+      elements: [
+        { id: '1', value: 42, position: { x: -2, y: 0, z: 0 }, state: { highlighted: false, active: false } },
+        { id: '2', value: 7, position: { x: -1, y: 0, z: 0 }, state: { highlighted: false, active: false } },
+        { id: '3', value: 19, position: { x: 0, y: 0, z: 0 }, state: { highlighted: false, active: false } },
+        { id: '4', value: 99, position: { x: 1, y: 0, z: 0 }, state: { highlighted: false, active: false } },
+        { id: '5', value: 3, position: { x: 2, y: 0, z: 0 }, state: { highlighted: false, active: false } },
+      ]
+    };
+  } else if (t.includes('linked-list')) {
+    structure = {
+      type: 'linked-list',
+      head: '1',
+      nodes: [
+        { id: '1', value: 10, position: { x: -2, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: '2' },
+        { id: '2', value: 20, position: { x: 0, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: '3' },
+        { id: '3', value: 30, position: { x: 2, y: 0, z: 0 }, state: { highlighted: false, active: false }, next: null },
+      ]
+    };
+  }
+
+  if (!structure) {
+    return <div className="text-xs text-red-400 p-2 border border-red-500/20 rounded-md">Unsupported 3D Visualizer: {type}</div>;
+  }
+
+  return (
+    <div className="my-4 rounded-xl overflow-hidden bg-black/40 border border-[var(--color-border-subtle)] shadow-lg relative h-[300px] w-full pointer-events-auto">
+      <div className="absolute top-2 left-3 z-10 text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-2 py-1 rounded-md">{type} Visualizer</div>
+      <Visualization3D structure={structure} />
+    </div>
+  );
+}
 
 export default function AiTutorPage() {
   const [messages, setMessages] = useState<Message[]>(sampleMessages);
@@ -161,7 +240,19 @@ export default function AiTutorPage() {
               >
                 {msg.role === 'assistant' ? (
                   <div className="prose prose-invert prose-sm max-w-none prose-pre:bg-[var(--color-bg-secondary)] prose-pre:border prose-pre:border-[var(--color-border-subtle)]">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({ node, inline, className, children, ...props }: any) {
+                          const match = /language-(\w+)/.exec(className || '');
+                          if (!inline && match && match[1] === 'ds-visualizer') {
+                            const dsType = String(children).replace(/\n$/, '').trim();
+                            return <MiniVisualizer type={dsType} />;
+                          }
+                          return <code className={className} {...props}>{children}</code>;
+                        }
+                      }}
+                    >
                       {msg.content}
                     </ReactMarkdown>
                   </div>
