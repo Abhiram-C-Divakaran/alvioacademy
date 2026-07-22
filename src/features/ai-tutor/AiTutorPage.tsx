@@ -8,6 +8,13 @@ import remarkGfm from 'remark-gfm';
 import Visualization3D from '../workspace/Visualization3D';
 import type { DataStructure } from '../../types/dataStructures';
 
+import arrVideo from '../../assets/i_want_the_video_to_explain_ab.mp4';
+import llVideo from '../../assets/ll.mp4';
+import queueVideo from '../../assets/PixVerse_V6_Image_Text_540P_make_a_game_like_v.mp4';
+import btVideo from '../../assets/bt.mp4';
+import hashVideo from '../../assets/hash.mp4';
+import heapVideo from '../../assets/WhatsApp Video 2026-07-22 at 10.44.31 AM.mp4';
+
 interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
@@ -21,7 +28,13 @@ CRITICAL: Whenever you explain a specific data structure (like Graph, Binary Tre
 \`\`\`ds-visualizer
 graph
 \`\`\`
-Supported values are strictly: graph, binary-tree, array, linked-list. Do not include anything else inside the code block except the data structure name.`;
+Supported values are strictly: graph, binary-tree, array, linked-list. Do not include anything else inside the code block except the data structure name.
+
+Additionally, whenever you explain a data structure, you MUST also provide the 3D video section for that solution by including a markdown code block with the language "ds-video" and the name of the data structure. Example:
+\`\`\`ds-video
+array
+\`\`\`
+Supported ds-video values are strictly: array, linked-list, queue, binary-tree, hash, heap.`;
 
 const sampleMessages: Message[] = [
   {
@@ -31,6 +44,29 @@ const sampleMessages: Message[] = [
     timestamp: new Date(),
   },
 ];
+
+function MiniVideoPlayer({ type }: { type: string }) {
+  const t = type.toLowerCase().trim();
+  let videoSrc = '';
+  
+  if (t.includes('array')) videoSrc = arrVideo;
+  else if (t.includes('linked')) videoSrc = llVideo;
+  else if (t.includes('queue')) videoSrc = queueVideo;
+  else if (t.includes('tree') || t.includes('bst')) videoSrc = btVideo;
+  else if (t.includes('hash')) videoSrc = hashVideo;
+  else if (t.includes('heap')) videoSrc = heapVideo;
+
+  if (!videoSrc) return null;
+
+  return (
+    <div className="my-4 rounded-xl overflow-hidden border border-[var(--color-border-subtle)] shadow-lg bg-black">
+      <video controls className="w-full aspect-video outline-none">
+        <source src={videoSrc} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  );
+}
 
 function MiniVisualizer({ type }: { type: string }) {
   let structure: DataStructure | null = null;
@@ -248,6 +284,10 @@ export default function AiTutorPage() {
                           if (!inline && match && match[1] === 'ds-visualizer') {
                             const dsType = String(children).replace(/\n$/, '').trim();
                             return <MiniVisualizer type={dsType} />;
+                          }
+                          if (!inline && match && match[1] === 'ds-video') {
+                            const dsType = String(children).replace(/\n$/, '').trim();
+                            return <MiniVideoPlayer type={dsType} />;
                           }
                           return <code className={className} {...props}>{children}</code>;
                         }
