@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Visualization3D from '../workspace/Visualization3D';
 import type { DataStructure } from '../../types/dataStructures';
+import { VideoRecommendationSection } from './VideoRecommendation';
 
 import arrVideo from '../../assets/i_want_the_video_to_explain_ab.mp4';
 import llVideo from '../../assets/ll.mp4';
@@ -30,11 +31,11 @@ graph
 \`\`\`
 Supported values are strictly: graph, binary-tree, array, linked-list. Do not include anything else inside the code block except the data structure name.
 
-Additionally, whenever you explain a data structure, you MUST also provide the 3D video section for that solution by including a markdown code block with the language "ds-video" and the name of the data structure. Example:
-\`\`\`ds-video
-array
+CRITICAL VIDEO RECOMMENDATIONS: At the very end of EVERY educational explanation, you MUST provide a search query for 3D and 2D videos so the system can automatically fetch related learning videos for the student. Do this by outputting a JSON block with the language "video-search". Example:
+\`\`\`video-search
+{"topic": "Dijkstra's Shortest Path Algorithm"}
 \`\`\`
-Supported ds-video values are strictly: array, linked-list, queue, binary-tree, hash, heap.`;
+Ensure the topic is highly relevant to the student's question so they get the best video recommendations!`;
 
 const sampleMessages: Message[] = [
   {
@@ -281,13 +282,22 @@ export default function AiTutorPage() {
                       components={{
                         code({ node, inline, className, children, ...props }: any) {
                           const match = /language-(\w+)/.exec(className || '');
-                          if (!inline && match && match[1] === 'ds-visualizer') {
-                            const dsType = String(children).replace(/\n$/, '').trim();
-                            return <MiniVisualizer type={dsType} />;
-                          }
-                          if (!inline && match && match[1] === 'ds-video') {
-                            const dsType = String(children).replace(/\n$/, '').trim();
-                            return <MiniVideoPlayer type={dsType} />;
+                          const type = String(children).replace(/\n$/, '');
+                          
+                          if (match && match[1] === 'ds-visualizer') {
+                            return <MiniVisualizer type={type} />;
+                          } else if (match && match[1] === 'ds-video') {
+                            return <MiniVideoPlayer type={type} />;
+                          } else if (match && match[1] === 'video-search') {
+                            try {
+                              const parsed = JSON.parse(type);
+                              if (parsed.topic) {
+                                return <VideoRecommendationSection topic={parsed.topic} />;
+                              }
+                            } catch (e) {
+                              console.error('Failed to parse video-search block:', e);
+                            }
+                            return null;
                           }
                           return <code className={className} {...props}>{children}</code>;
                         }
