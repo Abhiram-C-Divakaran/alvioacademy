@@ -9,9 +9,10 @@ interface Array3DProps {
   activeIndex?: number | number[] | null;
   variant?: string;
   capacity?: number;
+  baseColor?: string;
 }
 
-export default function Array3D({ data = [], activeIndex = null, variant = 'Static Array', capacity }: Array3DProps) {
+export default function Array3D({ data = [], activeIndex = null, variant = 'Static Array', capacity, baseColor }: Array3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const spacing = 1.5;
 
@@ -60,7 +61,7 @@ export default function Array3D({ data = [], activeIndex = null, variant = 'Stat
             return row.map((val, cIndex) => {
               const flatIndex = rIndex * cols + cIndex;
               const isActive = activeIndex === flatIndex;
-              const color = isActive ? '#3b82f6' : '#2dd4bf';
+              const color = isActive ? '#3b82f6' : (baseColor || '#2dd4bf');
               return (
                 <group key={`${rIndex}-${cIndex}`} position={[startX_row + cIndex * 1.6, startY_col - rIndex * 1.6, 0]}>
                   <RoundedBox args={[1.4, 1.4, 1.4]} radius={0.15} smoothness={4}>
@@ -96,7 +97,7 @@ export default function Array3D({ data = [], activeIndex = null, variant = 'Stat
           {renderData.map((value, index) => {
             const isGhost = value === null;
             const isActive = (Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index) && !isGhost;
-            const color = isGhost ? '#94a3b8' : (isActive ? '#3b82f6' : '#2dd4bf');
+            const color = isGhost ? '#94a3b8' : (isActive ? '#3b82f6' : (baseColor || '#2dd4bf'));
             const xPos = startX + index * spacing;
             const yPos = isActive ? 0.4 : 0; // Lift active item slightly
 
@@ -111,16 +112,30 @@ export default function Array3D({ data = [], activeIndex = null, variant = 'Stat
                 isActive={isActive}
                 isGhost={isGhost}
                 isDynamic={isDynamic}
+                baseColor={baseColor}
               />
             );
           })}
+        </group>
+      )}
+
+      {/* Array Base Platform (moved back from inside item) */}
+      {!is2D && (
+        <group position={[0, -2.5, 0]}>
+          <Text position={[0, 1.2, 0]} fontSize={0.3} color={baseColor || "#2dd4bf"} anchorX="center">
+            {isDynamic ? `Capacity: ${capacity || data.length}` : `Size: ${data.length}`}
+          </Text>
+          <mesh position={[0, 0.5, -0.5]}>
+            <boxGeometry args={[totalWidth + 2.5, 0.1, 1.5]} />
+            <meshStandardMaterial color={baseColor || '#2dd4bf'} emissive={baseColor || '#2dd4bf'} emissiveIntensity={0.5} />
+          </mesh>
         </group>
       )}
     </group>
   );
 }
 
-function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost, isDynamic }: any) {
+function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost, isDynamic, baseColor }: any) {
   const { position } = useSpring({
     position: [xPos, yPos, 0],
     config: { mass: 1, tension: 170, friction: 20 }
@@ -140,6 +155,7 @@ function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost,
           emissiveIntensity={isActive ? 0.5 : 0}
         />
         {/* Ghost wireframe effect for empty capacity slots */}
+
         {isGhost && (
           <Edges scale={1.01} threshold={15} color="#94a3b8" />
         )}
@@ -148,7 +164,7 @@ function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost,
       {/* Tech Platform under each item */}
       <mesh position={[0, -0.75, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.5, 0.7, 32]} />
-        <meshStandardMaterial color={isActive ? '#3b82f6' : '#2dd4bf'} emissive={isActive ? '#3b82f6' : '#2dd4bf'} emissiveIntensity={isActive ? 2 : 0.5} />
+        <meshStandardMaterial color={isActive ? '#3b82f6' : (baseColor || '#2dd4bf')} emissive={isActive ? '#3b82f6' : (baseColor || '#2dd4bf')} emissiveIntensity={isActive ? 2 : 0.5} />
       </mesh>
 
       {!isGhost && (

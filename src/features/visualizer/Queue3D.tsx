@@ -7,9 +7,10 @@ interface Queue3DProps {
   data?: number[];
   activeIndex?: number | number[] | null;
   variant?: string;
+  baseColor?: string;
 }
 
-export default function Queue3D({ data = [], activeIndex = null, variant = 'Simple Queue' }: Queue3DProps) {
+export default function Queue3D({ data = [], activeIndex = null, variant = 'Linear Queue', baseColor }: Queue3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const spacing = 1.5;
   const totalWidth = (data.length - 1) * spacing;
@@ -72,7 +73,7 @@ export default function Queue3D({ data = [], activeIndex = null, variant = 'Simp
       {/* Queue items */}
       {data.map((value, index) => {
         const isActive = (Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index) && !isGhost;
-        const color = isActive ? '#a855f7' : '#8b5cf6'; // Purple variations
+        const color = isActive ? '#a855f7' : (baseColor || '#8b5cf6'); // Purple variations
         // Positions
         let xPos = startX - index * spacing;
         let yPos = 0;

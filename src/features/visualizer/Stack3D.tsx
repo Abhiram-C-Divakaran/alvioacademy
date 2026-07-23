@@ -7,6 +7,7 @@ interface Stack3DProps {
   data?: number[];
   activeIndex?: number | number[] | null;
   variant?: string;
+  baseColor?: string;
 }
 
 // Sub-component to handle the fly-out animation of popped items
@@ -46,7 +47,7 @@ function PoppedItem({ value, index, isLinked }: { value: number; index: number; 
   );
 }
 
-export default function Stack3D({ data = [], activeIndex = null, variant = 'Array Stack' }: Stack3DProps) {
+export default function Stack3D({ data = [], activeIndex = null, variant = 'Array Stack', baseColor }: Stack3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const [poppingItems, setPoppingItems] = useState<{ id: string; value: number; index: number }[]>([]);
   const prevDataRef = useRef<number[]>(data);
@@ -113,7 +114,7 @@ export default function Stack3D({ data = [], activeIndex = null, variant = 'Arra
       {data.map((value, index) => {
         // Stack grows upwards. Index 0 is bottom.
         const isActive = Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index;
-        const color = isActive ? '#ef4444' : '#f59e0b'; // Red when active, Amber otherwise
+        const color = isActive ? '#ef4444' : (baseColor || '#f59e0b'); // Red when active, baseColor otherwise
         const yPos = index * 1.2;
 
         return (

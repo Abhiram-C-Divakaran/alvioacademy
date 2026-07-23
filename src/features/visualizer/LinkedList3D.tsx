@@ -7,9 +7,10 @@ interface LinkedList3DProps {
   data?: number[];
   activeIndex?: number | number[] | null;
   variant?: string;
+  baseColor?: string;
 }
 
-export default function LinkedList3D({ data = [], activeIndex = null, variant = 'Singly Linked' }: LinkedList3DProps) {
+export default function LinkedList3D({ data = [], activeIndex = null, variant = 'Singly Linked', baseColor }: LinkedList3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const spacing = 2.5;
   const startX = -((data.length - 1) * spacing) / 2;
@@ -27,7 +28,7 @@ export default function LinkedList3D({ data = [], activeIndex = null, variant = 
     <group ref={groupRef}>
       {data.map((value, index) => {
         const isActive = Array.isArray(activeIndex) ? activeIndex.includes(index) : activeIndex === index;
-        const color = isActive ? '#10b981' : '#0ea5e9'; // Emerald active, Sky blue normal
+        const color = isActive ? '#10b981' : (baseColor || '#0ea5e9'); // Emerald active, Sky blue normal
         const xPos = startX + index * spacing;
 
         return (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, OrbitControls, ContactShadows, Stars, Sparkles, Text, Billboard } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
@@ -404,15 +404,18 @@ export default function VisualizerPage({ initialDs, hideUI = false }: { initialD
     // Extract for linked list
     const llData = dsState.type === 'linked-list' ? dsState.nodes.map(n => Number(n.value)) : [];
 
+    const location = useLocation();
+    const planetColor = location.state?.planetColor;
+
     switch (activeDs) {
-      case 'Array': return <Array3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} capacity={dsState?.type === 'array' ? dsState.capacity : undefined} />;
-      case 'Stack': return <Stack3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} />;
-      case 'Queue': return <Queue3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} />;
-      case 'Linked List': return <LinkedList3D data={llData} activeIndex={activeIndex as number} variant={activeVariant} />;
-      case 'Binary Tree': return <BinaryTree3D activeIndex={activeIndex as number} variant={activeVariant} dsState={(dsState?.type === 'binary-tree' || dsState?.type === 'avl-tree') ? dsState as any : null} />;
-      case 'Graph': return <Graph3D activeIndex={activeIndex as any} variant={activeVariant} dsState={dsState?.type === 'graph' ? dsState as any : null} />;
-      case 'Hash Table': return <HashTable3D activeIndex={activeIndex as number} activeItem={currentStep === 2 ? 'Key' : null} variant={activeVariant} dsState={dsState?.type === 'hash-table' ? dsState as any : null} />;
-      case 'Heap': return <BinaryTree3D activeIndex={activeIndex as number} variant={activeVariant} dsState={dsState?.type === 'heap' ? dsState as any : null} />;
+      case 'Array': return <Array3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} capacity={dsState?.type === 'array' ? dsState.capacity : undefined} baseColor={planetColor} />;
+      case 'Stack': return <Stack3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} baseColor={planetColor} />;
+      case 'Queue': return <Queue3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} baseColor={planetColor} />;
+      case 'Linked List': return <LinkedList3D data={llData} activeIndex={activeIndex as number} variant={activeVariant} baseColor={planetColor} />;
+      case 'Binary Tree': return <BinaryTree3D activeIndex={activeIndex as number} variant={activeVariant} dsState={(dsState?.type === 'binary-tree' || dsState?.type === 'avl-tree') ? dsState as any : null} baseColor={planetColor} />;
+      case 'Graph': return <Graph3D activeIndex={activeIndex as any} variant={activeVariant} dsState={dsState?.type === 'graph' ? dsState as any : null} baseColor={planetColor} />;
+      case 'Hash Table': return <HashTable3D activeIndex={activeIndex as number} activeItem={currentStep === 2 ? 'Key' : null} variant={activeVariant} dsState={dsState?.type === 'hash-table' ? dsState as any : null} baseColor={planetColor} />;
+      case 'Heap': return <BinaryTree3D activeIndex={activeIndex as number} variant={activeVariant} dsState={dsState?.type === 'heap' ? dsState as any : null} baseColor={planetColor} />;
       default: return null;
     }
   };

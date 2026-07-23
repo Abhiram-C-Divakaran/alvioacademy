@@ -8,9 +8,10 @@ interface Graph3DProps {
   activeIndex?: string | string[] | null;
   variant?: string;
   dsState?: GraphStructure | null;
+  baseColor?: string;
 }
 
-export default function Graph3D({ activeIndex = null, variant = 'Directed Graph', dsState }: Graph3DProps) {
+export default function Graph3D({ activeIndex = null, variant = 'Directed Graph', dsState, baseColor }: Graph3DProps) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -115,7 +116,7 @@ export default function Graph3D({ activeIndex = null, variant = 'Directed Graph'
       {/* Nodes */}
       {nodes.map((node) => {
         const isActive = activeIndex === node.id || (Array.isArray(activeIndex) && activeIndex.includes(node.id));
-        const color = isActive ? '#f97316' : '#6366f1'; // Orange active, Indigo normal
+        const color = isActive ? '#f97316' : (baseColor || '#6366f1'); // Orange active, baseColor normal
 
         return (
           <group key={node.id} position={[node.x, node.y, node.z]}>

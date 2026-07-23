@@ -9,9 +9,10 @@ interface HashTable3DProps {
   activeItem?: string | null;
   variant?: string;
   dsState?: HashTableStructure | null;
+  baseColor?: string;
 }
 
-export default function HashTable3D({ activeIndex = null, activeItem = null, variant = 'Chaining', dsState }: HashTable3DProps) {
+export default function HashTable3D({ activeIndex = null, activeItem = null, variant = 'Chaining', dsState, baseColor }: HashTable3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const buckets = dsState ? dsState.size : 5;
   const spacing = 1.8;
@@ -39,7 +40,7 @@ export default function HashTable3D({ activeIndex = null, activeItem = null, var
             {/* Bucket Container */}
             <Box args={[1.4, isOpenAddressing ? 1.4 : 2, 1.4]}>
               <meshStandardMaterial 
-                color={isActive ? '#14b8a6' : '#1e293b'} 
+                color={isActive ? '#14b8a6' : (baseColor || '#1e293b')} 
                 roughness={0.1}
                 metalness={0.9} 
                 transparent 
@@ -53,7 +54,7 @@ export default function HashTable3D({ activeIndex = null, activeItem = null, var
             {/* Glowing Base Ring */}
             <mesh position={[0, isOpenAddressing ? -0.7 : -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
               <ringGeometry args={[0.8, 0.9, 32]} />
-              <meshStandardMaterial color={isActive ? '#14b8a6' : '#475569'} emissive={isActive ? '#14b8a6' : '#475569'} emissiveIntensity={isActive ? 2 : 0.5} />
+              <meshStandardMaterial color={isActive ? '#14b8a6' : (baseColor || '#475569')} emissive={isActive ? '#14b8a6' : (baseColor || '#475569')} emissiveIntensity={isActive ? 2 : 0.5} />
             </mesh>
             
             <Billboard position={[0, isOpenAddressing ? -1.2 : -1.5, 0]}>

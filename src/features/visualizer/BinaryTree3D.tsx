@@ -9,9 +9,10 @@ interface BinaryTree3DProps {
   visitedIndex?: number[] | string[] | null;
   variant?: string;
   dsState?: BinaryTreeStructure | null;
+  baseColor?: string;
 }
 
-export default function BinaryTree3D({ activeIndex = null, visitedIndex = null, variant = 'Binary Search Tree', dsState }: BinaryTree3DProps) {
+export default function BinaryTree3D({ activeIndex = null, visitedIndex = null, variant = 'Binary Search Tree', dsState, baseColor }: BinaryTree3DProps) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -98,7 +99,7 @@ export default function BinaryTree3D({ activeIndex = null, visitedIndex = null, 
         const isActive = (Array.isArray(activeIndex) ? (activeIndex as any[]).includes(node.id) || (activeIndex as any[]).includes(node.val) : activeIndex === node.id || activeIndex === node.val);
         const isVisited = (Array.isArray(visitedIndex) ? (visitedIndex as any[]).includes(node.id) || (visitedIndex as any[]).includes(node.val) : false);
         
-        let color = '#3b82f6'; // Blue normal
+        let color = baseColor || '#3b82f6'; // baseColor or Blue normal
         if (isActive) color = '#ec4899'; // Pink active
         else if (isVisited) color = '#10b981'; // Green visited
 

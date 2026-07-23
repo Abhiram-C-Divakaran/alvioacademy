@@ -239,9 +239,44 @@ function AsteroidBelt({ radius = 12, count = 200 }) {
   );
 }
 
+function CameraTransition({ zoomingTo, onComplete }: { zoomingTo: SkillNode | null, onComplete: () => void }) {
+  const { camera } = useThree();
+  const vec = new THREE.Vector3();
+  const target = new THREE.Vector3();
+  
+  useFrame((state, delta) => {
+    if (zoomingTo) {
+      const t = state.clock.getElapsedTime();
+      const angle = (t * zoomingTo.orbitSpeed) + zoomingTo.angleOffset;
+      const x = Math.cos(angle) * zoomingTo.orbitRadius;
+      const z = Math.sin(angle) * zoomingTo.orbitRadius;
+      
+      target.set(x, 0, z);
+      vec.set(x, zoomingTo.size * 0.5, z + zoomingTo.size + 2.0); // position right in front of it
+
+      camera.position.lerp(vec, delta * 3.5); // smooth swish
+      camera.lookAt(target);
+      
+      if (camera.position.distanceTo(vec) < 0.2) {
+        onComplete();
+      }
+    }
+  });
+  return null;
+}
+
 export default function SkillTreeMap() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<SkillNode | null>(null);
+  const [zoomingTo, setZoomingTo] = useState<SkillNode | null>(null);
+  const isNavigating = useRef(false);
+
+  const handleZoomComplete = () => {
+    if (!isNavigating.current && zoomingTo) {
+      isNavigating.current = true;
+      navigate(zoomingTo.path, { state: { planetColor: zoomingTo.color } });
+    }
+  };
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-transparent text-white">
@@ -274,20 +309,26 @@ export default function SkillTreeMap() {
               key={node.id}
               node={node}
               onHover={setSelectedNode}
-              onClick={() => navigate(node.path)}
+              onClick={() => {
+                if (!zoomingTo) setZoomingTo(node);
+              }}
             />
           ))}
 
           <ContactShadows position={[0, -2, 0]} opacity={0.5} scale={20} blur={2} far={4} color="#000000" />
 
-          <OrbitControls 
-            enableZoom={true} 
-            maxDistance={35} 
-            minDistance={4} 
-            enablePan={true}
-            autoRotate
-            autoRotateSpeed={0.15}
-          />
+          {zoomingTo && <CameraTransition zoomingTo={zoomingTo} onComplete={handleZoomComplete} />}
+
+          {!zoomingTo && (
+            <OrbitControls 
+              enableZoom={true} 
+              maxDistance={35} 
+              minDistance={4} 
+              enablePan={true}
+              autoRotate
+              autoRotateSpeed={0.15}
+            />
+          )}
           
           <EffectComposer>
             <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
