@@ -36,7 +36,6 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
         title: 'Overview',
         items: [
           { label: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={18} /> },
-          { label: '3D Skill Tree', path: '/skill-tree', icon: <Sparkles size={18} />, badge: 'NEW', badgeColor: 'bg-purple-500' },
           { label: 'My Progress', path: '/progress', icon: <TrendingUp size={18} /> },
           { label: 'My Profile', path: '/profile', icon: <User size={18} /> },
         ]
@@ -67,10 +66,11 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
         ]
       };
     }
-    if (['/ai-tutor', '/mock-interview'].some(p => location.pathname.startsWith(p))) {
+    if (['/ai-tutor', '/mock-interview', '/learn/ai-visualizer'].some(p => location.pathname.startsWith(p))) {
       return {
         title: 'AI Tools',
         items: [
+          { label: 'AI Visualizer', path: '/learn/ai-visualizer', icon: <Sparkles size={18} />, badge: 'NEW', badgeColor: 'bg-indigo-500' },
           { label: 'AI Tutor', path: '/ai-tutor', icon: <Sparkles size={18} /> },
           { label: 'Mock Interview', path: '/mock-interview', icon: <BrainCircuit size={18} />, badge: 'NEW', badgeColor: 'bg-emerald-500' },
         ]
