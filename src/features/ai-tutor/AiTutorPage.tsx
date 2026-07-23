@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../../components/ui/Button';
 import Badge from '../../components/ui/Badge';
-import { Send, BrainCircuit, User, Sparkles, AlertCircle } from 'lucide-react';
+import { Send, BrainCircuit, User, Sparkles, AlertCircle, Mic, MicOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Visualization3D from '../workspace/Visualization3D';
@@ -64,12 +64,49 @@ export default function AiTutorPage() {
   const [messages, setMessages] = useState<Message[]>(sampleMessages);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
+
+  const toggleListening = () => {
+    if (isListening) {
+      setIsListening(false);
+      return;
+    }
+    
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.');
+      return;
+    }
+    
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+    
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(prev => prev + (prev ? ' ' : '') + transcript);
+    };
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error', event.error);
+      setIsListening(false);
+    };
+    recognition.onend = () => setIsListening(false);
+    
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error("Failed to start speech recognition", e);
+      setIsListening(false);
+    }
+  };
 
   const handleSend = async () => {
     if (!input.trim()) {
@@ -211,9 +248,15 @@ export default function AiTutorPage() {
                             blockType = match[1];
                           } 
                           // 2. Fallback if LLM put the type inside the code block instead of the language tag
-                          else if (rawType.startsWith('animated-3d\n') || rawType.startsWith('generative-3d\n')) {
-                            blockType = 'animated-3d';
-                            blockContent = rawType.replace(/^(animated-3d|generative-3d)\n/, '').trim();
+                          else if (rawType.startsWith('animated-3d\n') || rawType.startsWith('generative-3d\n') || rawType.startsWith('json\n')) {
+                            blockContent = rawType.replace(/^(animated-3d|generative-3d|json)\n/, '').trim();
+                          }
+                          
+                          // 3. Very robust check for LLM failing to output correct language tag
+                          if (blockType === 'json' || blockType === '' || blockType === 'javascript' || blockType === 'typescript') {
+                            if (blockContent.includes('"type"') && blockContent.includes('"steps"')) {
+                              blockType = 'animated-3d';
+                            }
                           }
 
                           if (blockType === 'animated-3d' || blockType === 'generative-3d') {
@@ -271,8 +314,17 @@ export default function AiTutorPage() {
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask about Python, Data Structures, Algorithms..."
               disabled={isTyping}
-              className="flex-1 bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] rounded-md pl-4 pr-16 py-3.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner disabled:opacity-50"
+              className="flex-1 bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] rounded-md pl-4 pr-24 py-3.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner disabled:opacity-50"
             />
+            <button
+              onClick={toggleListening}
+              className={`absolute right-12 top-2 bottom-2 aspect-square flex items-center justify-center rounded-md transition-colors ${
+                isListening ? 'bg-red-500/20 text-red-500 hover:bg-red-500/30' : 'bg-transparent text-[var(--color-text-muted)] hover:bg-[var(--color-bg-hover)]'
+              }`}
+              title="Dictate with microphone"
+            >
+              {isListening ? <MicOff size={16} className="animate-pulse" /> : <Mic size={16} />}
+            </button>
             <button
               onClick={handleSend}
               disabled={!input.trim() || isTyping}
