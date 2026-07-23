@@ -31,7 +31,28 @@ export default function AlgorithmsHubPage() {
             Explore the core algorithms used in computer science. Master sorting, searching, and advanced techniques through interactive step-by-step visualizers.
           </p>
         </header>
+
+        <section className="mt-12 mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-white">Algorithm Paradigms</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-blue-500/50 transition-colors shadow-lg group">
+              <h3 className="text-xl font-bold mb-2 text-white">Dynamic Programming (DP)</h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">Solves complex optimization tasks by storing the results of overlapping subproblems. It uses Arrays or Matrices as look-up tables.</p>
+            </div>
+            
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-amber-500/50 transition-colors shadow-lg group">
+              <h3 className="text-xl font-bold mb-2 text-white">Greedy Approach</h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">Makes the locally optimal choice at each step. It is commonly used alongside Heaps and Graphs.</p>
+            </div>
+            
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-emerald-500/50 transition-colors shadow-lg group">
+              <h3 className="text-xl font-bold mb-2 text-white">Two-Pointer & Sliding Window</h3>
+              <p className="text-sm text-[var(--color-text-secondary)]">Optimizes operations on linear structures like Arrays or Strings by using moving index markers. This avoids redundant loops.</p>
+            </div>
+          </div>
+        </section>
         
+        <h2 className="text-2xl font-bold mb-6 text-white">All Algorithms</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {algos.map((algo, i) => {
             const isSorting = algo.type === 'sorting';
