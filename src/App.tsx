@@ -41,6 +41,7 @@ import DivideConquerPage from './features/learn/DivideConquerPage';
 import DynamicProgrammingPage from './features/learn/DynamicProgrammingPage';
 import GreedyPage from './features/learn/GreedyPage';
 import GraphAlgorithmsPage from './features/learn/GraphAlgorithmsPage';
+import TopicDetailsPage from './features/learn/TopicDetailsPage';
 
 
 import './index.css';
@@ -91,6 +92,7 @@ function App() {
             <Route path="/learn/greedy" element={<GreedyPage />} />
             <Route path="/learn/graph-algorithms" element={<GraphAlgorithmsPage />} />
             <Route path="/learn/skill-tree" element={<SkillTreeMap />} />
+            <Route path="/learn/topic/:topicId" element={<TopicDetailsPage />} />
 
 
             <Route path="/workspace/pvp" element={<PvPShowdown />} />
