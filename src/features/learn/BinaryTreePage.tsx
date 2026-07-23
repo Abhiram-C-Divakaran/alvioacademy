@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRightLeft } from 'lucide-react';
 import DataStructurePageLayout from './components/DataStructurePageLayout';
 
 export default function BinaryTreePage() {
