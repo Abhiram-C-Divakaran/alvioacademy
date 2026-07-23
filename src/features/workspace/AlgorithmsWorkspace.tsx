@@ -540,7 +540,6 @@ const CODE_TEMPLATES: Record<AlgoType, string[]> = {
 import AlgorithmInfoPanel from '../visualizer/AlgorithmInfoPanel';
 import CodeImplementationsModal from '../visualizer/CodeImplementationsModal';
 import VisualizerControls from '../visualizer/VisualizerControls';
-import BinaryTree3D from '../visualizer/BinaryTree3D';
 export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', filterType, initialAlgo, hideSidebar = false, hideCode = false, immersive = false, hideViewModeToggle = false }: { viewMode?: '3d' | '2d', filterType?: 'sorting' | 'searching' | 'all', initialAlgo?: AlgoType, hideSidebar?: boolean, hideCode?: boolean, immersive?: boolean, hideViewModeToggle?: boolean }) {
   const normalizeAlgo = (algo?: string): AlgoType => {
     if (!algo) return 'bubble-sort';
