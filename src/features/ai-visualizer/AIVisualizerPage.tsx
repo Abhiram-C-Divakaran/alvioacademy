@@ -152,26 +152,28 @@ export default function AIVisualizerPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="flex-1 relative z-10 w-full h-full"
+            className="flex flex-col flex-1 relative z-10 w-full h-full bg-[var(--color-bg-primary)]"
           >
-            {/* A small overlay to show the prompt and a back button */}
-            <div className="absolute top-4 left-4 z-50 flex items-center gap-4 bg-[var(--color-surface-glass)] backdrop-blur-md px-4 py-2 rounded-xl border border-[var(--color-border-subtle)] shadow-lg">
+            {/* A full-width header bar to show the prompt and a back button */}
+            <div className="flex-shrink-0 flex items-center gap-4 bg-[var(--color-surface-glass)] backdrop-blur-md px-6 py-3 border-b border-[var(--color-border-subtle)] shadow-sm">
               <button 
                 onClick={() => setActiveAlgo(null)}
-                className="text-[var(--color-text-secondary)] hover:text-white"
+                className="flex-shrink-0 text-[var(--color-text-secondary)] hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors"
                 title="Ask another question"
               >
-                <Search size={20} />
+                <Search size={18} />
               </button>
-              <div className="text-white font-medium pr-2 border-l border-[var(--color-border-subtle)] pl-4">
+              <div className="text-white font-medium pr-4 border-l border-[var(--color-border-subtle)] pl-4 truncate flex-1 text-sm text-ellipsis overflow-hidden">
                 "{prompt}"
               </div>
-              <div className="px-2 py-1 bg-fuchsia-500/20 text-fuchsia-400 text-xs font-bold rounded">
+              <div className="flex-shrink-0 px-2 py-1 bg-fuchsia-500/20 text-fuchsia-400 text-xs font-bold rounded">
                 AI Generated
               </div>
             </div>
             
-            <AlgorithmsWorkspace initialAlgo={activeAlgo} viewMode="3d" filterType="all" immersive={true} />
+            <div className="flex-1 relative min-h-0 w-full">
+              <AlgorithmsWorkspace initialAlgo={activeAlgo} viewMode="3d" filterType="all" hideSidebar={true} hideViewModeToggle={true} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
