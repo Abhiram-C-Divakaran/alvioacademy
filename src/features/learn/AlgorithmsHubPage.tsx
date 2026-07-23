@@ -36,28 +36,28 @@ export default function AlgorithmsHubPage() {
           <h2 className="text-2xl font-bold mb-6 text-white">Algorithm Paradigms</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-blue-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h3 className="text-xl font-bold mb-2 text-white">Dynamic Programming (DP)</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Solves complex optimization tasks by storing the results of overlapping subproblems. It uses Arrays or Matrices as look-up tables.</p>
-              <Link to="/algorithms-visualizer?algo=lcs" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+              <h3 className="text-xl font-bold mb-2 text-white relative z-10">Dynamic Programming (DP)</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1 relative z-10">Solves complex optimization tasks by storing the results of overlapping subproblems. It uses Arrays or Matrices as look-up tables.</p>
+              <Link to="/algorithms-visualizer?algo=lcs" className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
                 View DP 3D Animation →
               </Link>
             </div>
             
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-amber-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h3 className="text-xl font-bold mb-2 text-white">Greedy Approach</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Makes the locally optimal choice at each step. It is commonly used alongside Heaps and Graphs.</p>
-              <Link to="/algorithms-visualizer?algo=activity-selection" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(217,119,6,0.4)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+              <h3 className="text-xl font-bold mb-2 text-white relative z-10">Greedy Approach</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1 relative z-10">Makes the locally optimal choice at each step. It is commonly used alongside Heaps and Graphs.</p>
+              <Link to="/algorithms-visualizer?algo=activity-selection" className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(217,119,6,0.4)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]">
                 View Greedy 3D Animation →
               </Link>
             </div>
             
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-emerald-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h3 className="text-xl font-bold mb-2 text-white">Two-Pointer & Sliding Window</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Optimizes operations on linear structures like Arrays or Strings by using moving index markers. This avoids redundant loops.</p>
-              <Link to="/algorithms-visualizer?algo=two-pointer" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-500 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] group-hover:shadow-[0_0_25px_rgba(52,211,153,0.6)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+              <h3 className="text-xl font-bold mb-2 text-white relative z-10">Two-Pointer & Sliding Window</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1 relative z-10">Optimizes operations on linear structures like Arrays or Strings by using moving index markers. This avoids redundant loops.</p>
+              <Link to="/algorithms-visualizer?algo=two-pointer" className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-500 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] group-hover:shadow-[0_0_25px_rgba(52,211,153,0.6)]">
                 View Two-Pointer 3D Animation →
               </Link>
             </div>
