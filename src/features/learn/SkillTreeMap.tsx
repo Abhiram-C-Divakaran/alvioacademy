@@ -142,15 +142,31 @@ function SunNode() {
 
   return (
     <group position={[0, 0, 0]}>
+      {/* Sun Core */}
       <mesh ref={sunRef}>
         <sphereGeometry args={[1.5, 64, 64]} />
         <meshStandardMaterial
           color="#FEF08A"
           emissive="#FDE047"
           emissiveIntensity={2}
-          roughness={0.4}
+          roughness={0.2}
         />
       </mesh>
+
+      {/* Sun Corona */}
+      <mesh>
+        <sphereGeometry args={[1.65, 64, 64]} />
+        <meshBasicMaterial
+          color="#FDE047"
+          transparent
+          opacity={0.15}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+      
+      {/* Solar Flares / Sparkles */}
+      <Sparkles count={80} scale={4.5} size={4} speed={0.4} opacity={0.4} color="#FEF08A" />
 
       <React.Suspense fallback={null}>
         <Text
@@ -175,7 +191,14 @@ function OrbitRings() {
       {skillNodes.map(node => (
         <mesh key={node.id}>
           <ringGeometry args={[node.orbitRadius - 0.02, node.orbitRadius + 0.02, 128]} />
-          <meshBasicMaterial color={node.color} side={THREE.DoubleSide} transparent opacity={0.15} />
+          <meshBasicMaterial 
+            color={node.color} 
+            side={THREE.DoubleSide} 
+            transparent 
+            opacity={0.2} 
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
         </mesh>
       ))}
     </group>
@@ -241,8 +264,8 @@ function AsteroidBelt({ radius = 12, count = 200 }) {
       }}
     >
       <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-        <dodecahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color={hovered ? "#cbd5e1" : "#64748b"} roughness={0.9} metalness={0.2} emissive={hovered ? "#475569" : "#000000"} />
+        <octahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial color={hovered ? "#cbd5e1" : "#475569"} roughness={0.6} metalness={0.8} emissive={hovered ? "#334155" : "#000000"} />
       </instancedMesh>
       {/* Label for Asteroid Belt */}
       <React.Suspense fallback={null}>
@@ -310,15 +333,15 @@ export default function SkillTreeMap() {
       {/* 3D Canvas Viewport */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 1, 10.5], fov: 60 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-          <pointLight position={[-10, 10, -10]} intensity={0.5} />
-          <Environment preset="city" />
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[10, 10, 5]} intensity={0.5} castShadow />
+          <pointLight position={[-10, 10, -10]} intensity={0.5} color="#818cf8" />
+          <Environment preset="night" />
 
           {/* Ambient Particles for Premium Feel */}
-          <Stars radius={50} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
-          <Asteroids count={100} />
-          <Sparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
+          <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+          <Asteroids count={150} />
+          <Sparkles count={100} scale={15} size={2} speed={0.2} opacity={0.1} color="#818cf8" />
           
           <Billboard position={[0, 4.0, -3]}>
             <Text fontSize={0.6} color="#ffffff" outlineWidth={0.03} outlineColor="#000000" anchorX="center" anchorY="middle">
@@ -357,14 +380,14 @@ export default function SkillTreeMap() {
           )}
           
           <EffectComposer>
-            <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
+            <Bloom luminanceThreshold={0.4} luminanceSmoothing={0.9} intensity={2.0} mipmapBlur />
             <Vignette eskil={false} offset={0.1} darkness={1.1} />
           </EffectComposer>
         </Canvas>
       </div>
 
       {/* Floating UI HUD elements */}
-      <div className="relative z-10 flex-shrink-0 px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent pointer-events-auto">
+      <div className="relative z-10 flex-shrink-0 px-8 py-6 flex justify-between items-center bg-black/40 backdrop-blur-md border-b border-white/5 pointer-events-auto">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/dashboard')}
@@ -388,7 +411,7 @@ export default function SkillTreeMap() {
       {/* Dynamic Detail Tooltip Card */}
       <div className="absolute bottom-8 left-8 z-10 max-w-sm pointer-events-none">
         {selectedNode ? (
-          <Card strong gradientBorder className="p-5 space-y-3.5 bg-black/60 shadow-2xl transition-all scale-100 duration-200">
+          <Card strong gradientBorder className="p-5 space-y-3.5 bg-black/50 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-all scale-100 duration-200">
             <div className="flex justify-between items-center">
               <span 
                 className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded border"
@@ -407,7 +430,7 @@ export default function SkillTreeMap() {
             </div>
           </Card>
         ) : (
-          <Card strong className="p-5 bg-black/30 border border-white/5 opacity-40">
+          <Card strong className="p-5 bg-black/30 backdrop-blur-md border border-white/5 opacity-40 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
             <p className="text-xs font-semibold text-gray-400 italic">Hover over an orbital node planet to inspect curriculum parameters...</p>
           </Card>
         )}
