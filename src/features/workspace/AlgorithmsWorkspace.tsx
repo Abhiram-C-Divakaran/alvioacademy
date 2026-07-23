@@ -49,7 +49,8 @@ export type AlgoType =
   | 'hanoi'
   | 'inorder-traversal'
   | 'preorder-traversal'
-  | 'postorder-traversal';
+  | 'postorder-traversal'
+  | 'two-pointer';
 
 interface Step {
   array: number[];
@@ -247,6 +248,13 @@ export const ALGO_META: Record<AlgoType, { name: string; description: string; ty
     type: 'traversal',
     difficulty: 'Beginner',
     timeComplexities: { best: 'O(N)', average: 'O(N)', worst: 'O(N)', space: 'O(log N)' }
+  },
+  'two-pointer': {
+    name: 'Two-Pointer Target Sum',
+    description: 'Uses two moving index markers (left and right) on a sorted array to find a target sum in O(N) time.',
+    type: 'searching',
+    difficulty: 'Intermediate',
+    timeComplexities: { best: 'O(1)', average: 'O(N)', worst: 'O(N)', space: 'O(1)' }
   },
 };
 
@@ -510,6 +518,20 @@ const CODE_TEMPLATES: Record<AlgoType, string[]> = {
     '    postorder(node.left)',
     '    postorder(node.right)',
     '    print(node.value)'
+  ],
+  'two-pointer': [
+    'def two_sum_sorted(arr, target):',
+    '    left = 0',
+    '    right = len(arr) - 1',
+    '    while left < right:',
+    '        curr_sum = arr[left] + arr[right]',
+    '        if curr_sum == target:',
+    '            return [left, right]',
+    '        elif curr_sum < target:',
+    '            left += 1',
+    '        else:',
+    '            right -= 1',
+    '    return [-1, -1]'
   ],
 };
 
@@ -961,6 +983,69 @@ export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', 
           high,
           foundIndex: -2,
           description: `Search space exhausted. Target ${currentTarget} is not in the array. Returning -1.`,
+          codeLine: 12,
+        });
+      }
+    } else if (activeAlgo === 'two-pointer') {
+      const sorted = [...array].sort((a, b) => a - b);
+      let left = 0;
+      let right = sorted.length - 1;
+      // Force a valid target if currentTarget is arbitrary, to make the animation meaningful
+      const tSum = sorted[1] + sorted[sorted.length - 2];
+      
+      addStep({
+        array: sorted,
+        comparing: [left, right],
+        description: `Start Two-Pointer search for target sum ${tSum}. Left pointer at 0 (${sorted[left]}), Right pointer at ${right} (${sorted[right]}).`,
+        codeLine: 2,
+      });
+
+      let found = false;
+      while (left < right) {
+        const sum = sorted[left] + sorted[right];
+        addStep({
+          array: sorted,
+          comparing: [left, right],
+          description: `Check sum: ${sorted[left]} + ${sorted[right]} = ${sum}. Target is ${tSum}.`,
+          codeLine: 5,
+        });
+
+        if (sum === tSum) {
+          addStep({
+            array: sorted,
+            comparing: [left, right],
+            foundIndex: left, // visual hack: highlight
+            sorted: [left, right],
+            description: `Match found! Sum ${sum} equals target ${tSum}. Return indices [${left}, ${right}].`,
+            codeLine: 7,
+          });
+          found = true;
+          break;
+        }
+
+        if (sum < tSum) {
+          left++;
+          addStep({
+            array: sorted,
+            comparing: [left, right],
+            description: `Sum ${sum} is less than target ${tSum}. Since array is sorted, we must increase sum by moving Left pointer right.`,
+            codeLine: 9,
+          });
+        } else {
+          right--;
+          addStep({
+            array: sorted,
+            comparing: [left, right],
+            description: `Sum ${sum} is greater than target ${tSum}. Since array is sorted, we must decrease sum by moving Right pointer left.`,
+            codeLine: 11,
+          });
+        }
+      }
+      
+      if (!found) {
+        addStep({
+          array: sorted,
+          description: `Pointers crossed. Target sum ${tSum} not found. Returning [-1, -1].`,
           codeLine: 12,
         });
       }
