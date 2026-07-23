@@ -19,17 +19,18 @@ interface SkillNode {
   desc: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   hasRing: boolean;
+  size: number;
 }
 
 const skillNodes: SkillNode[] = [
-  { id: 'arrays', name: 'Arrays', orbitRadius: 4.0, orbitSpeed: 0.6, angleOffset: 0, color: '#60A5FA', path: '/3d-visualizer?ds=Array', desc: 'Contiguous memory mapping, indexes and offset arithmetic.', difficulty: 'Easy', hasRing: false },
-  { id: 'stacks', name: 'Stacks', orbitRadius: 6.0, orbitSpeed: 0.5, angleOffset: Math.PI, color: '#F472B6', path: '/3d-visualizer?ds=Stack', desc: 'LIFO operational models, rings and buffers.', difficulty: 'Easy', hasRing: false },
-  { id: 'queues', name: 'Queues', orbitRadius: 8.0, orbitSpeed: 0.45, angleOffset: Math.PI * 1.5, color: '#34D399', path: '/3d-visualizer?ds=Queue', desc: 'FIFO operational models, rings and buffers.', difficulty: 'Easy', hasRing: false },
-  { id: 'binary-tree', name: 'Trees', orbitRadius: 12.0, orbitSpeed: 0.35, angleOffset: Math.PI * 0.75, color: '#F87171', path: '/3d-visualizer?ds=Binary%20Tree', desc: 'Binary search trees, traversal recursions and AVL balance.', difficulty: 'Medium', hasRing: false },
-  { id: 'linked-lists', name: 'Linked Lists', orbitRadius: 14.0, orbitSpeed: 0.3, angleOffset: Math.PI / 4, color: '#A78BFA', path: '/3d-visualizer?ds=Linked%20List', desc: 'Dynamic node structures, single/double pointer links.', difficulty: 'Easy', hasRing: true },
-  { id: 'heap', name: 'Heap', orbitRadius: 16.0, orbitSpeed: 0.25, angleOffset: Math.PI * 1.2, color: '#F97316', path: '/3d-visualizer?ds=Heap', desc: 'Priority queues, complete binary trees and heapify algorithms.', difficulty: 'Medium', hasRing: false },
-  { id: 'graphs', name: 'Graphs', orbitRadius: 18.0, orbitSpeed: 0.2, angleOffset: Math.PI * 1.6, color: '#EC4899', path: '/3d-visualizer?ds=Graph', desc: 'BFS, DFS traversals and Dijkstra shortest path bounds.', difficulty: 'Hard', hasRing: true },
-  { id: 'hash-table', name: 'Hash Tables', orbitRadius: 20.0, orbitSpeed: 0.15, angleOffset: Math.PI * 0.2, color: '#FBBF24', path: '/3d-visualizer?ds=Hash%20Table', desc: 'Key-value mapping with hash functions and collision handling.', difficulty: 'Medium', hasRing: false }
+  { id: 'arrays', name: 'Arrays', orbitRadius: 4.0, orbitSpeed: 0.6, angleOffset: 0, color: '#60A5FA', path: '/3d-visualizer?ds=Array', desc: 'Contiguous memory mapping, indexes and offset arithmetic.', difficulty: 'Easy', hasRing: false, size: 0.6 },
+  { id: 'linked-lists', name: 'Linked Lists', orbitRadius: 6.0, orbitSpeed: 0.55, angleOffset: Math.PI / 4, color: '#A78BFA', path: '/3d-visualizer?ds=Linked%20List', desc: 'Dynamic node structures, single/double pointer links.', difficulty: 'Easy', hasRing: true, size: 0.6 },
+  { id: 'stacks', name: 'Stacks', orbitRadius: 8.0, orbitSpeed: 0.5, angleOffset: Math.PI, color: '#F472B6', path: '/3d-visualizer?ds=Stack', desc: 'LIFO operational models, rings and buffers.', difficulty: 'Easy', hasRing: false, size: 0.4 },
+  { id: 'queues', name: 'Queues', orbitRadius: 10.0, orbitSpeed: 0.45, angleOffset: Math.PI * 1.5, color: '#34D399', path: '/3d-visualizer?ds=Queue', desc: 'FIFO operational models, rings and buffers.', difficulty: 'Easy', hasRing: false, size: 0.4 },
+  { id: 'graphs', name: 'Graphs', orbitRadius: 14.0, orbitSpeed: 0.35, angleOffset: Math.PI * 1.6, color: '#EC4899', path: '/3d-visualizer?ds=Graph', desc: 'BFS, DFS traversals and Dijkstra shortest path bounds.', difficulty: 'Hard', hasRing: true, size: 1.1 },
+  { id: 'binary-tree', name: 'Trees', orbitRadius: 16.0, orbitSpeed: 0.3, angleOffset: Math.PI * 0.75, color: '#F87171', path: '/3d-visualizer?ds=Binary%20Tree', desc: 'Binary search trees, traversal recursions and AVL balance.', difficulty: 'Medium', hasRing: false, size: 0.9 },
+  { id: 'hash-table', name: 'Hash Tables', orbitRadius: 18.0, orbitSpeed: 0.25, angleOffset: Math.PI * 0.2, color: '#FBBF24', path: '/3d-visualizer?ds=Hash%20Table', desc: 'Key-value mapping with hash functions and collision handling.', difficulty: 'Medium', hasRing: false, size: 0.7 },
+  { id: 'heap', name: 'Heap', orbitRadius: 20.0, orbitSpeed: 0.2, angleOffset: Math.PI * 1.2, color: '#F97316', path: '/3d-visualizer?ds=Heap', desc: 'Priority queues, complete binary trees and heapify algorithms.', difficulty: 'Medium', hasRing: false, size: 0.5 }
 ];
 
 function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: SkillNode | null) => void; onClick: () => void }) {
@@ -71,7 +72,7 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
           onClick();
         }}
       >
-        <sphereGeometry args={[hovered ? 0.75 : 0.6, 32, 32]} />
+        <sphereGeometry args={[hovered ? node.size * 1.2 : node.size, 32, 32]} />
         <meshStandardMaterial
           color={node.color}
           emissive={node.color}
@@ -84,7 +85,7 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
       {/* Visual ring for aesthetic */}
       {node.hasRing && (
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.9, 0.95, 64]} />
+          <ringGeometry args={[node.size + 0.3, node.size + 0.35, 64]} />
           <meshBasicMaterial color={node.color} side={THREE.DoubleSide} opacity={hovered ? 0.6 : 0.2} transparent />
         </mesh>
       )}
@@ -124,11 +125,6 @@ function SunNode() {
           roughness={0.4}
         />
       </mesh>
-      
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.8, 1.9, 64]} />
-        <meshBasicMaterial color="#FEF08A" side={THREE.DoubleSide} opacity={0.3} transparent />
-      </mesh>
 
       <React.Suspense fallback={null}>
         <Text
@@ -160,8 +156,10 @@ function OrbitRings() {
   );
 }
 
-function AsteroidBelt({ radius = 10, count = 200 }) {
+function AsteroidBelt({ radius = 12, count = 200 }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
+  const navigate = useNavigate();
+  const [hovered, setHovered] = useState(false);
   const dummy = React.useMemo(() => new THREE.Object3D(), []);
   const asteroids = React.useMemo(() => {
     const temp = [];
@@ -201,27 +199,41 @@ function AsteroidBelt({ radius = 10, count = 200 }) {
   });
 
   return (
-    <group>
+    <group
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate('/learn/algorithms');
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = 'default';
+      }}
+    >
       <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
         <dodecahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color="#64748b" roughness={0.9} metalness={0.2} />
+        <meshStandardMaterial color={hovered ? "#cbd5e1" : "#64748b"} roughness={0.9} metalness={0.2} emissive={hovered ? "#475569" : "#000000"} />
       </instancedMesh>
       {/* Label for Asteroid Belt */}
       <React.Suspense fallback={null}>
         <Text
           position={[0, 1.2, radius]}
-          fontSize={0.4}
-          color="#94a3b8"
+          fontSize={hovered ? 0.45 : 0.4}
+          color={hovered ? "#ffffff" : "#94a3b8"}
           anchorX="center"
           anchorY="middle"
           rotation={[-Math.PI / 4, 0, 0]}
         >
-          Algorithms
+          Algorithms (Click to Enter)
         </Text>
       </React.Suspense>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[radius - 0.7, radius + 0.7, 128]} />
-        <meshBasicMaterial color="#64748b" side={THREE.DoubleSide} transparent opacity={0.05} />
+        <meshBasicMaterial color="#64748b" side={THREE.DoubleSide} transparent opacity={hovered ? 0.15 : 0.05} />
       </mesh>
     </group>
   );
@@ -255,7 +267,7 @@ export default function SkillTreeMap() {
           
           <SunNode />
           <OrbitRings />
-          <AsteroidBelt radius={10} count={300} />
+          <AsteroidBelt radius={12} count={300} />
 
           {skillNodes.map(node => (
             <PlanetNode
