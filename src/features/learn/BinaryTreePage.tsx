@@ -69,6 +69,40 @@ export default function BinaryTreePage() {
           <h2>Binary Search Tree (BST)</h2>
           <p>A special type of binary tree where the left child is always less than the root, and the right child is always greater.</p>
         </section>
+        
+        <section className="mt-12">
+          <h2>Tree Traversals</h2>
+          <p>Traversing a tree means visiting every node in the tree. Because trees are non-linear, there are multiple ways to traverse them:</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-blue-500/50 transition-colors">
+              <h3 className="text-xl font-bold mb-2">Inorder</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Left, Root, Right)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Visits the nodes in ascending order in a BST. Commonly used to flatten the tree back into its original sequence.</p>
+              <a href="/learn/algorithms/inorder-traversal" className="inline-flex items-center text-sm font-bold text-blue-400 hover:text-blue-300">
+                View 3D Animation →
+              </a>
+            </div>
+            
+            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-indigo-500/50 transition-colors">
+              <h3 className="text-xl font-bold mb-2">Preorder</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Root, Left, Right)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Used to create a copy of the tree. It visits the parent first before delving into the sub-trees.</p>
+              <a href="/learn/algorithms/preorder-traversal" className="inline-flex items-center text-sm font-bold text-indigo-400 hover:text-indigo-300">
+                View 3D Animation →
+              </a>
+            </div>
+            
+            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-rose-500/50 transition-colors">
+              <h3 className="text-xl font-bold mb-2">Postorder</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Left, Right, Root)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Used to delete the tree. It visits all children before visiting the parent node.</p>
+              <a href="/learn/algorithms/postorder-traversal" className="inline-flex items-center text-sm font-bold text-rose-400 hover:text-rose-300">
+                View 3D Animation →
+              </a>
+            </div>
+          </div>
+        </section>
       </>
     }
     />

@@ -4,12 +4,14 @@ import { Text, Sphere, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface GraphAlgorithms3DProps {
+  algoType?: string;
   activeNodes?: string[];
   visitedNodes?: string[];
   activeEdges?: string[][]; // pair of [from, to]
 }
 
 export default function GraphAlgorithms3D({
+  algoType,
   activeNodes = [],
   visitedNodes = [],
   activeEdges = []
@@ -22,7 +24,17 @@ export default function GraphAlgorithms3D({
     }
   });
 
-  const nodes = [
+  const isTree = algoType?.includes('traversal');
+
+  const nodes = isTree ? [
+    { id: 'A', val: 'A', x: 0, y: 2.5, z: 0 },
+    { id: 'B', val: 'B', x: -2, y: 0.5, z: 0 },
+    { id: 'C', val: 'C', x: 2, y: 0.5, z: 0 },
+    { id: 'D', val: 'D', x: -3, y: -1.5, z: 0 },
+    { id: 'E', val: 'E', x: -1, y: -1.5, z: 0 },
+    { id: 'F', val: 'F', x: 1, y: -1.5, z: 0 },
+    { id: 'G', val: 'G', x: 3, y: -1.5, z: 0 },
+  ] : [
     { id: 'A', val: 'A', x: 0, y: 2, z: 0 },
     { id: 'B', val: 'B', x: -2.2, y: 0.5, z: 1 },
     { id: 'C', val: 'C', x: 2.2, y: 0.5, z: -1 },
@@ -31,7 +43,14 @@ export default function GraphAlgorithms3D({
     { id: 'F', val: 'F', x: 0, y: -3, z: 0 },
   ];
 
-  const edges = [
+  const edges = isTree ? [
+    { from: 'A', to: 'B', weight: '' },
+    { from: 'A', to: 'C', weight: '' },
+    { from: 'B', to: 'D', weight: '' },
+    { from: 'B', to: 'E', weight: '' },
+    { from: 'C', to: 'F', weight: '' },
+    { from: 'C', to: 'G', weight: '' },
+  ] : [
     { from: 'A', to: 'B', weight: 4 },
     { from: 'A', to: 'C', weight: 2 },
     { from: 'B', to: 'C', weight: 1 },
@@ -75,11 +94,13 @@ export default function GraphAlgorithms3D({
                 opacity={isActive ? 0.95 : 0.4} 
               />
             </mesh>
-            <Billboard position={[center.x, center.y + 0.25, center.z]}>
-              <Text fontSize={0.22} color="#94a3b8" outlineColor="#000" outlineWidth={0.01}>
-                {e.weight}
-              </Text>
-            </Billboard>
+            {e.weight && (
+              <Billboard position={[center.x, center.y + 0.25, center.z]}>
+                <Text fontSize={0.22} color="#94a3b8" outlineColor="#000" outlineWidth={0.01}>
+                  {e.weight}
+                </Text>
+              </Billboard>
+            )}
           </group>
         );
       })}
