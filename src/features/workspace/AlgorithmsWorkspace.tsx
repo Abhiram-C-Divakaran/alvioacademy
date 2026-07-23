@@ -8,7 +8,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, Stars, Sparkles as DreiSparkles, Billboard, Text } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import Array3D from '../visualizer/Array3D';
-import Algorithms3D from '../visualizer/Algorithms3D';
+import Algorithms3D from './Algorithms3D';
 import GraphAlgorithms3D from './GraphAlgorithms3D';
 import BinaryTree3D from '../visualizer/BinaryTree3D';
 import DpGreedyAlgorithms3D from './DpGreedyAlgorithms3D';
