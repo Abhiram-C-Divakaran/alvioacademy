@@ -10,6 +10,12 @@ const mapPromptToAlgo = (prompt: string): AlgoType => {
   
   // Specific problem patterns
   if (
+    p.includes('reverse') || 
+    p.includes('linked list') ||
+    p.includes('reverse array')
+  ) return 'reverse-array';
+
+  if (
     p.includes('two sum') || 
     p.includes('target sum') || 
     p.includes('two pointer') || 

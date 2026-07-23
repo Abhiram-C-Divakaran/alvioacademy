@@ -52,7 +52,8 @@ export type AlgoType =
   | 'inorder-traversal'
   | 'preorder-traversal'
   | 'postorder-traversal'
-  | 'two-pointer';
+  | 'two-pointer'
+  | 'reverse-array';
 
 interface Step {
   array: number[];
@@ -257,6 +258,13 @@ export const ALGO_META: Record<AlgoType, { name: string; description: string; ty
     type: 'searching',
     difficulty: 'Intermediate',
     timeComplexities: { best: 'O(1)', average: 'O(N)', worst: 'O(N)', space: 'O(1)' }
+  },
+  'reverse-array': {
+    name: 'Reverse Array (Two-Pointer)',
+    description: 'Reverses the elements of an array (or linked list values) in-place using two pointers.',
+    type: 'searching',
+    difficulty: 'Beginner',
+    timeComplexities: { best: 'O(N)', average: 'O(N)', worst: 'O(N)', space: 'O(1)' }
   },
 };
 
@@ -534,6 +542,17 @@ const CODE_TEMPLATES: Record<AlgoType, string[]> = {
     '        else:',
     '            right -= 1',
     '    return [-1, -1]'
+  ],
+  'reverse-array': [
+    'def reverse_array(arr):',
+    '    left = 0',
+    '    right = len(arr) - 1',
+    '    while left < right:',
+    '        # Swap elements at left and right',
+    '        arr[left], arr[right] = arr[right], arr[left]',
+    '        left += 1',
+    '        right -= 1',
+    '    return arr'
   ],
 };
 
@@ -987,6 +1006,55 @@ export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', 
           codeLine: 12,
         });
       }
+    } else if (activeAlgo === 'reverse-array') {
+      const arr = [...array];
+      let left = 0;
+      let right = arr.length - 1;
+      const sortedList: number[] = [];
+      
+      addStep({
+        array: [...arr],
+        comparing: [left, right],
+        description: `Initialize pointers. Left at 0, Right at ${right}.`,
+        codeLine: 2,
+      });
+
+      while (left < right) {
+        addStep({
+          array: [...arr],
+          comparing: [left, right],
+          description: `Compare and swap elements at Left (${arr[left]}) and Right (${arr[right]}).`,
+          codeLine: 4,
+        });
+        
+        const tempVal = arr[left];
+        arr[left] = arr[right];
+        arr[right] = tempVal;
+        
+        addStep({
+          array: [...arr],
+          swapping: [left, right],
+          sorted: [...sortedList, left, right],
+          description: `Swapped. Array is now partially reversed.`,
+          codeLine: 6,
+        });
+        
+        sortedList.push(left);
+        sortedList.push(right);
+        
+        left++;
+        right--;
+      }
+      
+      if (left === right) sortedList.push(left);
+      
+      addStep({
+        array: [...arr],
+        sorted: sortedList,
+        description: `Pointers met. Reversal complete!`,
+        codeLine: 9,
+      });
+
     } else if (activeAlgo === 'two-pointer') {
       const sorted = [...array].sort((a, b) => a - b);
       let left = 0;
