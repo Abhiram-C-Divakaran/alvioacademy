@@ -54,8 +54,20 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
 
   return (
     <group ref={groupRef}>
+      {/* Inner Core */}
+      <mesh ref={meshRef}>
+        <icosahedronGeometry args={[hovered ? node.size * 0.7 : node.size * 0.6, 0]} />
+        <meshStandardMaterial
+          color={node.color}
+          emissive={node.color}
+          emissiveIntensity={hovered ? 2.5 : 1.2}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </mesh>
+
+      {/* Outer Glass Shell */}
       <mesh
-        ref={meshRef}
         onPointerOver={(e) => {
           e.stopPropagation();
           setHovered(true);
@@ -72,21 +84,34 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
           onClick();
         }}
       >
-        <sphereGeometry args={[hovered ? node.size * 1.2 : node.size, 32, 32]} />
-        <meshStandardMaterial
+        <sphereGeometry args={[hovered ? node.size * 1.2 : node.size, 64, 64]} />
+        <meshPhysicalMaterial
           color={node.color}
+          transmission={0.9}
+          opacity={1}
+          transparent={true}
+          roughness={0.1}
+          ior={1.5}
+          thickness={1.5}
           emissive={node.color}
-          emissiveIntensity={hovered ? 1.5 : 0.6}
-          roughness={0.2}
-          metalness={0.8}
+          emissiveIntensity={0.2}
+          clearcoat={1}
+          clearcoatRoughness={0.1}
         />
       </mesh>
       
       {/* Visual ring for aesthetic */}
       {node.hasRing && (
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[node.size + 0.3, node.size + 0.35, 64]} />
-          <meshBasicMaterial color={node.color} side={THREE.DoubleSide} opacity={hovered ? 0.6 : 0.2} transparent />
+        <mesh rotation={[Math.PI / 2.2, Math.PI / 8, 0]}>
+          <ringGeometry args={[node.size + 0.3, node.size + 0.45, 64]} />
+          <meshStandardMaterial 
+            color={node.color} 
+            side={THREE.DoubleSide} 
+            transparent 
+            opacity={hovered ? 0.8 : 0.4}
+            emissive={node.color}
+            emissiveIntensity={1.5}
+          />
         </mesh>
       )}
 
