@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowDownAZ, Search, Share2 } from 'lucide-react';
+import { ArrowDownAZ, Search, Share2, Sparkles } from 'lucide-react';
 import { ALGO_META } from '../workspace/AlgorithmsWorkspace';
 import type { AlgoType } from '../workspace/AlgorithmsWorkspace';
 
@@ -32,7 +32,29 @@ export default function AlgorithmsHubPage() {
           </p>
         </header>
 
-        <section className="mt-12 mb-16">
+        <section className="mb-12">
+          <Link to="/learn/ai-visualizer" className="block group">
+            <div className="bg-gradient-to-r from-fuchsia-900/40 to-blue-900/40 p-6 rounded-2xl border border-fuchsia-500/30 hover:border-fuchsia-400/80 transition-all shadow-[0_0_30px_rgba(217,70,239,0.15)] group-hover:shadow-[0_0_40px_rgba(217,70,239,0.3)] flex items-center justify-between overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+              <div className="flex items-center gap-6 relative z-10">
+                <div className="w-16 h-16 bg-fuchsia-500/20 text-fuchsia-400 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-fuchsia-500 group-hover:text-white transition-colors shadow-[0_0_15px_rgba(217,70,239,0.4)]">
+                  <Sparkles size={32} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-blue-400 mb-2">Ask AI to Visualize</h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm max-w-xl">
+                    Type any programming question like "Two Sum" or "Shortest Path" and let our AI generate the perfect 3D visualization and animation.
+                  </p>
+                </div>
+              </div>
+              <div className="hidden md:flex relative z-10 px-4 py-2 bg-fuchsia-500/20 text-fuchsia-400 font-bold rounded-xl border border-fuchsia-500/30">
+                Try it now →
+              </div>
+            </div>
+          </Link>
+        </section>
+
+        <section className="mb-16">
           <h2 className="text-2xl font-bold mb-6 text-white">Algorithm Paradigms</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-blue-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">

@@ -72,6 +72,7 @@ function App() {
             <Route path="/video-learning" element={<VideoLearningPage />} />
             
             <Route path="/learn" element={<DataStructuresHubPage />} />
+            <Route path="/learn/ai-visualizer" element={<AIVisualizerPage />} />
             <Route path="/learn/array" element={<ArrayPage />} />
             <Route path="/learn/linked-list" element={<LinkedListPage />} />
             <Route path="/learn/stack" element={<StackPage />} />
