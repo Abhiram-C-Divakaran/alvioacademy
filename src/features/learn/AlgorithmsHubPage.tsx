@@ -39,27 +39,27 @@ export default function AlgorithmsHubPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <h3 className="text-xl font-bold mb-2 text-white">Dynamic Programming (DP)</h3>
               <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Solves complex optimization tasks by storing the results of overlapping subproblems. It uses Arrays or Matrices as look-up tables.</p>
-              <a href="/learn/algorithms/lcs" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
+              <Link to="/algorithms-visualizer?algo=lcs" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
                 View DP 3D Animation →
-              </a>
+              </Link>
             </div>
             
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-amber-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <h3 className="text-xl font-bold mb-2 text-white">Greedy Approach</h3>
               <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Makes the locally optimal choice at each step. It is commonly used alongside Heaps and Graphs.</p>
-              <a href="/learn/algorithms/activity-selection" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(217,119,6,0.4)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]">
+              <Link to="/algorithms-visualizer?algo=activity-selection" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-500 transition-all shadow-[0_0_20px_rgba(217,119,6,0.4)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]">
                 View Greedy 3D Animation →
-              </a>
+              </Link>
             </div>
             
             <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-6 rounded-2xl hover:border-emerald-500/50 transition-colors shadow-lg group flex flex-col relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <h3 className="text-xl font-bold mb-2 text-white">Two-Pointer & Sliding Window</h3>
               <p className="text-sm text-[var(--color-text-secondary)] mb-6 flex-1">Optimizes operations on linear structures like Arrays or Strings by using moving index markers. This avoids redundant loops.</p>
-              <a href="/learn/algorithms/two-pointer" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-500 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] group-hover:shadow-[0_0_25px_rgba(52,211,153,0.6)]">
+              <Link to="/algorithms-visualizer?algo=two-pointer" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-500 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] group-hover:shadow-[0_0_25px_rgba(52,211,153,0.6)]">
                 View Two-Pointer 3D Animation →
-              </a>
+              </Link>
             </div>
           </div>
         </section>
