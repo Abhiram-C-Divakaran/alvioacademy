@@ -7,7 +7,16 @@ import type { AlgoType } from '../workspace/AlgorithmsWorkspace';
 // Smart Mapping Engine to map user queries to existing visualizers
 const mapPromptToAlgo = (prompt: string): AlgoType => {
   const p = prompt.toLowerCase();
-  if (p.includes('two sum') || p.includes('target sum') || p.includes('two pointer') || p.includes('sliding window')) return 'two-pointer';
+  
+  // Specific problem patterns
+  if (
+    p.includes('two sum') || 
+    p.includes('target sum') || 
+    p.includes('two pointer') || 
+    p.includes('sliding window') ||
+    (p.includes('two numbers') && p.includes('add up to') && p.includes('target'))
+  ) return 'two-pointer';
+
   if (p.includes('bubble')) return 'bubble-sort';
   if (p.includes('merge sort')) return 'merge-sort';
   if (p.includes('quick sort')) return 'quick-sort';
