@@ -70,35 +70,41 @@ export default function BinaryTreePage() {
           <p>A special type of binary tree where the left child is always less than the root, and the right child is always greater.</p>
         </section>
         
-        <section className="mt-12">
+        <section className="mt-12 mb-20">
           <h2>Tree Traversals</h2>
-          <p>Traversing a tree means visiting every node in the tree. Because trees are non-linear, there are multiple ways to traverse them:</p>
+          <p className="text-[var(--color-text-secondary)] mb-8">Traversing a tree means visiting every node in the tree. Because trees are non-linear, there are multiple ways to traverse them:</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-blue-500/50 transition-colors">
-              <h3 className="text-xl font-bold mb-2">Inorder</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Left, Root, Right)</p>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Visits the nodes in ascending order in a BST. Commonly used to flatten the tree back into its original sequence.</p>
-              <a href="/learn/algorithms/inorder-traversal" className="inline-flex items-center text-sm font-bold text-blue-400 hover:text-blue-300">
-                View 3D Animation →
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-8 rounded-2xl hover:border-blue-500/50 transition-colors flex flex-col items-center text-center shadow-lg group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 className="text-2xl font-bold mb-2 text-white">Inorder</h3>
+              <p className="text-sm text-blue-400 mb-6 font-mono font-bold tracking-wider">(Left, Root, Right)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-8 flex-1">Visits the nodes in ascending order in a BST. Commonly used to flatten the tree back into its original sequence.</p>
+              <a href="/learn/algorithms/inorder-traversal" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
+                View 3D Animation
+                <ArrowRightLeft size={16} />
               </a>
             </div>
             
-            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-indigo-500/50 transition-colors">
-              <h3 className="text-xl font-bold mb-2">Preorder</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Root, Left, Right)</p>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Used to create a copy of the tree. It visits the parent first before delving into the sub-trees.</p>
-              <a href="/learn/algorithms/preorder-traversal" className="inline-flex items-center text-sm font-bold text-indigo-400 hover:text-indigo-300">
-                View 3D Animation →
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-8 rounded-2xl hover:border-indigo-500/50 transition-colors flex flex-col items-center text-center shadow-lg group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 className="text-2xl font-bold mb-2 text-white">Preorder</h3>
+              <p className="text-sm text-indigo-400 mb-6 font-mono font-bold tracking-wider">(Root, Left, Right)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-8 flex-1">Used to create a copy of the tree. It visits the parent first before delving into the sub-trees.</p>
+              <a href="/learn/algorithms/preorder-traversal" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-indigo-600 rounded-xl hover:bg-indigo-500 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] group-hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]">
+                View 3D Animation
+                <ArrowRightLeft size={16} />
               </a>
             </div>
             
-            <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)] p-6 rounded-xl hover:border-rose-500/50 transition-colors">
-              <h3 className="text-xl font-bold mb-2">Postorder</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">(Left, Right, Root)</p>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6">Used to delete the tree. It visits all children before visiting the parent node.</p>
-              <a href="/learn/algorithms/postorder-traversal" className="inline-flex items-center text-sm font-bold text-rose-400 hover:text-rose-300">
-                View 3D Animation →
+            <div className="bg-[var(--color-surface-glass)] border border-[var(--color-border-subtle)] p-8 rounded-2xl hover:border-rose-500/50 transition-colors flex flex-col items-center text-center shadow-lg group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <h3 className="text-2xl font-bold mb-2 text-white">Postorder</h3>
+              <p className="text-sm text-rose-400 mb-6 font-mono font-bold tracking-wider">(Left, Right, Root)</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-8 flex-1">Used to delete the tree. It visits all children before visiting the parent node.</p>
+              <a href="/learn/algorithms/postorder-traversal" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-rose-600 rounded-xl hover:bg-rose-500 transition-all shadow-[0_0_20px_rgba(225,29,72,0.4)] group-hover:shadow-[0_0_25px_rgba(244,63,94,0.6)]">
+                View 3D Animation
+                <ArrowRightLeft size={16} />
               </a>
             </div>
           </div>

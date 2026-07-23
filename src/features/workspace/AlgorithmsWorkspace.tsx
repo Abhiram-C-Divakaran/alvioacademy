@@ -230,21 +230,21 @@ export const ALGO_META: Record<AlgoType, { name: string; description: string; ty
   'inorder-traversal': {
     name: 'Inorder Traversal',
     description: 'Visits left child, root, then right child. In a BST, it visits nodes in ascending order.',
-    type: 'graph',
+    type: 'traversal',
     difficulty: 'Beginner',
     timeComplexities: { best: 'O(N)', average: 'O(N)', worst: 'O(N)', space: 'O(log N)' }
   },
   'preorder-traversal': {
     name: 'Preorder Traversal',
     description: 'Visits root, left child, then right child. Often used to create a copy of the tree.',
-    type: 'graph',
+    type: 'traversal',
     difficulty: 'Beginner',
     timeComplexities: { best: 'O(N)', average: 'O(N)', worst: 'O(N)', space: 'O(log N)' }
   },
   'postorder-traversal': {
     name: 'Postorder Traversal',
     description: 'Visits left child, right child, then root. Often used to delete a tree.',
-    type: 'graph',
+    type: 'traversal',
     difficulty: 'Beginner',
     timeComplexities: { best: 'O(N)', average: 'O(N)', worst: 'O(N)', space: 'O(log N)' }
   },
@@ -516,6 +516,7 @@ const CODE_TEMPLATES: Record<AlgoType, string[]> = {
 import AlgorithmInfoPanel from '../visualizer/AlgorithmInfoPanel';
 import CodeImplementationsModal from '../visualizer/CodeImplementationsModal';
 import VisualizerControls from '../visualizer/VisualizerControls';
+import BinaryTree3D from '../visualizer/BinaryTree3D';
 export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', filterType, initialAlgo, hideSidebar = false, hideCode = false, immersive = false, hideViewModeToggle = false }: { viewMode?: '3d' | '2d', filterType?: 'sorting' | 'searching' | 'all', initialAlgo?: AlgoType, hideSidebar?: boolean, hideCode?: boolean, immersive?: boolean, hideViewModeToggle?: boolean }) {
   const normalizeAlgo = (algo?: string): AlgoType => {
     if (!algo) return 'bubble-sort';
@@ -1026,41 +1027,41 @@ export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', 
       addStep({ description: 'Pop back to D. Visit D\'s other neighbor E. Push E to stack.', activeNodes: ['E'], visitedNodes: ['A', 'B', 'D', 'F', 'E'], activeEdges: [['D', 'E']], codeLine: 7 });
       addStep({ description: 'Topological sort completed. Result: [A, B, D, E, C, F].', activeNodes: [], visitedNodes: ['A', 'B', 'D', 'E', 'C', 'F'], codeLine: 10 });
     } else if (activeAlgo === 'inorder-traversal') {
-      addStep({ description: 'Start Inorder Traversal (Left, Root, Right). Initial node is Root (A).', activeNodes: ['A'], visitedNodes: [], codeLine: 1 });
-      addStep({ description: 'Traverse Left Child (B).', activeNodes: ['B'], visitedNodes: [], activeEdges: [['A', 'B']], codeLine: 3 });
-      addStep({ description: 'Traverse Left Child (D).', activeNodes: ['D'], visitedNodes: [], activeEdges: [['B', 'D']], codeLine: 3 });
-      addStep({ description: 'D has no left child. Visit D. Print D.', activeNodes: ['D'], visitedNodes: ['D'], codeLine: 4 });
-      addStep({ description: 'Backtrack to B. Visit B. Print B.', activeNodes: ['B'], visitedNodes: ['D', 'B'], activeEdges: [['B', 'D']], codeLine: 4 });
-      addStep({ description: 'Traverse Right Child of B (E).', activeNodes: ['E'], visitedNodes: ['D', 'B'], activeEdges: [['B', 'E']], codeLine: 5 });
-      addStep({ description: 'E has no left child. Visit E. Print E.', activeNodes: ['E'], visitedNodes: ['D', 'B', 'E'], codeLine: 4 });
-      addStep({ description: 'Backtrack to Root A. Visit A. Print A.', activeNodes: ['A'], visitedNodes: ['D', 'B', 'E', 'A'], activeEdges: [['A', 'B']], codeLine: 4 });
-      addStep({ description: 'Traverse Right Child of A (C).', activeNodes: ['C'], visitedNodes: ['D', 'B', 'E', 'A'], activeEdges: [['A', 'C']], codeLine: 5 });
-      addStep({ description: 'Traverse Left Child of C (F).', activeNodes: ['F'], visitedNodes: ['D', 'B', 'E', 'A'], activeEdges: [['C', 'F']], codeLine: 3 });
-      addStep({ description: 'F has no left child. Visit F. Print F.', activeNodes: ['F'], visitedNodes: ['D', 'B', 'E', 'A', 'F'], codeLine: 4 });
-      addStep({ description: 'Backtrack to C. Visit C. Print C.', activeNodes: ['C'], visitedNodes: ['D', 'B', 'E', 'A', 'F', 'C'], activeEdges: [['C', 'F']], codeLine: 4 });
-      addStep({ description: 'Traverse Right Child of C (G).', activeNodes: ['G'], visitedNodes: ['D', 'B', 'E', 'A', 'F', 'C'], activeEdges: [['C', 'G']], codeLine: 5 });
-      addStep({ description: 'G has no left child. Visit G. Print G. Traversal Complete!', activeNodes: [], visitedNodes: ['D', 'B', 'E', 'A', 'F', 'C', 'G'], codeLine: 4 });
+      addStep({ description: 'Start Inorder Traversal (Left, Root, Right). Initial node is Root (50).', activeNodes: [50], visitedNodes: [], codeLine: 1 });
+      addStep({ description: 'Traverse Left Child (30).', activeNodes: [30], visitedNodes: [], codeLine: 3 });
+      addStep({ description: 'Traverse Left Child (20).', activeNodes: [20], visitedNodes: [], codeLine: 3 });
+      addStep({ description: '20 has no left child. Visit 20. Print 20.', activeNodes: [20], visitedNodes: [20], codeLine: 4 });
+      addStep({ description: 'Backtrack to 30. Visit 30. Print 30.', activeNodes: [30], visitedNodes: [20, 30], codeLine: 4 });
+      addStep({ description: 'Traverse Right Child of 30 (40).', activeNodes: [40], visitedNodes: [20, 30], codeLine: 5 });
+      addStep({ description: '40 has no left child. Visit 40. Print 40.', activeNodes: [40], visitedNodes: [20, 30, 40], codeLine: 4 });
+      addStep({ description: 'Backtrack to Root 50. Visit 50. Print 50.', activeNodes: [50], visitedNodes: [20, 30, 40, 50], codeLine: 4 });
+      addStep({ description: 'Traverse Right Child of 50 (70).', activeNodes: [70], visitedNodes: [20, 30, 40, 50], codeLine: 5 });
+      addStep({ description: 'Traverse Left Child of 70 (60).', activeNodes: [60], visitedNodes: [20, 30, 40, 50], codeLine: 3 });
+      addStep({ description: '60 has no left child. Visit 60. Print 60.', activeNodes: [60], visitedNodes: [20, 30, 40, 50, 60], codeLine: 4 });
+      addStep({ description: 'Backtrack to 70. Visit 70. Print 70.', activeNodes: [70], visitedNodes: [20, 30, 40, 50, 60, 70], codeLine: 4 });
+      addStep({ description: 'Traverse Right Child of 70 (80).', activeNodes: [80], visitedNodes: [20, 30, 40, 50, 60, 70], codeLine: 5 });
+      addStep({ description: '80 has no left child. Visit 80. Print 80. Traversal Complete!', activeNodes: [], visitedNodes: [20, 30, 40, 50, 60, 70, 80], codeLine: 4 });
     } else if (activeAlgo === 'preorder-traversal') {
-      addStep({ description: 'Start Preorder Traversal (Root, Left, Right). Initial node is Root (A).', activeNodes: ['A'], visitedNodes: [], codeLine: 1 });
-      addStep({ description: 'Visit Root (A). Print A.', activeNodes: ['A'], visitedNodes: ['A'], codeLine: 3 });
-      addStep({ description: 'Traverse Left Child (B). Visit B. Print B.', activeNodes: ['B'], visitedNodes: ['A', 'B'], activeEdges: [['A', 'B']], codeLine: 4 });
-      addStep({ description: 'Traverse Left Child (D). Visit D. Print D.', activeNodes: ['D'], visitedNodes: ['A', 'B', 'D'], activeEdges: [['B', 'D']], codeLine: 4 });
-      addStep({ description: 'D has no children. Backtrack to B. Traverse Right Child (E). Visit E. Print E.', activeNodes: ['E'], visitedNodes: ['A', 'B', 'D', 'E'], activeEdges: [['B', 'E']], codeLine: 5 });
-      addStep({ description: 'E has no children. Backtrack to A. Traverse Right Child (C). Visit C. Print C.', activeNodes: ['C'], visitedNodes: ['A', 'B', 'D', 'E', 'C'], activeEdges: [['A', 'C']], codeLine: 5 });
-      addStep({ description: 'Traverse Left Child (F). Visit F. Print F.', activeNodes: ['F'], visitedNodes: ['A', 'B', 'D', 'E', 'C', 'F'], activeEdges: [['C', 'F']], codeLine: 4 });
-      addStep({ description: 'Traverse Right Child (G). Visit G. Print G. Traversal Complete!', activeNodes: [], visitedNodes: ['A', 'B', 'D', 'E', 'C', 'F', 'G'], activeEdges: [['C', 'G']], codeLine: 5 });
+      addStep({ description: 'Start Preorder Traversal (Root, Left, Right). Initial node is Root (50).', activeNodes: [50], visitedNodes: [], codeLine: 1 });
+      addStep({ description: 'Visit Root (50). Print 50.', activeNodes: [50], visitedNodes: [50], codeLine: 3 });
+      addStep({ description: 'Traverse Left Child (30). Visit 30. Print 30.', activeNodes: [30], visitedNodes: [50, 30], codeLine: 4 });
+      addStep({ description: 'Traverse Left Child (20). Visit 20. Print 20.', activeNodes: [20], visitedNodes: [50, 30, 20], codeLine: 4 });
+      addStep({ description: '20 has no children. Backtrack to 30. Traverse Right Child (40). Visit 40. Print 40.', activeNodes: [40], visitedNodes: [50, 30, 20, 40], codeLine: 5 });
+      addStep({ description: '40 has no children. Backtrack to 50. Traverse Right Child (70). Visit 70. Print 70.', activeNodes: [70], visitedNodes: [50, 30, 20, 40, 70], codeLine: 5 });
+      addStep({ description: 'Traverse Left Child (60). Visit 60. Print 60.', activeNodes: [60], visitedNodes: [50, 30, 20, 40, 70, 60], codeLine: 4 });
+      addStep({ description: 'Traverse Right Child (80). Visit 80. Print 80. Traversal Complete!', activeNodes: [], visitedNodes: [50, 30, 20, 40, 70, 60, 80], codeLine: 5 });
     } else if (activeAlgo === 'postorder-traversal') {
-      addStep({ description: 'Start Postorder Traversal (Left, Right, Root). Initial node is Root (A).', activeNodes: ['A'], visitedNodes: [], codeLine: 1 });
-      addStep({ description: 'Traverse Left Child (B), then to its Left Child (D).', activeNodes: ['D'], visitedNodes: [], activeEdges: [['B', 'D']], codeLine: 3 });
-      addStep({ description: 'D has no children. Visit D. Print D.', activeNodes: ['D'], visitedNodes: ['D'], codeLine: 5 });
-      addStep({ description: 'Backtrack to B. Traverse Right Child (E).', activeNodes: ['E'], visitedNodes: ['D'], activeEdges: [['B', 'E']], codeLine: 4 });
-      addStep({ description: 'E has no children. Visit E. Print E.', activeNodes: ['E'], visitedNodes: ['D', 'E'], codeLine: 5 });
-      addStep({ description: 'Both children of B visited. Visit B. Print B.', activeNodes: ['B'], visitedNodes: ['D', 'E', 'B'], activeEdges: [['A', 'B']], codeLine: 5 });
-      addStep({ description: 'Backtrack to Root (A). Traverse Right Child (C).', activeNodes: ['C'], visitedNodes: ['D', 'E', 'B'], activeEdges: [['A', 'C']], codeLine: 4 });
-      addStep({ description: 'Traverse Left Child of C (F). F has no children. Visit F. Print F.', activeNodes: ['F'], visitedNodes: ['D', 'E', 'B', 'F'], activeEdges: [['C', 'F']], codeLine: 5 });
-      addStep({ description: 'Traverse Right Child of C (G). G has no children. Visit G. Print G.', activeNodes: ['G'], visitedNodes: ['D', 'E', 'B', 'F', 'G'], activeEdges: [['C', 'G']], codeLine: 5 });
-      addStep({ description: 'Both children of C visited. Visit C. Print C.', activeNodes: ['C'], visitedNodes: ['D', 'E', 'B', 'F', 'G', 'C'], activeEdges: [['A', 'C']], codeLine: 5 });
-      addStep({ description: 'Both children of A visited. Visit A. Print A. Traversal Complete!', activeNodes: [], visitedNodes: ['D', 'E', 'B', 'F', 'G', 'C', 'A'], codeLine: 5 });
+      addStep({ description: 'Start Postorder Traversal (Left, Right, Root). Initial node is Root (50).', activeNodes: [50], visitedNodes: [], codeLine: 1 });
+      addStep({ description: 'Traverse Left Child (30), then to its Left Child (20).', activeNodes: [20], visitedNodes: [], codeLine: 3 });
+      addStep({ description: '20 has no children. Visit 20. Print 20.', activeNodes: [20], visitedNodes: [20], codeLine: 5 });
+      addStep({ description: 'Backtrack to 30. Traverse Right Child (40).', activeNodes: [40], visitedNodes: [20], codeLine: 4 });
+      addStep({ description: '40 has no children. Visit 40. Print 40.', activeNodes: [40], visitedNodes: [20, 40], codeLine: 5 });
+      addStep({ description: 'Both children of 30 visited. Visit 30. Print 30.', activeNodes: [30], visitedNodes: [20, 40, 30], codeLine: 5 });
+      addStep({ description: 'Backtrack to Root (50). Traverse Right Child (70).', activeNodes: [70], visitedNodes: [20, 40, 30], codeLine: 4 });
+      addStep({ description: 'Traverse Left Child of 70 (60). 60 has no children. Visit 60. Print 60.', activeNodes: [60], visitedNodes: [20, 40, 30, 60], codeLine: 5 });
+      addStep({ description: 'Traverse Right Child of 70 (80). 80 has no children. Visit 80. Print 80.', activeNodes: [80], visitedNodes: [20, 40, 30, 60, 80], codeLine: 5 });
+      addStep({ description: 'Both children of 70 visited. Visit 70. Print 70.', activeNodes: [70], visitedNodes: [20, 40, 30, 60, 80, 70], codeLine: 5 });
+      addStep({ description: 'Both children of 50 visited. Visit 50. Print 50. Traversal Complete!', activeNodes: [], visitedNodes: [20, 40, 30, 60, 80, 70, 50], codeLine: 5 });
     } else if (activeAlgo === 'fibonacci') {
       addStep({ description: 'Initialize Fibonacci DP base cases. F(0) = 0, F(1) = 1.', dpArray: [0, 1, 0, 0, 0, 0, 0], codeLine: 1 });
       addStep({ description: 'Calculate F(2) = F(1) + F(0) = 1 + 0 = 1.', dpArray: [0, 1, 1, 0, 0, 0, 0], codeLine: 3 });
@@ -1313,11 +1314,16 @@ export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', 
             </Billboard>
 
             {step && (
-              ALGO_META[activeAlgo].type === 'graph' || ALGO_META[activeAlgo].type === 'traversal' ? (
+              ALGO_META[activeAlgo].type === 'traversal' ? (
+                <BinaryTree3D 
+                  activeIndex={step.activeNodes}
+                  visitedIndex={step.visitedNodes}
+                />
+              ) : ALGO_META[activeAlgo].type === 'graph' ? (
                 <GraphAlgorithms3D 
                   algoType={activeAlgo}
-                  activeNodes={step.activeNodes} 
-                  visitedNodes={step.visitedNodes} 
+                  activeNodes={step.activeNodes as string[]} 
+                  visitedNodes={step.visitedNodes as string[]} 
                   activeEdges={step.activeEdges} 
                 />
               ) : (ALGO_META[activeAlgo].type === 'dp' || ALGO_META[activeAlgo].type === 'greedy' || ALGO_META[activeAlgo].type === 'recursion') ? (
@@ -1527,11 +1533,16 @@ export default function AlgorithmsWorkspace({ viewMode: initialViewMode = '2d', 
                     <DreiSparkles count={50} scale={12} size={2} speed={0.4} opacity={0.2} color="#818cf8" />
                     
                     {step && (
-                      ALGO_META[activeAlgo].type === 'graph' || ALGO_META[activeAlgo].type === 'traversal' ? (
+                      ALGO_META[activeAlgo].type === 'traversal' ? (
+                        <BinaryTree3D 
+                          activeIndex={step.activeNodes}
+                          visitedIndex={step.visitedNodes}
+                        />
+                      ) : ALGO_META[activeAlgo].type === 'graph' ? (
                         <GraphAlgorithms3D 
                           algoType={activeAlgo}
-                          activeNodes={step.activeNodes} 
-                          visitedNodes={step.visitedNodes} 
+                          activeNodes={step.activeNodes as string[]} 
+                          visitedNodes={step.visitedNodes as string[]} 
                           activeEdges={step.activeEdges} 
                         />
                       ) : (ALGO_META[activeAlgo].type === 'dp' || ALGO_META[activeAlgo].type === 'greedy' || ALGO_META[activeAlgo].type === 'recursion') ? (

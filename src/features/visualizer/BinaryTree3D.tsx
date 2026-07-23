@@ -6,11 +6,12 @@ import type { BinaryTreeStructure } from '../../types/dataStructures';
 
 interface BinaryTree3DProps {
   activeIndex?: number | number[] | string | string[] | null;
+  visitedIndex?: number[] | string[] | null;
   variant?: string;
   dsState?: BinaryTreeStructure | null;
 }
 
-export default function BinaryTree3D({ activeIndex = null, variant = 'Binary Search Tree', dsState }: BinaryTree3DProps) {
+export default function BinaryTree3D({ activeIndex = null, visitedIndex = null, variant = 'Binary Search Tree', dsState }: BinaryTree3DProps) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -95,7 +96,11 @@ export default function BinaryTree3D({ activeIndex = null, variant = 'Binary Sea
       {/* Nodes */}
       {nodes.map((node) => {
         const isActive = (Array.isArray(activeIndex) ? (activeIndex as any[]).includes(node.id) || (activeIndex as any[]).includes(node.val) : activeIndex === node.id || activeIndex === node.val);
-        const color = isActive ? '#ec4899' : '#3b82f6'; // Pink active, Blue normal
+        const isVisited = (Array.isArray(visitedIndex) ? (visitedIndex as any[]).includes(node.id) || (visitedIndex as any[]).includes(node.val) : false);
+        
+        let color = '#3b82f6'; // Blue normal
+        if (isActive) color = '#ec4899'; // Pink active
+        else if (isVisited) color = '#10b981'; // Green visited
 
         return (
           <group key={node.id} position={[node.x, node.y, 0]}>
