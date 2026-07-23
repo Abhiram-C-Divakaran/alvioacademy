@@ -53,7 +53,24 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
   });
 
   return (
-    <group ref={groupRef}>
+    <group 
+      ref={groupRef}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        onHover(node);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        onHover(null);
+        document.body.style.cursor = 'default';
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
       {/* Inner Core */}
       <mesh ref={meshRef}>
         <icosahedronGeometry args={[hovered ? node.size * 0.7 : node.size * 0.6, 0]} />
@@ -67,23 +84,7 @@ function PlanetNode({ node, onHover, onClick }: { node: SkillNode; onHover: (n: 
       </mesh>
 
       {/* Outer Glass Shell */}
-      <mesh
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          setHovered(true);
-          onHover(node);
-          document.body.style.cursor = 'pointer';
-        }}
-        onPointerOut={() => {
-          setHovered(false);
-          onHover(null);
-          document.body.style.cursor = 'default';
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-      >
+      <mesh>
         <sphereGeometry args={[hovered ? node.size * 1.2 : node.size, 64, 64]} />
         <meshPhysicalMaterial
           color={node.color}
