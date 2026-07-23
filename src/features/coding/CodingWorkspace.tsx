@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import Editor from '@monaco-editor/react';
 import { 
   Play, 
@@ -184,11 +185,12 @@ export default function CodingWorkspace({ problem, onBack }: CodingWorkspaceProp
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0F0F11] text-gray-200">
+    <div className="flex h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0a0a0a] text-gray-200 p-2 gap-2">
+      <PanelGroup direction="horizontal" className="w-full h-full">
 
-      {/* Left Pane: Tabs and Details */}
-      <div className="w-1/2 flex flex-col border-r border-[#242428] bg-[#1A1A1E]">
-        {/* Left Pane Tabs Header */}
+        {/* Left Pane: Tabs and Details */}
+        <Panel defaultSize={45} minSize={30} className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+          {/* Left Pane Tabs Header */}
         <div className="flex items-center justify-between px-4 border-b border-[#242428] bg-[#1E1E22]">
           <div className="flex items-center gap-1.5 h-12">
             <button
@@ -365,14 +367,19 @@ export default function CodingWorkspace({ problem, onBack }: CodingWorkspaceProp
             )}
           </AnimatePresence>
         </div>
-      </div>
+        </Panel>
 
-      {/* Right Pane: Split Code Editor & Interactive Console */}
-      <div className="w-1/2 flex flex-col h-full bg-[#18181C]">
-        
-        {/* Upper Part: Code Editor Workspace */}
-        <div className="flex-1 flex flex-col min-h-0">
-          {/* Editor Header */}
+        {/* Horizontal Resize Handle */}
+        <PanelResizeHandle className="w-2 mx-0.5 hover:bg-blue-500/20 transition-colors rounded-full cursor-col-resize relative group flex items-center justify-center">
+          <div className="w-1 h-8 bg-white/10 group-hover:bg-blue-400 rounded-full transition-colors" />
+        </PanelResizeHandle>
+
+        {/* Right Pane: Split Code Editor & Interactive Console */}
+        <Panel defaultSize={55} minSize={30}>
+          <PanelGroup direction="vertical" className="w-full h-full">
+            {/* Upper Part: Code Editor Workspace */}
+            <Panel defaultSize={65} minSize={20} className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+              {/* Editor Header */}
           <div className="h-12 border-b border-[#242428] flex items-center justify-between px-4 bg-[#1E1E22]">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-white flex items-center gap-1.5">
@@ -422,10 +429,15 @@ export default function CodingWorkspace({ problem, onBack }: CodingWorkspaceProp
               }}
             />
           </div>
-        </div>
+        </Panel>
+
+        {/* Vertical Resize Handle */}
+        <PanelResizeHandle className="h-2 my-0.5 hover:bg-blue-500/20 transition-colors rounded-full cursor-row-resize relative group flex items-center justify-center">
+          <div className="h-1 w-8 bg-white/10 group-hover:bg-blue-400 rounded-full transition-colors" />
+        </PanelResizeHandle>
 
         {/* Lower Part: Interactive Console (Testcase & Results) */}
-        <div className="h-64 border-t border-[#242428] bg-[#1A1A1E] flex flex-col">
+        <Panel defaultSize={35} minSize={20} className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
           {/* Console Header Tabs */}
           <div className="h-10 bg-[#1E1E22] flex items-center justify-between px-4 border-b border-[#242428]">
             <div className="flex items-center gap-2 h-full">
@@ -555,28 +567,30 @@ export default function CodingWorkspace({ problem, onBack }: CodingWorkspaceProp
               </div>
             )}
           </div>
-        </div>
-
-        {/* Bottom Action Bar */}
-        <div className="h-14 bg-[#1E1E22] border-t border-[#242428] flex items-center justify-end px-4 gap-3">
-          <button
-            onClick={handleRun}
-            disabled={isExecuting || isSubmitting}
-            className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2 shadow-sm"
-          >
-            <Play size={14} />
-            Run Code
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={isExecuting || isSubmitting}
-            className="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all disabled:opacity-50 shadow-lg shadow-blue-500/25 flex items-center gap-2"
-          >
-            {isSubmitting && <Loader2 size={14} className="animate-spin" />}
-            Submit
-          </button>
-        </div>
-      </div>
+          
+          {/* Action Bar merged into Console bottom */}
+          <div className="h-14 bg-[#1E1E22] border-t border-white/5 flex items-center justify-end px-4 gap-3 shrink-0">
+            <button
+              onClick={handleRun}
+              disabled={isExecuting || isSubmitting}
+              className="px-5 py-2 rounded-lg bg-[#2C2C32] hover:bg-[#3F3F46] border border-white/10 text-gray-200 text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
+            >
+              <Play size={14} className="text-gray-400" />
+              Run
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={isExecuting || isSubmitting}
+              className="px-6 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
+            >
+              {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <Code size={14} />}
+              Submit
+            </button>
+          </div>
+        </Panel>
+        </PanelGroup>
+        </Panel>
+      </PanelGroup>
     </div>
   );
 }
