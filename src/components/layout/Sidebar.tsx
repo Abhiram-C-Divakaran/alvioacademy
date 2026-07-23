@@ -47,7 +47,8 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
         title: 'Learn',
         items: [
           
-          { label: 'Data Structures', path: '/learn', icon: <Layers size={18} /> },
+          { label: 'Constellation', path: '/learn', icon: <Sparkles size={18} /> },
+          { label: 'Data Structures', path: '/learn/data-structures', icon: <Layers size={18} /> },
           { label: 'Algorithms', path: '/learn/algorithms', icon: <Code2 size={18} /> },
           { label: '3D Complexity', path: '/learn/complexity', icon: <TrendingUp size={18} />, badge: '3D', badgeColor: 'bg-emerald-500' },
           { label: 'Video Lessons', path: '/video-learning', icon: <Video size={18} />, badge: 'AI', badgeColor: 'bg-indigo-500' },
@@ -96,7 +97,7 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
             <nav className="flex flex-col gap-0.5">
               {navSection.items.map((item) => {
                 const isActive = location.pathname === item.path || (item.path.includes('?') && location.search === item.path.split('?')[1]);
-                const isLearnActive = item.path === '/learn' && location.pathname.startsWith('/learn') && !location.pathname.includes('/learn/algorithms') && !['/learn/sorting', '/learn/searching', '/learn/divide-conquer', '/learn/dynamic-programming', '/learn/greedy', '/learn/graph-algorithms'].includes(location.pathname);
+                const isLearnActive = item.path === '/learn/data-structures' && location.pathname.startsWith('/learn') && !location.pathname.includes('/learn/algorithms') && !['/learn', '/learn/sorting', '/learn/searching', '/learn/divide-conquer', '/learn/dynamic-programming', '/learn/greedy', '/learn/graph-algorithms'].includes(location.pathname);
                 const isAlgoActive = item.path === '/learn/algorithms' && (location.pathname.startsWith('/learn/algorithms') || location.pathname.startsWith('/algorithms-visualizer') || ['/learn/sorting', '/learn/searching', '/learn/divide-conquer', '/learn/dynamic-programming', '/learn/greedy', '/learn/graph-algorithms'].includes(location.pathname));
                 const isReallyActive = isActive || isLearnActive || isAlgoActive;
 
