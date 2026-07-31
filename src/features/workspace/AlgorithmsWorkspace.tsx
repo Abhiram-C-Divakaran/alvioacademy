@@ -23,6 +23,7 @@ import {
   SkipBack,
   SkipForward,
   RotateCcw,
+  RefreshCcw,
   Sparkles,
   BookOpen,
 } from 'lucide-react';

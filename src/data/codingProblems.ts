@@ -1,9 +1,5 @@
-// ============================================================
-// Coding Problems Database
-// ============================================================
-
+// Auto-generated 400 problems with enriched constraints
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
-
 export type DataType = 'integer' | 'string' | 'boolean' | 'integer[]' | 'string[]' | 'integer[][]' | 'char[]';
 
 export interface ProblemSignature {
@@ -13,4996 +9,4822 @@ export interface ProblemSignature {
 }
 
 export interface TestCase {
-  input: any[]; 
-  expected: any; 
+  input: any[];
+  expected: any;
 }
 
 export interface CodingProblem {
-  topic?: string;
   id: string;
   title: string;
   difficulty: Difficulty;
-  description: string;
-  examples: {
-    input: string;
-    output: string;
-    explanation?: string;
-  }[];
-  constraints: string[];
+  topic?: string;
   signature: ProblemSignature;
-  starterCode: {
-    javascript: string;
-    python?: string;
-    cpp?: string;
-    c?: string;
-  };
+  description: string;
+  examples: { input: string; output: string }[];
+  constraints: string[];
+  starterCode: { javascript: string; python: string; cpp: string };
   testCases: TestCase[];
 }
 
 export const codingProblems: CodingProblem[] = [
   {
-    "id": "two-sum",
-    "title": "Two Sum",
-    "topic": "Array",
-    "difficulty": "Easy",
-    "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.",
-    "examples": [
-      {
-        "input": "nums = [2,7,11,15], target = 9",
-        "output": "[0,1]"
-      }
-    ],
-    "constraints": [
-      "2 <= nums.length <= 10^4"
-    ],
-    "signature": {
-      "name": "twoSum",
-      "params": [
-        {
-          "name": "nums",
-          "type": "integer[]"
-        },
-        {
-          "name": "target",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer[]"
-    },
-    "starterCode": {
-      "javascript": "function twoSum(nums, target) {\n  \n}",
-      "python": "def twoSum(nums, target):\n    pass",
-      "cpp": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        \n    }\n};",
-      "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            2,
-            7,
-            11,
-            15
-          ],
-          9
-        ],
-        "expected": [
-          0,
-          1
-        ]
-      },
-      {
-        "input": [
-          [
-            3,
-            2,
-            4
-          ],
-          6
-        ],
-        "expected": [
-          1,
-          2
-        ]
-      },
-      {
-        "input": [
-          [
-            3,
-            3
-          ],
-          6
-        ],
-        "expected": [
-          0,
-          1
-        ]
-      }
-    ]
-  },
-  {
-    "id": "reverse-linked-list",
-    "title": "Reverse Linked List",
-    "topic": "Linked List",
-    "difficulty": "Easy",
-    "description": "Given the `head` of a singly linked list, reverse the list, and return the reversed list.\n\n*(For this environment, assume the linked list is represented as an array of values, and you should return the reversed array)*",
-    "examples": [
-      {
-        "input": "head = [1,2,3,4,5]",
-        "output": "[5,4,3,2,1]"
-      }
-    ],
-    "constraints": [
-      "The number of nodes in the list is the range [0, 5000]."
-    ],
-    "signature": {
-      "name": "reverseList",
-      "params": [
-        {
-          "name": "head",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer[]"
-    },
-    "starterCode": {
-      "javascript": "function reverseList(head) {\n  \n}",
-      "python": "def reverseList(head):\n    pass",
-      "cpp": "class Solution {\npublic:\n    vector<int> reverseList(vector<int>& head) {\n        \n    }\n};",
-      "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* reverseList(int* head, int headSize, int* returnSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3,
-            4,
-            5
-          ]
-        ],
-        "expected": [
-          5,
-          4,
-          3,
-          2,
-          1
-        ]
-      },
-      {
-        "input": [
-          [
-            1,
-            2
-          ]
-        ],
-        "expected": [
-          2,
-          1
-        ]
-      },
-      {
-        "input": [
-          []
-        ],
-        "expected": []
-      }
-    ]
-  },
-  {
-    "id": "merge-intervals",
-    "title": "Merge Intervals",
-    "topic": "Array",
-    "difficulty": "Medium",
-    "description": "Given an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals, and return an array of the non-overlapping intervals.",
-    "examples": [
-      {
-        "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]",
-        "output": "[[1,6],[8,10],[15,18]]"
-      }
-    ],
-    "constraints": [
-      "1 <= intervals.length <= 10^4"
-    ],
-    "signature": {
-      "name": "merge",
-      "params": [
-        {
-          "name": "intervals",
-          "type": "integer[][]"
-        }
-      ],
-      "returns": "integer[][]"
-    },
-    "starterCode": {
-      "javascript": "function merge(intervals) {\n  \n}",
-      "python": "def merge(intervals):\n    pass",
-      "cpp": "class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        \n    }\n};",
-      "c": "/**\n * Return an array of arrays of size *returnSize.\n * The sizes of the arrays are returned as *returnColumnSizes array.\n * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().\n */\nint** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            [
-              1,
-              3
-            ],
-            [
-              2,
-              6
-            ],
-            [
-              8,
-              10
-            ],
-            [
-              15,
-              18
-            ]
-          ]
-        ],
-        "expected": [
-          [
-            1,
-            6
-          ],
-          [
-            8,
-            10
-          ],
-          [
-            15,
-            18
-          ]
-        ]
-      },
-      {
-        "input": [
-          [
-            [
-              1,
-              4
-            ],
-            [
-              4,
-              5
-            ]
-          ]
-        ],
-        "expected": [
-          [
-            1,
-            5
-          ]
-        ]
-      },
-      {
-        "input": [
-          [
-            [
-              1,
-              4
-            ],
-            [
-              2,
-              3
-            ]
-          ]
-        ],
-        "expected": [
-          [
-            1,
-            4
-          ]
-        ]
-      }
-    ]
-  },
-  {
-    "id": "valid-parentheses",
-    "title": "Valid Parentheses",
-    "topic": "Stack",
-    "difficulty": "Easy",
-    "description": "Given a string s containing just the characters \"(\", \")\", \"{\", \"}\", \"[\" and \"]\", determine if the input string is valid.",
-    "examples": [
-      {
-        "input": "s = \"()\"",
-        "output": "true"
-      }
-    ],
-    "constraints": [
-      "1 <= s.length <= 10^4"
-    ],
-    "signature": {
-      "name": "isValid",
-      "params": [
-        {
-          "name": "s",
-          "type": "string"
-        }
-      ],
-      "returns": "boolean"
-    },
-    "starterCode": {
-      "javascript": "function isValid(s) {\n  \n}",
-      "python": "def isValid(s):\n    pass",
-      "cpp": "class Solution {\npublic:\n    bool isValid(string s) {\n        \n    }\n};",
-      "c": "#include <stdbool.h>\n\nbool isValid(char* s) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "()"
-        ],
-        "expected": true
-      },
-      {
-        "input": [
-          "()[]{}"
-        ],
-        "expected": true
-      },
-      {
-        "input": [
-          "(]"
-        ],
-        "expected": false
-      }
-    ]
-  },
-  {
-    "id": "climbing-stairs",
-    "title": "Climbing Stairs",
-    "topic": "Dynamic Programming",
-    "difficulty": "Easy",
-    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
-    "examples": [
-      {
-        "input": "n = 2",
-        "output": "2"
-      }
-    ],
-    "constraints": [
-      "1 <= n <= 45"
-    ],
-    "signature": {
-      "name": "climbStairs",
-      "params": [
-        {
-          "name": "n",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function climbStairs(n) {\n  \n}",
-      "python": "def climbStairs(n):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int climbStairs(int n) {\n        \n    }\n};",
-      "c": "int climbStairs(int n) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          2
-        ],
-        "expected": 2
-      },
-      {
-        "input": [
-          3
-        ],
-        "expected": 3
-      },
-      {
-        "input": [
-          4
-        ],
-        "expected": 5
-      }
-    ]
-  },
-  {
-    "id": "maximum-subarray",
-    "title": "Maximum Subarray",
-    "topic": "Array",
-    "difficulty": "Medium",
-    "description": "Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
-    "examples": [
-      {
-        "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
-        "output": "6"
-      }
-    ],
-    "constraints": [
-      "1 <= nums.length <= 10^5"
-    ],
-    "signature": {
-      "name": "maxSubArray",
-      "params": [
-        {
-          "name": "nums",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function maxSubArray(nums) {\n  \n}",
-      "python": "def maxSubArray(nums):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        \n    }\n};",
-      "c": "int maxSubArray(int* nums, int numsSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            -2,
-            1,
-            -3,
-            4,
-            -1,
-            2,
-            1,
-            -5,
-            4
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            1
-          ]
-        ],
-        "expected": 1
-      },
-      {
-        "input": [
-          [
-            5,
-            4,
-            -1,
-            7,
-            8
-          ]
-        ],
-        "expected": 23
-      }
-    ]
-  },
-  {
-    "id": "contains-duplicate",
-    "title": "Contains Duplicate",
-    "topic": "Array",
-    "difficulty": "Easy",
-    "description": "Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.",
-    "examples": [
-      {
-        "input": "nums = [1,2,3,1]",
-        "output": "true"
-      }
-    ],
-    "constraints": [
-      "1 <= nums.length <= 10^5"
-    ],
-    "signature": {
-      "name": "containsDuplicate",
-      "params": [
-        {
-          "name": "nums",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "boolean"
-    },
-    "starterCode": {
-      "javascript": "function containsDuplicate(nums) {\n  \n}",
-      "python": "def containsDuplicate(nums):\n    pass",
-      "cpp": "class Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        \n    }\n};",
-      "c": "#include <stdbool.h>\n\nbool containsDuplicate(int* nums, int numsSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3,
-            1
-          ]
-        ],
-        "expected": true
-      },
-      {
-        "input": [
-          [
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        "expected": false
-      },
-      {
-        "input": [
-          [
-            1,
-            1,
-            1,
-            3,
-            3,
-            4,
-            3,
-            2,
-            4,
-            2
-          ]
-        ],
-        "expected": true
-      }
-    ]
-  },
-  {
-    "id": "missing-number",
-    "title": "Missing Number",
-    "topic": "Array",
-    "difficulty": "Easy",
-    "description": "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.",
-    "examples": [
-      {
-        "input": "nums = [3,0,1]",
-        "output": "2"
-      }
-    ],
-    "constraints": [
-      "1 <= n <= 10^4"
-    ],
-    "signature": {
-      "name": "missingNumber",
-      "params": [
-        {
-          "name": "nums",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function missingNumber(nums) {\n  \n}",
-      "python": "def missingNumber(nums):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        \n    }\n};",
-      "c": "int missingNumber(int* nums, int numsSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            3,
-            0,
-            1
-          ]
-        ],
-        "expected": 2
-      },
-      {
-        "input": [
-          [
-            0,
-            1
-          ]
-        ],
-        "expected": 2
-      },
-      {
-        "input": [
-          [
-            9,
-            6,
-            4,
-            2,
-            3,
-            5,
-            7,
-            0,
-            1
-          ]
-        ],
-        "expected": 8
-      }
-    ]
-  },
-  {
-    "id": "reverse-string",
-    "title": "Reverse String",
-    "topic": "Array",
-    "difficulty": "Easy",
-    "description": "Write a function that reverses a string. The input string is given as an array of characters s. You must do this by modifying the input array in-place with O(1) extra memory.",
-    "examples": [
-      {
-        "input": "s = [\"h\",\"e\",\"l\",\"l\",\"o\"]",
-        "output": "[\"o\",\"l\",\"l\",\"e\",\"h\"]"
-      }
-    ],
-    "constraints": [
-      "1 <= s.length <= 10^5"
-    ],
-    "signature": {
-      "name": "reverseString",
-      "params": [
-        {
-          "name": "s",
-          "type": "char[]"
-        }
-      ],
-      "returns": "char[]"
-    },
-    "starterCode": {
-      "javascript": "function reverseString(s) {\n  \n}",
-      "python": "def reverseString(s):\n    pass",
-      "cpp": "class Solution {\npublic:\n    vector<char> reverseString(vector<char>& s) {\n        \n    }\n};",
-      "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nchar* reverseString(char* s, int sSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            "h",
-            "e",
-            "l",
-            "l",
-            "o"
-          ]
-        ],
-        "expected": [
-          "o",
-          "l",
-          "l",
-          "e",
-          "h"
-        ]
-      },
-      {
-        "input": [
-          [
-            "H",
-            "a",
-            "n",
-            "n",
-            "a",
-            "h"
-          ]
-        ],
-        "expected": [
-          "h",
-          "a",
-          "n",
-          "n",
-          "a",
-          "H"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "fibonacci-number",
-    "title": "Fibonacci Number",
-    "difficulty": "Easy",
-    "description": "The Fibonacci numbers form a sequence such that each number is the sum of the two preceding ones, starting from 0 and 1. Given n, calculate F(n).",
-    "examples": [
-      {
-        "input": "n = 2",
-        "output": "1"
-      }
-    ],
-    "constraints": [
-      "0 <= n <= 30"
-    ],
-    "signature": {
-      "name": "fib",
-      "params": [
-        {
-          "name": "n",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function fib(n) {\n  \n}",
-      "python": "def fib(n):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int fib(int n) {\n        \n    }\n};",
-      "c": "int fib(int n) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          2
-        ],
-        "expected": 1
-      },
-      {
-        "input": [
-          3
-        ],
-        "expected": 2
-      },
-      {
-        "input": [
-          4
-        ],
-        "expected": 3
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 55
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-11",
-    "title": "Problem 11: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #11. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process11",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process11(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process11(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process11(int input) {\n        \n    }\n};",
-      "c": "int process11(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-12",
-    "title": "Problem 12: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #12. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process12",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process12(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process12(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process12(string input) {\n        \n    }\n};",
-      "c": "int process12(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-13",
-    "title": "Problem 13: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #13. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process13",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process13(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process13(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process13(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process13(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-14",
-    "title": "Problem 14: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #14. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process14",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process14(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process14(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process14(int input) {\n        \n    }\n};",
-      "c": "int process14(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-15",
-    "title": "Problem 15: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #15. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process15",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process15(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process15(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process15(string input) {\n        \n    }\n};",
-      "c": "int process15(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-16",
-    "title": "Problem 16: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #16. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process16",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process16(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process16(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process16(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process16(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-17",
-    "title": "Problem 17: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #17. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process17",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process17(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process17(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process17(int input) {\n        \n    }\n};",
-      "c": "int process17(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-18",
-    "title": "Problem 18: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #18. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process18",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process18(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process18(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process18(string input) {\n        \n    }\n};",
-      "c": "int process18(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-19",
-    "title": "Problem 19: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #19. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process19",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process19(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process19(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process19(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process19(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-20",
-    "title": "Problem 20: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #20. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process20",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process20(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process20(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process20(int input) {\n        \n    }\n};",
-      "c": "int process20(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-21",
-    "title": "Problem 21: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #21. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process21",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process21(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process21(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process21(string input) {\n        \n    }\n};",
-      "c": "int process21(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-22",
-    "title": "Problem 22: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #22. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process22",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process22(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process22(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process22(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process22(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-23",
-    "title": "Problem 23: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #23. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process23",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process23(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process23(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process23(int input) {\n        \n    }\n};",
-      "c": "int process23(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-24",
-    "title": "Problem 24: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #24. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process24",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process24(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process24(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process24(string input) {\n        \n    }\n};",
-      "c": "int process24(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-25",
-    "title": "Problem 25: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #25. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process25",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process25(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process25(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process25(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process25(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-26",
-    "title": "Problem 26: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #26. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process26",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process26(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process26(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process26(int input) {\n        \n    }\n};",
-      "c": "int process26(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-27",
-    "title": "Problem 27: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #27. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process27",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process27(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process27(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process27(string input) {\n        \n    }\n};",
-      "c": "int process27(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-28",
-    "title": "Problem 28: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #28. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process28",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process28(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process28(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process28(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process28(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-29",
-    "title": "Problem 29: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #29. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process29",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process29(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process29(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process29(int input) {\n        \n    }\n};",
-      "c": "int process29(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-30",
-    "title": "Problem 30: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #30. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process30",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process30(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process30(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process30(string input) {\n        \n    }\n};",
-      "c": "int process30(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-31",
-    "title": "Problem 31: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #31. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process31",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process31(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process31(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process31(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process31(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-32",
-    "title": "Problem 32: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #32. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process32",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process32(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process32(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process32(int input) {\n        \n    }\n};",
-      "c": "int process32(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-33",
-    "title": "Problem 33: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #33. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process33",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process33(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process33(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process33(string input) {\n        \n    }\n};",
-      "c": "int process33(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-34",
-    "title": "Problem 34: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #34. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process34",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process34(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process34(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process34(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process34(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-35",
-    "title": "Problem 35: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #35. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process35",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process35(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process35(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process35(int input) {\n        \n    }\n};",
-      "c": "int process35(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-36",
-    "title": "Problem 36: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #36. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process36",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process36(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process36(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process36(string input) {\n        \n    }\n};",
-      "c": "int process36(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-37",
-    "title": "Problem 37: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #37. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process37",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process37(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process37(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process37(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process37(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-38",
-    "title": "Problem 38: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #38. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process38",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process38(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process38(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process38(int input) {\n        \n    }\n};",
-      "c": "int process38(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-39",
-    "title": "Problem 39: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #39. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process39",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process39(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process39(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process39(string input) {\n        \n    }\n};",
-      "c": "int process39(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-40",
-    "title": "Problem 40: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #40. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process40",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process40(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process40(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process40(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process40(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-41",
-    "title": "Problem 41: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #41. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process41",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process41(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process41(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process41(int input) {\n        \n    }\n};",
-      "c": "int process41(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-42",
-    "title": "Problem 42: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #42. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process42",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process42(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process42(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process42(string input) {\n        \n    }\n};",
-      "c": "int process42(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-43",
-    "title": "Problem 43: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #43. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process43",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process43(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process43(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process43(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process43(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-44",
-    "title": "Problem 44: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #44. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process44",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process44(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process44(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process44(int input) {\n        \n    }\n};",
-      "c": "int process44(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-45",
-    "title": "Problem 45: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #45. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process45",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process45(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process45(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process45(string input) {\n        \n    }\n};",
-      "c": "int process45(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-46",
-    "title": "Problem 46: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #46. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process46",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process46(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process46(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process46(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process46(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-47",
-    "title": "Problem 47: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #47. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process47",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process47(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process47(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process47(int input) {\n        \n    }\n};",
-      "c": "int process47(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-48",
-    "title": "Problem 48: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #48. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process48",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process48(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process48(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process48(string input) {\n        \n    }\n};",
-      "c": "int process48(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-49",
-    "title": "Problem 49: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #49. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process49",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process49(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process49(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process49(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process49(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-50",
-    "title": "Problem 50: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #50. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process50",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process50(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process50(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process50(int input) {\n        \n    }\n};",
-      "c": "int process50(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-51",
-    "title": "Problem 51: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #51. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process51",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process51(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process51(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process51(string input) {\n        \n    }\n};",
-      "c": "int process51(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-52",
-    "title": "Problem 52: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #52. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process52",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process52(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process52(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process52(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process52(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-53",
-    "title": "Problem 53: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #53. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process53",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process53(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process53(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process53(int input) {\n        \n    }\n};",
-      "c": "int process53(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-54",
-    "title": "Problem 54: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #54. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process54",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process54(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process54(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process54(string input) {\n        \n    }\n};",
-      "c": "int process54(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-55",
-    "title": "Problem 55: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #55. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process55",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process55(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process55(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process55(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process55(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-56",
-    "title": "Problem 56: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #56. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process56",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process56(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process56(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process56(int input) {\n        \n    }\n};",
-      "c": "int process56(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-57",
-    "title": "Problem 57: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #57. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process57",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process57(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process57(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process57(string input) {\n        \n    }\n};",
-      "c": "int process57(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-58",
-    "title": "Problem 58: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #58. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process58",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process58(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process58(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process58(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process58(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-59",
-    "title": "Problem 59: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #59. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process59",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process59(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process59(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process59(int input) {\n        \n    }\n};",
-      "c": "int process59(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-60",
-    "title": "Problem 60: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #60. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process60",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process60(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process60(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process60(string input) {\n        \n    }\n};",
-      "c": "int process60(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-61",
-    "title": "Problem 61: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #61. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process61",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process61(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process61(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process61(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process61(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-62",
-    "title": "Problem 62: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #62. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process62",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process62(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process62(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process62(int input) {\n        \n    }\n};",
-      "c": "int process62(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-63",
-    "title": "Problem 63: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #63. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process63",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process63(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process63(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process63(string input) {\n        \n    }\n};",
-      "c": "int process63(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-64",
-    "title": "Problem 64: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #64. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process64",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process64(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process64(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process64(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process64(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-65",
-    "title": "Problem 65: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #65. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process65",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process65(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process65(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process65(int input) {\n        \n    }\n};",
-      "c": "int process65(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-66",
-    "title": "Problem 66: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #66. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process66",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process66(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process66(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process66(string input) {\n        \n    }\n};",
-      "c": "int process66(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-67",
-    "title": "Problem 67: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #67. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process67",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process67(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process67(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process67(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process67(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-68",
-    "title": "Problem 68: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #68. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process68",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process68(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process68(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process68(int input) {\n        \n    }\n};",
-      "c": "int process68(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-69",
-    "title": "Problem 69: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #69. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process69",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process69(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process69(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process69(string input) {\n        \n    }\n};",
-      "c": "int process69(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-70",
-    "title": "Problem 70: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #70. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process70",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process70(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process70(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process70(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process70(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-71",
-    "title": "Problem 71: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #71. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process71",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process71(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process71(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process71(int input) {\n        \n    }\n};",
-      "c": "int process71(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-72",
-    "title": "Problem 72: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #72. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process72",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process72(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process72(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process72(string input) {\n        \n    }\n};",
-      "c": "int process72(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-73",
-    "title": "Problem 73: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #73. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process73",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process73(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process73(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process73(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process73(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-74",
-    "title": "Problem 74: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #74. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process74",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process74(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process74(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process74(int input) {\n        \n    }\n};",
-      "c": "int process74(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-75",
-    "title": "Problem 75: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #75. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process75",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process75(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process75(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process75(string input) {\n        \n    }\n};",
-      "c": "int process75(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-76",
-    "title": "Problem 76: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #76. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process76",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process76(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process76(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process76(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process76(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-77",
-    "title": "Problem 77: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #77. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process77",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process77(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process77(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process77(int input) {\n        \n    }\n};",
-      "c": "int process77(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-78",
-    "title": "Problem 78: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #78. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process78",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process78(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process78(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process78(string input) {\n        \n    }\n};",
-      "c": "int process78(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-79",
-    "title": "Problem 79: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #79. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process79",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process79(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process79(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process79(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process79(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-80",
-    "title": "Problem 80: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #80. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process80",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process80(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process80(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process80(int input) {\n        \n    }\n};",
-      "c": "int process80(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-81",
-    "title": "Problem 81: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #81. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process81",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process81(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process81(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process81(string input) {\n        \n    }\n};",
-      "c": "int process81(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-82",
-    "title": "Problem 82: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #82. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process82",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process82(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process82(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process82(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process82(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-83",
-    "title": "Problem 83: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #83. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process83",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process83(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process83(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process83(int input) {\n        \n    }\n};",
-      "c": "int process83(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-84",
-    "title": "Problem 84: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #84. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process84",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process84(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process84(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process84(string input) {\n        \n    }\n};",
-      "c": "int process84(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-85",
-    "title": "Problem 85: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #85. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process85",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process85(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process85(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process85(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process85(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-86",
-    "title": "Problem 86: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #86. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process86",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process86(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process86(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process86(int input) {\n        \n    }\n};",
-      "c": "int process86(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-87",
-    "title": "Problem 87: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #87. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process87",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process87(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process87(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process87(string input) {\n        \n    }\n};",
-      "c": "int process87(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-88",
-    "title": "Problem 88: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #88. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process88",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process88(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process88(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process88(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process88(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-89",
-    "title": "Problem 89: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #89. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process89",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process89(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process89(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process89(int input) {\n        \n    }\n};",
-      "c": "int process89(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-90",
-    "title": "Problem 90: Process String",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #90. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process90",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process90(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process90(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process90(string input) {\n        \n    }\n};",
-      "c": "int process90(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-91",
-    "title": "Problem 91: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #91. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process91",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process91(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process91(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process91(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process91(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-92",
-    "title": "Problem 92: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #92. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process92",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process92(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process92(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process92(int input) {\n        \n    }\n};",
-      "c": "int process92(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-93",
-    "title": "Problem 93: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #93. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process93",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process93(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process93(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process93(string input) {\n        \n    }\n};",
-      "c": "int process93(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-94",
-    "title": "Problem 94: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #94. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process94",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process94(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process94(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process94(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process94(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-95",
-    "title": "Problem 95: Process Integer",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #95. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process95",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process95(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process95(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process95(int input) {\n        \n    }\n};",
-      "c": "int process95(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-96",
-    "title": "Problem 96: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #96. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process96",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process96(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process96(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process96(string input) {\n        \n    }\n};",
-      "c": "int process96(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-97",
-    "title": "Problem 97: Process Array",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #97. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process97",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process97(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process97(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process97(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process97(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-98",
-    "title": "Problem 98: Process Integer",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #98. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process98",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process98(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process98(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process98(int input) {\n        \n    }\n};",
-      "c": "int process98(int input) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          5
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          10
-        ],
-        "expected": 10
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-99",
-    "title": "Problem 99: Process String",
-    "difficulty": "Easy",
-    "description": "This is dynamically generated problem #99. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process99",
-      "params": [
-        {
-          "name": "input",
-          "type": "string"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process99(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process99(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process99(string input) {\n        \n    }\n};",
-      "c": "int process99(char*) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          "hello"
-        ],
-        "expected": 5
-      },
-      {
-        "input": [
-          "world!"
-        ],
-        "expected": 6
-      }
-    ]
-  },
-  {
-    "id": "generated-problem-100",
-    "title": "Problem 100: Process Array",
-    "difficulty": "Medium",
-    "description": "This is dynamically generated problem #100. Write a function to process the input and return the length or sum.",
-    "examples": [
-      {
-        "input": "See test cases",
-        "output": "See test cases"
-      }
-    ],
-    "constraints": [
-      "Input size is reasonable"
-    ],
-    "signature": {
-      "name": "process100",
-      "params": [
-        {
-          "name": "input",
-          "type": "integer[]"
-        }
-      ],
-      "returns": "integer"
-    },
-    "starterCode": {
-      "javascript": "function process100(input) {\n  // return input.length or input or input.reduce((a,b)=>a+b,0)\n}",
-      "python": "def process100(input):\n    pass",
-      "cpp": "class Solution {\npublic:\n    int process100(vector<int>& input) {\n        \n    }\n};",
-      "c": "int process100(int* input, int inputSize) {\n    \n}"
-    },
-    "testCases": [
-      {
-        "input": [
-          [
-            1,
-            2,
-            3
-          ]
-        ],
-        "expected": 6
-      },
-      {
-        "input": [
-          [
-            10,
-            20
-          ]
-        ],
-        "expected": 30
-      }
-    ]
-  }
+    id: "number-of-digit-one",
+    title: "Number of Digit One",
+    difficulty: "Hard",
+    topic: "Math, Dynamic Programming",
+    signature: {"name":"countDigitOne","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.",
+    examples: [{"input":"n = 0","output":"0"},{"input":"n = 13","output":"6"},{"input":"n = 20","output":"12"},{"input":"n = 100","output":"21"}],
+    constraints: ["0 <= n <= 10^9"],
+    starterCode: {"javascript":"function countDigitOne(n) {\n  \n}","python":"def countDigitOne(n):\n    pass","cpp":"class Solution {\npublic:\n    int countDigitOne(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[0],"expected":0},{"input":[13],"expected":6},{"input":[20],"expected":12},{"input":[100],"expected":21}]
+  },
+  {
+    id: "rotate-list",
+    title: "Rotate List",
+    difficulty: "Medium",
+    topic: "Linked List, Two Pointers",
+    signature: {"name":"rotateRight","params":[{"name":"head","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer[]"},
+    description: "Given the head of a linked list (represented as array), rotate the list to the right by k places.",
+    examples: [{"input":"head = [1,2,3,4,5], k = 2","output":"[4,5,1,2,3]"},{"input":"head = [0,1,2], k = 4","output":"[2,0,1]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","-10^9 <= k <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function rotateRight(head, k) {\n  \n}","python":"def rotateRight(head, k):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> rotateRight(vector<int>& head, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3,4,5],2],"expected":[4,5,1,2,3]},{"input":[[0,1,2],4],"expected":[2,0,1]}]
+  },
+  {
+    id: "cells-with-odd-values-in-a-matrix",
+    title: "Cells with Odd Values in a Matrix",
+    difficulty: "Easy",
+    topic: "Array, Math, Simulation",
+    signature: {"name":"oddCells","params":[{"name":"m","type":"integer"},{"name":"n","type":"integer"},{"name":"indices","type":"integer[][]"}],"returns":"integer"},
+    description: "There is an m x n matrix that is initialized to all 0's. There is also a 2D array indices where each indices[i] = [ri, ci] represents a 0-indexed location to perform some increment operations on the matrix.",
+    examples: [{"input":"m = 2, n = 3, indices = [[0,1],[1,1]]","output":"6"}],
+    constraints: ["-10^9 <= m <= 10^9","-10^9 <= n <= 10^9","1 <= indices.length, indices[i].length <= 200"],
+    starterCode: {"javascript":"function oddCells(m, n, indices) {\\n  \\n}","python":"def oddCells(m, n, indices):\\n    pass","cpp":"class Solution {\\npublic:\\n    int oddCells(int m, int n, vector<vector<int>>& indices) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,3,[[0,1],[1,1]]],"expected":6}]
+  },
+  {
+    id: "unique-paths-ii",
+    title: "Unique Paths II",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Matrix",
+    signature: {"name":"uniquePathsWithObstacles","params":[{"name":"obstacleGrid","type":"integer[][]"}],"returns":"integer"},
+    description: "A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid. Now consider if some obstacles are added to the grids. How many unique paths would there be?",
+    examples: [{"input":"obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]","output":"2"},{"input":"obstacleGrid = [[0,1],[0,0]]","output":"1"}],
+    constraints: ["1 <= obstacleGrid.length, obstacleGrid[i].length <= 200"],
+    starterCode: {"javascript":"function uniquePathsWithObstacles(obstacleGrid) {\n  \n}","python":"def uniquePathsWithObstacles(obstacleGrid):\n    pass","cpp":"class Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {\n        \n    }\n};"},
+    testCases: [{"input":[[[0,0,0],[0,1,0],[0,0,0]]],"expected":2},{"input":[[[0,1],[0,0]]],"expected":1}]
+  },
+  {
+    id: "6a494a1d-cfc2-48a4-82cd-7397c0d7a597",
+    title: "Koko Eating Bananas",
+    difficulty: "Medium",
+    topic: "Array, Binary Search",
+    signature: {"name":"minEatingSpeed","params":[{"name":"piles","type":"integer[]"},{"name":"h","type":"integer"}],"returns":"integer"},
+    description: "Koko loves to eat bananas. There are n piles of bananas. Return the minimum integer k such that she can eat all the bananas within h hours.",
+    examples: [{"input":"piles = [3,6,7,11], h = 8","output":"4"}],
+    constraints: ["1 <= piles.length <= 10^4","-10^4 <= piles[i] <= 10^4","-10^9 <= h <= 10^9"],
+    starterCode: {"javascript":"function minEatingSpeed(piles, h) {\n  \n}","python":"def minEatingSpeed(piles, h):\n    pass","cpp":"class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        \n    }\n};"},
+    testCases: [{"input":[[3,6,7,11],8],"expected":4}]
+  },
+  {
+    id: "eulerian-path-and-circuit",
+    title: "Eulerian Path and Circuit",
+    difficulty: "Medium",
+    topic: "Graph, Eulerian Circuit",
+    signature: {"name":"isEulerCircuit","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"integer"},
+    description: "Eulerian Path is a path in graph that visits every edge exactly once. Eulerian Circuit is an Eulerian Path which starts and ends on the same vertex. Return 2 if Eulerian Circuit, 1 if Eulerian Path, 0 if neither.",
+    examples: [{"input":"V = 3, adj = [[1],[0,2],[1]]","output":"1"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function isEulerCircuit(V, adj) {\\n  \\n}","python":"def isEulerCircuit(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    int isEulerCircuit(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,[[1],[0,2],[1]]],"expected":1}]
+  },
+  {
+    id: "construct-binary-tree-from-inorder-and-postorder-traversal",
+    title: "Construct Binary Tree from Inorder and Postorder Traversal",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Divide and Conquer, Tree, Binary Tree",
+    signature: {"name":"buildTreePost","params":[{"name":"inorder","type":"integer[]"},{"name":"postorder","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two integer arrays inorder and postorder, construct and return the binary tree.",
+    examples: [{"input":"inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]","output":"[3,9,20,null,null,15,7]"}],
+    constraints: ["1 <= inorder.length <= 10^4","-10^4 <= inorder[i] <= 10^4","1 <= postorder.length <= 10^4","-10^4 <= postorder[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function buildTreePost(inorder, postorder) {\\n  \\n}","python":"def buildTreePost(inorder, postorder):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> buildTreePost(vector<int>& inorder, vector<int>& postorder) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[9,3,15,20,7],[9,15,7,20,3]],"expected":[3,9,20,null,null,15,7]}]
+  },
+  {
+    id: "house-robber",
+    title: "House Robber",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"rob","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected.",
+    examples: [{"input":"nums = [1,2,3,1]","output":"4"},{"input":"nums = [2,7,9,3,1]","output":"12"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function rob(nums) {\\n  \\n}","python":"def rob(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int rob(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,1]],"expected":4},{"input":[[2,7,9,3,1]],"expected":12}]
+  },
+  {
+    id: "01-matrix",
+    title: "01 Matrix",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Breadth-First Search, Matrix",
+    signature: {"name":"updateMatrix","params":[{"name":"mat","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell. The distance between two adjacent cells is 1.",
+    examples: [{"input":"mat = [[0,0,0],[0,1,0],[0,0,0]]","output":"[[0,0,0],[0,1,0],[0,0,0]]"}],
+    constraints: ["1 <= mat.length, mat[i].length <= 200"],
+    starterCode: {"javascript":"function updateMatrix(mat) {\\n  \\n}","python":"def updateMatrix(mat):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,0,0],[0,1,0],[0,0,0]]],"expected":[[0,0,0],[0,1,0],[0,0,0]]}]
+  },
+  {
+    id: "maximum-subarray",
+    title: "Maximum Subarray",
+    difficulty: "Medium",
+    topic: "Array, Divide and Conquer, Dynamic Programming",
+    signature: {"name":"maxSubArray","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
+    examples: [{"input":"nums = [-2,1,-3,4,-1,2,1,-5,4]","output":"6"},{"input":"nums = [1]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maxSubArray(nums) {\n  \n}","python":"def maxSubArray(nums):\n    pass","cpp":"class Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[-2,1,-3,4,-1,2,1,-5,4]],"expected":6},{"input":[[1]],"expected":1}]
+  },
+  {
+    id: "perfect-number",
+    title: "Perfect Number",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"checkPerfectNumber","params":[{"name":"num","type":"integer"}],"returns":"boolean"},
+    description: "A perfect number is a positive integer that is equal to the sum of its positive divisors, excluding the number itself.",
+    examples: [{"input":"num = 28","output":"true"},{"input":"num = 7","output":"false"}],
+    constraints: ["-10^9 <= num <= 10^9"],
+    starterCode: {"javascript":"function checkPerfectNumber(num) {\\n  \\n}","python":"def checkPerfectNumber(num):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool checkPerfectNumber(int num) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[28],"expected":true},{"input":[7],"expected":false}]
+  },
+  {
+    id: "remove-nth-node-from-end-of-list",
+    title: "Remove Nth Node From End of List",
+    difficulty: "Medium",
+    topic: "Linked List, Two Pointers",
+    signature: {"name":"removeNthFromEnd","params":[{"name":"head","type":"integer[]"},{"name":"n","type":"integer"}],"returns":"integer[]"},
+    description: "Given the head of a linked list (represented as array), remove the nth node from the end of the list and return its head.",
+    examples: [{"input":"head = [1,2,3,4,5], n = 2","output":"[1,2,3,5]"},{"input":"head = [1], n = 1","output":"[]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","-10^9 <= n <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function removeNthFromEnd(head, n) {\n  \n}","python":"def removeNthFromEnd(head, n):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> removeNthFromEnd(vector<int>& head, int n) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3,4,5],2],"expected":[1,2,3,5]},{"input":[[1],1],"expected":[]}]
+  },
+  {
+    id: "merge-intervals",
+    title: "Merge Intervals",
+    difficulty: "Medium",
+    topic: "Array, Sorting",
+    signature: {"name":"merge","params":[{"name":"intervals","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    examples: [{"input":"intervals = [[1,3],[2,6],[8,10],[15,18]]","output":"[[1,6],[8,10],[15,18]]"},{"input":"intervals = [[1,4],[4,5]]","output":"[[1,5]]"}],
+    constraints: ["1 <= intervals.length, intervals[i].length <= 200"],
+    starterCode: {"javascript":"function merge(intervals) {\n  \n}","python":"def merge(intervals):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,3],[2,6],[8,10],[15,18]]],"expected":[[1,6],[8,10],[15,18]]},{"input":[[[1,4],[4,5]]],"expected":[[1,5]]}]
+  },
+  {
+    id: "pascals-triangle",
+    title: "Pascal's Triangle",
+    difficulty: "Easy",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"generate","params":[{"name":"numRows","type":"integer"}],"returns":"integer[][]"},
+    description: "Given an integer numRows, return the first numRows of Pascal's triangle.",
+    examples: [{"input":"numRows = 5","output":"[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]"}],
+    constraints: ["-10^9 <= numRows <= 10^9"],
+    starterCode: {"javascript":"function generate(numRows) {\\n  \\n}","python":"def generate(numRows):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> generate(int numRows) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5],"expected":[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]}]
+  },
+  {
+    id: "flood-fill",
+    title: "Flood Fill",
+    difficulty: "Easy",
+    topic: "Array, Depth-First Search, Breadth-First Search, Matrix",
+    signature: {"name":"floodFill","params":[{"name":"image","type":"integer[][]"},{"name":"sr","type":"integer"},{"name":"sc","type":"integer"},{"name":"color","type":"integer"}],"returns":"integer[][]"},
+    description: "An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.",
+    examples: [{"input":"image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2","output":"[[2,2,2],[2,2,0],[2,0,1]]"}],
+    constraints: ["1 <= image.length, image[i].length <= 200","-10^9 <= sr <= 10^9","-10^9 <= sc <= 10^9","-10^9 <= color <= 10^9"],
+    starterCode: {"javascript":"function floodFill(image, sr, sc, color) {\\n  \\n}","python":"def floodFill(image, sr, sc, color):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,1],[1,1,0],[1,0,1]],1,1,2],"expected":[[2,2,2],[2,2,0],[2,0,1]]}]
+  },
+  {
+    id: "power-of-four",
+    title: "Power of Four",
+    difficulty: "Easy",
+    topic: "Math, Bit Manipulation, Recursion",
+    signature: {"name":"isPowerOfFour","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "Given an integer n, return true if it is a power of four. Otherwise, return false.",
+    examples: [{"input":"n = 16","output":"true"},{"input":"n = 5","output":"false"},{"input":"n = 1","output":"true"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function isPowerOfFour(n) {\\n  \\n}","python":"def isPowerOfFour(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPowerOfFour(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[16],"expected":true},{"input":[5],"expected":false},{"input":[1],"expected":true}]
+  },
+  {
+    id: "word-break",
+    title: "Word Break",
+    difficulty: "Medium",
+    topic: "Hash Table, String, Dynamic Programming, Trie, Memoization",
+    signature: {"name":"wordBreak","params":[{"name":"s","type":"string"},{"name":"wordDict","type":"string[]"}],"returns":"boolean"},
+    description: "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.",
+    examples: [{"input":"s = \"leetcode\", wordDict = [\"leet\",\"code\"]","output":"true"},{"input":"s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]","output":"true"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters.","1 <= wordDict.length <= 10^4","wordDict[i].length <= 100"],
+    starterCode: {"javascript":"function wordBreak(s, wordDict) {\\n  \\n}","python":"def wordBreak(s, wordDict):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool wordBreak(string s, vector<string>& wordDict) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["leetcode",["leet","code"]],"expected":true},{"input":["applepenapple",["apple","pen"]],"expected":true}]
+  },
+  {
+    id: "count-and-say",
+    title: "Count and Say",
+    difficulty: "Medium",
+    topic: "String",
+    signature: {"name":"countAndSay","params":[{"name":"n","type":"integer"}],"returns":"string"},
+    description: "The count-and-say sequence is a sequence of digit strings defined by the recursive formula. Given a positive integer n, return the nth term of the count-and-say sequence.",
+    examples: [{"input":"n = 1","output":"\"1\""},{"input":"n = 4","output":"\"1211\""}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function countAndSay(n) {\n  \n}","python":"def countAndSay(n):\n    pass","cpp":"class Solution {\npublic:\n    string countAndSay(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[1],"expected":"1"},{"input":[4],"expected":"1211"}]
+  },
+  {
+    id: "sort-array-by-parity",
+    title: "Sort Array By Parity",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"sortArrayByParity","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers.",
+    examples: [{"input":"nums = [3,1,2,4]","output":"[2,4,3,1]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function sortArrayByParity(nums) {\\n  \\n}","python":"def sortArrayByParity(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> sortArrayByParity(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,1,2,4]],"expected":[2,4,3,1]}]
+  },
+  {
+    id: "binary-tree-postorder-traversal",
+    title: "Binary Tree Postorder Traversal",
+    difficulty: "Easy",
+    topic: "Stack, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"postorderTraversal","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, return the postorder traversal of its nodes' values.",
+    examples: [{"input":"root = [1,null,2,3]","output":"[3,2,1]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function postorderTraversal(root) {\\n  \\n}","python":"def postorderTraversal(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> postorderTraversal(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,null,2,3]],"expected":[3,2,1]}]
+  },
+  {
+    id: "interleaving-string",
+    title: "Interleaving String",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"isInterleave","params":[{"name":"s1","type":"string"},{"name":"s2","type":"string"},{"name":"s3","type":"string"}],"returns":"boolean"},
+    description: "Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.",
+    examples: [{"input":"s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcac\"","output":"true"},{"input":"s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbbaccc\"","output":"false"}],
+    constraints: ["1 <= s1.length <= 10^5","s1 consists of printable ASCII characters.","1 <= s2.length <= 10^5","s2 consists of printable ASCII characters.","1 <= s3.length <= 10^5","s3 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isInterleave(s1, s2, s3) {\n  \n}","python":"def isInterleave(s1, s2, s3):\n    pass","cpp":"class Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        \n    }\n};"},
+    testCases: [{"input":["aabcc","dbbca","aadbbcbcac"],"expected":true},{"input":["aabcc","dbbca","aadbbbaccc"],"expected":false}]
+  },
+  {
+    id: "powx-n",
+    title: "Pow(x, n)",
+    difficulty: "Medium",
+    topic: "Math, Recursion",
+    signature: {"name":"myPow","params":[{"name":"x","type":"integer"},{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Implement pow(x, n), which calculates x raised to the power n (i.e., xn).",
+    examples: [{"input":"x = 2, n = 10","output":"1024"},{"input":"x = 2, n = -2","output":"0.25"}],
+    constraints: ["-10^9 <= x <= 10^9","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function myPow(x, n) {\n  \n}","python":"def myPow(x, n):\n    pass","cpp":"class Solution {\npublic:\n    int myPow(int x, int n) {\n        \n    }\n};"},
+    testCases: [{"input":[2,10],"expected":1024},{"input":[2,-2],"expected":0.25}]
+  },
+  {
+    id: "longest-palindromic-subsequence",
+    title: "Longest Palindromic Subsequence",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"longestPalindromeSubseq","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s, find the longest palindromic subsequence's length in s.",
+    examples: [{"input":"s = \"bbbab\"","output":"4"},{"input":"s = \"cbbd\"","output":"2"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function longestPalindromeSubseq(s) {\\n  \\n}","python":"def longestPalindromeSubseq(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int longestPalindromeSubseq(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["bbbab"],"expected":4},{"input":["cbbd"],"expected":2}]
+  },
+  {
+    id: "maximum-population-year",
+    title: "Maximum Population Year",
+    difficulty: "Easy",
+    topic: "Array, Counting",
+    signature: {"name":"maximumPopulation","params":[{"name":"logs","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given a 2D integer array logs where each logs[i] = [birthi, deathi] indicates the birth and death years of the ith person.",
+    examples: [{"input":"logs = [[1993,1999],[2000,2010]]","output":"1993"}],
+    constraints: ["1 <= logs.length, logs[i].length <= 200"],
+    starterCode: {"javascript":"function maximumPopulation(logs) {\\n  \\n}","python":"def maximumPopulation(logs):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maximumPopulation(vector<vector<int>>& logs) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1993,1999],[2000,2010]]],"expected":1993}]
+  },
+  {
+    id: "binary-tree-level-order-traversal",
+    title: "Binary Tree Level Order Traversal",
+    difficulty: "Medium",
+    topic: "Tree, Breadth-First Search, Binary Tree",
+    signature: {"name":"levelOrder","params":[{"name":"root","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given the root of a binary tree, return the level order traversal of its nodes' values.",
+    examples: [{"input":"root = [3,9,20,null,null,15,7]","output":"[[3],[9,20],[15,7]]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function levelOrder(root) {\\n  \\n}","python":"def levelOrder(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> levelOrder(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,null,null,15,7]],"expected":[[3],[9,20],[15,7]]}]
+  },
+  {
+    id: "arrange-coins",
+    title: "Arranging Coins",
+    difficulty: "Easy",
+    topic: "Math, Binary Search",
+    signature: {"name":"arrangeCoins","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "You have n coins and you want to build a staircase with these coins. The staircase consists of k rows where the ith row has exactly i coins.",
+    examples: [{"input":"n = 5","output":"2"},{"input":"n = 8","output":"3"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function arrangeCoins(n) {\\n  \\n}","python":"def arrangeCoins(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int arrangeCoins(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5],"expected":2},{"input":[8],"expected":3}]
+  },
+  {
+    id: "reverse-string-ii",
+    title: "Reverse String II",
+    difficulty: "Easy",
+    topic: "Two Pointers, String",
+    signature: {"name":"reverseStr","params":[{"name":"s","type":"string"},{"name":"k","type":"integer"}],"returns":"string"},
+    description: "Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.",
+    examples: [{"input":"s = \"abcdefg\", k = 2","output":"\"bacdfeg\""}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function reverseStr(s, k) {\\n  \\n}","python":"def reverseStr(s, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    string reverseStr(string s, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abcdefg",2],"expected":"bacdfeg"}]
+  },
+  {
+    id: "remove-element",
+    title: "Remove Element",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers",
+    signature: {"name":"removeElement","params":[{"name":"nums","type":"integer[]"},{"name":"val","type":"integer"}],"returns":"integer"},
+    description: "Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.",
+    examples: [{"input":"nums = [3,2,2,3], val = 3","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4","-10^9 <= val <= 10^9"],
+    starterCode: {"javascript":"function removeElement(nums, val) {\\n  \\n}","python":"def removeElement(nums, val):\\n    pass","cpp":"class Solution {\\npublic:\\n    int removeElement(vector<int>& nums, int val) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,2,3],3],"expected":2}]
+  },
+  {
+    id: "climbing-stairs-2",
+    title: "Climbing Stairs II",
+    difficulty: "Easy",
+    topic: "Math, Dynamic Programming",
+    signature: {"name":"climbStairs2","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? (Alternative)",
+    examples: [{"input":"n = 2","output":"2"},{"input":"n = 3","output":"3"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function climbStairs2(n) {\\n  \\n}","python":"def climbStairs2(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int climbStairs2(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":2},{"input":[3],"expected":3}]
+  },
+  {
+    id: "4sum",
+    title: "4Sum",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"fourSum","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer[][]"},
+    description: "Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that the sum is equal to target.",
+    examples: [{"input":"nums = [1,0,-1,0,-2,2], target = 0","output":"[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]"},{"input":"nums = [2,2,2,2,2], target = 8","output":"[[2,2,2,2]]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function fourSum(nums, target) {\n  \n}","python":"def fourSum(nums, target):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> fourSum(vector<int>& nums, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,0,-1,0,-2,2],0],"expected":[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]},{"input":[[2,2,2,2,2],8],"expected":[[2,2,2,2]]}]
+  },
+  {
+    id: "1-bit-and-2-bit-characters",
+    title: "1-bit and 2-bit Characters",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"isOneBitCharacter","params":[{"name":"bits","type":"integer[]"}],"returns":"boolean"},
+    description: "We have two special characters: The first character can be represented by one bit 0. The second character can be represented by two bits (10 or 11).",
+    examples: [{"input":"bits = [1,0,0]","output":"true"}],
+    constraints: ["1 <= bits.length <= 10^3","-10^4 <= bits[i] <= 10^4"],
+    starterCode: {"javascript":"function isOneBitCharacter(bits) {\\n  \\n}","python":"def isOneBitCharacter(bits):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isOneBitCharacter(vector<int>& bits) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,0,0]],"expected":true}]
+  },
+  {
+    id: "graph-coloring",
+    title: "Graph Coloring",
+    difficulty: "Medium",
+    topic: "Graph, Backtracking",
+    signature: {"name":"graphColoring","params":[{"name":"graph","type":"integer[][]"},{"name":"m","type":"integer"},{"name":"V","type":"integer"}],"returns":"boolean"},
+    description: "Given an undirected graph and an integer M. The task is to determine if the graph can be colored with at most M colors such that no two adjacent vertices of the graph are colored with the same color.",
+    examples: [{"input":"graph = [[0,1,1,1],[1,0,1,0],[1,1,0,1],[1,0,1,0]], m = 3, V = 4","output":"true"}],
+    constraints: ["1 <= graph.length, graph[i].length <= 200","-10^9 <= m <= 10^9","-10^9 <= V <= 10^9"],
+    starterCode: {"javascript":"function graphColoring(graph, m, V) {\\n  \\n}","python":"def graphColoring(graph, m, V):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool graphColoring(vector<vector<int>>& graph, int m, int V) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,1,1,1],[1,0,1,0],[1,1,0,1],[1,0,1,0]],3,4],"expected":true}]
+  },
+  {
+    id: "keyboard-row",
+    title: "Keyboard Row",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, String",
+    signature: {"name":"findWords","params":[{"name":"words","type":"string[]"}],"returns":"string[]"},
+    description: "Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard.",
+    examples: [{"input":"words = [\"Hello\",\"Alaska\",\"Dad\",\"Peace\"]","output":"[\"Alaska\",\"Dad\"]"}],
+    constraints: ["1 <= words.length <= 10^3","words[i].length <= 100"],
+    starterCode: {"javascript":"function findWords(words) {\\n  \\n}","python":"def findWords(words):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> findWords(vector<string>& words) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["Hello","Alaska","Dad","Peace"]],"expected":["Alaska","Dad"]}]
+  },
+  {
+    id: "image-smoother",
+    title: "Image Smoother",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"imageSmoother","params":[{"name":"img","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "An image smoother is a filter of the size 3 x 3 that can be applied to each cell of an image by rounding down the average of the cell and the eight surrounding cells.",
+    examples: [{"input":"img = [[1,1,1],[1,0,1],[1,1,1]]","output":"[[0,0,0],[0,0,0],[0,0,0]]"}],
+    constraints: ["1 <= img.length, img[i].length <= 200"],
+    starterCode: {"javascript":"function imageSmoother(img) {\\n  \\n}","python":"def imageSmoother(img):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,1],[1,0,1],[1,1,1]]],"expected":[[0,0,0],[0,0,0],[0,0,0]]}]
+  },
+  {
+    id: "jump-game-ii",
+    title: "Jump Game II",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Greedy",
+    signature: {"name":"jump","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array of non-negative integers nums, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Your goal is to reach the last index in the minimum number of jumps.",
+    examples: [{"input":"nums = [2,3,1,1,4]","output":"2"},{"input":"nums = [2,3,0,1,4]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function jump(nums) {\n  \n}","python":"def jump(nums):\n    pass","cpp":"class Solution {\npublic:\n    int jump(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,3,1,1,4]],"expected":2},{"input":[[2,3,0,1,4]],"expected":2}]
+  },
+  {
+    id: "pacific-atlantic-water-flow",
+    title: "Pacific Atlantic Water Flow",
+    difficulty: "Medium",
+    topic: "Array, Depth-First Search, Breadth-First Search, Matrix",
+    signature: {"name":"pacificAtlantic","params":[{"name":"heights","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. Return the list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.",
+    examples: [{"input":"heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]","output":"[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"}],
+    constraints: ["1 <= heights.length, heights[i].length <= 200"],
+    starterCode: {"javascript":"function pacificAtlantic(heights) {\\n  \\n}","python":"def pacificAtlantic(heights):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]],"expected":[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]}]
+  },
+  {
+    id: "minimum-window-substring",
+    title: "Minimum Window Substring",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Sliding Window",
+    signature: {"name":"minWindow","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"string"},
+    description: "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string \"\".",
+    examples: [{"input":"s = \"ADOBECODEBANC\", t = \"ABC\"","output":"\"BANC\""},{"input":"s = \"a\", t = \"a\"","output":"\"a\""},{"input":"s = \"a\", t = \"aa\"","output":"\"\""}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= t.length <= 10^5","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function minWindow(s, t) {\n  \n}","python":"def minWindow(s, t):\n    pass","cpp":"class Solution {\npublic:\n    string minWindow(string s, string t) {\n        \n    }\n};"},
+    testCases: [{"input":["ADOBECODEBANC","ABC"],"expected":"BANC"},{"input":["a","a"],"expected":"a"},{"input":["a","aa"],"expected":""}]
+  },
+  {
+    id: "substring-with-concatenation-of-all-words",
+    title: "Substring with Concatenation of All Words",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Sliding Window",
+    signature: {"name":"findSubstring","params":[{"name":"s","type":"string"},{"name":"words","type":"string[]"}],"returns":"integer[]"},
+    description: "You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters.",
+    examples: [{"input":"s = \"barfoothefoobarman\", words = [\"foo\",\"bar\"]","output":"[0,9]"},{"input":"s = \"wordgoodgoodgoodbestword\", words = [\"word\",\"good\",\"best\",\"word\"]","output":"[]"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= words.length <= 10^5","words[i].length <= 100"],
+    starterCode: {"javascript":"function findSubstring(s, words) {\n  \n}","python":"def findSubstring(s, words):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> findSubstring(string s, vector<string>& words) {\n        \n    }\n};"},
+    testCases: [{"input":["barfoothefoobarman",["foo","bar"]],"expected":[0,9]},{"input":["wordgoodgoodgoodbestword",["word","good","best","word"]],"expected":[]}]
+  },
+  {
+    id: "invert-binary-tree",
+    title: "Invert Binary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"invertTree","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, invert the tree, and return its root.",
+    examples: [{"input":"root = [4,2,7,1,3,6,9]","output":"[4,7,2,9,6,3,1]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function invertTree(root) {\\n  \\n}","python":"def invertTree(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> invertTree(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,7,1,3,6,9]],"expected":[4,7,2,9,6,3,1]}]
+  },
+  {
+    id: "floyd-warshall-algorithm",
+    title: "Floyd Warshall Algorithm",
+    difficulty: "Medium",
+    topic: "Graph, Shortest Path, Dynamic Programming",
+    signature: {"name":"floydWarshall","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "The problem is to find shortest distances between every pair of vertices in a given edge weighted directed Graph. The Graph is represented as adjecency matrix, and the matrix denotes the weight of the edges.",
+    examples: [{"input":"matrix = [[0,1,43],[1,0,6],[2147483647,2147483647,0]]","output":"[[0,1,43],[1,0,44],[2147483647,2147483647,0]]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function floydWarshall(matrix) {\\n  \\n}","python":"def floydWarshall(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> floydWarshall(vector<vector<int>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,1,43],[1,0,6],[2147483647,2147483647,0]]],"expected":[[0,1,43],[1,0,44],[2147483647,2147483647,0]]}]
+  },
+  {
+    id: "teemo-attacking",
+    title: "Teemo Attacking",
+    difficulty: "Easy",
+    topic: "Array, Simulation",
+    signature: {"name":"findPoisonedDuration","params":[{"name":"timeSeries","type":"integer[]"},{"name":"duration","type":"integer"}],"returns":"integer"},
+    description: "Our hero Teemo is attacking an enemy Ashe with poison attacks. When Teemo attacks Ashe, Ashe gets poisoned for a exactly duration seconds.",
+    examples: [{"input":"timeSeries = [1,4], duration = 2","output":"4"}],
+    constraints: ["1 <= timeSeries.length <= 10^3","-10^4 <= timeSeries[i] <= 10^4","-10^9 <= duration <= 10^9"],
+    starterCode: {"javascript":"function findPoisonedDuration(timeSeries, duration) {\\n  \\n}","python":"def findPoisonedDuration(timeSeries, duration):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findPoisonedDuration(vector<int>& timeSeries, int duration) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,4],2],"expected":4}]
+  },
+  {
+    id: "contains-duplicate-ii",
+    title: "Contains Duplicate II",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Sliding Window",
+    signature: {"name":"containsNearbyDuplicate","params":[{"name":"nums","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"boolean"},
+    description: "Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.",
+    examples: [{"input":"nums = [1,2,3,1], k = 3","output":"true"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function containsNearbyDuplicate(nums, k) {\\n  \\n}","python":"def containsNearbyDuplicate(nums, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,1],3],"expected":true}]
+  },
+  {
+    id: "lowest-common-ancestor-of-a-binary-tree",
+    title: "Lowest Common Ancestor of a Binary Tree",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"lowestCommonAncestor","params":[{"name":"root","type":"integer[]"},{"name":"p","type":"integer"},{"name":"q","type":"integer"}],"returns":"integer"},
+    description: "Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.",
+    examples: [{"input":"root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1","output":"3"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","-10^9 <= p <= 10^9","-10^9 <= q <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function lowestCommonAncestor(root, p, q) {\\n  \\n}","python":"def lowestCommonAncestor(root, p, q):\\n    pass","cpp":"class Solution {\\npublic:\\n    int lowestCommonAncestor(vector<int>& root, int p, int q) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,5,1,6,2,0,8,null,null,7,4],5,1],"expected":3}]
+  },
+  {
+    id: "distribute-candies",
+    title: "Distribute Candies",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"distributeCandies","params":[{"name":"candyType","type":"integer[]"}],"returns":"integer"},
+    description: "Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor.",
+    examples: [{"input":"candyType = [1,1,2,2,3,3]","output":"3"}],
+    constraints: ["1 <= candyType.length <= 10^3","-10^4 <= candyType[i] <= 10^4"],
+    starterCode: {"javascript":"function distributeCandies(candyType) {\\n  \\n}","python":"def distributeCandies(candyType):\\n    pass","cpp":"class Solution {\\npublic:\\n    int distributeCandies(vector<int>& candyType) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,2,2,3,3]],"expected":3}]
+  },
+  {
+    id: "find-pivot-index-easy",
+    title: "Find Pivot Index Easy",
+    difficulty: "Easy",
+    topic: "Array, Prefix Sum",
+    signature: {"name":"pivotIndexEasy","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array of integers nums, calculate the pivot index of this array.",
+    examples: [{"input":"nums = [1,7,3,6,5,6]","output":"3"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function pivotIndexEasy(nums) {\\n  \\n}","python":"def pivotIndexEasy(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int pivotIndexEasy(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,7,3,6,5,6]],"expected":3}]
+  },
+  {
+    id: "string-to-integer-atoi",
+    title: "String to Integer (atoi)",
+    difficulty: "Medium",
+    topic: "String",
+    signature: {"name":"myAtoi","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).",
+    examples: [{"input":"s = \"42\"","output":"42"},{"input":"s = \"   -42\"","output":"-42"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function myAtoi(s) {\n  \n}","python":"def myAtoi(s):\n    pass","cpp":"class Solution {\npublic:\n    int myAtoi(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["42"],"expected":42},{"input":["   -42"],"expected":-42}]
+  },
+  {
+    id: "valid-perfect-square",
+    title: "Valid Perfect Square",
+    difficulty: "Easy",
+    topic: "Math, Binary Search",
+    signature: {"name":"isPerfectSquare","params":[{"name":"num","type":"integer"}],"returns":"boolean"},
+    description: "Given a positive integer num, return true if num is a perfect square or false otherwise.",
+    examples: [{"input":"num = 16","output":"true"},{"input":"num = 14","output":"false"}],
+    constraints: ["-10^9 <= num <= 10^9"],
+    starterCode: {"javascript":"function isPerfectSquare(num) {\\n  \\n}","python":"def isPerfectSquare(num):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPerfectSquare(int num) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[16],"expected":true},{"input":[14],"expected":false}]
+  },
+  {
+    id: "lfu-cache",
+    title: "LFU Cache",
+    difficulty: "Hard",
+    topic: "Hash Table, Linked List, Design, Doubly-Linked List",
+    signature: {"name":"lfuCache","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Design and implement a data structure for a Least Frequently Used (LFU) cache.",
+    examples: [{"input":"operations = [\"LFUCache\",\"put\",\"put\",\"get\",\"put\",\"get\",\"get\",\"put\",\"get\",\"get\",\"get\"], args = [[2],[1,1],[2,2],[1],[3,3],[2],[3],[4,4],[1],[3],[4]]","output":"[null,null,null,1,null,-1,3,null,-1,3,4]"}],
+    constraints: ["1 <= operations.length <= 10^5","operations[i].length <= 100","1 <= args.length, args[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function lfuCache(operations, args) {\\n  \\n}","python":"def lfuCache(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> lfuCache(vector<string>& operations, vector<vector<int>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["LFUCache","put","put","get","put","get","get","put","get","get","get"],[[2],[1,1],[2,2],[1],[3,3],[2],[3],[4,4],[1],[3],[4]]],"expected":[null,null,null,1,null,-1,3,null,-1,3,4]}]
+  },
+  {
+    id: "add-binary",
+    title: "Add Binary",
+    difficulty: "Easy",
+    topic: "Math, String, Bit Manipulation",
+    signature: {"name":"addBinary","params":[{"name":"a","type":"string"},{"name":"b","type":"string"}],"returns":"string"},
+    description: "Given two binary strings a and b, return their sum as a binary string.",
+    examples: [{"input":"a = \"11\", b = \"1\"","output":"\"100\""},{"input":"a = \"1010\", b = \"1011\"","output":"\"10101\""}],
+    constraints: ["1 <= a.length <= 10^3","a consists of printable ASCII characters.","1 <= b.length <= 10^3","b consists of printable ASCII characters."],
+    starterCode: {"javascript":"function addBinary(a, b) {\\n  \\n}","python":"def addBinary(a, b):\\n    pass","cpp":"class Solution {\\npublic:\\n    string addBinary(string a, string b) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["11","1"],"expected":"100"},{"input":["1010","1011"],"expected":"10101"}]
+  },
+  {
+    id: "3sum-closest",
+    title: "3Sum Closest",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"threeSumClosest","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer"},
+    description: "Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.",
+    examples: [{"input":"nums = [-1,2,1,-4], target = 1","output":"2"},{"input":"nums = [0,0,0], target = 1","output":"0"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function threeSumClosest(nums, target) {\n  \n}","python":"def threeSumClosest(nums, target):\n    pass","cpp":"class Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[-1,2,1,-4],1],"expected":2},{"input":[[0,0,0],1],"expected":0}]
+  },
+  {
+    id: "reverse-integer",
+    title: "Reverse Integer",
+    difficulty: "Medium",
+    topic: "Math",
+    signature: {"name":"reverse","params":[{"name":"x","type":"integer"}],"returns":"integer"},
+    description: "Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range, then return 0.",
+    examples: [{"input":"x = 123","output":"321"},{"input":"x = -123","output":"-321"}],
+    constraints: ["-10^9 <= x <= 10^9"],
+    starterCode: {"javascript":"function reverse(x) {\n  \n}","python":"def reverse(x):\n    pass","cpp":"class Solution {\npublic:\n    int reverse(int x) {\n        \n    }\n};"},
+    testCases: [{"input":[123],"expected":321},{"input":[-123],"expected":-321}]
+  },
+  {
+    id: "middle-of-the-linked-list",
+    title: "Middle of the Linked List",
+    difficulty: "Easy",
+    topic: "Linked List, Two Pointers",
+    signature: {"name":"middleNode","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the head of a singly linked list, return the middle node of the linked list.",
+    examples: [{"input":"head = [1,2,3,4,5]","output":"[3,4,5]"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function middleNode(head) {\\n  \\n}","python":"def middleNode(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> middleNode(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5]],"expected":[3,4,5]}]
+  },
+  {
+    id: "spiral-matrix",
+    title: "Spiral Matrix",
+    difficulty: "Medium",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"spiralOrder","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Given an m x n matrix, return all elements of the matrix in spiral order.",
+    examples: [{"input":"matrix = [[1,2,3],[4,5,6],[7,8,9]]","output":"[1,2,3,6,9,8,7,4,5]"},{"input":"matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]","output":"[1,2,3,4,8,12,11,10,9,5,6,7]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function spiralOrder(matrix) {\n  \n}","python":"def spiralOrder(matrix):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":[1,2,3,6,9,8,7,4,5]},{"input":[[[1,2,3,4],[5,6,7,8],[9,10,11,12]]],"expected":[1,2,3,4,8,12,11,10,9,5,6,7]}]
+  },
+  {
+    id: "ones-and-zeroes",
+    title: "Ones and Zeroes",
+    difficulty: "Medium",
+    topic: "Array, String, Dynamic Programming",
+    signature: {"name":"findMaxForm","params":[{"name":"strs","type":"string[]"},{"name":"m","type":"integer"},{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "You are given an array of binary strings strs and two integers m and n. Return the size of the largest subset of strs such that there are at most m 0's and n 1's in the subset.",
+    examples: [{"input":"strs = [\"10\",\"0001\",\"111001\",\"1\",\"0\"], m = 5, n = 3","output":"4"}],
+    constraints: ["1 <= strs.length <= 10^4","strs[i].length <= 100","-10^9 <= m <= 10^9","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function findMaxForm(strs, m, n) {\\n  \\n}","python":"def findMaxForm(strs, m, n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findMaxForm(vector<string>& strs, int m, int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["10","0001","111001","1","0"],5,3],"expected":4}]
+  },
+  {
+    id: "minimum-path-sum",
+    title: "Minimum Path Sum",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Matrix",
+    signature: {"name":"minPathSum","params":[{"name":"grid","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path. Note: You can only move either down or right at any point in time.",
+    examples: [{"input":"grid = [[1,3,1],[1,5,1],[4,2,1]]","output":"7"},{"input":"grid = [[1,2,3],[4,5,6]]","output":"12"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function minPathSum(grid) {\n  \n}","python":"def minPathSum(grid):\n    pass","cpp":"class Solution {\npublic:\n    int minPathSum(vector<vector<int>>& grid) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,3,1],[1,5,1],[4,2,1]]],"expected":7},{"input":[[[1,2,3],[4,5,6]]],"expected":12}]
+  },
+  {
+    id: "text-justification",
+    title: "Text Justification",
+    difficulty: "Hard",
+    topic: "Array, String, Simulation",
+    signature: {"name":"fullJustify","params":[{"name":"words","type":"string[]"},{"name":"maxWidth","type":"integer"}],"returns":"string[]"},
+    description: "Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.",
+    examples: [{"input":"words = [\"This\",\"is\",\"an\",\"example\",\"of\",\"text\",\"justification.\"], maxWidth = 16","output":"[\"This    is    an\",\"example  of text\",\"justification.  \"]"}],
+    constraints: ["1 <= words.length <= 10^5","words[i].length <= 100","-10^9 <= maxWidth <= 10^9"],
+    starterCode: {"javascript":"function fullJustify(words, maxWidth) {\n  \n}","python":"def fullJustify(words, maxWidth):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> fullJustify(vector<string>& words, int maxWidth) {\n        \n    }\n};"},
+    testCases: [{"input":[["This","is","an","example","of","text","justification."],16],"expected":["This    is    an","example  of text","justification.  "]}]
+  },
+  {
+    id: "remove-duplicates-from-sorted-array-ii",
+    title: "Remove Duplicates from Sorted Array II",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers",
+    signature: {"name":"removeDuplicates","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same. Return the array.",
+    examples: [{"input":"nums = [1,1,1,2,2,3]","output":"[1,1,2,2,3]"},{"input":"nums = [0,0,1,1,1,1,2,3,3]","output":"[0,0,1,1,2,3,3]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function removeDuplicates(nums) {\n  \n}","python":"def removeDuplicates(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> removeDuplicates(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,1,1,2,2,3]],"expected":[1,1,2,2,3]},{"input":[[0,0,1,1,1,1,2,3,3]],"expected":[0,0,1,1,2,3,3]}]
+  },
+  {
+    id: "is-subsequence-easy",
+    title: "Is Subsequence Easy",
+    difficulty: "Easy",
+    topic: "Two Pointers, String",
+    signature: {"name":"isSubsequenceEasy","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and t, return true if s is a subsequence of t, or false otherwise.",
+    examples: [{"input":"s = \"abc\", t = \"ahbgdc\"","output":"true"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= t.length <= 10^3","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isSubsequenceEasy(s, t) {\\n  \\n}","python":"def isSubsequenceEasy(s, t):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSubsequenceEasy(string s, string t) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abc","ahbgdc"],"expected":true}]
+  },
+  {
+    id: "add-two-numbers-ii",
+    title: "Add Two Numbers II",
+    difficulty: "Medium",
+    topic: "Linked List, Math, Stack",
+    signature: {"name":"addTwoNumbers","params":[{"name":"l1","type":"integer[]"},{"name":"l2","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first.",
+    examples: [{"input":"l1 = [7,2,4,3], l2 = [5,6,4]","output":"[7,8,0,7]"}],
+    constraints: ["1 <= l1.length <= 10^4","-10^4 <= l1[i] <= 10^4","1 <= l2.length <= 10^4","-10^4 <= l2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function addTwoNumbers(l1, l2) {\\n  \\n}","python":"def addTwoNumbers(l1, l2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> addTwoNumbers(vector<int>& l1, vector<int>& l2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[7,2,4,3],[5,6,4]],"expected":[7,8,0,7]}]
+  },
+  {
+    id: "word-ladder-iii",
+    title: "Word Ladder III",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Breadth-First Search",
+    signature: {"name":"findLaddersExt","params":[{"name":"beginWord","type":"string"},{"name":"endWord","type":"string"},{"name":"wordList","type":"string[]"}],"returns":"string[][]"},
+    description: "A variation of Word Ladder where you must find all shortest transformation sequences.",
+    examples: [{"input":"beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]","output":"[[\"hit\",\"hot\",\"dot\",\"dog\",\"cog\"],[\"hit\",\"hot\",\"lot\",\"log\",\"cog\"]]"}],
+    constraints: ["1 <= beginWord.length <= 10^5","beginWord consists of printable ASCII characters.","1 <= endWord.length <= 10^5","endWord consists of printable ASCII characters.","1 <= wordList.length <= 10^5","wordList[i].length <= 100"],
+    starterCode: {"javascript":"function findLaddersExt(beginWord, endWord, wordList) {\\n  \\n}","python":"def findLaddersExt(beginWord, endWord, wordList):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<string>> findLaddersExt(string beginWord, string endWord, vector<string>& wordList) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["hit","cog",["hot","dot","dog","lot","log","cog"]],"expected":[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]}]
+  },
+  {
+    id: "relative-ranks",
+    title: "Relative Ranks",
+    difficulty: "Easy",
+    topic: "Array, Sorting, Heap (Priority Queue)",
+    signature: {"name":"findRelativeRanks","params":[{"name":"score","type":"integer[]"}],"returns":"string[]"},
+    description: "You are given an integer array score of size n, where score[i] is the score of the ith athlete in a competition.",
+    examples: [{"input":"score = [5,4,3,2,1]","output":"[\"Gold Medal\",\"Silver Medal\",\"Bronze Medal\",\"4\",\"5\"]"}],
+    constraints: ["1 <= score.length <= 10^3","-10^4 <= score[i] <= 10^4"],
+    starterCode: {"javascript":"function findRelativeRanks(score) {\\n  \\n}","python":"def findRelativeRanks(score):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> findRelativeRanks(vector<int>& score) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,4,3,2,1]],"expected":["Gold Medal","Silver Medal","Bronze Medal","4","5"]}]
+  },
+  {
+    id: "license-key-formatting",
+    title: "License Key Formatting",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"licenseKeyFormatting","params":[{"name":"s","type":"string"},{"name":"k","type":"integer"}],"returns":"string"},
+    description: "You are given a license key represented as a string s that consists of only alphanumeric characters and dashes.",
+    examples: [{"input":"s = \"5F3Z-2e-9-w\", k = 4","output":"\"5F3Z-2E9W\""}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function licenseKeyFormatting(s, k) {\\n  \\n}","python":"def licenseKeyFormatting(s, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    string licenseKeyFormatting(string s, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["5F3Z-2e-9-w",4],"expected":"5F3Z-2E9W"}]
+  },
+  {
+    id: "container-with-most-water",
+    title: "Container With Most Water",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Greedy",
+    signature: {"name":"maxArea","params":[{"name":"height","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]). Find two lines that together with the x-axis form a container, such that the container contains the most water.",
+    examples: [{"input":"height = [1,8,6,2,5,4,8,3,7]","output":"49"},{"input":"height = [1,1]","output":"1"}],
+    constraints: ["1 <= height.length <= 10^4","-10^4 <= height[i] <= 10^4"],
+    starterCode: {"javascript":"function maxArea(height) {\n  \n}","python":"def maxArea(height):\n    pass","cpp":"class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,8,6,2,5,4,8,3,7]],"expected":49},{"input":[[1,1]],"expected":1}]
+  },
+  {
+    id: "length-of-last-word",
+    title: "Length of Last Word",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"lengthOfLastWord","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s consisting of words and spaces, return the length of the last word in the string.",
+    examples: [{"input":"s = \"Hello World\"","output":"5"},{"input":"s = \"   fly me   to   the moon  \"","output":"4"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function lengthOfLastWord(s) {\\n  \\n}","python":"def lengthOfLastWord(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int lengthOfLastWord(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["Hello World"],"expected":5},{"input":["   fly me   to   the moon  "],"expected":4}]
+  },
+  {
+    id: "valid-anagram",
+    title: "Valid Anagram",
+    difficulty: "Easy",
+    topic: "Hash Table, String, Sorting",
+    signature: {"name":"isAnagram","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and t, return true if t is an anagram of s, and false otherwise.",
+    examples: [{"input":"s = \"anagram\", t = \"nagaram\"","output":"true"},{"input":"s = \"rat\", t = \"car\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= t.length <= 10^3","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isAnagram(s, t) {\\n  \\n}","python":"def isAnagram(s, t):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isAnagram(string s, string t) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["anagram","nagaram"],"expected":true},{"input":["rat","car"],"expected":false}]
+  },
+  {
+    id: "longest-common-subsequence",
+    title: "Longest Common Subsequence",
+    difficulty: "Medium",
+    topic: "Dynamic Programming, String",
+    signature: {"name":"longestCommonSubsequence","params":[{"name":"text1","type":"string"},{"name":"text2","type":"string"}],"returns":"integer"},
+    description: "Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.",
+    examples: [{"input":"text1 = \"abcde\", text2 = \"ace\"","output":"3"},{"input":"text1 = \"abc\", text2 = \"abc\"","output":"3"}],
+    constraints: ["1 <= text1.length <= 10^4","text1 consists of printable ASCII characters.","1 <= text2.length <= 10^4","text2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function longestCommonSubsequence(text1, text2) {\\n  \\n}","python":"def longestCommonSubsequence(text1, text2):\\n    pass","cpp":"class Solution {\\npublic:\\n    int longestCommonSubsequence(string text1, string text2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abcde","ace"],"expected":3},{"input":["abc","abc"],"expected":3}]
+  },
+  {
+    id: "add-strings",
+    title: "Add Strings",
+    difficulty: "Easy",
+    topic: "Math, String, Simulation",
+    signature: {"name":"addStrings","params":[{"name":"num1","type":"string"},{"name":"num2","type":"string"}],"returns":"string"},
+    description: "Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.",
+    examples: [{"input":"num1 = \"11\", num2 = \"123\"","output":"\"134\""},{"input":"num1 = \"456\", num2 = \"77\"","output":"\"533\""}],
+    constraints: ["1 <= num1.length <= 10^3","num1 consists of printable ASCII characters.","1 <= num2.length <= 10^3","num2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function addStrings(num1, num2) {\\n  \\n}","python":"def addStrings(num1, num2):\\n    pass","cpp":"class Solution {\\npublic:\\n    string addStrings(string num1, string num2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["11","123"],"expected":"134"},{"input":["456","77"],"expected":"533"}]
+  },
+  {
+    id: "third-maximum-number",
+    title: "Third Maximum Number",
+    difficulty: "Easy",
+    topic: "Array, Sorting",
+    signature: {"name":"thirdMax","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.",
+    examples: [{"input":"nums = [3,2,1]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function thirdMax(nums) {\\n  \\n}","python":"def thirdMax(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int thirdMax(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,1]],"expected":1}]
+  },
+  {
+    id: "distinct-subsequences-ii",
+    title: "Distinct Subsequences II",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"distinctSubseqII","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 10^9 + 7.",
+    examples: [{"input":"s = \"abc\"","output":"7"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function distinctSubseqII(s) {\\n  \\n}","python":"def distinctSubseqII(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int distinctSubseqII(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abc"],"expected":7}]
+  },
+  {
+    id: "minimum-distance-between-bst-nodes",
+    title: "Minimum Distance Between BST Nodes",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"minDiffInBST","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a Binary Search Tree (BST), return the minimum difference between the values of any two different nodes in the tree.",
+    examples: [{"input":"root = [4,2,6,1,3]","output":"1"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function minDiffInBST(root) {\\n  \\n}","python":"def minDiffInBST(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minDiffInBST(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,6,1,3]],"expected":1}]
+  },
+  {
+    id: "longest-increasing-path-in-a-matrix",
+    title: "Longest Increasing Path in a Matrix",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming, Depth-First Search, Breadth-First Search, Graph, Topological Sort, Memoization, Matrix",
+    signature: {"name":"longestIncreasingPath","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer"},
+    description: "Given an m x n integers matrix, return the length of the longest increasing path in matrix.",
+    examples: [{"input":"matrix = [[9,9,4],[6,6,8],[2,1,1]]","output":"4"},{"input":"matrix = [[3,4,5],[3,2,6],[2,2,1]]","output":"4"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function longestIncreasingPath(matrix) {\n  \n}","python":"def longestIncreasingPath(matrix):\n    pass","cpp":"class Solution {\npublic:\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n        \n    }\n};"},
+    testCases: [{"input":[[[9,9,4],[6,6,8],[2,1,1]]],"expected":4},{"input":[[[3,4,5],[3,2,6],[2,2,1]]],"expected":4}]
+  },
+  {
+    id: "construct-the-rectangle",
+    title: "Construct the Rectangle",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"constructRectangle","params":[{"name":"area","type":"integer"}],"returns":"integer[]"},
+    description: "A web developer needs to know the design of a web page's size. So, given a specific rectangular web page’s area, your job by now is to design a rectangular web page.",
+    examples: [{"input":"area = 4","output":"[2,2]"}],
+    constraints: ["-10^9 <= area <= 10^9"],
+    starterCode: {"javascript":"function constructRectangle(area) {\\n  \\n}","python":"def constructRectangle(area):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> constructRectangle(int area) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4],"expected":[2,2]}]
+  },
+  {
+    id: "remove-invalid-parentheses",
+    title: "Remove Invalid Parentheses",
+    difficulty: "Hard",
+    topic: "String, Backtracking, Breadth-First Search",
+    signature: {"name":"removeInvalidParentheses","params":[{"name":"s","type":"string"}],"returns":"string[]"},
+    description: "Given a string s that contains parentheses and letters, remove the minimum number of invalid parentheses to make the input string valid. Return all the possible results. You may return the answer in any order.",
+    examples: [{"input":"s = \"()())()\"","output":"[\"(())()\",\"()()()\"]"},{"input":"s = \"(a)())()\"","output":"[\"(a())()\",\"(a)()()\"]"},{"input":"s = \")(\"","output":"[\"\"]"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function removeInvalidParentheses(s) {\n  \n}","python":"def removeInvalidParentheses(s):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> removeInvalidParentheses(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["()())()"],"expected":["(())()","()()()"]},{"input":["(a)())()"],"expected":["(a())()","(a)()()"]},{"input":[")("],"expected":[""]}]
+  },
+  {
+    id: "valid-number",
+    title: "Valid Number",
+    difficulty: "Hard",
+    topic: "String",
+    signature: {"name":"isNumber","params":[{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "A valid number can be split up into these components (in order): A decimal number or an integer, (Optional) An 'e' or 'E', followed by an integer.",
+    examples: [{"input":"s = \"0\"","output":"true"},{"input":"s = \"e\"","output":"false"},{"input":"s = \".\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isNumber(s) {\n  \n}","python":"def isNumber(s):\n    pass","cpp":"class Solution {\npublic:\n    bool isNumber(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["0"],"expected":true},{"input":["e"],"expected":false},{"input":["."],"expected":false}]
+  },
+  {
+    id: "degree-of-an-array-easy",
+    title: "Degree of an Array Easy",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"findShortestSubArrayEasy","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.",
+    examples: [{"input":"nums = [1,2,2,3,1]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findShortestSubArrayEasy(nums) {\\n  \\n}","python":"def findShortestSubArrayEasy(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findShortestSubArrayEasy(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,3,1]],"expected":2}]
+  },
+  {
+    id: "maximum-gap",
+    title: "Maximum Gap",
+    difficulty: "Hard",
+    topic: "Array, Sorting, Bucket Sort, Radix Sort",
+    signature: {"name":"maximumGap","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, return the maximum difference between two successive elements in its sorted form. If the array contains less than two elements, return 0.",
+    examples: [{"input":"nums = [3,6,9,1]","output":"3"},{"input":"nums = [10]","output":"0"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maximumGap(nums) {\n  \n}","python":"def maximumGap(nums):\n    pass","cpp":"class Solution {\npublic:\n    int maximumGap(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[3,6,9,1]],"expected":3},{"input":[[10]],"expected":0}]
+  },
+  {
+    id: "squares-of-a-sorted-array",
+    title: "Squares of a Sorted Array",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"sortedSquares","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.",
+    examples: [{"input":"nums = [-4,-1,0,3,10]","output":"[0,1,9,16,100]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function sortedSquares(nums) {\\n  \\n}","python":"def sortedSquares(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> sortedSquares(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[-4,-1,0,3,10]],"expected":[0,1,9,16,100]}]
+  },
+  {
+    id: "design-add-and-search-words-data-structure",
+    title: "Design Add and Search Words Data Structure",
+    difficulty: "Medium",
+    topic: "String, Depth-First Search, Design, Trie",
+    signature: {"name":"wordDictionary","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"string[][]"}],"returns":"boolean[]"},
+    description: "Design a data structure that supports adding new words and finding if a string matches any previously added string.",
+    examples: [{"input":"operations = [\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"], args = [[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]","output":"[null,null,null,null,false,true,true,true]"}],
+    constraints: ["1 <= operations.length <= 10^4","operations[i].length <= 100","1 <= args.length, args[i].length <= 200"],
+    starterCode: {"javascript":"function wordDictionary(operations, args) {\\n  \\n}","python":"def wordDictionary(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    int wordDictionary(vector<string>& operations, vector<vector<string>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["WordDictionary","addWord","addWord","addWord","search","search","search","search"],[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]],"expected":[null,null,null,null,false,true,true,true]}]
+  },
+  {
+    id: "repeated-substring-pattern",
+    title: "Repeated Substring Pattern",
+    difficulty: "Easy",
+    topic: "String, String Matching",
+    signature: {"name":"repeatedSubstringPattern","params":[{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.",
+    examples: [{"input":"s = \"abab\"","output":"true"},{"input":"s = \"aba\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function repeatedSubstringPattern(s) {\\n  \\n}","python":"def repeatedSubstringPattern(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool repeatedSubstringPattern(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abab"],"expected":true},{"input":["aba"],"expected":false}]
+  },
+  {
+    id: "unique-morse-code-words",
+    title: "Unique Morse Code Words",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, String",
+    signature: {"name":"uniqueMorseRepresentations","params":[{"name":"words","type":"string[]"}],"returns":"integer"},
+    description: "International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes.",
+    examples: [{"input":"words = [\"gin\",\"zen\",\"gig\",\"msg\"]","output":"2"}],
+    constraints: ["1 <= words.length <= 10^3","words[i].length <= 100"],
+    starterCode: {"javascript":"function uniqueMorseRepresentations(words) {\\n  \\n}","python":"def uniqueMorseRepresentations(words):\\n    pass","cpp":"class Solution {\\npublic:\\n    int uniqueMorseRepresentations(vector<string>& words) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["gin","zen","gig","msg"]],"expected":2}]
+  },
+  {
+    id: "count-of-smaller-numbers-after-self",
+    title: "Count of Smaller Numbers After Self",
+    difficulty: "Hard",
+    topic: "Array, Binary Search, Divide and Conquer, Binary Indexed Tree, Segment Tree, Merge Sort, Ordered Set",
+    signature: {"name":"countSmaller","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an integer array nums, return an integer array counts where counts[i] is the number of smaller elements to the right of nums[i].",
+    examples: [{"input":"nums = [5,2,6,1]","output":"[2,1,1,0]"},{"input":"nums = [-1]","output":"[0]"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function countSmaller(nums) {\n  \n}","python":"def countSmaller(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> countSmaller(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[5,2,6,1]],"expected":[2,1,1,0]},{"input":[[-1]],"expected":[0]}]
+  },
+  {
+    id: "best-time-to-buy-and-sell-stock",
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "Easy",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"maxProfit","params":[{"name":"prices","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an array prices where prices[i] is the price of a given stock on the ith day.",
+    examples: [{"input":"prices = [7,1,5,3,6,4]","output":"5"}],
+    constraints: ["1 <= prices.length <= 10^3","-10^4 <= prices[i] <= 10^4"],
+    starterCode: {"javascript":"function maxProfit(prices) {\\n  \\n}","python":"def maxProfit(prices):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maxProfit(vector<int>& prices) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[7,1,5,3,6,4]],"expected":5}]
+  },
+  {
+    id: "reverse-linked-list-ii",
+    title: "Reverse Linked List II",
+    difficulty: "Medium",
+    topic: "Linked List",
+    signature: {"name":"reverseBetween","params":[{"name":"head","type":"integer[]"},{"name":"left","type":"integer"},{"name":"right","type":"integer"}],"returns":"integer[]"},
+    description: "Given the head of a singly linked list (represented as an array) and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.",
+    examples: [{"input":"head = [1,2,3,4,5], left = 2, right = 4","output":"[1,4,3,2,5]"},{"input":"head = [5], left = 1, right = 1","output":"[5]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","-10^9 <= left <= 10^9","-10^9 <= right <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function reverseBetween(head, left, right) {\n  \n}","python":"def reverseBetween(head, left, right):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> reverseBetween(vector<int>& head, int left, int right) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3,4,5],2,4],"expected":[1,4,3,2,5]},{"input":[[5],1,1],"expected":[5]}]
+  },
+  {
+    id: "longest-arithmetic-subsequence",
+    title: "Longest Arithmetic Subsequence",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Binary Search, Dynamic Programming",
+    signature: {"name":"longestArithSeqLength","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array nums of integers, return the length of the longest arithmetic subsequence in nums.",
+    examples: [{"input":"nums = [3,6,9,12]","output":"4"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function longestArithSeqLength(nums) {\\n  \\n}","python":"def longestArithSeqLength(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int longestArithSeqLength(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,6,9,12]],"expected":4}]
+  },
+  {
+    id: "maximal-square",
+    title: "Maximal Square",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Matrix",
+    signature: {"name":"maximalSquare","params":[{"name":"matrix","type":"string[][]"}],"returns":"integer"},
+    description: "Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.",
+    examples: [{"input":"matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]","output":"4"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function maximalSquare(matrix) {\\n  \\n}","python":"def maximalSquare(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maximalSquare(vector<vector<string>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]],"expected":4}]
+  },
+  {
+    id: "russian-doll-envelopes",
+    title: "Russian Doll Envelopes",
+    difficulty: "Hard",
+    topic: "Array, Binary Search, Dynamic Programming, Sorting",
+    signature: {"name":"maxEnvelopes","params":[{"name":"envelopes","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi] represents the width and the height of an envelope. One envelope can fit into another if and only if both the width and height of one envelope are strictly smaller than the other envelope's width and height. Return the maximum number of envelopes you can Russian doll (i.e., put one inside other).",
+    examples: [{"input":"envelopes = [[5,4],[6,4],[6,7],[2,3]]","output":"3"},{"input":"envelopes = [[1,1],[1,1],[1,1]]","output":"1"}],
+    constraints: ["1 <= envelopes.length, envelopes[i].length <= 200"],
+    starterCode: {"javascript":"function maxEnvelopes(envelopes) {\n  \n}","python":"def maxEnvelopes(envelopes):\n    pass","cpp":"class Solution {\npublic:\n    int maxEnvelopes(vector<vector<int>>& envelopes) {\n        \n    }\n};"},
+    testCases: [{"input":[[[5,4],[6,4],[6,7],[2,3]]],"expected":3},{"input":[[[1,1],[1,1],[1,1]]],"expected":1}]
+  },
+  {
+    id: "intersection-of-two-arrays-easy",
+    title: "Intersection of Two Arrays Easy",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"intersectionEasy","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two integer arrays nums1 and nums2, return an array of their intersection.",
+    examples: [{"input":"nums1 = [1,2,2,1], nums2 = [2,2]","output":"[2]"}],
+    constraints: ["1 <= nums1.length <= 10^3","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^3","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function intersectionEasy(nums1, nums2) {\\n  \\n}","python":"def intersectionEasy(nums1, nums2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> intersectionEasy(vector<int>& nums1, vector<int>& nums2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1],[2,2]],"expected":[2]}]
+  },
+  {
+    id: "binary-tree-zigzag-level-order-traversal",
+    title: "Binary Tree Zigzag Level Order Traversal",
+    difficulty: "Medium",
+    topic: "Tree, Breadth-First Search, Binary Tree",
+    signature: {"name":"zigzagLevelOrder","params":[{"name":"root","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given the root of a binary tree, return the zigzag level order traversal of its nodes' values.",
+    examples: [{"input":"root = [3,9,20,null,null,15,7]","output":"[[3],[20,9],[15,7]]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function zigzagLevelOrder(root) {\\n  \\n}","python":"def zigzagLevelOrder(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> zigzagLevelOrder(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,null,null,15,7]],"expected":[[3],[20,9],[15,7]]}]
+  },
+  {
+    id: "merge-sorted-array",
+    title: "Merge Sorted Array",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"merge","params":[{"name":"nums1","type":"integer[]"},{"name":"m","type":"integer"},{"name":"nums2","type":"integer[]"},{"name":"n","type":"integer"}],"returns":"integer[]"},
+    description: "You are given two integer arrays nums1 and nums2, sorted in non-decreasing order.",
+    examples: [{"input":"nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3","output":"[1,2,2,3,5,6]"}],
+    constraints: ["1 <= nums1.length <= 10^3","-10^4 <= nums1[i] <= 10^4","-10^9 <= m <= 10^9","1 <= nums2.length <= 10^3","-10^4 <= nums2[i] <= 10^4","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function merge(nums1, m, nums2, n) {\\n  \\n}","python":"def merge(nums1, m, nums2, n):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,0,0,0],3,[2,5,6],3],"expected":[1,2,2,3,5,6]}]
+  },
+  {
+    id: "special-positions-in-a-binary-matrix",
+    title: "Special Positions in a Binary Matrix",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"numSpecial","params":[{"name":"mat","type":"integer[][]"}],"returns":"integer"},
+    description: "Given an m x n binary matrix mat, return the number of special positions in mat. A position (i, j) is called special if mat[i][j] == 1 and all other elements in row i and column j are 0 (rows and columns are 0-indexed).",
+    examples: [{"input":"mat = [[1,0,0],[0,0,1],[1,0,0]]","output":"1"}],
+    constraints: ["1 <= mat.length, mat[i].length <= 200"],
+    starterCode: {"javascript":"function numSpecial(mat) {\\n  \\n}","python":"def numSpecial(mat):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numSpecial(vector<vector<int>>& mat) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,0,0],[0,0,1],[1,0,0]]],"expected":1}]
+  },
+  {
+    id: "coin-change",
+    title: "Coin Change",
+    difficulty: "Medium",
+    topic: "Dynamic Programming, Breadth-First Search",
+    signature: {"name":"coinChange","params":[{"name":"coins","type":"integer[]"},{"name":"amount","type":"integer"}],"returns":"integer"},
+    description: "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amount.",
+    examples: [{"input":"coins = [1,2,5], amount = 11","output":"3"},{"input":"coins = [2], amount = 3","output":"-1"}],
+    constraints: ["1 <= coins.length <= 10^4","-10^4 <= coins[i] <= 10^4","-10^9 <= amount <= 10^9"],
+    starterCode: {"javascript":"function coinChange(coins, amount) {\\n  \\n}","python":"def coinChange(coins, amount):\\n    pass","cpp":"class Solution {\\npublic:\\n    int coinChange(vector<int>& coins, int amount) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,5],11],"expected":3},{"input":[[2],3],"expected":-1}]
+  },
+  {
+    id: "reorder-list",
+    title: "Reorder List",
+    difficulty: "Medium",
+    topic: "Linked List, Two Pointers, Stack, Recursion",
+    signature: {"name":"reorderList","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given the head of a singly linked-list. The list can be represented as L0 -> L1 -> ... -> Ln-1 -> Ln. Reorder the list to be L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2 -> ...",
+    examples: [{"input":"head = [1,2,3,4]","output":"[1,4,2,3]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function reorderList(head) {\\n  \\n}","python":"def reorderList(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> reorderList(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4]],"expected":[1,4,2,3]}]
+  },
+  {
+    id: "best-time-to-buy-and-sell-stock-iv",
+    title: "Best Time to Buy and Sell Stock IV",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"maxProfit","params":[{"name":"k","type":"integer"},{"name":"prices","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k. Find the maximum profit you can achieve. You may complete at most k transactions.",
+    examples: [{"input":"k = 2, prices = [2,4,1]","output":"2"},{"input":"k = 2, prices = [3,2,6,5,0,3]","output":"7"}],
+    constraints: ["-10^9 <= k <= 10^9","1 <= prices.length <= 10^5","-10^4 <= prices[i] <= 10^4"],
+    starterCode: {"javascript":"function maxProfit(k, prices) {\n  \n}","python":"def maxProfit(k, prices):\n    pass","cpp":"class Solution {\npublic:\n    int maxProfit(int k, vector<int>& prices) {\n        \n    }\n};"},
+    testCases: [{"input":[2,[2,4,1]],"expected":2},{"input":[2,[3,2,6,5,0,3]],"expected":7}]
+  },
+  {
+    id: "out-of-boundary-paths",
+    title: "Out of Boundary Paths",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"findPaths","params":[{"name":"m","type":"integer"},{"name":"n","type":"integer"},{"name":"maxMove","type":"integer"},{"name":"startRow","type":"integer"},{"name":"startColumn","type":"integer"}],"returns":"integer"},
+    description: "There is an m x n grid with a ball. The ball is initially at the position [startRow, startColumn]. You are allowed to move the ball to one of the four adjacent cells in the grid.",
+    examples: [{"input":"m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0","output":"6"}],
+    constraints: ["-10^9 <= m <= 10^9","-10^9 <= n <= 10^9","-10^9 <= maxMove <= 10^9","-10^9 <= startRow <= 10^9","-10^9 <= startColumn <= 10^9"],
+    starterCode: {"javascript":"function findPaths(m, n, maxMove, startRow, startColumn) {\\n  \\n}","python":"def findPaths(m, n, maxMove, startRow, startColumn):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,2,2,0,0],"expected":6}]
+  },
+  {
+    id: "search-in-rotated-sorted-array",
+    title: "Search in Rotated Sorted Array",
+    difficulty: "Medium",
+    topic: "Array, Binary Search",
+    signature: {"name":"search","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer"},
+    description: "There is an integer array nums sorted in ascending order (with distinct values) which is possibly rotated. Given target, return the index if found, else -1.",
+    examples: [{"input":"nums = [4,5,6,7,0,1,2], target = 0","output":"4"},{"input":"nums = [4,5,6,7,0,1,2], target = 3","output":"-1"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function search(nums, target) {\n  \n}","python":"def search(nums, target):\n    pass","cpp":"class Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[4,5,6,7,0,1,2],0],"expected":4},{"input":[[4,5,6,7,0,1,2],3],"expected":-1}]
+  },
+  {
+    id: "is-graph-bipartite",
+    title: "Is Graph Bipartite?",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Union Find, Graph",
+    signature: {"name":"isBipartite","params":[{"name":"graph","type":"integer[][]"}],"returns":"boolean"},
+    description: "There is an undirected graph with n nodes. Return true if and only if it is bipartite.",
+    examples: [{"input":"graph = [[1,2,3],[0,2],[0,1,3],[0,2]]","output":"false"}],
+    constraints: ["1 <= graph.length, graph[i].length <= 200"],
+    starterCode: {"javascript":"function isBipartite(graph) {\\n  \\n}","python":"def isBipartite(graph):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isBipartite(vector<vector<int>>& graph) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[0,2],[0,1,3],[0,2]]],"expected":false}]
+  },
+  {
+    id: "max-consecutive-ones-easy",
+    title: "Max Consecutive Ones Easy",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"findMaxConsecutiveOnesEasy","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given a binary array nums, return the maximum number of consecutive 1's in the array.",
+    examples: [{"input":"nums = [1,1,0,1,1,1]","output":"3"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findMaxConsecutiveOnesEasy(nums) {\\n  \\n}","python":"def findMaxConsecutiveOnesEasy(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findMaxConsecutiveOnesEasy(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,0,1,1,1]],"expected":3}]
+  },
+  {
+    id: "bridge-edge-in-graph",
+    title: "Bridge edge in a graph",
+    difficulty: "Medium",
+    topic: "Graph, Depth-First Search",
+    signature: {"name":"isBridge","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"},{"name":"c","type":"integer"},{"name":"d","type":"integer"}],"returns":"integer"},
+    description: "Given a Graph of V vertices and E edges and another edge(c, d), the task is to find if the given edge is a Bridge. i.e., removing the edge disconnects the graph.",
+    examples: [{"input":"V = 4, adj = [[1],[0,2],[1,3],[2]], c = 1, d = 2","output":"1"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200","-10^9 <= c <= 10^9","-10^9 <= d <= 10^9"],
+    starterCode: {"javascript":"function isBridge(V, adj, c, d) {\\n  \\n}","python":"def isBridge(V, adj, c, d):\\n    pass","cpp":"class Solution {\\npublic:\\n    int isBridge(int V, vector<vector<int>>& adj, int c, int d) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[1],[0,2],[1,3],[2]],1,2],"expected":1}]
+  },
+  {
+    id: "count-numbers-with-unique-digits",
+    title: "Count Numbers with Unique Digits",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Backtracking",
+    signature: {"name":"countNumbersWithUniqueDigits","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given an integer n, return the count of all numbers with unique digits, x, where 0 <= x < 10n.",
+    examples: [{"input":"n = 2","output":"91"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function countNumbersWithUniqueDigits(n) {\\n  \\n}","python":"def countNumbersWithUniqueDigits(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int countNumbersWithUniqueDigits(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":91}]
+  },
+  {
+    id: "soup-servings",
+    title: "Soup Servings",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Probability and Statistics",
+    signature: {"name":"soupServings","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "There are two types of soup: type A and type B. Initially we have n ml of each type of soup. There are four kinds of operations: Serve 100 A and 0 B, 75 A and 25 B, 50 A and 50 B, 25 A and 75 B. Return the probability that soup A will be empty first, plus half the probability that A and B become empty at the same time.",
+    examples: [{"input":"n = 50","output":"0.625"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function soupServings(n) {\\n  \\n}","python":"def soupServings(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int soupServings(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[50],"expected":0.625}]
+  },
+  {
+    id: "n-queens-ii",
+    title: "N-Queens II",
+    difficulty: "Hard",
+    topic: "Backtracking",
+    signature: {"name":"totalNQueens","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Given an integer n, return the number of distinct solutions to the n-queens puzzle.",
+    examples: [{"input":"n = 4","output":"2"},{"input":"n = 1","output":"1"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function totalNQueens(n) {\n  \n}","python":"def totalNQueens(n):\n    pass","cpp":"class Solution {\npublic:\n    int totalNQueens(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[4],"expected":2},{"input":[1],"expected":1}]
+  },
+  {
+    id: "integer-to-roman",
+    title: "Integer to Roman",
+    difficulty: "Medium",
+    topic: "Hash Table, Math, String",
+    signature: {"name":"intToRoman","params":[{"name":"num","type":"integer"}],"returns":"string"},
+    description: "Roman numerals are represented by seven different symbols. Given an integer, convert it to a roman numeral.",
+    examples: [{"input":"num = 3","output":"\"III\""},{"input":"num = 58","output":"\"LVIII\""},{"input":"num = 1994","output":"\"MCMXCIV\""}],
+    constraints: ["-10^9 <= num <= 10^9"],
+    starterCode: {"javascript":"function intToRoman(num) {\n  \n}","python":"def intToRoman(num):\n    pass","cpp":"class Solution {\npublic:\n    string intToRoman(int num) {\n        \n    }\n};"},
+    testCases: [{"input":[3],"expected":"III"},{"input":[58],"expected":"LVIII"},{"input":[1994],"expected":"MCMXCIV"}]
+  },
+  {
+    id: "distinct-subsequences",
+    title: "Distinct Subsequences",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"numDistinct","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"integer"},
+    description: "Given two strings s and t, return the number of distinct subsequences of s which equals t.",
+    examples: [{"input":"s = \"rabbbit\", t = \"rabbit\"","output":"3"},{"input":"s = \"babgbag\", t = \"bag\"","output":"5"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= t.length <= 10^5","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function numDistinct(s, t) {\n  \n}","python":"def numDistinct(s, t):\n    pass","cpp":"class Solution {\npublic:\n    int numDistinct(string s, string t) {\n        \n    }\n};"},
+    testCases: [{"input":["rabbbit","rabbit"],"expected":3},{"input":["babgbag","bag"],"expected":5}]
+  },
+  {
+    id: "distance-between-bus-stops",
+    title: "Distance Between Bus Stops",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"distanceBetweenBusStops","params":[{"name":"distance","type":"integer[]"},{"name":"start","type":"integer"},{"name":"destination","type":"integer"}],"returns":"integer"},
+    description: "A bus has n stops numbered from 0 to n - 1 that form a circle. We know the distance between all pairs of neighboring stops where distance[i] is the distance between the stops number i and (i + 1) % n. The bus goes along both directions i.e. clockwise and counterclockwise. Return the shortest distance between the given start and destination stops.",
+    examples: [{"input":"distance = [1,2,3,4], start = 0, destination = 1","output":"1"}],
+    constraints: ["1 <= distance.length <= 10^3","-10^4 <= distance[i] <= 10^4","-10^9 <= start <= 10^9","-10^9 <= destination <= 10^9"],
+    starterCode: {"javascript":"function distanceBetweenBusStops(distance, start, destination) {\\n  \\n}","python":"def distanceBetweenBusStops(distance, start, destination):\\n    pass","cpp":"class Solution {\\npublic:\\n    int distanceBetweenBusStops(vector<int>& distance, int start, int destination) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4],0,1],"expected":1}]
+  },
+  {
+    id: "coin-change-ii",
+    title: "Coin Change II",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"change","params":[{"name":"amount","type":"integer"},{"name":"coins","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the number of combinations that make up that amount.",
+    examples: [{"input":"amount = 5, coins = [1,2,5]","output":"4"},{"input":"amount = 3, coins = [2]","output":"0"}],
+    constraints: ["-10^9 <= amount <= 10^9","1 <= coins.length <= 10^4","-10^4 <= coins[i] <= 10^4"],
+    starterCode: {"javascript":"function change(amount, coins) {\\n  \\n}","python":"def change(amount, coins):\\n    pass","cpp":"class Solution {\\npublic:\\n    int change(int amount, vector<int>& coins) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5,[1,2,5]],"expected":4},{"input":[3,[2]],"expected":0}]
+  },
+  {
+    id: "binary-tree-preorder-traversal",
+    title: "Binary Tree Preorder Traversal",
+    difficulty: "Easy",
+    topic: "Stack, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"preorderTraversal","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, return the preorder traversal of its nodes' values.",
+    examples: [{"input":"root = [1,null,2,3]","output":"[1,2,3]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function preorderTraversal(root) {\\n  \\n}","python":"def preorderTraversal(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> preorderTraversal(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,null,2,3]],"expected":[1,2,3]}]
+  },
+  {
+    id: "number-complement",
+    title: "Number Complement",
+    difficulty: "Easy",
+    topic: "Bit Manipulation",
+    signature: {"name":"findComplement","params":[{"name":"num","type":"integer"}],"returns":"integer"},
+    description: "The complement of an integer is the integer you get when you flip all the 0's to 1's and all the 1's to 0's in its binary representation.",
+    examples: [{"input":"num = 5","output":"2"},{"input":"num = 1","output":"0"}],
+    constraints: ["-10^9 <= num <= 10^9"],
+    starterCode: {"javascript":"function findComplement(num) {\\n  \\n}","python":"def findComplement(num):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findComplement(int num) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5],"expected":2},{"input":[1],"expected":0}]
+  },
+  {
+    id: "combination-sum-iv",
+    title: "Combination Sum IV",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"combinationSum4","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer"},
+    description: "Given an array of distinct integers nums and a target integer target, return the number of possible combinations that add up to target. The order of elements matters.",
+    examples: [{"input":"nums = [1,2,3], target = 4","output":"7"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function combinationSum4(nums, target) {\\n  \\n}","python":"def combinationSum4(nums, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    int combinationSum4(vector<int>& nums, int target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3],4],"expected":7}]
+  },
+  {
+    id: "multiply-strings",
+    title: "Multiply Strings",
+    difficulty: "Medium",
+    topic: "Math, String, Simulation",
+    signature: {"name":"multiply","params":[{"name":"num1","type":"string"},{"name":"num2","type":"string"}],"returns":"string"},
+    description: "Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.",
+    examples: [{"input":"num1 = \"2\", num2 = \"3\"","output":"\"6\""},{"input":"num1 = \"123\", num2 = \"456\"","output":"\"56088\""}],
+    constraints: ["1 <= num1.length <= 10^4","num1 consists of printable ASCII characters.","1 <= num2.length <= 10^4","num2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function multiply(num1, num2) {\n  \n}","python":"def multiply(num1, num2):\n    pass","cpp":"class Solution {\npublic:\n    string multiply(string num1, string num2) {\n        \n    }\n};"},
+    testCases: [{"input":["2","3"],"expected":"6"},{"input":["123","456"],"expected":"56088"}]
+  },
+  {
+    id: "find-smallest-letter-greater-than-target",
+    title: "Find Smallest Letter Greater Than Target",
+    difficulty: "Easy",
+    topic: "Array, Binary Search",
+    signature: {"name":"nextGreatestLetter","params":[{"name":"letters","type":"char[]"},{"name":"target","type":"char"}],"returns":"char"},
+    description: "You are given an array of characters letters that is sorted in non-decreasing order, and a character target. Return the smallest character in letters that is lexicographically greater than target.",
+    examples: [{"input":"letters = [\"c\",\"f\",\"j\"], target = \"a\"","output":"\"c\""}],
+    constraints: ["No specific constraints."],
+    starterCode: {"javascript":"function nextGreatestLetter(letters, target) {\\n  \\n}","python":"def nextGreatestLetter(letters, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    int nextGreatestLetter(int letters, int target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["c","f","j"],"a"],"expected":"c"}]
+  },
+  {
+    id: "concatenated-words",
+    title: "Concatenated Words",
+    difficulty: "Hard",
+    topic: "Array, String, Dynamic Programming, Depth-First Search, Trie",
+    signature: {"name":"findAllConcatenatedWordsInADict","params":[{"name":"words","type":"string[]"}],"returns":"string[]"},
+    description: "Given an array of strings words (without duplicates), return all the concatenated words in the given list of words. A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.",
+    examples: [{"input":"words = [\"cat\",\"cats\",\"catsdogcats\",\"dog\",\"dogcatsdog\",\"hippopotamuses\",\"rat\",\"ratcatdogcat\"]","output":"[\"catsdogcats\",\"dogcatsdog\",\"ratcatdogcat\"]"},{"input":"words = [\"cat\",\"dog\",\"catdog\"]","output":"[\"catdog\"]"}],
+    constraints: ["1 <= words.length <= 10^5","words[i].length <= 100"],
+    starterCode: {"javascript":"function findAllConcatenatedWordsInADict(words) {\n  \n}","python":"def findAllConcatenatedWordsInADict(words):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {\n        \n    }\n};"},
+    testCases: [{"input":[["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]],"expected":["catsdogcats","dogcatsdog","ratcatdogcat"]},{"input":[["cat","dog","catdog"]],"expected":["catdog"]}]
+  },
+  {
+    id: "rectangle-overlap",
+    title: "Rectangle Overlap",
+    difficulty: "Easy",
+    topic: "Math, Geometry",
+    signature: {"name":"isRectangleOverlap","params":[{"name":"rec1","type":"integer[]"},{"name":"rec2","type":"integer[]"}],"returns":"boolean"},
+    description: "An axis-aligned rectangle is represented as a list [x1, y1, x2, y2], where (x1, y1) is the coordinate of its bottom-left corner, and (x2, y2) is the coordinate of its top-right corner.",
+    examples: [{"input":"rec1 = [0,0,2,2], rec2 = [1,1,3,3]","output":"true"}],
+    constraints: ["1 <= rec1.length <= 10^3","-10^4 <= rec1[i] <= 10^4","1 <= rec2.length <= 10^3","-10^4 <= rec2[i] <= 10^4"],
+    starterCode: {"javascript":"function isRectangleOverlap(rec1, rec2) {\\n  \\n}","python":"def isRectangleOverlap(rec1, rec2):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[0,0,2,2],[1,1,3,3]],"expected":true}]
+  },
+  {
+    id: "average-of-levels-in-binary-tree",
+    title: "Average of Levels in Binary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"averageOfLevels","params":[{"name":"root","type":"integer[]"}],"returns":"float[]"},
+    description: "Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within 10-5 of the actual answer will be accepted.",
+    examples: [{"input":"root = [3,9,20,15,7]","output":"[3,14.5,11]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function averageOfLevels(root) {\\n  \\n}","python":"def averageOfLevels(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int averageOfLevels(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,15,7]],"expected":[3,14.5,11]}]
+  },
+  {
+    id: "open-the-lock",
+    title: "Open the Lock",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, String, Breadth-First Search",
+    signature: {"name":"openLock","params":[{"name":"deadends","type":"string[]"},{"name":"target","type":"string"}],"returns":"integer"},
+    description: "You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'. The wheels can rotate freely and wrap around: for example we can turn '9' to be '0', or '0' to be '9'. Return the minimum total number of turns required to open the lock, or -1 if it is impossible.",
+    examples: [{"input":"deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"","output":"6"}],
+    constraints: ["1 <= deadends.length <= 10^4","deadends[i].length <= 100","1 <= target.length <= 10^4","target consists of printable ASCII characters."],
+    starterCode: {"javascript":"function openLock(deadends, target) {\\n  \\n}","python":"def openLock(deadends, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    int openLock(vector<string>& deadends, string target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["0201","0101","0102","1212","2002"],"0202"],"expected":6}]
+  },
+  {
+    id: "kth-smallest-element-in-a-bst",
+    title: "Kth Smallest Element in a BST",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"kthSmallest","params":[{"name":"root","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.",
+    examples: [{"input":"root = [3,1,4,null,2], k = 1","output":"1"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","-10^9 <= k <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function kthSmallest(root, k) {\\n  \\n}","python":"def kthSmallest(root, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    int kthSmallest(vector<int>& root, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,1,4,null,2],1],"expected":1}]
+  },
+  {
+    id: "sort-array-by-parity-ii",
+    title: "Sort Array By Parity II",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"sortArrayByParityII","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an array of integers nums, half of the integers in nums are odd, and the other half are even. Sort the array so that whenever nums[i] is odd, i is odd, and whenever nums[i] is even, i is even.",
+    examples: [{"input":"nums = [4,2,5,7]","output":"[4,5,2,7]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function sortArrayByParityII(nums) {\\n  \\n}","python":"def sortArrayByParityII(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> sortArrayByParityII(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,5,7]],"expected":[4,5,2,7]}]
+  },
+  {
+    id: "keys-and-rooms",
+    title: "Keys and Rooms",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph",
+    signature: {"name":"canVisitAllRooms","params":[{"name":"rooms","type":"integer[][]"}],"returns":"boolean"},
+    description: "There are n rooms labeled from 0 to n - 1 and all the rooms are locked except for room 0. Your goal is to visit all the rooms.",
+    examples: [{"input":"rooms = [[1],[2],[3],[]]","output":"true"}],
+    constraints: ["1 <= rooms.length, rooms[i].length <= 200"],
+    starterCode: {"javascript":"function canVisitAllRooms(rooms) {\\n  \\n}","python":"def canVisitAllRooms(rooms):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canVisitAllRooms(vector<vector<int>>& rooms) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1],[2],[3],[]]],"expected":true}]
+  },
+  {
+    id: "image-smoother-easy",
+    title: "Image Smoother Easy",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"imageSmootherEasy","params":[{"name":"img","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "An image smoother is a filter of the size 3 x 3 that can be applied to each cell of an image by rounding down the average of the cell and the eight surrounding cells.",
+    examples: [{"input":"img = [[1,1,1],[1,0,1],[1,1,1]]","output":"[[0,0,0],[0,0,0],[0,0,0]]"}],
+    constraints: ["1 <= img.length, img[i].length <= 200"],
+    starterCode: {"javascript":"function imageSmootherEasy(img) {\\n  \\n}","python":"def imageSmootherEasy(img):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> imageSmootherEasy(vector<vector<int>>& img) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,1],[1,0,1],[1,1,1]]],"expected":[[0,0,0],[0,0,0],[0,0,0]]}]
+  },
+  {
+    id: "flatten-binary-tree-to-linked-list",
+    title: "Flatten Binary Tree to Linked List",
+    difficulty: "Medium",
+    topic: "Linked List, Stack, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"flatten","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, flatten the tree into a \"linked list\".",
+    examples: [{"input":"root = [1,2,5,3,4,null,6]","output":"[1,null,2,null,3,null,4,null,5,null,6]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function flatten(root) {\\n  \\n}","python":"def flatten(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> flatten(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,5,3,4,null,6]],"expected":[1,null,2,null,3,null,4,null,5,null,6]}]
+  },
+  {
+    id: "dc8462e8-9ee6-4918-9220-fc747e418fe9",
+    title: "Group Anagrams",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, String, Sorting",
+    signature: {"name":"groupAnagrams","params":[{"name":"strs","type":"string[]"}],"returns":"string[][]"},
+    description: "Given an array of strings strs, group the anagrams together. You can return the answer in any order.",
+    examples: [{"input":"strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]","output":"[[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]"}],
+    constraints: ["1 <= strs.length <= 10^4","strs[i].length <= 100"],
+    starterCode: {"javascript":"function groupAnagrams(strs) {\n  \n}","python":"def groupAnagrams(strs):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};"},
+    testCases: [{"input":[["eat","tea","tan","ate","nat","bat"]],"expected":[["bat"],["nat","tan"],["ate","eat","tea"]]}]
+  },
+  {
+    id: "transpose-matrix-easy",
+    title: "Transpose Matrix Easy",
+    difficulty: "Easy",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"transposeEasy","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given a 2D integer array matrix, return the transpose of matrix.",
+    examples: [{"input":"matrix = [[1,2,3],[4,5,6],[7,8,9]]","output":"[[1,4,7],[2,5,8],[3,6,9]]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function transposeEasy(matrix) {\\n  \\n}","python":"def transposeEasy(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> transposeEasy(vector<vector<int>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":[[1,4,7],[2,5,8],[3,6,9]]}]
+  },
+  {
+    id: "champagne-tower",
+    title: "Champagne Tower",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"champagneTower","params":[{"name":"poured","type":"integer"},{"name":"query_row","type":"integer"},{"name":"query_glass","type":"integer"}],"returns":"integer"},
+    description: "We stack glasses in a pyramid, where the first row has 1 glass, the second row has 2 glasses, and so on until the 100th row. Each glass holds one cup of champagne.",
+    examples: [{"input":"poured = 1, query_row = 1, query_glass = 1","output":"0"},{"input":"poured = 2, query_row = 1, query_glass = 1","output":"0.5"}],
+    constraints: ["-10^9 <= poured <= 10^9","-10^9 <= query_row <= 10^9","-10^9 <= query_glass <= 10^9"],
+    starterCode: {"javascript":"function champagneTower(poured, query_row, query_glass) {\\n  \\n}","python":"def champagneTower(poured, query_row, query_glass):\\n    pass","cpp":"class Solution {\\npublic:\\n    int champagneTower(int poured, int query_row, int query_glass) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1,1,1],"expected":0},{"input":[2,1,1],"expected":0.5}]
+  },
+  {
+    id: "ugly-number-ii",
+    title: "Ugly Number II",
+    difficulty: "Medium",
+    topic: "Hash Table, Math, Dynamic Programming, Heap (Priority Queue)",
+    signature: {"name":"nthUglyNumber","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5. Given an integer n, return the nth ugly number.",
+    examples: [{"input":"n = 10","output":"12"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function nthUglyNumber(n) {\\n  \\n}","python":"def nthUglyNumber(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int nthUglyNumber(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[10],"expected":12}]
+  },
+  {
+    id: "path-sum-ii",
+    title: "Path Sum II",
+    difficulty: "Medium",
+    topic: "Backtracking, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"pathSum","params":[{"name":"root","type":"integer[]"},{"name":"targetSum","type":"integer"}],"returns":"integer[][]"},
+    description: "Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum.",
+    examples: [{"input":"root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22","output":"[[5,4,11,2],[5,8,4,5]]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","-10^9 <= targetSum <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function pathSum(root, targetSum) {\\n  \\n}","python":"def pathSum(root, targetSum):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> pathSum(vector<int>& root, int targetSum) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,4,8,11,null,13,4,7,2,null,null,5,1],22],"expected":[[5,4,11,2],[5,8,4,5]]}]
+  },
+  {
+    id: "largest-number-at-least-twice-of-others",
+    title: "Largest Number At Least Twice of Others",
+    difficulty: "Easy",
+    topic: "Array, Sorting",
+    signature: {"name":"dominantIndex","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array nums where the largest integer is unique. Determine whether the largest element in the array is at least twice as much as every other number in the array.",
+    examples: [{"input":"nums = [3,6,1,0]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function dominantIndex(nums) {\\n  \\n}","python":"def dominantIndex(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int dominantIndex(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,6,1,0]],"expected":1}]
+  },
+  {
+    id: "candy",
+    title: "Candy",
+    difficulty: "Hard",
+    topic: "Array, Greedy",
+    signature: {"name":"candy","params":[{"name":"ratings","type":"integer[]"}],"returns":"integer"},
+    description: "There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings. You are giving candies to these children subjected to the following requirements: Each child must have at least one candy. Children with a higher rating get more candies than their neighbors.",
+    examples: [{"input":"ratings = [1,0,2]","output":"5"},{"input":"ratings = [1,2,2]","output":"4"}],
+    constraints: ["1 <= ratings.length <= 10^5","-10^4 <= ratings[i] <= 10^4"],
+    starterCode: {"javascript":"function candy(ratings) {\n  \n}","python":"def candy(ratings):\n    pass","cpp":"class Solution {\npublic:\n    int candy(vector<int>& ratings) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,0,2]],"expected":5},{"input":[[1,2,2]],"expected":4}]
+  },
+  {
+    id: "valid-mountain-array",
+    title: "Valid Mountain Array",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"validMountainArray","params":[{"name":"arr","type":"integer[]"}],"returns":"boolean"},
+    description: "Given an array of integers arr, return true if and only if it is a valid mountain array.",
+    examples: [{"input":"arr = [2,1]","output":"false"}],
+    constraints: ["1 <= arr.length <= 10^3","-10^4 <= arr[i] <= 10^4"],
+    starterCode: {"javascript":"function validMountainArray(arr) {\\n  \\n}","python":"def validMountainArray(arr):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool validMountainArray(vector<int>& arr) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,1]],"expected":false}]
+  },
+  {
+    id: "regular-expression-matching",
+    title: "Regular Expression Matching",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"isMatch","params":[{"name":"s","type":"string"},{"name":"p","type":"string"}],"returns":"boolean"},
+    description: "Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where: '.' Matches any single character. '*' Matches zero or more of the preceding element.",
+    examples: [{"input":"s = \"aa\", p = \"a\"","output":"false"},{"input":"s = \"aa\", p = \"a*\"","output":"true"},{"input":"s = \"ab\", p = \".*\"","output":"true"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= p.length <= 10^5","p consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isMatch(s, p) {\n  \n}","python":"def isMatch(s, p):\n    pass","cpp":"class Solution {\npublic:\n    bool isMatch(string s, string p) {\n        \n    }\n};"},
+    testCases: [{"input":["aa","a"],"expected":false},{"input":["aa","a*"],"expected":true},{"input":["ab",".*"],"expected":true}]
+  },
+  {
+    id: "can-i-win",
+    title: "Can I Win",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Backtracking, Bit Manipulation, Memoization, Game Theory",
+    signature: {"name":"canIWin","params":[{"name":"maxChoosableInteger","type":"integer"},{"name":"desiredTotal","type":"integer"}],"returns":"boolean"},
+    description: "In the \"100 game\" two players take turns adding, to a running total, any integer from 1 to 10. The player who first causes the running total to reach or exceed 100 wins.",
+    examples: [{"input":"maxChoosableInteger = 10, desiredTotal = 11","output":"false"}],
+    constraints: ["-10^9 <= maxChoosableInteger <= 10^9","-10^9 <= desiredTotal <= 10^9"],
+    starterCode: {"javascript":"function canIWin(maxChoosableInteger, desiredTotal) {\\n  \\n}","python":"def canIWin(maxChoosableInteger, desiredTotal):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canIWin(int maxChoosableInteger, int desiredTotal) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[10,11],"expected":false}]
+  },
+  {
+    id: "3sum",
+    title: "3Sum",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"threeSum","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.",
+    examples: [{"input":"nums = [-1,0,1,2,-1,-4]","output":"[[-1,-1,2],[-1,0,1]]"},{"input":"nums = [0,1,1]","output":"[]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function threeSum(nums) {\n  \n}","python":"def threeSum(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[-1,0,1,2,-1,-4]],"expected":[[-1,-1,2],[-1,0,1]]},{"input":[[0,1,1]],"expected":[]}]
+  },
+  {
+    id: "robot-return-to-origin",
+    title: "Robot Return to Origin",
+    difficulty: "Easy",
+    topic: "String, Simulation",
+    signature: {"name":"judgeCircle","params":[{"name":"moves","type":"string"}],"returns":"boolean"},
+    description: "There is a robot starting at the position (0, 0), the origin, on a 2D plane. Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.",
+    examples: [{"input":"moves = \"UD\"","output":"true"},{"input":"moves = \"LL\"","output":"false"}],
+    constraints: ["1 <= moves.length <= 10^3","moves consists of printable ASCII characters."],
+    starterCode: {"javascript":"function judgeCircle(moves) {\\n  \\n}","python":"def judgeCircle(moves):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool judgeCircle(string moves) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["UD"],"expected":true},{"input":["LL"],"expected":false}]
+  },
+  {
+    id: "edit-distance",
+    title: "Edit Distance",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"minDistance","params":[{"name":"word1","type":"string"},{"name":"word2","type":"string"}],"returns":"integer"},
+    description: "Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.",
+    examples: [{"input":"word1 = \"horse\", word2 = \"ros\"","output":"3"},{"input":"word1 = \"intention\", word2 = \"execution\"","output":"5"}],
+    constraints: ["1 <= word1.length <= 10^5","word1 consists of printable ASCII characters.","1 <= word2.length <= 10^5","word2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function minDistance(word1, word2) {\n  \n}","python":"def minDistance(word1, word2):\n    pass","cpp":"class Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        \n    }\n};"},
+    testCases: [{"input":["horse","ros"],"expected":3},{"input":["intention","execution"],"expected":5}]
+  },
+  {
+    id: "subtree-of-another-tree",
+    title: "Subtree of Another Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, String Matching, Binary Tree, Hash Function",
+    signature: {"name":"isSubtree","params":[{"name":"root","type":"integer[]"},{"name":"subRoot","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot.",
+    examples: [{"input":"root = [3,4,5,1,2], subRoot = [4,1,2]","output":"true"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","1 <= subRoot.length <= 10^3","-10^4 <= subRoot[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isSubtree(root, subRoot) {\\n  \\n}","python":"def isSubtree(root, subRoot):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSubtree(vector<int>& root, vector<int>& subRoot) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,4,5,1,2],[4,1,2]],"expected":true}]
+  },
+  {
+    id: "find-median-from-data-stream",
+    title: "Find Median from Data Stream",
+    difficulty: "Hard",
+    topic: "Two Pointers, Design, Sorting, Heap (Priority Queue), Data Stream",
+    signature: {"name":"medianFinder","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"integer[][]"}],"returns":"integer[]"},
+    description: "The median is the middle value in an ordered integer list. Design a class to calculate the median of a data stream.",
+    examples: [{"input":"operations = [\"MedianFinder\",\"addNum\",\"addNum\",\"findMedian\",\"addNum\",\"findMedian\"], args = [[],[1],[2],[],[3],[]]","output":"[null,null,null,1.5,null,2]"}],
+    constraints: ["1 <= operations.length <= 10^5","operations[i].length <= 100","1 <= args.length, args[i].length <= 200"],
+    starterCode: {"javascript":"function medianFinder(operations, args) {\\n  \\n}","python":"def medianFinder(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> medianFinder(vector<string>& operations, vector<vector<int>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"],[[],[1],[2],[],[3],[]]],"expected":[null,null,null,1.5,null,2]}]
+  },
+  {
+    id: "word-ladder-ii",
+    title: "Word Ladder II",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Backtracking, Breadth-First Search",
+    signature: {"name":"findLadders","params":[{"name":"beginWord","type":"string"},{"name":"endWord","type":"string"},{"name":"wordList","type":"string[]"}],"returns":"string[][]"},
+    description: "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk.",
+    examples: [{"input":"beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]","output":"[[\"hit\",\"hot\",\"dot\",\"dog\",\"cog\"],[\"hit\",\"hot\",\"lot\",\"log\",\"cog\"]]"}],
+    constraints: ["1 <= beginWord.length <= 10^5","beginWord consists of printable ASCII characters.","1 <= endWord.length <= 10^5","endWord consists of printable ASCII characters.","1 <= wordList.length <= 10^5","wordList[i].length <= 100"],
+    starterCode: {"javascript":"function findLadders(beginWord, endWord, wordList) {\n  \n}","python":"def findLadders(beginWord, endWord, wordList):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {\n        \n    }\n};"},
+    testCases: [{"input":["hit","cog",["hot","dot","dog","lot","log","cog"]],"expected":[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]}]
+  },
+  {
+    id: "basic-calculator",
+    title: "Basic Calculator",
+    difficulty: "Hard",
+    topic: "Math, String, Stack, Recursion",
+    signature: {"name":"calculate","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.",
+    examples: [{"input":"s = \"1 + 1\"","output":"2"},{"input":"s = \" 2-1 + 2 \"","output":"3"},{"input":"s = \"(1+(4+5+2)-3)+(6+8)\"","output":"23"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function calculate(s) {\n  \n}","python":"def calculate(s):\n    pass","cpp":"class Solution {\npublic:\n    int calculate(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["1 + 1"],"expected":2},{"input":[" 2-1 + 2 "],"expected":3},{"input":["(1+(4+5+2)-3)+(6+8)"],"expected":23}]
+  },
+  {
+    id: "power-of-two",
+    title: "Power of Two",
+    difficulty: "Easy",
+    topic: "Math, Bit Manipulation, Recursion",
+    signature: {"name":"isPowerOfTwo","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "Given an integer n, return true if it is a power of two. Otherwise, return false.",
+    examples: [{"input":"n = 1","output":"true"},{"input":"n = 16","output":"true"},{"input":"n = 3","output":"false"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function isPowerOfTwo(n) {\\n  \\n}","python":"def isPowerOfTwo(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPowerOfTwo(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1],"expected":true},{"input":[16],"expected":true},{"input":[3],"expected":false}]
+  },
+  {
+    id: "maximum-length-of-repeated-subarray",
+    title: "Maximum Length of Repeated Subarray",
+    difficulty: "Medium",
+    topic: "Array, Binary Search, Dynamic Programming, Sliding Window, Rolling Hash, Hash Function",
+    signature: {"name":"findLength","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer"},
+    description: "Given two integer arrays nums1 and nums2, return the maximum length of a subarray that appears in both arrays.",
+    examples: [{"input":"nums1 = [1,2,3,2,1], nums2 = [3,2,1,4,7]","output":"3"}],
+    constraints: ["1 <= nums1.length <= 10^4","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^4","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function findLength(nums1, nums2) {\\n  \\n}","python":"def findLength(nums1, nums2):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findLength(vector<int>& nums1, vector<int>& nums2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,2,1],[3,2,1,4,7]],"expected":3}]
+  },
+  {
+    id: "palindrome-linked-list-easy",
+    title: "Palindrome Linked List Easy",
+    difficulty: "Easy",
+    topic: "Linked List, Two Pointers, Stack",
+    signature: {"name":"isPalindromeEasy","params":[{"name":"head","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.",
+    examples: [{"input":"head = [1,2,2,1]","output":"true"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isPalindromeEasy(head) {\\n  \\n}","python":"def isPalindromeEasy(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPalindromeEasy(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1]],"expected":true}]
+  },
+  {
+    id: "add-two-numbers",
+    title: "Add Two Numbers",
+    difficulty: "Medium",
+    topic: "Linked List, Math",
+    signature: {"name":"addTwoNumbers","params":[{"name":"l1","type":"integer[]"},{"name":"l2","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list (represented as an array here for simplicity).",
+    examples: [{"input":"l1 = [2,4,3], l2 = [5,6,4]","output":"[7,0,8]"},{"input":"l1 = [0], l2 = [0]","output":"[0]"}],
+    constraints: ["1 <= l1.length <= 10^4","-10^4 <= l1[i] <= 10^4","1 <= l2.length <= 10^4","-10^4 <= l2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function addTwoNumbers(l1, l2) {\n  \n}","python":"def addTwoNumbers(l1, l2):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> addTwoNumbers(vector<int>& l1, vector<int>& l2) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,4,3],[5,6,4]],"expected":[7,0,8]},{"input":[[0],[0]],"expected":[0]}]
+  },
+  {
+    id: "find-all-numbers-disappeared-in-an-array",
+    title: "Find All Numbers Disappeared in an Array",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"findDisappearedNumbers","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.",
+    examples: [{"input":"nums = [4,3,2,7,8,2,3,1]","output":"[5,6]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findDisappearedNumbers(nums) {\\n  \\n}","python":"def findDisappearedNumbers(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findDisappearedNumbers(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,3,2,7,8,2,3,1]],"expected":[5,6]}]
+  },
+  {
+    id: "search-in-a-binary-search-tree",
+    title: "Search in a Binary Search Tree",
+    difficulty: "Easy",
+    topic: "Tree, Binary Search Tree, Binary Tree",
+    signature: {"name":"searchBST","params":[{"name":"root","type":"integer[]"},{"name":"val","type":"integer"}],"returns":"integer[]"},
+    description: "You are given the root of a binary search tree (BST) and an integer val. Find the node in the BST that the node's value equals val and return the subtree rooted with that node.",
+    examples: [{"input":"root = [4,2,7,1,3], val = 2","output":"[2,1,3]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","-10^9 <= val <= 10^9","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function searchBST(root, val) {\\n  \\n}","python":"def searchBST(root, val):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> searchBST(vector<int>& root, int val) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,7,1,3],2],"expected":[2,1,3]}]
+  },
+  {
+    id: "detect-cycle-in-undirected-graph",
+    title: "Detect Cycle in an Undirected Graph",
+    difficulty: "Medium",
+    topic: "Graph, Depth-First Search, Breadth-First Search, Union Find",
+    signature: {"name":"isCycle","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"boolean"},
+    description: "Given an undirected graph with V vertices and E edges, check whether it contains any cycle or not.",
+    examples: [{"input":"V = 5, adj = [[1],[0,2,4],[1,3],[2,4],[1,3]]","output":"true"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function isCycle(V, adj) {\\n  \\n}","python":"def isCycle(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isCycle(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5,[[1],[0,2,4],[1,3],[2,4],[1,3]]],"expected":true}]
+  },
+  {
+    id: "array-partition-i",
+    title: "Array Partition",
+    difficulty: "Easy",
+    topic: "Array, Greedy, Sorting, Counting Sort",
+    signature: {"name":"arrayPairSum","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums of 2n integers, group these integers into n pairs (a1, b1), (a2, b2), ..., (an, bn) such that the sum of min(ai, bi) for all i is maximized.",
+    examples: [{"input":"nums = [1,4,3,2]","output":"4"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function arrayPairSum(nums) {\\n  \\n}","python":"def arrayPairSum(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int arrayPairSum(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,4,3,2]],"expected":4}]
+  },
+  {
+    id: "median-of-two-sorted-arrays",
+    title: "Median of Two Sorted Arrays",
+    difficulty: "Hard",
+    topic: "Array, Binary Search, Divide and Conquer",
+    signature: {"name":"findMedianSortedArrays","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer"},
+    description: "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
+    examples: [{"input":"nums1 = [1,3], nums2 = [2]","output":"2"},{"input":"nums1 = [1,2], nums2 = [3,4]","output":"2.5"}],
+    constraints: ["1 <= nums1.length <= 10^5","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^5","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function findMedianSortedArrays(nums1, nums2) {\n  \n}","python":"def findMedianSortedArrays(nums1, nums2):\n    pass","cpp":"class Solution {\npublic:\n    int findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,3],[2]],"expected":2},{"input":[[1,2],[3,4]],"expected":2.5}]
+  },
+  {
+    id: "shift-2d-grid",
+    title: "Shift 2D Grid",
+    difficulty: "Easy",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"shiftGrid","params":[{"name":"grid","type":"integer[][]"},{"name":"k","type":"integer"}],"returns":"integer[][]"},
+    description: "Given a 2D grid of size m x n and an integer k. You need to shift the grid k times.",
+    examples: [{"input":"grid = [[1,2,3],[4,5,6],[7,8,9]], k = 1","output":"[[9,1,2],[3,4,5],[6,7,8]]"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function shiftGrid(grid, k) {\\n  \\n}","python":"def shiftGrid(grid, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]],1],"expected":[[9,1,2],[3,4,5],[6,7,8]]}]
+  },
+  {
+    id: "merge-k-sorted-lists",
+    title: "Merge k Sorted Lists",
+    difficulty: "Hard",
+    topic: "Linked List, Divide and Conquer, Heap (Priority Queue), Merge Sort",
+    signature: {"name":"mergeKLists","params":[{"name":"lists","type":"integer[][]"}],"returns":"integer[]"},
+    description: "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it (represented as array).",
+    examples: [{"input":"lists = [[1,4,5],[1,3,4],[2,6]]","output":"[1,1,2,3,4,4,5,6]"},{"input":"lists = []","output":"[]"}],
+    constraints: ["1 <= lists.length, lists[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function mergeKLists(lists) {\n  \n}","python":"def mergeKLists(lists):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> mergeKLists(vector<vector<int>>& lists) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,4,5],[1,3,4],[2,6]]],"expected":[1,1,2,3,4,4,5,6]},{"input":[[]],"expected":[]}]
+  },
+  {
+    id: "max-consecutive-ones",
+    title: "Max Consecutive Ones",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"findMaxConsecutiveOnes","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given a binary array nums, return the maximum number of consecutive 1's in the array.",
+    examples: [{"input":"nums = [1,1,0,1,1,1]","output":"3"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findMaxConsecutiveOnes(nums) {\\n  \\n}","python":"def findMaxConsecutiveOnes(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findMaxConsecutiveOnes(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,0,1,1,1]],"expected":3}]
+  },
+  {
+    id: "positions-of-large-groups",
+    title: "Positions of Large Groups",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"largeGroupPositions","params":[{"name":"s","type":"string"}],"returns":"integer[][]"},
+    description: "In a string s of lowercase letters, these letters form consecutive groups of the same character.",
+    examples: [{"input":"s = \"abbxxxxzzy\"","output":"[[3,6]]"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function largeGroupPositions(s) {\\n  \\n}","python":"def largeGroupPositions(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> largeGroupPositions(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abbxxxxzzy"],"expected":[[3,6]]}]
+  },
+  {
+    id: "binary-tree-tilt",
+    title: "Binary Tree Tilt",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"findTilt","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a binary tree, return the sum of every tree node's tilt.",
+    examples: [{"input":"root = [1,2,3]","output":"1"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function findTilt(root) {\\n  \\n}","python":"def findTilt(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findTilt(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":1}]
+  },
+  {
+    id: "minimum-height-trees",
+    title: "Minimum Height Trees",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph, Topological Sort",
+    signature: {"name":"findMinHeightTrees","params":[{"name":"n","type":"integer"},{"name":"edges","type":"integer[][]"}],"returns":"integer[]"},
+    description: "A tree is an undirected graph in which any two vertices are connected by exactly one path. Return a list of all MHTs' root labels.",
+    examples: [{"input":"n = 4, edges = [[1,0],[1,2],[1,3]]","output":"[1]"}],
+    constraints: ["-10^9 <= n <= 10^9","1 <= edges.length, edges[i].length <= 200"],
+    starterCode: {"javascript":"function findMinHeightTrees(n, edges) {\\n  \\n}","python":"def findMinHeightTrees(n, edges):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[1,0],[1,2],[1,3]]],"expected":[1]}]
+  },
+  {
+    id: "intersection-of-two-arrays",
+    title: "Intersection of Two Arrays",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Two Pointers, Binary Search, Sorting",
+    signature: {"name":"intersection","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two integer arrays nums1 and nums2, return an array of their intersection.",
+    examples: [{"input":"nums1 = [1,2,2,1], nums2 = [2,2]","output":"[2]"}],
+    constraints: ["1 <= nums1.length <= 10^3","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^3","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function intersection(nums1, nums2) {\\n  \\n}","python":"def intersection(nums1, nums2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1],[2,2]],"expected":[2]}]
+  },
+  {
+    id: "ugly-number",
+    title: "Ugly Number",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"isUgly","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5. Given an integer n, return true if n is an ugly number.",
+    examples: [{"input":"n = 6","output":"true"},{"input":"n = 1","output":"true"},{"input":"n = 14","output":"false"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function isUgly(n) {\\n  \\n}","python":"def isUgly(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isUgly(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[6],"expected":true},{"input":[1],"expected":true},{"input":[14],"expected":false}]
+  },
+  {
+    id: "number-of-provinces",
+    title: "Number of Provinces",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Union Find, Graph",
+    signature: {"name":"findCircleNum","params":[{"name":"isConnected","type":"integer[][]"}],"returns":"integer"},
+    description: "There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c. A province is a group of directly or indirectly connected cities. Return the total number of provinces.",
+    examples: [{"input":"isConnected = [[1,1,0],[1,1,0],[0,0,1]]","output":"2"}],
+    constraints: ["1 <= isConnected.length, isConnected[i].length <= 200"],
+    starterCode: {"javascript":"function findCircleNum(isConnected) {\\n  \\n}","python":"def findCircleNum(isConnected):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findCircleNum(vector<vector<int>>& isConnected) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,0],[1,1,0],[0,0,1]]],"expected":2}]
+  },
+  {
+    id: "count-complete-tree-nodes",
+    title: "Count Complete Tree Nodes",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Search, Binary Tree",
+    signature: {"name":"countNodes","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a complete binary tree, return the number of the nodes in the tree.",
+    examples: [{"input":"root = [1,2,3,4,5,6]","output":"6"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function countNodes(root) {\\n  \\n}","python":"def countNodes(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int countNodes(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5,6]],"expected":6}]
+  },
+  {
+    id: "binary-number-with-alternating-bits",
+    title: "Binary Number with Alternating Bits",
+    difficulty: "Easy",
+    topic: "Bit Manipulation",
+    signature: {"name":"hasAlternatingBits","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have different values.",
+    examples: [{"input":"n = 5","output":"true"},{"input":"n = 7","output":"false"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function hasAlternatingBits(n) {\\n  \\n}","python":"def hasAlternatingBits(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool hasAlternatingBits(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5],"expected":true},{"input":[7],"expected":false}]
+  },
+  {
+    id: "n-th-tribonacci-number",
+    title: "N-th Tribonacci Number",
+    difficulty: "Easy",
+    topic: "Math, Dynamic Programming, Recursion, Memoization",
+    signature: {"name":"tribonacci","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "The Tribonacci sequence Tn is defined as follows: T0 = 0, T1 = 1, T2 = 1, and Tn+3 = Tn + Tn+1 + Tn+2.",
+    examples: [{"input":"n = 4","output":"4"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function tribonacci(n) {\\n  \\n}","python":"def tribonacci(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int tribonacci(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4],"expected":4}]
+  },
+  {
+    id: "maximal-rectangle",
+    title: "Maximal Rectangle",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming, Stack, Matrix",
+    signature: {"name":"maximalRectangle","params":[{"name":"matrix","type":"string[][]"}],"returns":"integer"},
+    description: "Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.",
+    examples: [{"input":"matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]","output":"6"},{"input":"matrix = []","output":"0"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function maximalRectangle(matrix) {\n  \n}","python":"def maximalRectangle(matrix):\n    pass","cpp":"class Solution {\npublic:\n    int maximalRectangle(vector<vector<string>>& matrix) {\n        \n    }\n};"},
+    testCases: [{"input":[[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]],"expected":6},{"input":[[]],"expected":0}]
+  },
+  {
+    id: "unique-number-of-occurrences",
+    title: "Unique Number of Occurrences",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"uniqueOccurrences","params":[{"name":"arr","type":"integer[]"}],"returns":"boolean"},
+    description: "Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.",
+    examples: [{"input":"arr = [1,2,2,1,1,3]","output":"true"}],
+    constraints: ["1 <= arr.length <= 10^3","-10^4 <= arr[i] <= 10^4"],
+    starterCode: {"javascript":"function uniqueOccurrences(arr) {\\n  \\n}","python":"def uniqueOccurrences(arr):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool uniqueOccurrences(vector<int>& arr) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1,1,3]],"expected":true}]
+  },
+  {
+    id: "subset-sum-problem",
+    title: "Subset Sum Problem",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"isSubsetSum","params":[{"name":"arr","type":"integer[]"},{"name":"sum","type":"integer"}],"returns":"boolean"},
+    description: "Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.",
+    examples: [{"input":"arr = [3,34,4,12,5,2], sum = 9","output":"true"}],
+    constraints: ["1 <= arr.length <= 10^4","-10^4 <= arr[i] <= 10^4","-10^9 <= sum <= 10^9"],
+    starterCode: {"javascript":"function isSubsetSum(arr, sum) {\\n  \\n}","python":"def isSubsetSum(arr, sum):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSubsetSum(vector<int>& arr, int sum) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,34,4,12,5,2],9],"expected":true}]
+  },
+  {
+    id: "out-of-boundary-paths-easy",
+    title: "Out of Boundary Paths Easy",
+    difficulty: "Easy",
+    topic: "Dynamic Programming",
+    signature: {"name":"findPathsEasy","params":[{"name":"m","type":"integer"},{"name":"n","type":"integer"},{"name":"maxMove","type":"integer"},{"name":"startRow","type":"integer"},{"name":"startColumn","type":"integer"}],"returns":"integer"},
+    description: "There is an m x n grid with a ball. The ball is initially at the position [startRow, startColumn].",
+    examples: [{"input":"m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0","output":"6"}],
+    constraints: ["-10^9 <= m <= 10^9","-10^9 <= n <= 10^9","-10^9 <= maxMove <= 10^9","-10^9 <= startRow <= 10^9","-10^9 <= startColumn <= 10^9"],
+    starterCode: {"javascript":"function findPathsEasy(m, n, maxMove, startRow, startColumn) {\\n  \\n}","python":"def findPathsEasy(m, n, maxMove, startRow, startColumn):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findPathsEasy(int m, int n, int maxMove, int startRow, int startColumn) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,2,2,0,0],"expected":6}]
+  },
+  {
+    id: "topological-sort",
+    title: "Topological Sort",
+    difficulty: "Medium",
+    topic: "Graph, Depth-First Search, Topological Sort",
+    signature: {"name":"topoSort","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Given a Directed Acyclic Graph (DAG) with V vertices and E edges, Find any Topological Sorting of that Graph.",
+    examples: [{"input":"V = 4, adj = [[1],[2],[3],[]]","output":"[0,1,2,3]"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function topoSort(V, adj) {\\n  \\n}","python":"def topoSort(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> topoSort(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[1],[2],[3],[]]],"expected":[0,1,2,3]}]
+  },
+  {
+    id: "minimum-absolute-difference",
+    title: "Minimum Absolute Difference",
+    difficulty: "Easy",
+    topic: "Array, Sorting",
+    signature: {"name":"minimumAbsDifference","params":[{"name":"arr","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given an array of distinct integers arr, find all pairs of elements with the minimum absolute difference of any two elements. Return a list of pairs in ascending order.",
+    examples: [{"input":"arr = [4,2,1,3]","output":"[[1,2],[2,3],[3,4]]"}],
+    constraints: ["1 <= arr.length <= 10^3","-10^4 <= arr[i] <= 10^4"],
+    starterCode: {"javascript":"function minimumAbsDifference(arr) {\\n  \\n}","python":"def minimumAbsDifference(arr):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,1,3]],"expected":[[1,2],[2,3],[3,4]]}]
+  },
+  {
+    id: "set-mismatch",
+    title: "Set Mismatch",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Math, Bit Manipulation, Sorting",
+    signature: {"name":"findErrorNums","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set.",
+    examples: [{"input":"nums = [1,2,2,4]","output":"[2,3]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findErrorNums(nums) {\\n  \\n}","python":"def findErrorNums(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findErrorNums(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,4]],"expected":[2,3]}]
+  },
+  {
+    id: "bellman-ford-algorithm",
+    title: "Bellman-Ford Algorithm",
+    difficulty: "Medium",
+    topic: "Graph, Shortest Path",
+    signature: {"name":"bellmanFord","params":[{"name":"V","type":"integer"},{"name":"edges","type":"integer[][]"},{"name":"S","type":"integer"}],"returns":"integer[]"},
+    description: "Given a weighted, directed and connected graph of V vertices and E edges, Find the shortest distance of all the vertex's from the source vertex S. If a vertices can't be reach from the S then mark the distance as 10^8.",
+    examples: [{"input":"V = 3, edges = [[0,1,5],[1,2,-2],[0,2,1]], S = 0","output":"[0,5,1]"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= edges.length, edges[i].length <= 200","-10^9 <= S <= 10^9"],
+    starterCode: {"javascript":"function bellmanFord(V, edges, S) {\\n  \\n}","python":"def bellmanFord(V, edges, S):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> bellmanFord(int V, vector<vector<int>>& edges, int S) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,[[0,1,5],[1,2,-2],[0,2,1]],0],"expected":[0,5,1]}]
+  },
+  {
+    id: "insert-interval",
+    title: "Insert Interval",
+    difficulty: "Medium",
+    topic: "Array",
+    signature: {"name":"insert","params":[{"name":"intervals","type":"integer[][]"},{"name":"newInterval","type":"integer[]"}],"returns":"integer[][]"},
+    description: "You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval. Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).",
+    examples: [{"input":"intervals = [[1,3],[6,9]], newInterval = [2,5]","output":"[[1,5],[6,9]]"},{"input":"intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]","output":"[[1,2],[3,10],[12,16]]"}],
+    constraints: ["1 <= intervals.length, intervals[i].length <= 200","1 <= newInterval.length <= 10^4","-10^4 <= newInterval[i] <= 10^4"],
+    starterCode: {"javascript":"function insert(intervals, newInterval) {\n  \n}","python":"def insert(intervals, newInterval):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,3],[6,9]],[2,5]],"expected":[[1,5],[6,9]]},{"input":[[[1,2],[3,5],[6,7],[8,10],[12,16]],[4,8]],"expected":[[1,2],[3,10],[12,16]]}]
+  },
+  {
+    id: "pascals-triangle-ii",
+    title: "Pascal's Triangle II",
+    difficulty: "Easy",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"getRow","params":[{"name":"rowIndex","type":"integer"}],"returns":"integer[]"},
+    description: "Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.",
+    examples: [{"input":"rowIndex = 3","output":"[1,3,3,1]"}],
+    constraints: ["-10^9 <= rowIndex <= 10^9"],
+    starterCode: {"javascript":"function getRow(rowIndex) {\\n  \\n}","python":"def getRow(rowIndex):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> getRow(int rowIndex) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3],"expected":[1,3,3,1]}]
+  },
+  {
+    id: "n-queens",
+    title: "N-Queens",
+    difficulty: "Hard",
+    topic: "Array, Backtracking",
+    signature: {"name":"solveNQueens","params":[{"name":"n","type":"integer"}],"returns":"string[][]"},
+    description: "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other. Given an integer n, return all distinct solutions to the n-queens puzzle.",
+    examples: [{"input":"n = 4","output":"[[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]"},{"input":"n = 1","output":"[[\"Q\"]]"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function solveNQueens(n) {\n  \n}","python":"def solveNQueens(n):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<string>> solveNQueens(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[4],"expected":[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]},{"input":[1],"expected":[["Q"]]}]
+  },
+  {
+    id: "frog-jump",
+    title: "Frog Jump",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"canCross","params":[{"name":"stones","type":"integer[]"}],"returns":"boolean"},
+    description: "A frog is crossing a river. The river is divided into some number of units, and at each unit, there may or may not exist a stone. The frog can jump on a stone, but it must not jump into the water. Given a list of stones' positions (in units) in sorted strictly increasing order, determine if the frog can cross the river by landing on the last stone.",
+    examples: [{"input":"stones = [0,1,3,5,6,8,12,17]","output":"true"},{"input":"stones = [0,1,2,3,4,8,9,11]","output":"false"}],
+    constraints: ["1 <= stones.length <= 10^5","-10^4 <= stones[i] <= 10^4"],
+    starterCode: {"javascript":"function canCross(stones) {\n  \n}","python":"def canCross(stones):\n    pass","cpp":"class Solution {\npublic:\n    bool canCross(vector<int>& stones) {\n        \n    }\n};"},
+    testCases: [{"input":[[0,1,3,5,6,8,12,17]],"expected":true},{"input":[[0,1,2,3,4,8,9,11]],"expected":false}]
+  },
+  {
+    id: "construct-binary-tree-from-preorder-and-inorder-traversal",
+    title: "Construct Binary Tree from Preorder and Inorder Traversal",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Divide and Conquer, Tree, Binary Tree",
+    signature: {"name":"buildTree","params":[{"name":"preorder","type":"integer[]"},{"name":"inorder","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two integer arrays preorder and inorder, construct and return the binary tree.",
+    examples: [{"input":"preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]","output":"[3,9,20,null,null,15,7]"}],
+    constraints: ["1 <= preorder.length <= 10^4","-10^4 <= preorder[i] <= 10^4","1 <= inorder.length <= 10^4","-10^4 <= inorder[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function buildTree(preorder, inorder) {\\n  \\n}","python":"def buildTree(preorder, inorder):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> buildTree(vector<int>& preorder, vector<int>& inorder) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,15,7],[9,3,15,20,7]],"expected":[3,9,20,null,null,15,7]}]
+  },
+  {
+    id: "palindromic-substrings",
+    title: "Palindromic Substrings",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"countSubstrings","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s, return the number of palindromic substrings in it.",
+    examples: [{"input":"s = \"abc\"","output":"3"},{"input":"s = \"aaa\"","output":"6"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function countSubstrings(s) {\\n  \\n}","python":"def countSubstrings(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int countSubstrings(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abc"],"expected":3},{"input":["aaa"],"expected":6}]
+  },
+  {
+    id: "generate-parentheses",
+    title: "Generate Parentheses",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming, Backtracking",
+    signature: {"name":"generateParenthesis","params":[{"name":"n","type":"integer"}],"returns":"string[]"},
+    description: "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+    examples: [{"input":"n = 3","output":"[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]"},{"input":"n = 1","output":"[\"()\"]"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function generateParenthesis(n) {\n  \n}","python":"def generateParenthesis(n):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[3],"expected":["((()))","(()())","(())()","()(())","()()()"]},{"input":[1],"expected":["()"]}]
+  },
+  {
+    id: "find-numbers-with-even-number-of-digits",
+    title: "Find Numbers with Even Number of Digits",
+    difficulty: "Easy",
+    topic: "Array, Math",
+    signature: {"name":"findNumbers","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array nums of integers, return how many of them contain an even number of digits.",
+    examples: [{"input":"nums = [12,345,2,6,7896]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findNumbers(nums) {\\n  \\n}","python":"def findNumbers(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findNumbers(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[12,345,2,6,7896]],"expected":2}]
+  },
+  {
+    id: "reconstruct-itinerary",
+    title: "Reconstruct Itinerary",
+    difficulty: "Hard",
+    topic: "Depth-First Search, Graph, Eulerian Circuit",
+    signature: {"name":"findItinerary","params":[{"name":"tickets","type":"string[][]"}],"returns":"string[]"},
+    description: "You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival airports of one flight. Reconstruct the itinerary in order and return it.",
+    examples: [{"input":"tickets = [[\"MUC\",\"LHR\"],[\"JFK\",\"MUC\"],[\"SFO\",\"SJC\"],[\"LHR\",\"SFO\"]]","output":"[\"JFK\",\"MUC\",\"LHR\",\"SFO\",\"SJC\"]"}],
+    constraints: ["1 <= tickets.length, tickets[i].length <= 200"],
+    starterCode: {"javascript":"function findItinerary(tickets) {\\n  \\n}","python":"def findItinerary(tickets):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> findItinerary(vector<vector<string>>& tickets) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]],"expected":["JFK","MUC","LHR","SFO","SJC"]}]
+  },
+  {
+    id: "build-array-from-permutation",
+    title: "Build Array from Permutation",
+    difficulty: "Easy",
+    topic: "Array, Simulation",
+    signature: {"name":"buildArray","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given a zero-based permutation nums (0-indexed), build an array ans of the same length where ans[i] = nums[nums[i]] for each 0 <= i < nums.length and return it.",
+    examples: [{"input":"nums = [0,2,1,5,3,4]","output":"[0,1,2,4,5,3]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function buildArray(nums) {\\n  \\n}","python":"def buildArray(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> buildArray(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[0,2,1,5,3,4]],"expected":[0,1,2,4,5,3]}]
+  },
+  {
+    id: "majority-element",
+    title: "Majority Element",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Divide and Conquer, Sorting, Counting",
+    signature: {"name":"majorityElement","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array nums of size n, return the majority element. The majority element is the element that appears more than n / 2 times.",
+    examples: [{"input":"nums = [3,2,3]","output":"3"},{"input":"nums = [2,2,1,1,1,2,2]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function majorityElement(nums) {\\n  \\n}","python":"def majorityElement(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int majorityElement(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,3]],"expected":3},{"input":[[2,2,1,1,1,2,2]],"expected":2}]
+  },
+  {
+    id: "longest-continuous-increasing-subsequence",
+    title: "Longest Continuous Increasing Subsequence",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"findLengthOfLCIS","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an unsorted array of integers nums, return the length of the longest continuous increasing subsequence (i.e., subarray).",
+    examples: [{"input":"nums = [1,3,5,4,7]","output":"3"},{"input":"nums = [2,2,2,2,2]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findLengthOfLCIS(nums) {\\n  \\n}","python":"def findLengthOfLCIS(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findLengthOfLCIS(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,5,4,7]],"expected":3},{"input":[[2,2,2,2,2]],"expected":1}]
+  },
+  {
+    id: "evaluate-division",
+    title: "Evaluate Division",
+    difficulty: "Medium",
+    topic: "Array, Depth-First Search, Breadth-First Search, Union Find, Graph, Shortest Path",
+    signature: {"name":"calcEquation","params":[{"name":"equations","type":"string[][]"},{"name":"values","type":"integer[]"},{"name":"queries","type":"string[][]"}],"returns":"integer[]"},
+    description: "You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Return the answers to all queries.",
+    examples: [{"input":"equations = [[\"a\",\"b\"],[\"b\",\"c\"]], values = [2,3], queries = [[\"a\",\"c\"],[\"b\",\"a\"],[\"a\",\"e\"],[\"a\",\"a\"],[\"x\",\"x\"]]","output":"[6,0.5,-1,1,-1]"}],
+    constraints: ["1 <= equations.length, equations[i].length <= 200","1 <= values.length <= 10^4","-10^4 <= values[i] <= 10^4","1 <= queries.length, queries[i].length <= 200"],
+    starterCode: {"javascript":"function calcEquation(equations, values, queries) {\\n  \\n}","python":"def calcEquation(equations, values, queries):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> calcEquation(vector<vector<string>>& equations, vector<int>& values, vector<vector<string>>& queries) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[["a","b"],["b","c"]],[2,3],[["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]],"expected":[6,0.5,-1,1,-1]}]
+  },
+  {
+    id: "delete-and-earn",
+    title: "Delete and Earn",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Dynamic Programming",
+    signature: {"name":"deleteAndEarn","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array nums. You want to maximize the number of points you get by performing the following operation any number of times: Pick any nums[i] and delete it to earn nums[i] points. Afterwards, you must delete every element equal to nums[i] - 1 and every element equal to nums[i] + 1.",
+    examples: [{"input":"nums = [3,4,2]","output":"6"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function deleteAndEarn(nums) {\\n  \\n}","python":"def deleteAndEarn(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int deleteAndEarn(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,4,2]],"expected":6}]
+  },
+  {
+    id: "dungeon-game",
+    title: "Dungeon Game",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming, Matrix",
+    signature: {"name":"calculateMinimumHP","params":[{"name":"dungeon","type":"integer[][]"}],"returns":"integer"},
+    description: "The demons had captured the princess and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of m x n rooms laid out in a 2D grid. Our valiant knight was initially positioned in the top-left room and must fight his way through dungeon to rescue the princess. Write a function to determine the knight's minimum initial health so that he can rescue the princess.",
+    examples: [{"input":"dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]","output":"7"},{"input":"dungeon = [[0]]","output":"1"}],
+    constraints: ["1 <= dungeon.length, dungeon[i].length <= 200"],
+    starterCode: {"javascript":"function calculateMinimumHP(dungeon) {\n  \n}","python":"def calculateMinimumHP(dungeon):\n    pass","cpp":"class Solution {\npublic:\n    int calculateMinimumHP(vector<vector<int>>& dungeon) {\n        \n    }\n};"},
+    testCases: [{"input":[[[-2,-3,3],[-5,-10,1],[10,30,-5]]],"expected":7},{"input":[[[0]]],"expected":1}]
+  },
+  {
+    id: "4c3a5c79-df8a-4335-b73f-e895b87fa20b",
+    title: "Car Fleet",
+    difficulty: "Medium",
+    topic: "Array, Stack, Sorting, Monotonic Stack",
+    signature: {"name":"carFleet","params":[{"name":"target","type":"integer"},{"name":"position","type":"integer[]"},{"name":"speed","type":"integer[]"}],"returns":"integer"},
+    description: "There are n cars going to the same destination along a one-lane road. Return the number of car fleets that will arrive at the destination.",
+    examples: [{"input":"target = 12, position = [10,8,0,5,3], speed = [2,4,1,1,3]","output":"3"}],
+    constraints: ["-10^9 <= target <= 10^9","1 <= position.length <= 10^4","-10^4 <= position[i] <= 10^4","1 <= speed.length <= 10^4","-10^4 <= speed[i] <= 10^4"],
+    starterCode: {"javascript":"function carFleet(target, position, speed) {\n  \n}","python":"def carFleet(target, position, speed):\n    pass","cpp":"class Solution {\npublic:\n    int carFleet(int target, vector<int>& position, vector<int>& speed) {\n        \n    }\n};"},
+    testCases: [{"input":[12,[10,8,0,5,3],[2,4,1,1,3]],"expected":3}]
+  },
+  {
+    id: "69d3ccb2-8a3d-49c7-8c39-58c3c0eb6561",
+    title: "Generate Parentheses",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming, Backtracking",
+    signature: {"name":"generateParenthesis","params":[{"name":"n","type":"integer"}],"returns":"string[]"},
+    description: "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+    examples: [{"input":"n = 3","output":"[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function generateParenthesis(n) {\n  \n}","python":"def generateParenthesis(n):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[3],"expected":["((()))","(()())","(())()","()(())","()()()"]}]
+  },
+  {
+    id: "triangle",
+    title: "Triangle",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"minimumTotal","params":[{"name":"triangle","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a triangle array, return the minimum path sum from top to bottom. For each step, you may move to an adjacent number of the row below.",
+    examples: [{"input":"triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]","output":"11"}],
+    constraints: ["1 <= triangle.length, triangle[i].length <= 200"],
+    starterCode: {"javascript":"function minimumTotal(triangle) {\\n  \\n}","python":"def minimumTotal(triangle):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minimumTotal(vector<vector<int>>& triangle) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2],[3,4],[6,5,7],[4,1,8,3]]],"expected":11}]
+  },
+  {
+    id: "positions-of-large-groups-easy",
+    title: "Positions of Large Groups Easy",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"largeGroupPositionsEasy","params":[{"name":"s","type":"string"}],"returns":"integer[][]"},
+    description: "In a string s of lowercase letters, these letters form consecutive groups of the same character.",
+    examples: [{"input":"s = \"abbxxxxzzy\"","output":"[[3,6]]"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function largeGroupPositionsEasy(s) {\\n  \\n}","python":"def largeGroupPositionsEasy(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> largeGroupPositionsEasy(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abbxxxxzzy"],"expected":[[3,6]]}]
+  },
+  {
+    id: "find-mode-in-binary-search-tree",
+    title: "Find Mode in Binary Search Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"findMode","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.",
+    examples: [{"input":"root = [1,null,2,2]","output":"[2]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function findMode(root) {\\n  \\n}","python":"def findMode(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findMode(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,null,2,2]],"expected":[2]}]
+  },
+  {
+    id: "partition-equal-subset-sum",
+    title: "Partition Equal Subset Sum",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"canPartition","params":[{"name":"nums","type":"integer[]"}],"returns":"boolean"},
+    description: "Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.",
+    examples: [{"input":"nums = [1,5,11,5]","output":"true"},{"input":"nums = [1,2,3,5]","output":"false"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function canPartition(nums) {\\n  \\n}","python":"def canPartition(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canPartition(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,5,11,5]],"expected":true},{"input":[[1,2,3,5]],"expected":false}]
+  },
+  {
+    id: "knight-dialer",
+    title: "Knight Dialer",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"knightDialer","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "The chess knight has a unique movement, it may move two squares vertically and one square horizontally, or two squares horizontally and one square vertically. Return the number of distinct phone numbers of length n we can dial.",
+    examples: [{"input":"n = 1","output":"10"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function knightDialer(n) {\\n  \\n}","python":"def knightDialer(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int knightDialer(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1],"expected":10}]
+  },
+  {
+    id: "valid-parentheses",
+    title: "Valid Parentheses",
+    difficulty: "Easy",
+    topic: "String, Stack",
+    signature: {"name":"isValid","params":[{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    examples: [{"input":"s = \"()\"","output":"true"},{"input":"s = \"()[]{}\"","output":"true"},{"input":"s = \"(]\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isValid(s) {\\n  \\n}","python":"def isValid(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isValid(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["()"],"expected":true},{"input":["()[]{}"],"expected":true},{"input":["(]"],"expected":false}]
+  },
+  {
+    id: "lowest-common-ancestor-of-a-binary-search-tree",
+    title: "Lowest Common Ancestor of a Binary Search Tree",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"lowestCommonAncestorBST","params":[{"name":"root","type":"integer[]"},{"name":"p","type":"integer"},{"name":"q","type":"integer"}],"returns":"integer"},
+    description: "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.",
+    examples: [{"input":"root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8","output":"6"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","-10^9 <= p <= 10^9","-10^9 <= q <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function lowestCommonAncestorBST(root, p, q) {\\n  \\n}","python":"def lowestCommonAncestorBST(root, p, q):\\n    pass","cpp":"class Solution {\\npublic:\\n    int lowestCommonAncestorBST(vector<int>& root, int p, int q) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[6,2,8,0,4,7,9,null,null,3,5],2,8],"expected":6}]
+  },
+  {
+    id: "guess-number-higher-or-lower-ii",
+    title: "Guess Number Higher or Lower II",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Game Theory",
+    signature: {"name":"getMoneyAmount","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "We are playing the Guessing Game. The game will be played as follows: I pick a number between 1 and n. You guess a number. If you guess the right number, you win the game.",
+    examples: [{"input":"n = 10","output":"16"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function getMoneyAmount(n) {\\n  \\n}","python":"def getMoneyAmount(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int getMoneyAmount(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[10],"expected":16}]
+  },
+  {
+    id: "day-of-the-week",
+    title: "Day of the Week",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"dayOfTheWeek","params":[{"name":"day","type":"integer"},{"name":"month","type":"integer"},{"name":"year","type":"integer"}],"returns":"string"},
+    description: "Given a date, return the corresponding day of the week for that date.",
+    examples: [{"input":"day = 31, month = 8, year = 2019","output":"\"Saturday\""}],
+    constraints: ["-10^9 <= day <= 10^9","-10^9 <= month <= 10^9","-10^9 <= year <= 10^9"],
+    starterCode: {"javascript":"function dayOfTheWeek(day, month, year) {\\n  \\n}","python":"def dayOfTheWeek(day, month, year):\\n    pass","cpp":"class Solution {\\npublic:\\n    string dayOfTheWeek(int day, int month, int year) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[31,8,2019],"expected":"Saturday"}]
+  },
+  {
+    id: "contains-duplicate-iii",
+    title: "Contains Duplicate III (Easy Variant)",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"containsNearbyAlmostDuplicateEasy","params":[{"name":"nums","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"boolean"},
+    description: "Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.",
+    examples: [{"input":"nums = [1,2,3,1], k = 3","output":"true"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function containsNearbyAlmostDuplicateEasy(nums, k) {\\n  \\n}","python":"def containsNearbyAlmostDuplicateEasy(nums, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool containsNearbyAlmostDuplicateEasy(vector<int>& nums, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,1],3],"expected":true}]
+  },
+  {
+    id: "maximum-product-of-three-numbers",
+    title: "Maximum Product of Three Numbers",
+    difficulty: "Easy",
+    topic: "Array, Math, Sorting",
+    signature: {"name":"maximumProduct","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, find three numbers whose product is maximum and return the maximum product.",
+    examples: [{"input":"nums = [1,2,3]","output":"6"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maximumProduct(nums) {\\n  \\n}","python":"def maximumProduct(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maximumProduct(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":6}]
+  },
+  {
+    id: "longest-common-prefix",
+    title: "Longest Common Prefix",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"longestCommonPrefix","params":[{"name":"strs","type":"string[]"}],"returns":"string"},
+    description: "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string.",
+    examples: [{"input":"strs = [\"flower\",\"flow\",\"flight\"]","output":"\"fl\""},{"input":"strs = [\"dog\",\"racecar\",\"car\"]","output":"\"\""}],
+    constraints: ["1 <= strs.length <= 10^3","strs[i].length <= 100"],
+    starterCode: {"javascript":"function longestCommonPrefix(strs) {\\n  \\n}","python":"def longestCommonPrefix(strs):\\n    pass","cpp":"class Solution {\\npublic:\\n    string longestCommonPrefix(vector<string>& strs) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["flower","flow","flight"]],"expected":"fl"},{"input":[["dog","racecar","car"]],"expected":""}]
+  },
+  {
+    id: "max-area-of-island",
+    title: "Max Area of Island",
+    difficulty: "Medium",
+    topic: "Array, Depth-First Search, Breadth-First Search, Union Find, Matrix",
+    signature: {"name":"maxAreaOfIsland","params":[{"name":"grid","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given an m x n binary matrix grid. An island is a group of 1's. Return the maximum area of an island in grid. If there is no island, return 0.",
+    examples: [{"input":"grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]","output":"6"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function maxAreaOfIsland(grid) {\\n  \\n}","python":"def maxAreaOfIsland(grid):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]],"expected":6}]
+  },
+  {
+    id: "nim-game",
+    title: "Nim Game",
+    difficulty: "Easy",
+    topic: "Math, Game Theory",
+    signature: {"name":"canWinNim","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "You are playing the following Nim Game with your friend: Initially, there is a heap of stones on the table.",
+    examples: [{"input":"n = 4","output":"false"},{"input":"n = 1","output":"true"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function canWinNim(n) {\\n  \\n}","python":"def canWinNim(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canWinNim(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4],"expected":false},{"input":[1],"expected":true}]
+  },
+  {
+    id: "split-array-largest-sum",
+    title: "Split Array Largest Sum",
+    difficulty: "Hard",
+    topic: "Array, Binary Search, Dynamic Programming, Greedy",
+    signature: {"name":"splitArray","params":[{"name":"nums","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "Given an array nums which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays. Write an algorithm to minimize the largest sum among these m subarrays.",
+    examples: [{"input":"nums = [7,2,5,10,8], k = 2","output":"18"},{"input":"nums = [1,2,3,4,5], k = 2","output":"9"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function splitArray(nums, k) {\n  \n}","python":"def splitArray(nums, k):\n    pass","cpp":"class Solution {\npublic:\n    int splitArray(vector<int>& nums, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[7,2,5,10,8],2],"expected":18},{"input":[[1,2,3,4,5],2],"expected":9}]
+  },
+  {
+    id: "swap-nodes-in-pairs",
+    title: "Swap Nodes in Pairs",
+    difficulty: "Medium",
+    topic: "Linked List, Recursion",
+    signature: {"name":"swapPairs","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given a linked list (array), swap every two adjacent nodes and return its head.",
+    examples: [{"input":"head = [1,2,3,4]","output":"[2,1,4,3]"},{"input":"head = []","output":"[]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function swapPairs(head) {\n  \n}","python":"def swapPairs(head):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> swapPairs(vector<int>& head) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3,4]],"expected":[2,1,4,3]},{"input":[[]],"expected":[]}]
+  },
+  {
+    id: "unique-paths",
+    title: "Unique Paths",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Combinatorics",
+    signature: {"name":"uniquePaths","params":[{"name":"m","type":"integer"},{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid. How many possible unique paths are there?",
+    examples: [{"input":"m = 3, n = 7","output":"28"},{"input":"m = 3, n = 2","output":"3"}],
+    constraints: ["-10^9 <= m <= 10^9","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function uniquePaths(m, n) {\n  \n}","python":"def uniquePaths(m, n):\n    pass","cpp":"class Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        \n    }\n};"},
+    testCases: [{"input":[3,7],"expected":28},{"input":[3,2],"expected":3}]
+  },
+  {
+    id: "number-of-longest-increasing-subsequence",
+    title: "Number of Longest Increasing Subsequence",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Binary Indexed Tree, Segment Tree",
+    signature: {"name":"findNumberOfLIS","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, return the number of longest increasing subsequences.",
+    examples: [{"input":"nums = [1,3,5,4,7]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function findNumberOfLIS(nums) {\\n  \\n}","python":"def findNumberOfLIS(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findNumberOfLIS(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,5,4,7]],"expected":2}]
+  },
+  {
+    id: "leaf-similar-trees",
+    title: "Leaf-Similar Trees",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"leafSimilar","params":[{"name":"root1","type":"integer[]"},{"name":"root2","type":"integer[]"}],"returns":"boolean"},
+    description: "Consider all the leaves of a binary tree, from left to right order, the values of those leaves form a leaf value sequence.",
+    examples: [{"input":"root1 = [1,2,3], root2 = [1,3,2]","output":"false"}],
+    constraints: ["1 <= root1.length <= 10^3","-10^4 <= root1[i] <= 10^4","1 <= root2.length <= 10^3","-10^4 <= root2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function leafSimilar(root1, root2) {\\n  \\n}","python":"def leafSimilar(root1, root2):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool leafSimilar(vector<int>& root1, vector<int>& root2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3],[1,3,2]],"expected":false}]
+  },
+  {
+    id: "plus-one",
+    title: "Plus One",
+    difficulty: "Easy",
+    topic: "Array, Math",
+    signature: {"name":"plusOne","params":[{"name":"digits","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given a large integer represented as an integer array digits.",
+    examples: [{"input":"digits = [1,2,3]","output":"[1,2,4]"}],
+    constraints: ["1 <= digits.length <= 10^3","-10^4 <= digits[i] <= 10^4"],
+    starterCode: {"javascript":"function plusOne(digits) {\\n  \\n}","python":"def plusOne(digits):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> plusOne(vector<int>& digits) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":[1,2,4]}]
+  },
+  {
+    id: "find-the-highest-altitude",
+    title: "Find the Highest Altitude",
+    difficulty: "Easy",
+    topic: "Array, Prefix Sum",
+    signature: {"name":"largestAltitude","params":[{"name":"gain","type":"integer[]"}],"returns":"integer"},
+    description: "There is a biker going on a road trip. The road trip consists of n + 1 points at different altitudes. The biker starts his trip on point 0 with altitude equal 0.",
+    examples: [{"input":"gain = [-5,1,5,0,-7]","output":"1"}],
+    constraints: ["1 <= gain.length <= 10^3","-10^4 <= gain[i] <= 10^4"],
+    starterCode: {"javascript":"function largestAltitude(gain) {\\n  \\n}","python":"def largestAltitude(gain):\\n    pass","cpp":"class Solution {\\npublic:\\n    int largestAltitude(vector<int>& gain) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[-5,1,5,0,-7]],"expected":1}]
+  },
+  {
+    id: "sort-list",
+    title: "Sort List",
+    difficulty: "Medium",
+    topic: "Linked List, Two Pointers, Divide and Conquer, Sorting, Merge Sort",
+    signature: {"name":"sortList","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the head of a linked list, return the list after sorting it in ascending order.",
+    examples: [{"input":"head = [4,2,1,3]","output":"[1,2,3,4]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function sortList(head) {\\n  \\n}","python":"def sortList(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> sortList(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,2,1,3]],"expected":[1,2,3,4]}]
+  },
+  {
+    id: "find-pivot-index",
+    title: "Find Pivot Index",
+    difficulty: "Easy",
+    topic: "Array, Prefix Sum",
+    signature: {"name":"pivotIndex","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array of integers nums, calculate the pivot index of this array.",
+    examples: [{"input":"nums = [1,7,3,6,5,6]","output":"3"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function pivotIndex(nums) {\\n  \\n}","python":"def pivotIndex(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int pivotIndex(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,7,3,6,5,6]],"expected":3}]
+  },
+  {
+    id: "minimum-depth-of-binary-tree",
+    title: "Minimum Depth of Binary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"minDepth","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given a binary tree, find its minimum depth.",
+    examples: [{"input":"root = [3,9,20,null,null,15,7]","output":"2"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function minDepth(root) {\\n  \\n}","python":"def minDepth(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minDepth(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,null,null,15,7]],"expected":2}]
+  },
+  {
+    id: "best-time-to-buy-and-sell-stock-iii",
+    title: "Best Time to Buy and Sell Stock III",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"maxProfit","params":[{"name":"prices","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an array prices where prices[i] is the price of a given stock on the ith day. Find the maximum profit you can achieve. You may complete at most two transactions.",
+    examples: [{"input":"prices = [3,3,5,0,0,3,1,4]","output":"6"},{"input":"prices = [1,2,3,4,5]","output":"4"}],
+    constraints: ["1 <= prices.length <= 10^5","-10^4 <= prices[i] <= 10^4"],
+    starterCode: {"javascript":"function maxProfit(prices) {\n  \n}","python":"def maxProfit(prices):\n    pass","cpp":"class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        \n    }\n};"},
+    testCases: [{"input":[[3,3,5,0,0,3,1,4]],"expected":6},{"input":[[1,2,3,4,5]],"expected":4}]
+  },
+  {
+    id: "uncommon-words-from-two-sentences",
+    title: "Uncommon Words from Two Sentences",
+    difficulty: "Easy",
+    topic: "Hash Table, String",
+    signature: {"name":"uncommonFromSentences","params":[{"name":"s1","type":"string"},{"name":"s2","type":"string"}],"returns":"string[]"},
+    description: "A sentence is a string of single-space separated words where each word consists only of lowercase letters.",
+    examples: [{"input":"s1 = \"this apple is sweet\", s2 = \"this apple is sour\"","output":"[\"sweet\",\"sour\"]"}],
+    constraints: ["1 <= s1.length <= 10^3","s1 consists of printable ASCII characters.","1 <= s2.length <= 10^3","s2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function uncommonFromSentences(s1, s2) {\\n  \\n}","python":"def uncommonFromSentences(s1, s2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> uncommonFromSentences(string s1, string s2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["this apple is sweet","this apple is sour"],"expected":["sweet","sour"]}]
+  },
+  {
+    id: "word-ladder",
+    title: "Word Ladder",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Breadth-First Search",
+    signature: {"name":"ladderLength","params":[{"name":"beginWord","type":"string"},{"name":"endWord","type":"string"},{"name":"wordList","type":"string[]"}],"returns":"integer"},
+    description: "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk. Return the number of words in the shortest transformation sequence.",
+    examples: [{"input":"beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]","output":"5"}],
+    constraints: ["1 <= beginWord.length <= 10^5","beginWord consists of printable ASCII characters.","1 <= endWord.length <= 10^5","endWord consists of printable ASCII characters.","1 <= wordList.length <= 10^5","wordList[i].length <= 100"],
+    starterCode: {"javascript":"function ladderLength(beginWord, endWord, wordList) {\\n  \\n}","python":"def ladderLength(beginWord, endWord, wordList):\\n    pass","cpp":"class Solution {\\npublic:\\n    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["hit","cog",["hot","dot","dog","lot","log","cog"]],"expected":5}]
+  },
+  {
+    id: "integer-break",
+    title: "Integer Break",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming",
+    signature: {"name":"integerBreak","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given an integer n, break it into the sum of k positive integers, where k >= 2, and maximize the product of those integers. Return the maximum product you can get.",
+    examples: [{"input":"n = 2","output":"1"},{"input":"n = 10","output":"36"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function integerBreak(n) {\\n  \\n}","python":"def integerBreak(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int integerBreak(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":1},{"input":[10],"expected":36}]
+  },
+  {
+    id: "e748fa34-22b6-4ab6-8a97-73644137a2a9",
+    title: "Min Stack",
+    difficulty: "Medium",
+    topic: "Stack, Design",
+    signature: {"name":"minStack","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.",
+    examples: [{"input":"operations = [\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"], args = [[],[-2],[0],[-3],[],[],[],[]]","output":"[null,null,null,null,-3,null,0,-2]"}],
+    constraints: ["1 <= operations.length <= 10^4","operations[i].length <= 100","1 <= args.length, args[i].length <= 200"],
+    starterCode: {"javascript":"function minStack(operations, args) {\n  \n}","python":"def minStack(operations, args):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> minStack(vector<string>& operations, vector<vector<int>>& args) {\n        \n    }\n};"},
+    testCases: [{"input":[["MinStack","push","push","push","getMin","pop","top","getMin"],[[],[-2],[0],[-3],[],[],[],[]]],"expected":[null,null,null,null,-3,null,0,-2]}]
+  },
+  {
+    id: "27c8cbf2-b010-47f4-97ac-ce718e5f1dd6",
+    title: "Valid Sudoku",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Matrix",
+    signature: {"name":"isValidSudoku","params":[{"name":"board","type":"string[][]"}],"returns":"boolean"},
+    description: "Determine if a 9 x 9 Sudoku board is valid.",
+    examples: [{"input":"board = [[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]","output":"true"}],
+    constraints: ["board.length == 9","board[i].length == 9","board[i][j] is a digit 1-9 or '.'."],
+    starterCode: {"javascript":"function isValidSudoku(board) {\n  \n}","python":"def isValidSudoku(board):\n    pass","cpp":"class Solution {\npublic:\n    bool isValidSudoku(vector<vector<string>>& board) {\n        \n    }\n};"},
+    testCases: [{"input":[[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]],"expected":true}]
+  },
+  {
+    id: "subtree-of-another-tree-easy",
+    title: "Subtree of Another Tree Easy",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, String Matching, Binary Tree, Hash Function",
+    signature: {"name":"isSubtreeEasy","params":[{"name":"root","type":"integer[]"},{"name":"subRoot","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.",
+    examples: [{"input":"root = [3,4,5,1,2], subRoot = [4,1,2]","output":"true"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","1 <= subRoot.length <= 10^3","-10^4 <= subRoot[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isSubtreeEasy(root, subRoot) {\\n  \\n}","python":"def isSubtreeEasy(root, subRoot):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSubtreeEasy(vector<int>& root, vector<int>& subRoot) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,4,5,1,2],[4,1,2]],"expected":true}]
+  },
+  {
+    id: "min-cost-climbing-stairs-easy",
+    title: "Min Cost Climbing Stairs Easy",
+    difficulty: "Easy",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"minCostClimbingStairsEasy","params":[{"name":"cost","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.",
+    examples: [{"input":"cost = [10,15,20]","output":"15"}],
+    constraints: ["1 <= cost.length <= 10^3","-10^4 <= cost[i] <= 10^4"],
+    starterCode: {"javascript":"function minCostClimbingStairsEasy(cost) {\\n  \\n}","python":"def minCostClimbingStairsEasy(cost):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minCostClimbingStairsEasy(vector<int>& cost) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,15,20]],"expected":15}]
+  },
+  {
+    id: "e38d2a7c-1b88-4682-bce7-627aea732946",
+    title: "Search a 2D Matrix II",
+    difficulty: "Medium",
+    topic: "Array, Binary Search, Divide and Conquer, Matrix",
+    signature: {"name":"searchMatrix","params":[{"name":"matrix","type":"integer[][]"},{"name":"target","type":"integer"}],"returns":"boolean"},
+    description: "Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix.",
+    examples: [{"input":"matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22]], target = 5","output":"true"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function searchMatrix(matrix, target) {\n  \n}","python":"def searchMatrix(matrix, target):\n    pass","cpp":"class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22]],5],"expected":true}]
+  },
+  {
+    id: "max-sum-of-rectangle-no-larger-than-k",
+    title: "Max Sum of Rectangle No Larger Than K",
+    difficulty: "Hard",
+    topic: "Array, Binary Search, Dynamic Programming, Matrix, Ordered Set",
+    signature: {"name":"maxSumSubmatrix","params":[{"name":"matrix","type":"integer[][]"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "Given an m x n matrix matrix and an integer k, return the max sum of a rectangle in the matrix such that its sum is no larger than k.",
+    examples: [{"input":"matrix = [[1,0,1],[0,-2,3]], k = 2","output":"2"},{"input":"matrix = [[2,2,-1]], k = 3","output":"3"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function maxSumSubmatrix(matrix, k) {\n  \n}","python":"def maxSumSubmatrix(matrix, k):\n    pass","cpp":"class Solution {\npublic:\n    int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,0,1],[0,-2,3]],2],"expected":2},{"input":[[[2,2,-1]],3],"expected":3}]
+  },
+  {
+    id: "remove-duplicates-from-sorted-list-ii",
+    title: "Remove Duplicates from Sorted List II",
+    difficulty: "Medium",
+    topic: "Linked List, Two Pointers",
+    signature: {"name":"deleteDuplicates2","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.",
+    examples: [{"input":"head = [1,2,3,3,4,4,5]","output":"[1,2,5]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function deleteDuplicates2(head) {\\n  \\n}","python":"def deleteDuplicates2(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> deleteDuplicates2(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,3,4,4,5]],"expected":[1,2,5]}]
+  },
+  {
+    id: "next-greater-element-i",
+    title: "Next Greater Element I",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Stack, Monotonic Stack",
+    signature: {"name":"nextGreaterElement","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer[]"},
+    description: "The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.",
+    examples: [{"input":"nums1 = [4,1,2], nums2 = [1,3,4,2]","output":"[-1,3,-1]"}],
+    constraints: ["1 <= nums1.length <= 10^3","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^3","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function nextGreaterElement(nums1, nums2) {\\n  \\n}","python":"def nextGreaterElement(nums1, nums2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[4,1,2],[1,3,4,2]],"expected":[-1,3,-1]}]
+  },
+  {
+    id: "reshape-the-matrix-easy",
+    title: "Reshape the Matrix Easy",
+    difficulty: "Easy",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"matrixReshapeEasy","params":[{"name":"mat","type":"integer[][]"},{"name":"r","type":"integer"},{"name":"c","type":"integer"}],"returns":"integer[][]"},
+    description: "In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.",
+    examples: [{"input":"mat = [[1,2],[3,4]], r = 1, c = 4","output":"[[1,2,3,4]]"}],
+    constraints: ["1 <= mat.length, mat[i].length <= 200","-10^9 <= r <= 10^9","-10^9 <= c <= 10^9"],
+    starterCode: {"javascript":"function matrixReshapeEasy(mat, r, c) {\\n  \\n}","python":"def matrixReshapeEasy(mat, r, c):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> matrixReshapeEasy(vector<vector<int>>& mat, int r, int c) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2],[3,4]],1,4],"expected":[[1,2,3,4]]}]
+  },
+  {
+    id: "reverse-nodes-in-k-group",
+    title: "Reverse Nodes in k-Group",
+    difficulty: "Hard",
+    topic: "Linked List, Recursion",
+    signature: {"name":"reverseKGroup","params":[{"name":"head","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer[]"},
+    description: "Given a linked list (as array), reverse the nodes of a linked list k at a time and return its modified list.",
+    examples: [{"input":"head = [1,2,3,4,5], k = 2","output":"[2,1,4,3,5]"},{"input":"head = [1,2,3,4,5], k = 3","output":"[3,2,1,4,5]"}],
+    constraints: ["1 <= head.length <= 10^5","-10^4 <= head[i] <= 10^4","-10^9 <= k <= 10^9","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function reverseKGroup(head, k) {\n  \n}","python":"def reverseKGroup(head, k):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> reverseKGroup(vector<int>& head, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3,4,5],2],"expected":[2,1,4,3,5]},{"input":[[1,2,3,4,5],3],"expected":[3,2,1,4,5]}]
+  },
+  {
+    id: "path-sum",
+    title: "Path Sum",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"hasPathSum","params":[{"name":"root","type":"integer[]"},{"name":"targetSum","type":"integer"}],"returns":"boolean"},
+    description: "Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.",
+    examples: [{"input":"root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22","output":"true"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","-10^9 <= targetSum <= 10^9","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function hasPathSum(root, targetSum) {\\n  \\n}","python":"def hasPathSum(root, targetSum):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool hasPathSum(vector<int>& root, int targetSum) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,4,8,11,null,13,4,7,2,null,null,null,1],22],"expected":true}]
+  },
+  {
+    id: "first-missing-positive",
+    title: "First Missing Positive",
+    difficulty: "Hard",
+    topic: "Array, Hash Table",
+    signature: {"name":"firstMissingPositive","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an unsorted integer array nums, return the smallest missing positive integer. You must implement an algorithm that runs in O(n) time and uses constant extra space.",
+    examples: [{"input":"nums = [1,2,0]","output":"3"},{"input":"nums = [3,4,-1,1]","output":"2"},{"input":"nums = [7,8,9,11,12]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function firstMissingPositive(nums) {\n  \n}","python":"def firstMissingPositive(nums):\n    pass","cpp":"class Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,0]],"expected":3},{"input":[[3,4,-1,1]],"expected":2},{"input":[[7,8,9,11,12]],"expected":1}]
+  },
+  {
+    id: "move-zeroes",
+    title: "Move Zeroes",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers",
+    signature: {"name":"moveZeroes","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.",
+    examples: [{"input":"nums = [0,1,0,3,12]","output":"[1,3,12,0,0]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function moveZeroes(nums) {\\n  \\n}","python":"def moveZeroes(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> moveZeroes(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[0,1,0,3,12]],"expected":[1,3,12,0,0]}]
+  },
+  {
+    id: "alien-dictionary",
+    title: "Alien Dictionary (GFG)",
+    difficulty: "Hard",
+    topic: "Array, String, Depth-First Search, Breadth-First Search, Graph, Topological Sort",
+    signature: {"name":"alienOrder","params":[{"name":"words","type":"string[]"}],"returns":"string"},
+    description: "Given a sorted dictionary of an alien language, find the order of characters in the language.",
+    examples: [{"input":"words = [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]","output":"\"wertf\""}],
+    constraints: ["1 <= words.length <= 10^5","words[i].length <= 100"],
+    starterCode: {"javascript":"function alienOrder(words) {\\n  \\n}","python":"def alienOrder(words):\\n    pass","cpp":"class Solution {\\npublic:\\n    string alienOrder(vector<string>& words) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["wrt","wrf","er","ett","rftt"]],"expected":"wertf"}]
+  },
+  {
+    id: "linked-list-cycle",
+    title: "Linked List Cycle",
+    difficulty: "Easy",
+    topic: "Hash Table, Linked List, Two Pointers",
+    signature: {"name":"hasCycle","params":[{"name":"head","type":"integer[]"},{"name":"pos","type":"integer"}],"returns":"boolean"},
+    description: "Given head, the head of a linked list, determine if the linked list has a cycle in it.",
+    examples: [{"input":"head = [3,2,0,-4], pos = 1","output":"true"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","-10^9 <= pos <= 10^9","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function hasCycle(head, pos) {\\n  \\n}","python":"def hasCycle(head, pos):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool hasCycle(vector<int>& head, int pos) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,0,-4],1],"expected":true}]
+  },
+  {
+    id: "remove-duplicates-from-sorted-list",
+    title: "Remove Duplicates from Sorted List",
+    difficulty: "Easy",
+    topic: "Linked List",
+    signature: {"name":"deleteDuplicates","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.",
+    examples: [{"input":"head = [1,1,2]","output":"[1,2]"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function deleteDuplicates(head) {\\n  \\n}","python":"def deleteDuplicates(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> deleteDuplicates(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,2]],"expected":[1,2]}]
+  },
+  {
+    id: "group-anagrams",
+    title: "Group Anagrams",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, String, Sorting",
+    signature: {"name":"groupAnagrams","params":[{"name":"strs","type":"string[]"}],"returns":"string[][]"},
+    description: "Given an array of strings strs, group the anagrams together. You can return the answer in any order.",
+    examples: [{"input":"strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]","output":"[[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]"},{"input":"strs = [\"\"]","output":"[[\"\"]]"}],
+    constraints: ["1 <= strs.length <= 10^4","strs[i].length <= 100"],
+    starterCode: {"javascript":"function groupAnagrams(strs) {\n  \n}","python":"def groupAnagrams(strs):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};"},
+    testCases: [{"input":[["eat","tea","tan","ate","nat","bat"]],"expected":[["bat"],["nat","tan"],["ate","eat","tea"]]},{"input":[[""]],"expected":[[""]]}]
+  },
+  {
+    id: "split-linked-list-in-parts",
+    title: "Split Linked List in Parts",
+    difficulty: "Medium",
+    topic: "Linked List",
+    signature: {"name":"splitListToParts","params":[{"name":"head","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer[][]"},
+    description: "Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.",
+    examples: [{"input":"head = [1,2,3], k = 5","output":"[[1],[2],[3],[],[]]"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","-10^9 <= k <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function splitListToParts(head, k) {\\n  \\n}","python":"def splitListToParts(head, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> splitListToParts(vector<int>& head, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3],5],"expected":[[1],[2],[3],[],[]]}]
+  },
+  {
+    id: "populating-next-right-pointers-in-each-node",
+    title: "Populating Next Right Pointers in Each Node",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"connect","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given a perfect binary tree where all leaves are on the same level. Populate each next pointer to point to its next right node.",
+    examples: [{"input":"root = [1,2,3,4,5,6,7]","output":"[1,2,3,4,5,6,7]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function connect(root) {\\n  \\n}","python":"def connect(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> connect(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5,6,7]],"expected":[1,2,3,4,5,6,7]}]
+  },
+  {
+    id: "0-1-knapsack",
+    title: "0-1 Knapsack Problem",
+    difficulty: "Hard",
+    topic: "Dynamic Programming",
+    signature: {"name":"knapsack","params":[{"name":"wt","type":"integer[]"},{"name":"val","type":"integer[]"},{"name":"W","type":"integer"}],"returns":"integer"},
+    description: "Given weights and values of n items, put these items in a knapsack of capacity W to get the maximum total value in the knapsack.",
+    examples: [{"input":"wt = [10,20,30], val = [60,100,120], W = 50","output":"220"}],
+    constraints: ["1 <= wt.length <= 10^5","-10^4 <= wt[i] <= 10^4","1 <= val.length <= 10^5","-10^4 <= val[i] <= 10^4","-10^9 <= W <= 10^9"],
+    starterCode: {"javascript":"function knapsack(wt, val, W) {\\n  \\n}","python":"def knapsack(wt, val, W):\\n    pass","cpp":"class Solution {\\npublic:\\n    int knapsack(vector<int>& wt, vector<int>& val, int W) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,20,30],[60,100,120],50],"expected":220}]
+  },
+  {
+    id: "linked-list-cycle-ii",
+    title: "Linked List Cycle II",
+    difficulty: "Medium",
+    topic: "Hash Table, Linked List, Two Pointers",
+    signature: {"name":"detectCycle","params":[{"name":"head","type":"integer[]"},{"name":"pos","type":"integer"}],"returns":"integer"},
+    description: "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.",
+    examples: [{"input":"head = [3,2,0,-4], pos = 1","output":"1"}],
+    constraints: ["1 <= head.length <= 10^4","-10^4 <= head[i] <= 10^4","-10^9 <= pos <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function detectCycle(head, pos) {\\n  \\n}","python":"def detectCycle(head, pos):\\n    pass","cpp":"class Solution {\\npublic:\\n    int detectCycle(vector<int>& head, int pos) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,0,-4],1],"expected":1}]
+  },
+  {
+    id: "maximum-depth-of-binary-tree",
+    title: "Maximum Depth of Binary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"maxDepth","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a binary tree, return its maximum depth.",
+    examples: [{"input":"root = [3,9,20,null,null,15,7]","output":"3"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function maxDepth(root) {\\n  \\n}","python":"def maxDepth(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maxDepth(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,9,20,null,null,15,7]],"expected":3}]
+  },
+  {
+    id: "unbounded-knapsack",
+    title: "Unbounded Knapsack",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"unboundedKnapsack","params":[{"name":"wt","type":"integer[]"},{"name":"val","type":"integer[]"},{"name":"W","type":"integer"}],"returns":"integer"},
+    description: "Given a knapsack weight W and a set of items with certain value and weight, find the maximum value you can make. You can use any item any number of times.",
+    examples: [{"input":"wt = [1,3,4,5], val = [10,40,50,70], W = 8","output":"110"}],
+    constraints: ["1 <= wt.length <= 10^4","-10^4 <= wt[i] <= 10^4","1 <= val.length <= 10^4","-10^4 <= val[i] <= 10^4","-10^9 <= W <= 10^9"],
+    starterCode: {"javascript":"function unboundedKnapsack(wt, val, W) {\\n  \\n}","python":"def unboundedKnapsack(wt, val, W):\\n    pass","cpp":"class Solution {\\npublic:\\n    int unboundedKnapsack(vector<int>& wt, vector<int>& val, int W) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,4,5],[10,40,50,70],8],"expected":110}]
+  },
+  {
+    id: "wildcard-matching",
+    title: "Wildcard Matching",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming, Greedy, Recursion",
+    signature: {"name":"isMatch","params":[{"name":"s","type":"string"},{"name":"p","type":"string"}],"returns":"boolean"},
+    description: "Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where: '?' Matches any single character. '*' Matches any sequence of characters (including the empty sequence).",
+    examples: [{"input":"s = \"aa\", p = \"a\"","output":"false"},{"input":"s = \"aa\", p = \"*\"","output":"true"},{"input":"s = \"cb\", p = \"?a\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= p.length <= 10^5","p consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isMatch(s, p) {\n  \n}","python":"def isMatch(s, p):\n    pass","cpp":"class Solution {\npublic:\n    bool isMatch(string s, string p) {\n        \n    }\n};"},
+    testCases: [{"input":["aa","a"],"expected":false},{"input":["aa","*"],"expected":true},{"input":["cb","?a"],"expected":false}]
+  },
+  {
+    id: "base-7",
+    title: "Base 7",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"convertToBase7","params":[{"name":"num","type":"integer"}],"returns":"string"},
+    description: "Given an integer num, return a string of its base 7 representation.",
+    examples: [{"input":"num = 100","output":"\"202\""},{"input":"num = -7","output":"\"-10\""}],
+    constraints: ["-10^9 <= num <= 10^9"],
+    starterCode: {"javascript":"function convertToBase7(num) {\\n  \\n}","python":"def convertToBase7(num):\\n    pass","cpp":"class Solution {\\npublic:\\n    string convertToBase7(int num) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[100],"expected":"202"},{"input":[-7],"expected":"-10"}]
+  },
+  {
+    id: "binary-tree-inorder-traversal",
+    title: "Binary Tree Inorder Traversal",
+    difficulty: "Easy",
+    topic: "Stack, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"inorderTraversal","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, return the inorder traversal of its nodes' values.",
+    examples: [{"input":"root = [1,null,2,3]","output":"[1,3,2]"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function inorderTraversal(root) {\\n  \\n}","python":"def inorderTraversal(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> inorderTraversal(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,null,2,3]],"expected":[1,3,2]}]
+  },
+  {
+    id: "find-the-index-of-the-first-occurrence-in-a-string",
+    title: "Find the Index of the First Occurrence in a String",
+    difficulty: "Easy",
+    topic: "Two Pointers, String, String Matching",
+    signature: {"name":"strStr","params":[{"name":"haystack","type":"string"},{"name":"needle","type":"string"}],"returns":"integer"},
+    description: "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.",
+    examples: [{"input":"haystack = \"sadbutsad\", needle = \"sad\"","output":"0"},{"input":"haystack = \"leetcode\", needle = \"leeto\"","output":"-1"}],
+    constraints: ["1 <= haystack.length <= 10^3","haystack consists of printable ASCII characters.","1 <= needle.length <= 10^3","needle consists of printable ASCII characters."],
+    starterCode: {"javascript":"function strStr(haystack, needle) {\\n  \\n}","python":"def strStr(haystack, needle):\\n    pass","cpp":"class Solution {\\npublic:\\n    int strStr(string haystack, string needle) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["sadbutsad","sad"],"expected":0},{"input":["leetcode","leeto"],"expected":-1}]
+  },
+  {
+    id: "redundant-connection",
+    title: "Redundant Connection",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Union Find, Graph",
+    signature: {"name":"findRedundantConnection","params":[{"name":"edges","type":"integer[][]"}],"returns":"integer[]"},
+    description: "In this problem, a tree is an undirected graph that is connected and has no cycles. Return an edge that can be removed so that the resulting graph is a tree of n nodes.",
+    examples: [{"input":"edges = [[1,2],[1,3],[2,3]]","output":"[2,3]"}],
+    constraints: ["1 <= edges.length, edges[i].length <= 200"],
+    starterCode: {"javascript":"function findRedundantConnection(edges) {\\n  \\n}","python":"def findRedundantConnection(edges):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findRedundantConnection(vector<vector<int>>& edges) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2],[1,3],[2,3]]],"expected":[2,3]}]
+  },
+  {
+    id: "height-checker",
+    title: "Height Checker",
+    difficulty: "Easy",
+    topic: "Array, Sorting, Counting Sort",
+    signature: {"name":"heightChecker","params":[{"name":"heights","type":"integer[]"}],"returns":"integer"},
+    description: "A school is trying to take an annual photo of all the students. The students are asked to stand in a single file line in non-decreasing order by height. Let this ordering be represented by the integer array expected where expected[i] is the expected height of the ith student in line. Return the number of indices where heights[i] != expected[i].",
+    examples: [{"input":"heights = [1,1,4,2,1,3]","output":"3"}],
+    constraints: ["1 <= heights.length <= 10^3","-10^4 <= heights[i] <= 10^4"],
+    starterCode: {"javascript":"function heightChecker(heights) {\\n  \\n}","python":"def heightChecker(heights):\\n    pass","cpp":"class Solution {\\npublic:\\n    int heightChecker(vector<int>& heights) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,4,2,1,3]],"expected":3}]
+  },
+  {
+    id: "shortest-path-in-binary-matrix",
+    title: "Shortest Path in Binary Matrix",
+    difficulty: "Medium",
+    topic: "Array, Breadth-First Search, Matrix",
+    signature: {"name":"shortestPathBinaryMatrix","params":[{"name":"grid","type":"integer[][]"}],"returns":"integer"},
+    description: "Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.",
+    examples: [{"input":"grid = [[0,1],[1,0]]","output":"2"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function shortestPathBinaryMatrix(grid) {\\n  \\n}","python":"def shortestPathBinaryMatrix(grid):\\n    pass","cpp":"class Solution {\\npublic:\\n    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,1],[1,0]]],"expected":2}]
+  },
+  {
+    id: "fair-candy-swap",
+    title: "Fair Candy Swap",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Binary Search, Sorting",
+    signature: {"name":"fairCandySwap","params":[{"name":"aliceSizes","type":"integer[]"},{"name":"bobSizes","type":"integer[]"}],"returns":"integer[]"},
+    description: "Alice and Bob have a different total number of candies. You are given two integer arrays aliceSizes and bobSizes where aliceSizes[i] is the number of candies of the ith box of candy that Alice has and bobSizes[j] is the number of candies of the jth box of candy that Bob has.",
+    examples: [{"input":"aliceSizes = [1,1], bobSizes = [2,2]","output":"[1,2]"}],
+    constraints: ["1 <= aliceSizes.length <= 10^3","-10^4 <= aliceSizes[i] <= 10^4","1 <= bobSizes.length <= 10^3","-10^4 <= bobSizes[i] <= 10^4"],
+    starterCode: {"javascript":"function fairCandySwap(aliceSizes, bobSizes) {\\n  \\n}","python":"def fairCandySwap(aliceSizes, bobSizes):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> fairCandySwap(vector<int>& aliceSizes, vector<int>& bobSizes) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1],[2,2]],"expected":[1,2]}]
+  },
+  {
+    id: "strongly-connected-components",
+    title: "Strongly Connected Components (Kosaraju's Algo)",
+    difficulty: "Medium",
+    topic: "Graph, Depth-First Search",
+    signature: {"name":"kosaraju","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, Find the number of strongly connected components in the graph.",
+    examples: [{"input":"V = 5, adj = [[2],[0],[1],[4],[]]","output":"3"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function kosaraju(V, adj) {\\n  \\n}","python":"def kosaraju(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    int kosaraju(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[5,[[2],[0],[1],[4],[]]],"expected":3}]
+  },
+  {
+    id: "can-place-flowers-easy",
+    title: "Can Place Flowers Easy",
+    difficulty: "Easy",
+    topic: "Array, Greedy",
+    signature: {"name":"canPlaceFlowersEasy","params":[{"name":"flowerbed","type":"integer[]"},{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.",
+    examples: [{"input":"flowerbed = [1,0,0,0,1], n = 1","output":"true"}],
+    constraints: ["1 <= flowerbed.length <= 10^3","-10^4 <= flowerbed[i] <= 10^4","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function canPlaceFlowersEasy(flowerbed, n) {\\n  \\n}","python":"def canPlaceFlowersEasy(flowerbed, n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canPlaceFlowersEasy(vector<int>& flowerbed, int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,0,0,0,1],1],"expected":true}]
+  },
+  {
+    id: "last-stone-weight-ii",
+    title: "Last Stone Weight II",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"lastStoneWeightII","params":[{"name":"stones","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an array of integers stones where stones[i] is the weight of the ith stone. Return the smallest possible weight of the left stone. If there are no stones left, return 0.",
+    examples: [{"input":"stones = [2,7,4,1,8,1]","output":"1"}],
+    constraints: ["1 <= stones.length <= 10^4","-10^4 <= stones[i] <= 10^4"],
+    starterCode: {"javascript":"function lastStoneWeightII(stones) {\\n  \\n}","python":"def lastStoneWeightII(stones):\\n    pass","cpp":"class Solution {\\npublic:\\n    int lastStoneWeightII(vector<int>& stones) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,7,4,1,8,1]],"expected":1}]
+  },
+  {
+    id: "diameter-of-binary-tree-easy",
+    title: "Diameter of Binary Tree (Easy variant)",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"diameterOfBinaryTreeEasy","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a binary tree, return the length of the diameter of the tree.",
+    examples: [{"input":"root = [1,2,3,4,5]","output":"3"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function diameterOfBinaryTreeEasy(root) {\\n  \\n}","python":"def diameterOfBinaryTreeEasy(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int diameterOfBinaryTreeEasy(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5]],"expected":3}]
+  },
+  {
+    id: "lru-cache",
+    title: "LRU Cache",
+    difficulty: "Medium",
+    topic: "Hash Table, Linked List, Design, Doubly-Linked List",
+    signature: {"name":"lruCache","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.",
+    examples: [{"input":"operations = [\"LRUCache\",\"put\",\"put\",\"get\",\"put\",\"get\",\"put\",\"get\",\"get\",\"get\"], args = [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]","output":"[null,null,null,1,null,-1,null,-1,3,4]"}],
+    constraints: ["1 <= operations.length <= 10^4","operations[i].length <= 100","1 <= args.length, args[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function lruCache(operations, args) {\\n  \\n}","python":"def lruCache(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> lruCache(vector<string>& operations, vector<vector<int>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["LRUCache","put","put","get","put","get","put","get","get","get"],[[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]],"expected":[null,null,null,1,null,-1,null,-1,3,4]}]
+  },
+  {
+    id: "recover-binary-search-tree",
+    title: "Recover Binary Search Tree",
+    difficulty: "Hard",
+    topic: "Tree, Depth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"recoverTree","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given the root of a binary search tree (BST) represented as an array where exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.",
+    examples: [{"input":"root = [1,3,null,null,2]","output":"[3,1,null,null,2]"},{"input":"root = [3,1,4,null,null,2]","output":"[2,1,4,null,null,3]"}],
+    constraints: ["1 <= root.length <= 10^5","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function recoverTree(root) {\n  \n}","python":"def recoverTree(root):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> recoverTree(vector<int>& root) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,3,null,null,2]],"expected":[3,1,null,null,2]},{"input":[[3,1,4,null,null,2]],"expected":[2,1,4,null,null,3]}]
+  },
+  {
+    id: "course-schedule-ii",
+    title: "Course Schedule II",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph, Topological Sort",
+    signature: {"name":"findOrder","params":[{"name":"numCourses","type":"integer"},{"name":"prerequisites","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.",
+    examples: [{"input":"numCourses = 2, prerequisites = [[1,0]]","output":"[0,1]"}],
+    constraints: ["-10^9 <= numCourses <= 10^9","1 <= prerequisites.length, prerequisites[i].length <= 200"],
+    starterCode: {"javascript":"function findOrder(numCourses, prerequisites) {\\n  \\n}","python":"def findOrder(numCourses, prerequisites):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,[[1,0]]],"expected":[0,1]}]
+  },
+  {
+    id: "merge-two-binary-trees",
+    title: "Merge Two Binary Trees",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"mergeTrees","params":[{"name":"root1","type":"integer[]"},{"name":"root2","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given two binary trees root1 and root2. Merge them into a new binary tree.",
+    examples: [{"input":"root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]","output":"[3,4,5,5,4,null,7]"}],
+    constraints: ["1 <= root1.length <= 10^3","-10^4 <= root1[i] <= 10^4","1 <= root2.length <= 10^3","-10^4 <= root2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function mergeTrees(root1, root2) {\\n  \\n}","python":"def mergeTrees(root1, root2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> mergeTrees(vector<int>& root1, vector<int>& root2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,2,5],[2,1,3,null,4,null,7]],"expected":[3,4,5,5,4,null,7]}]
+  },
+  {
+    id: "zigzag-conversion",
+    title: "Zigzag Conversion",
+    difficulty: "Medium",
+    topic: "String",
+    signature: {"name":"convert","params":[{"name":"s","type":"string"},{"name":"numRows","type":"integer"}],"returns":"string"},
+    description: "The string 'PAYPALISHIRING' is written in a zigzag pattern on a given number of rows. Write the code that will take a string and make this conversion given a number of rows.",
+    examples: [{"input":"s = \"PAYPALISHIRING\", numRows = 3","output":"\"PAHNAPLSIIGYIR\""},{"input":"s = \"PAYPALISHIRING\", numRows = 4","output":"\"PINALSIGYAHRPI\""}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters.","-10^9 <= numRows <= 10^9"],
+    starterCode: {"javascript":"function convert(s, numRows) {\n  \n}","python":"def convert(s, numRows):\n    pass","cpp":"class Solution {\npublic:\n    string convert(string s, int numRows) {\n        \n    }\n};"},
+    testCases: [{"input":["PAYPALISHIRING",3],"expected":"PAHNAPLSIIGYIR"},{"input":["PAYPALISHIRING",4],"expected":"PINALSIGYAHRPI"}]
+  },
+  {
+    id: "house-robber-iii",
+    title: "House Robber III",
+    difficulty: "Medium",
+    topic: "Dynamic Programming, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"rob","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "The thief has found himself a new place for his thievery again. There is only one entrance to this area, called root. Besides the root, each house has one and only one parent house.",
+    examples: [{"input":"root = [3,2,3,null,3,null,1]","output":"7"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function rob(root) {\\n  \\n}","python":"def rob(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int rob(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,2,3,null,3,null,1]],"expected":7}]
+  },
+  {
+    id: "word-pattern",
+    title: "Word Pattern",
+    difficulty: "Easy",
+    topic: "Hash Table, String",
+    signature: {"name":"wordPattern","params":[{"name":"pattern","type":"string"},{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "Given a pattern and a string s, find if s follows the same pattern.",
+    examples: [{"input":"pattern = \"abba\", s = \"dog cat cat dog\"","output":"true"},{"input":"pattern = \"abba\", s = \"dog cat cat fish\"","output":"false"}],
+    constraints: ["1 <= pattern.length <= 10^3","pattern consists of printable ASCII characters.","1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function wordPattern(pattern, s) {\\n  \\n}","python":"def wordPattern(pattern, s):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool wordPattern(string pattern, string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abba","dog cat cat dog"],"expected":true},{"input":["abba","dog cat cat fish"],"expected":false}]
+  },
+  {
+    id: "walls-and-gates",
+    title: "Walls and Gates",
+    difficulty: "Medium",
+    topic: "Array, Breadth-First Search, Matrix",
+    signature: {"name":"wallsAndGates","params":[{"name":"rooms","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "You are given an m x n grid rooms initialized with these three possible values. Fill each empty room with the distance to its nearest gate.",
+    examples: [{"input":"rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]","output":"[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]"}],
+    constraints: ["1 <= rooms.length, rooms[i].length <= 200"],
+    starterCode: {"javascript":"function wallsAndGates(rooms) {\\n  \\n}","python":"def wallsAndGates(rooms):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> wallsAndGates(vector<vector<int>>& rooms) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]],"expected":[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]}]
+  },
+  {
+    id: "search-insert-position",
+    title: "Search Insert Position",
+    difficulty: "Easy",
+    topic: "Array, Binary Search",
+    signature: {"name":"searchInsert","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer"},
+    description: "Given a sorted array of distinct integers and a target value, return the index if the target is found.",
+    examples: [{"input":"nums = [1,3,5,6], target = 5","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function searchInsert(nums, target) {\\n  \\n}","python":"def searchInsert(nums, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    int searchInsert(vector<int>& nums, int target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,5,6],5],"expected":2}]
+  },
+  {
+    id: "jewels-and-stones",
+    title: "Jewels and Stones",
+    difficulty: "Easy",
+    topic: "Hash Table, String",
+    signature: {"name":"numJewelsInStones","params":[{"name":"jewels","type":"string"},{"name":"stones","type":"string"}],"returns":"integer"},
+    description: "You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have.",
+    examples: [{"input":"jewels = \"aA\", stones = \"aAAbbbb\"","output":"3"}],
+    constraints: ["1 <= jewels.length <= 10^3","jewels consists of printable ASCII characters.","1 <= stones.length <= 10^3","stones consists of printable ASCII characters."],
+    starterCode: {"javascript":"function numJewelsInStones(jewels, stones) {\\n  \\n}","python":"def numJewelsInStones(jewels, stones):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numJewelsInStones(string jewels, string stones) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["aA","aAAbbbb"],"expected":3}]
+  },
+  {
+    id: "is-subsequence",
+    title: "Is Subsequence",
+    difficulty: "Easy",
+    topic: "Two Pointers, String, Dynamic Programming",
+    signature: {"name":"isSubsequence","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and t, return true if s is a subsequence of t, or false otherwise.",
+    examples: [{"input":"s = \"abc\", t = \"ahbgdc\"","output":"true"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= t.length <= 10^3","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isSubsequence(s, t) {\\n  \\n}","python":"def isSubsequence(s, t):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSubsequence(string s, string t) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abc","ahbgdc"],"expected":true}]
+  },
+  {
+    id: "maximum-product-of-three-numbers-easy",
+    title: "Maximum Product of Three Numbers Easy",
+    difficulty: "Easy",
+    topic: "Array, Math, Sorting",
+    signature: {"name":"maximumProductEasy","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, find three numbers whose product is maximum and return the maximum product.",
+    examples: [{"input":"nums = [1,2,3]","output":"6"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maximumProductEasy(nums) {\\n  \\n}","python":"def maximumProductEasy(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maximumProductEasy(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":6}]
+  },
+  {
+    id: "longest-arithmetic-subsequence-of-given-difference",
+    title: "Longest Arithmetic Subsequence of Given Difference",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Dynamic Programming",
+    signature: {"name":"longestSubsequence","params":[{"name":"arr","type":"integer[]"},{"name":"difference","type":"integer"}],"returns":"integer"},
+    description: "Given an integer array arr and an integer difference, return the length of the longest subsequence in arr which is an arithmetic sequence such that the difference between adjacent elements in the subsequence equals difference.",
+    examples: [{"input":"arr = [1,2,3,4], difference = 1","output":"4"}],
+    constraints: ["1 <= arr.length <= 10^4","-10^4 <= arr[i] <= 10^4","-10^9 <= difference <= 10^9"],
+    starterCode: {"javascript":"function longestSubsequence(arr, difference) {\\n  \\n}","python":"def longestSubsequence(arr, difference):\\n    pass","cpp":"class Solution {\\npublic:\\n    int longestSubsequence(vector<int>& arr, int difference) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4],1],"expected":4}]
+  },
+  {
+    id: "number-of-boomerangs",
+    title: "Number of Boomerangs",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Math",
+    signature: {"name":"numberOfBoomerangs","params":[{"name":"points","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given n points in the plane that are all distinct, where points[i] = [xi, yi].",
+    examples: [{"input":"points = [[0,0],[1,0],[2,0]]","output":"2"}],
+    constraints: ["1 <= points.length, points[i].length <= 200"],
+    starterCode: {"javascript":"function numberOfBoomerangs(points) {\\n  \\n}","python":"def numberOfBoomerangs(points):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numberOfBoomerangs(vector<vector<int>>& points) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,0],[1,0],[2,0]]],"expected":2}]
+  },
+  {
+    id: "delete-operation-for-two-strings",
+    title: "Delete Operation for Two Strings",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"minDistance","params":[{"name":"word1","type":"string"},{"name":"word2","type":"string"}],"returns":"integer"},
+    description: "Given two strings word1 and word2, return the minimum number of steps required to make word1 and word2 the same.",
+    examples: [{"input":"word1 = \"sea\", word2 = \"eat\"","output":"2"}],
+    constraints: ["1 <= word1.length <= 10^4","word1 consists of printable ASCII characters.","1 <= word2.length <= 10^4","word2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function minDistance(word1, word2) {\\n  \\n}","python":"def minDistance(word1, word2):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minDistance(string word1, string word2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["sea","eat"],"expected":2}]
+  },
+  {
+    id: "merge-two-sorted-lists",
+    title: "Merge Two Sorted Lists",
+    difficulty: "Easy",
+    topic: "Linked List, Recursion",
+    signature: {"name":"mergeTwoLists","params":[{"name":"list1","type":"integer[]"},{"name":"list2","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists.",
+    examples: [{"input":"list1 = [1,2,4], list2 = [1,3,4]","output":"[1,1,2,3,4,4]"}],
+    constraints: ["1 <= list1.length <= 10^3","-10^4 <= list1[i] <= 10^4","1 <= list2.length <= 10^3","-10^4 <= list2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function mergeTwoLists(list1, list2) {\\n  \\n}","python":"def mergeTwoLists(list1, list2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> mergeTwoLists(vector<int>& list1, vector<int>& list2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,4],[1,3,4]],"expected":[1,1,2,3,4,4]}]
+  },
+  {
+    id: "rotate-image",
+    title: "Rotate Image",
+    difficulty: "Medium",
+    topic: "Array, Math, Matrix",
+    signature: {"name":"rotate","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).",
+    examples: [{"input":"matrix = [[1,2,3],[4,5,6],[7,8,9]]","output":"[[7,4,1],[8,5,2],[9,6,3]]"},{"input":"matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]","output":"[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function rotate(matrix) {\n  \n}","python":"def rotate(matrix):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> rotate(vector<vector<int>>& matrix) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":[[7,4,1],[8,5,2],[9,6,3]]},{"input":[[[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]],"expected":[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]}]
+  },
+  {
+    id: "min-cost-climbing-stairs",
+    title: "Min Cost Climbing Stairs",
+    difficulty: "Easy",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"minCostClimbingStairs","params":[{"name":"cost","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.",
+    examples: [{"input":"cost = [10,15,20]","output":"15"}],
+    constraints: ["1 <= cost.length <= 10^3","-10^4 <= cost[i] <= 10^4"],
+    starterCode: {"javascript":"function minCostClimbingStairs(cost) {\\n  \\n}","python":"def minCostClimbingStairs(cost):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minCostClimbingStairs(vector<int>& cost) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,15,20]],"expected":15}]
+  },
+  {
+    id: "power-of-three",
+    title: "Power of Three",
+    difficulty: "Easy",
+    topic: "Math, Recursion",
+    signature: {"name":"isPowerOfThree","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "Given an integer n, return true if it is a power of three. Otherwise, return false.",
+    examples: [{"input":"n = 27","output":"true"},{"input":"n = 0","output":"false"},{"input":"n = -1","output":"false"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function isPowerOfThree(n) {\\n  \\n}","python":"def isPowerOfThree(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPowerOfThree(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[27],"expected":true},{"input":[0],"expected":false},{"input":[-1],"expected":false}]
+  },
+  {
+    id: "monotonic-array",
+    title: "Monotonic Array",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"isMonotonic","params":[{"name":"nums","type":"integer[]"}],"returns":"boolean"},
+    description: "An array is monotonic if it is either monotone increasing or monotone decreasing. Given an integer array nums, return true if the given array is monotonic, or false otherwise.",
+    examples: [{"input":"nums = [1,2,2,3]","output":"true"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function isMonotonic(nums) {\\n  \\n}","python":"def isMonotonic(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isMonotonic(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,3]],"expected":true}]
+  },
+  {
+    id: "reverse-linked-list",
+    title: "Reverse Linked List",
+    difficulty: "Easy",
+    topic: "Linked List, Recursion",
+    signature: {"name":"reverseList","params":[{"name":"head","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+    examples: [{"input":"head = [1,2,3,4,5]","output":"[5,4,3,2,1]"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function reverseList(head) {\\n  \\n}","python":"def reverseList(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> reverseList(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5]],"expected":[5,4,3,2,1]}]
+  },
+  {
+    id: "find-the-difference",
+    title: "Find the Difference",
+    difficulty: "Easy",
+    topic: "Hash Table, String, Bit Manipulation, Sorting",
+    signature: {"name":"findTheDifference","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"string"},
+    description: "You are given two strings s and t. String t is generated by random shuffling string s and then add one more letter at a random position. Return the letter that was added to t.",
+    examples: [{"input":"s = \"abcd\", t = \"abcde\"","output":"\"e\""},{"input":"s = \"\", t = \"y\"","output":"\"y\""}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= t.length <= 10^3","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function findTheDifference(s, t) {\\n  \\n}","python":"def findTheDifference(s, t):\\n    pass","cpp":"class Solution {\\npublic:\\n    string findTheDifference(string s, string t) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abcd","abcde"],"expected":"e"},{"input":["","y"],"expected":"y"}]
+  },
+  {
+    id: "diameter-of-binary-tree",
+    title: "Diameter of Binary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"diameterOfBinaryTree","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given the root of a binary tree, return the length of the diameter of the tree.",
+    examples: [{"input":"root = [1,2,3,4,5]","output":"3"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function diameterOfBinaryTree(root) {\\n  \\n}","python":"def diameterOfBinaryTree(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int diameterOfBinaryTree(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4,5]],"expected":3}]
+  },
+  {
+    id: "design-linked-list",
+    title: "Design Linked List",
+    difficulty: "Medium",
+    topic: "Linked List, Design",
+    signature: {"name":"myLinkedList","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"integer[][]"}],"returns":"integer[]"},
+    description: "Design your implementation of the linked list. You can choose to use a singly or doubly linked list.",
+    examples: [{"input":"operations = [\"MyLinkedList\",\"addAtHead\",\"addAtTail\",\"addAtIndex\",\"get\",\"deleteAtIndex\",\"get\"], args = [[],[1],[3],[1,2],[1],[1],[1]]","output":"[null,null,null,null,2,null,3]"}],
+    constraints: ["1 <= operations.length <= 10^4","operations[i].length <= 100","1 <= args.length, args[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function myLinkedList(operations, args) {\\n  \\n}","python":"def myLinkedList(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> myLinkedList(vector<string>& operations, vector<vector<int>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"],[[],[1],[3],[1,2],[1],[1],[1]]],"expected":[null,null,null,null,2,null,3]}]
+  },
+  {
+    id: "roman-to-integer",
+    title: "Roman to Integer",
+    difficulty: "Easy",
+    topic: "Hash Table, Math, String",
+    signature: {"name":"romanToInt","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M. Given a roman numeral, convert it to an integer.",
+    examples: [{"input":"s = \"III\"","output":"3"},{"input":"s = \"LVIII\"","output":"58"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function romanToInt(s) {\\n  \\n}","python":"def romanToInt(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int romanToInt(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["III"],"expected":3},{"input":["LVIII"],"expected":58}]
+  },
+  {
+    id: "goat-latin",
+    title: "Goat Latin",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"toGoatLatin","params":[{"name":"sentence","type":"string"}],"returns":"string"},
+    description: "You are given a string sentence that consist of words separated by spaces. Each word consists of lowercase and uppercase letters only.",
+    examples: [{"input":"sentence = \"I speak Goat Latin\"","output":"\"Imaa peaksmaaa oatGmaaaa atinLmaaaaa\""}],
+    constraints: ["1 <= sentence.length <= 10^3","sentence consists of printable ASCII characters."],
+    starterCode: {"javascript":"function toGoatLatin(sentence) {\\n  \\n}","python":"def toGoatLatin(sentence):\\n    pass","cpp":"class Solution {\\npublic:\\n    string toGoatLatin(string sentence) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["I speak Goat Latin"],"expected":"Imaa peaksmaaa oatGmaaaa atinLmaaaaa"}]
+  },
+  {
+    id: "two-sum-iv-input-is-a-bst",
+    title: "Two Sum IV - Input is a BST",
+    difficulty: "Easy",
+    topic: "Hash Table, Two Pointers, Tree, Depth-First Search, Breadth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"findTarget","params":[{"name":"root","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"boolean"},
+    description: "Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.",
+    examples: [{"input":"root = [5,3,6,2,4,null,7], k = 9","output":"true"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","-10^9 <= k <= 10^9","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function findTarget(root, k) {\\n  \\n}","python":"def findTarget(root, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool findTarget(vector<int>& root, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,3,6,2,4,null,7],9],"expected":true}]
+  },
+  {
+    id: "matrix-diagonal-sum",
+    title: "Matrix Diagonal Sum",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"diagonalSum","params":[{"name":"mat","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a square matrix mat, return the sum of the matrix diagonals.",
+    examples: [{"input":"mat = [[1,2,3],[4,5,6],[7,8,9]]","output":"25"}],
+    constraints: ["1 <= mat.length, mat[i].length <= 200"],
+    starterCode: {"javascript":"function diagonalSum(mat) {\\n  \\n}","python":"def diagonalSum(mat):\\n    pass","cpp":"class Solution {\\npublic:\\n    int diagonalSum(vector<vector<int>>& mat) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":25}]
+  },
+  {
+    id: "combination-sum",
+    title: "Combination Sum",
+    difficulty: "Medium",
+    topic: "Array, Backtracking",
+    signature: {"name":"combinationSum","params":[{"name":"candidates","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer[][]"},
+    description: "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target.",
+    examples: [{"input":"candidates = [2,3,6,7], target = 7","output":"[[2,2,3],[7]]"},{"input":"candidates = [2,3,5], target = 8","output":"[[2,2,2,2],[2,3,3],[3,5]]"}],
+    constraints: ["1 <= candidates.length <= 10^4","-10^4 <= candidates[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function combinationSum(candidates, target) {\n  \n}","python":"def combinationSum(candidates, target):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,3,6,7],7],"expected":[[2,2,3],[7]]},{"input":[[2,3,5],8],"expected":[[2,2,2,2],[2,3,3],[3,5]]}]
+  },
+  {
+    id: "transpose-matrix",
+    title: "Transpose Matrix",
+    difficulty: "Easy",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"transpose","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given a 2D integer array matrix, return the transpose of matrix.",
+    examples: [{"input":"matrix = [[1,2,3],[4,5,6],[7,8,9]]","output":"[[1,4,7],[2,5,8],[3,6,9]]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function transpose(matrix) {\\n  \\n}","python":"def transpose(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> transpose(vector<vector<int>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":[[1,4,7],[2,5,8],[3,6,9]]}]
+  },
+  {
+    id: "validate-binary-search-tree",
+    title: "Validate Binary Search Tree",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Binary Search Tree, Binary Tree",
+    signature: {"name":"isValidBST","params":[{"name":"root","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the root of a binary tree, determine if it is a valid binary search tree (BST).",
+    examples: [{"input":"root = [2,1,3]","output":"true"},{"input":"root = [5,1,4,null,null,3,6]","output":"false"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isValidBST(root) {\\n  \\n}","python":"def isValidBST(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isValidBST(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,1,3]],"expected":true},{"input":[[5,1,4,null,null,3,6]],"expected":false}]
+  },
+  {
+    id: "rotting-oranges",
+    title: "Rotting Oranges",
+    difficulty: "Medium",
+    topic: "Array, Breadth-First Search, Matrix",
+    signature: {"name":"orangesRotting","params":[{"name":"grid","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given an m x n grid where each cell can have one of three values: 0 representing an empty cell, 1 representing a fresh orange, or 2 representing a rotten orange. Return the minimum number of minutes that must elapse until no cell has a fresh orange.",
+    examples: [{"input":"grid = [[2,1,1],[1,1,0],[0,1,1]]","output":"4"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function orangesRotting(grid) {\\n  \\n}","python":"def orangesRotting(grid):\\n    pass","cpp":"class Solution {\\npublic:\\n    int orangesRotting(vector<vector<int>>& grid) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2,1,1],[1,1,0],[0,1,1]]],"expected":4}]
+  },
+  {
+    id: "sliding-window-median",
+    title: "Sliding Window Median",
+    difficulty: "Hard",
+    topic: "Array, Hash Table, Sliding Window, Heap (Priority Queue)",
+    signature: {"name":"medianSlidingWindow","params":[{"name":"nums","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer[]"},
+    description: "The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle values. You are given an integer array nums and an integer k. There is a sliding window of size k which is moving from the very left of the array to the very right. Return the median array for each window in the original array.",
+    examples: [{"input":"nums = [1,3,-1,-3,5,3,6,7], k = 3","output":"[1,-1,-1,3,5,6]"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function medianSlidingWindow(nums, k) {\n  \n}","python":"def medianSlidingWindow(nums, k):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> medianSlidingWindow(vector<int>& nums, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,3,-1,-3,5,3,6,7],3],"expected":[1,-1,-1,3,5,6]}]
+  },
+  {
+    id: "palindrome-pairs",
+    title: "Palindrome Pairs",
+    difficulty: "Hard",
+    topic: "Array, Hash Table, String, Trie",
+    signature: {"name":"palindromePairs","params":[{"name":"words","type":"string[]"}],"returns":"integer[][]"},
+    description: "Given a list of unique words, return all the pairs of the distinct indices (i, j) in the given list, so that the concatenation of the two words words[i] + words[j] is a palindrome.",
+    examples: [{"input":"words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]","output":"[[0,1],[1,0],[3,2],[2,4]]"},{"input":"words = [\"bat\",\"tab\",\"cat\"]","output":"[[0,1],[1,0]]"}],
+    constraints: ["1 <= words.length <= 10^5","words[i].length <= 100"],
+    starterCode: {"javascript":"function palindromePairs(words) {\n  \n}","python":"def palindromePairs(words):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> palindromePairs(vector<string>& words) {\n        \n    }\n};"},
+    testCases: [{"input":[["abcd","dcba","lls","s","sssll"]],"expected":[[0,1],[1,0],[3,2],[2,4]]},{"input":[["bat","tab","cat"]],"expected":[[0,1],[1,0]]}]
+  },
+  {
+    id: "maximum-product-subarray",
+    title: "Maximum Product Subarray",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"maxProduct","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.",
+    examples: [{"input":"nums = [2,3,-2,4]","output":"6"},{"input":"nums = [-2,0,-1]","output":"0"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maxProduct(nums) {\\n  \\n}","python":"def maxProduct(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maxProduct(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,3,-2,4]],"expected":6},{"input":[[-2,0,-1]],"expected":0}]
+  },
+  {
+    id: "find-common-characters",
+    title: "Find Common Characters",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, String",
+    signature: {"name":"commonChars","params":[{"name":"words","type":"string[]"}],"returns":"string[]"},
+    description: "Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates).",
+    examples: [{"input":"words = [\"bella\",\"label\",\"roller\"]","output":"[\"e\",\"l\",\"l\"]"}],
+    constraints: ["1 <= words.length <= 10^3","words[i].length <= 100"],
+    starterCode: {"javascript":"function commonChars(words) {\\n  \\n}","python":"def commonChars(words):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> commonChars(vector<string>& words) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["bella","label","roller"]],"expected":["e","l","l"]}]
+  },
+  {
+    id: "strong-password-checker",
+    title: "Strong Password Checker",
+    difficulty: "Hard",
+    topic: "String, Greedy, Heap (Priority Queue)",
+    signature: {"name":"strongPasswordChecker","params":[{"name":"password","type":"string"}],"returns":"integer"},
+    description: "A password is considered strong if it has at least 6 characters, at most 20 characters, contains at least one lowercase letter, at least one uppercase letter, and at least one digit, and does not contain three repeating characters in a row. Return the minimum number of steps to make password strong.",
+    examples: [{"input":"password = \"a\"","output":"5"},{"input":"password = \"aA1\"","output":"3"},{"input":"password = \"1337C0d3\"","output":"0"}],
+    constraints: ["1 <= password.length <= 10^5","password consists of printable ASCII characters."],
+    starterCode: {"javascript":"function strongPasswordChecker(password) {\n  \n}","python":"def strongPasswordChecker(password):\n    pass","cpp":"class Solution {\npublic:\n    int strongPasswordChecker(string password) {\n        \n    }\n};"},
+    testCases: [{"input":["a"],"expected":5},{"input":["aA1"],"expected":3},{"input":["1337C0d3"],"expected":0}]
+  },
+  {
+    id: "rotate-string",
+    title: "Rotate String",
+    difficulty: "Easy",
+    topic: "String, String Matching",
+    signature: {"name":"rotateString","params":[{"name":"s","type":"string"},{"name":"goal","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.",
+    examples: [{"input":"s = \"abcde\", goal = \"cdeab\"","output":"true"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= goal.length <= 10^3","goal consists of printable ASCII characters."],
+    starterCode: {"javascript":"function rotateString(s, goal) {\\n  \\n}","python":"def rotateString(s, goal):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool rotateString(string s, string goal) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["abcde","cdeab"],"expected":true}]
+  },
+  {
+    id: "stone-game",
+    title: "Stone Game",
+    difficulty: "Medium",
+    topic: "Array, Math, Dynamic Programming, Game Theory",
+    signature: {"name":"stoneGame","params":[{"name":"piles","type":"integer[]"}],"returns":"boolean"},
+    description: "Alice and Bob play a game with piles of stones. There are an even number of piles arranged in a row, and each pile has a positive integer number of stones piles[i]. Return true if Alice wins the game.",
+    examples: [{"input":"piles = [5,3,4,5]","output":"true"}],
+    constraints: ["1 <= piles.length <= 10^4","-10^4 <= piles[i] <= 10^4"],
+    starterCode: {"javascript":"function stoneGame(piles) {\\n  \\n}","python":"def stoneGame(piles):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool stoneGame(vector<int>& piles) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,3,4,5]],"expected":true}]
+  },
+  {
+    id: "missing-number",
+    title: "Missing Number",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Math, Binary Search, Bit Manipulation, Sorting",
+    signature: {"name":"missingNumber","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.",
+    examples: [{"input":"nums = [3,0,1]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function missingNumber(nums) {\\n  \\n}","python":"def missingNumber(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int missingNumber(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,0,1]],"expected":2}]
+  },
+  {
+    id: "clone-graph",
+    title: "Clone Graph",
+    difficulty: "Medium",
+    topic: "Hash Table, Depth-First Search, Breadth-First Search, Graph",
+    signature: {"name":"cloneGraph","params":[{"name":"node","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph.",
+    examples: [{"input":"node = [[2,4],[1,3],[2,4],[1,3]]","output":"[[2,4],[1,3],[2,4],[1,3]]"}],
+    constraints: ["1 <= node.length <= 10^4","-10^4 <= node[i] <= 10^4"],
+    starterCode: {"javascript":"function cloneGraph(node) {\\n  \\n}","python":"def cloneGraph(node):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> cloneGraph(vector<int>& node) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2,4],[1,3],[2,4],[1,3]]],"expected":[[2,4],[1,3],[2,4],[1,3]]}]
+  },
+  {
+    id: "detect-cycle-in-directed-graph",
+    title: "Detect Cycle in a Directed Graph",
+    difficulty: "Medium",
+    topic: "Graph, Depth-First Search",
+    signature: {"name":"isCyclic","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"boolean"},
+    description: "Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.",
+    examples: [{"input":"V = 4, adj = [[1],[2],[3],[1]]","output":"true"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function isCyclic(V, adj) {\\n  \\n}","python":"def isCyclic(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isCyclic(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[1],[2],[3],[1]]],"expected":true}]
+  },
+  {
+    id: "find-minimum-in-rotated-sorted-array-ii",
+    title: "Find Minimum in Rotated Sorted Array II",
+    difficulty: "Hard",
+    topic: "Array, Binary Search",
+    signature: {"name":"findMin","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Notice that it may contain duplicates. Given the sorted rotated array nums that may contain duplicates, return the minimum element of this array.",
+    examples: [{"input":"nums = [1,3,5]","output":"1"},{"input":"nums = [2,2,2,0,1]","output":"0"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findMin(nums) {\n  \n}","python":"def findMin(nums):\n    pass","cpp":"class Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,3,5]],"expected":1},{"input":[[2,2,2,0,1]],"expected":0}]
+  },
+  {
+    id: "flipping-an-image-easy",
+    title: "Flipping an Image Easy",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Matrix, Simulation",
+    signature: {"name":"flipAndInvertImageEasy","params":[{"name":"image","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.",
+    examples: [{"input":"image = [[1,1,0],[1,0,1],[0,0,0]]","output":"[[1,0,0],[0,1,0],[1,1,1]]"}],
+    constraints: ["1 <= image.length, image[i].length <= 200"],
+    starterCode: {"javascript":"function flipAndInvertImageEasy(image) {\\n  \\n}","python":"def flipAndInvertImageEasy(image):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> flipAndInvertImageEasy(vector<vector<int>>& image) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,0],[1,0,1],[0,0,0]]],"expected":[[1,0,0],[0,1,0],[1,1,1]]}]
+  },
+  {
+    id: "isomorphic-strings",
+    title: "Isomorphic Strings",
+    difficulty: "Easy",
+    topic: "Hash Table, String",
+    signature: {"name":"isIsomorphic","params":[{"name":"s","type":"string"},{"name":"t","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and t, determine if they are isomorphic.",
+    examples: [{"input":"s = \"egg\", t = \"add\"","output":"true"},{"input":"s = \"foo\", t = \"bar\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= t.length <= 10^3","t consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isIsomorphic(s, t) {\\n  \\n}","python":"def isIsomorphic(s, t):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isIsomorphic(string s, string t) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["egg","add"],"expected":true},{"input":["foo","bar"],"expected":false}]
+  },
+  {
+    id: "degree-of-an-array",
+    title: "Degree of an Array",
+    difficulty: "Easy",
+    topic: "Array, Hash Table",
+    signature: {"name":"findShortestSubArray","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.",
+    examples: [{"input":"nums = [1,2,2,3,1]","output":"2"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function findShortestSubArray(nums) {\\n  \\n}","python":"def findShortestSubArray(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findShortestSubArray(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,3,1]],"expected":2}]
+  },
+  {
+    id: "burst-balloons",
+    title: "Burst Balloons",
+    difficulty: "Hard",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"maxCoins","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are given n balloons, indexed from 0 to n - 1. Each balloon is painted with a number on it represented by an array nums. You are asked to burst all the balloons. Return the maximum coins you can collect by bursting the balloons wisely.",
+    examples: [{"input":"nums = [3,1,5,8]","output":"167"},{"input":"nums = [1,5]","output":"10"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function maxCoins(nums) {\n  \n}","python":"def maxCoins(nums):\n    pass","cpp":"class Solution {\npublic:\n    int maxCoins(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[3,1,5,8]],"expected":167},{"input":[[1,5]],"expected":10}]
+  },
+  {
+    id: "course-schedule",
+    title: "Course Schedule",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph, Topological Sort",
+    signature: {"name":"canFinish","params":[{"name":"numCourses","type":"integer"},{"name":"prerequisites","type":"integer[][]"}],"returns":"boolean"},
+    description: "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. Return true if you can finish all courses.",
+    examples: [{"input":"numCourses = 2, prerequisites = [[1,0]]","output":"true"}],
+    constraints: ["-10^9 <= numCourses <= 10^9","1 <= prerequisites.length, prerequisites[i].length <= 200"],
+    starterCode: {"javascript":"function canFinish(numCourses, prerequisites) {\\n  \\n}","python":"def canFinish(numCourses, prerequisites):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,[[1,0]]],"expected":true}]
+  },
+  {
+    id: "critical-connections-in-a-network",
+    title: "Critical Connections in a Network",
+    difficulty: "Hard",
+    topic: "Depth-First Search, Graph, Biconnected Component",
+    signature: {"name":"criticalConnections","params":[{"name":"n","type":"integer"},{"name":"connections","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming a network where connections[i] = [ai, bi] represents a connection between servers ai and bi. Return all critical connections in the network in any order.",
+    examples: [{"input":"n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]","output":"[[1,3]]"}],
+    constraints: ["-10^9 <= n <= 10^9","1 <= connections.length, connections[i].length <= 200"],
+    starterCode: {"javascript":"function criticalConnections(n, connections) {\\n  \\n}","python":"def criticalConnections(n, connections):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[0,1],[1,2],[2,0],[1,3]]],"expected":[[1,3]]}]
+  },
+  {
+    id: "number-of-lines-to-write-string",
+    title: "Number of Lines To Write String",
+    difficulty: "Easy",
+    topic: "Array, String",
+    signature: {"name":"numberOfLines","params":[{"name":"widths","type":"integer[]"},{"name":"s","type":"string"}],"returns":"integer[]"},
+    description: "You are given a string s of lowercase English letters and an array widths denoting how many pixels wide each lowercase English letter is.",
+    examples: [{"input":"widths = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10], s = \"abcdefghijklmnopqrstuvwxyz\"","output":"[3,60]"}],
+    constraints: ["1 <= widths.length <= 10^3","-10^4 <= widths[i] <= 10^4","1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function numberOfLines(widths, s) {\\n  \\n}","python":"def numberOfLines(widths, s):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> numberOfLines(vector<int>& widths, string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],"abcdefghijklmnopqrstuvwxyz"],"expected":[3,60]}]
+  },
+  {
+    id: "sign-of-the-product-of-an-array",
+    title: "Sign of the Product of an Array",
+    difficulty: "Easy",
+    topic: "Array, Math",
+    signature: {"name":"arraySign","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "There is a function signFunc(x) that returns: 1 if x is positive. -1 if x is negative. 0 if x is equal to 0.",
+    examples: [{"input":"nums = [-1,-2,-3,-4,3,2,1]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function arraySign(nums) {\\n  \\n}","python":"def arraySign(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int arraySign(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[-1,-2,-3,-4,3,2,1]],"expected":1}]
+  },
+  {
+    id: "shortest-distance-to-a-character",
+    title: "Shortest Distance to a Character",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, String",
+    signature: {"name":"shortestToChar","params":[{"name":"s","type":"string"},{"name":"c","type":"char"}],"returns":"integer[]"},
+    description: "Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the distance from index i to the closest occurrence of character c in s.",
+    examples: [{"input":"s = \"loveleetcode\", c = \"e\"","output":"[3,2,1,0,1,0,0,1,2,2,1,0]"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function shortestToChar(s, c) {\\n  \\n}","python":"def shortestToChar(s, c):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> shortestToChar(string s, int c) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["loveleetcode","e"],"expected":[3,2,1,0,1,0,0,1,2,2,1,0]}]
+  },
+  {
+    id: "network-delay-time",
+    title: "Network Delay Time",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph, Heap (Priority Queue), Shortest Path",
+    signature: {"name":"networkDelayTime","params":[{"name":"times","type":"integer[][]"},{"name":"n","type":"integer"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi). Return the time it takes for all the n nodes to receive the signal.",
+    examples: [{"input":"times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2","output":"2"}],
+    constraints: ["1 <= times.length, times[i].length <= 200","-10^9 <= n <= 10^9","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function networkDelayTime(times, n, k) {\\n  \\n}","python":"def networkDelayTime(times, n, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    int networkDelayTime(vector<vector<int>>& times, int n, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2,1,1],[2,3,1],[3,4,1]],4,2],"expected":2}]
+  },
+  {
+    id: "longest-common-substring",
+    title: "Longest Common Substring",
+    difficulty: "Medium",
+    topic: "Dynamic Programming, String",
+    signature: {"name":"longestCommonSubstring","params":[{"name":"s1","type":"string"},{"name":"s2","type":"string"}],"returns":"integer"},
+    description: "Given two strings, find the length of the longest common substring.",
+    examples: [{"input":"s1 = \"ABCDGH\", s2 = \"ACDGHR\"","output":"4"}],
+    constraints: ["1 <= s1.length <= 10^4","s1 consists of printable ASCII characters.","1 <= s2.length <= 10^4","s2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function longestCommonSubstring(s1, s2) {\\n  \\n}","python":"def longestCommonSubstring(s1, s2):\\n    pass","cpp":"class Solution {\\npublic:\\n    int longestCommonSubstring(string s1, string s2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["ABCDGH","ACDGHR"],"expected":4}]
+  },
+  {
+    id: "permutations",
+    title: "Permutations",
+    difficulty: "Medium",
+    topic: "Array, Backtracking",
+    signature: {"name":"permute","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.",
+    examples: [{"input":"nums = [1,2,3]","output":"[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"},{"input":"nums = [0,1]","output":"[[0,1],[1,0]]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function permute(nums) {\n  \n}","python":"def permute(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]},{"input":[[0,1]],"expected":[[0,1],[1,0]]}]
+  },
+  {
+    id: "minimum-index-sum-of-two-lists",
+    title: "Minimum Index Sum of Two Lists",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, String",
+    signature: {"name":"findRestaurant","params":[{"name":"list1","type":"string[]"},{"name":"list2","type":"string[]"}],"returns":"string[]"},
+    description: "Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.",
+    examples: [{"input":"list1 = [\"Shogun\",\"Tapioca Express\",\"Burger King\",\"KFC\"], list2 = [\"Piatti\",\"The Grill at Torrey Pines\",\"Hungry Hunter Steakhouse\",\"Shogun\"]","output":"[\"Shogun\"]"}],
+    constraints: ["1 <= list1.length <= 10^3","list1[i].length <= 100","1 <= list2.length <= 10^3","list2[i].length <= 100"],
+    starterCode: {"javascript":"function findRestaurant(list1, list2) {\\n  \\n}","python":"def findRestaurant(list1, list2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["Shogun","Tapioca Express","Burger King","KFC"],["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]],"expected":["Shogun"]}]
+  },
+  {
+    id: "perfect-squares",
+    title: "Perfect Squares",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Breadth-First Search",
+    signature: {"name":"numSquares","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given an integer n, return the least number of perfect square numbers that sum to n.",
+    examples: [{"input":"n = 12","output":"3"},{"input":"n = 13","output":"2"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function numSquares(n) {\\n  \\n}","python":"def numSquares(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numSquares(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[12],"expected":3},{"input":[13],"expected":2}]
+  },
+  {
+    id: "largest-rectangle-in-histogram",
+    title: "Largest Rectangle in Histogram",
+    difficulty: "Hard",
+    topic: "Array, Stack, Monotonic Stack",
+    signature: {"name":"largestRectangleArea","params":[{"name":"heights","type":"integer[]"}],"returns":"integer"},
+    description: "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.",
+    examples: [{"input":"heights = [2,1,5,6,2,3]","output":"10"},{"input":"heights = [2,4]","output":"4"}],
+    constraints: ["1 <= heights.length <= 10^5","-10^4 <= heights[i] <= 10^4"],
+    starterCode: {"javascript":"function largestRectangleArea(heights) {\n  \n}","python":"def largestRectangleArea(heights):\n    pass","cpp":"class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,1,5,6,2,3]],"expected":10},{"input":[[2,4]],"expected":4}]
+  },
+  {
+    id: "copy-list-with-random-pointer",
+    title: "Copy List with Random Pointer",
+    difficulty: "Medium",
+    topic: "Hash Table, Linked List",
+    signature: {"name":"copyRandomList","params":[{"name":"head","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "A linked list of length n is given such that each node contains an additional random pointer. Return a deep copy of the list.",
+    examples: [{"input":"head = [[7,null],[13,0],[11,4],[10,2],[1,0]]","output":"[[7,null],[13,0],[11,4],[10,2],[1,0]]"}],
+    constraints: ["1 <= head.length, head[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function copyRandomList(head) {\\n  \\n}","python":"def copyRandomList(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> copyRandomList(vector<vector<int>>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[7,null],[13,0],[11,4],[10,2],[1,0]]],"expected":[[7,null],[13,0],[11,4],[10,2],[1,0]]}]
+  },
+  {
+    id: "excel-sheet-column-number",
+    title: "Excel Sheet Column Number",
+    difficulty: "Easy",
+    topic: "Math, String",
+    signature: {"name":"titleToNumber","params":[{"name":"columnTitle","type":"string"}],"returns":"integer"},
+    description: "Given a string columnTitle that represents the column title as appears in an Excel sheet, return its corresponding column number.",
+    examples: [{"input":"columnTitle = \"A\"","output":"1"},{"input":"columnTitle = \"AB\"","output":"28"}],
+    constraints: ["1 <= columnTitle.length <= 10^3","columnTitle consists of printable ASCII characters."],
+    starterCode: {"javascript":"function titleToNumber(columnTitle) {\\n  \\n}","python":"def titleToNumber(columnTitle):\\n    pass","cpp":"class Solution {\\npublic:\\n    int titleToNumber(string columnTitle) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["A"],"expected":1},{"input":["AB"],"expected":28}]
+  },
+  {
+    id: "surrounded-regions",
+    title: "Surrounded Regions",
+    difficulty: "Medium",
+    topic: "Array, Depth-First Search, Breadth-First Search, Union Find, Matrix",
+    signature: {"name":"solve","params":[{"name":"board","type":"string[][]"}],"returns":"string[][]"},
+    description: "Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.",
+    examples: [{"input":"board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]","output":"[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]"}],
+    constraints: ["1 <= board.length, board[i].length <= 200"],
+    starterCode: {"javascript":"function solve(board) {\\n  \\n}","python":"def solve(board):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<string>> solve(vector<vector<string>>& board) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]],"expected":[["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]}]
+  },
+  {
+    id: "the-skyline-problem",
+    title: "The Skyline Problem",
+    difficulty: "Hard",
+    topic: "Array, Divide and Conquer, Binary Indexed Tree, Segment Tree, Line Sweep, Heap (Priority Queue), Ordered Set",
+    signature: {"name":"getSkyline","params":[{"name":"buildings","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Given the locations and heights of all the buildings, return the skyline formed by these buildings collectively.",
+    examples: [{"input":"buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]","output":"[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]"}],
+    constraints: ["1 <= buildings.length, buildings[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function getSkyline(buildings) {\n  \n}","python":"def getSkyline(buildings):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {\n        \n    }\n};"},
+    testCases: [{"input":[[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]],"expected":[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]}]
+  },
+  {
+    id: "climbing-stairs",
+    title: "Climbing Stairs",
+    difficulty: "Easy",
+    topic: "Math, Dynamic Programming, Memoization",
+    signature: {"name":"climbStairs","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    examples: [{"input":"n = 2","output":"2"},{"input":"n = 3","output":"3"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function climbStairs(n) {\\n  \\n}","python":"def climbStairs(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int climbStairs(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":2},{"input":[3],"expected":3}]
+  },
+  {
+    id: "k-inverse-pairs-array",
+    title: "K Inverse Pairs Array",
+    difficulty: "Hard",
+    topic: "Dynamic Programming",
+    signature: {"name":"kInversePairs","params":[{"name":"n","type":"integer"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "For an integer array nums, an inverse pair is a pair of integers [i, j] where 0 <= i < j < nums.length and nums[i] > nums[j]. Given two integers n and k, return the number of different arrays consisting of numbers from 1 to n such that there are exactly k inverse pairs.",
+    examples: [{"input":"n = 3, k = 0","output":"1"}],
+    constraints: ["-10^9 <= n <= 10^9","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function kInversePairs(n, k) {\\n  \\n}","python":"def kInversePairs(n, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    int kInversePairs(int n, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,0],"expected":1}]
+  },
+  {
+    id: "baseball-game",
+    title: "Baseball Game",
+    difficulty: "Easy",
+    topic: "Array, Stack, Simulation",
+    signature: {"name":"calPoints","params":[{"name":"operations","type":"string[]"}],"returns":"integer"},
+    description: "You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.",
+    examples: [{"input":"operations = [\"5\",\"2\",\"C\",\"D\",\"+\"]","output":"30"}],
+    constraints: ["1 <= operations.length <= 10^3","operations[i].length <= 100"],
+    starterCode: {"javascript":"function calPoints(operations) {\\n  \\n}","python":"def calPoints(operations):\\n    pass","cpp":"class Solution {\\npublic:\\n    int calPoints(vector<string>& operations) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["5","2","C","D","+"]],"expected":30}]
+  },
+  {
+    id: "assign-cookies",
+    title: "Assign Cookies",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Greedy, Sorting",
+    signature: {"name":"findContentChildren","params":[{"name":"g","type":"integer[]"},{"name":"s","type":"integer[]"}],"returns":"integer"},
+    description: "Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.",
+    examples: [{"input":"g = [1,2,3], s = [1,1]","output":"1"},{"input":"g = [1,2], s = [1,2,3]","output":"2"}],
+    constraints: ["1 <= g.length <= 10^3","-10^4 <= g[i] <= 10^4","1 <= s.length <= 10^3","-10^4 <= s[i] <= 10^4"],
+    starterCode: {"javascript":"function findContentChildren(g, s) {\\n  \\n}","python":"def findContentChildren(g, s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findContentChildren(vector<int>& g, vector<int>& s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3],[1,1]],"expected":1},{"input":[[1,2],[1,2,3]],"expected":2}]
+  },
+  {
+    id: "shortest-palindrome",
+    title: "Shortest Palindrome",
+    difficulty: "Hard",
+    topic: "String, Rolling Hash, String Matching, KMP",
+    signature: {"name":"shortestPalindrome","params":[{"name":"s","type":"string"}],"returns":"string"},
+    description: "You are given a string s. You can convert s to a palindrome by adding characters in front of it. Return the shortest palindrome you can find by performing this transformation.",
+    examples: [{"input":"s = \"aacecaaa\"","output":"\"aaacecaaa\""},{"input":"s = \"abcd\"","output":"\"dcbabcd\""}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function shortestPalindrome(s) {\n  \n}","python":"def shortestPalindrome(s):\n    pass","cpp":"class Solution {\npublic:\n    string shortestPalindrome(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["aacecaaa"],"expected":"aaacecaaa"},{"input":["abcd"],"expected":"dcbabcd"}]
+  },
+  {
+    id: "set-matrix-zeroes",
+    title: "Set Matrix Zeroes",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Matrix",
+    signature: {"name":"setZeroes","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.",
+    examples: [{"input":"matrix = [[1,1,1],[1,0,1],[1,1,1]]","output":"[[1,0,1],[0,0,0],[1,0,1]]"},{"input":"matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]","output":"[[0,0,0,0],[0,4,5,0],[0,3,1,0]]"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function setZeroes(matrix) {\n  \n}","python":"def setZeroes(matrix):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> setZeroes(vector<vector<int>>& matrix) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,1,1],[1,0,1],[1,1,1]]],"expected":[[1,0,1],[0,0,0],[1,0,1]]},{"input":[[[0,1,2,0],[3,4,5,2],[1,3,1,5]]],"expected":[[0,0,0,0],[0,4,5,0],[0,3,1,0]]}]
+  },
+  {
+    id: "richest-customer-wealth",
+    title: "Richest Customer Wealth",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"maximumWealth","params":[{"name":"accounts","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the ith customer has in the jth bank. Return the wealth that the richest customer has.",
+    examples: [{"input":"accounts = [[1,2,3],[3,2,1]]","output":"6"}],
+    constraints: ["1 <= accounts.length, accounts[i].length <= 200"],
+    starterCode: {"javascript":"function maximumWealth(accounts) {\\n  \\n}","python":"def maximumWealth(accounts):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maximumWealth(vector<vector<int>>& accounts) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3],[3,2,1]]],"expected":6}]
+  },
+  {
+    id: "1ccfb906-f92a-4dc6-b447-ad47e6a981a9",
+    title: "Evaluate Reverse Polish Notation",
+    difficulty: "Medium",
+    topic: "Array, Math, Stack",
+    signature: {"name":"evalRPN","params":[{"name":"tokens","type":"string[]"}],"returns":"integer"},
+    description: "You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation. Evaluate the expression. Return an integer that represents the value of the expression.",
+    examples: [{"input":"tokens = [\"2\",\"1\",\"+\",\"3\",\"*\"]","output":"9"}],
+    constraints: ["1 <= tokens.length <= 10^4","tokens[i].length <= 100"],
+    starterCode: {"javascript":"function evalRPN(tokens) {\n  \n}","python":"def evalRPN(tokens):\n    pass","cpp":"class Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n        \n    }\n};"},
+    testCases: [{"input":[["2","1","+","3","*"]],"expected":9}]
+  },
+  {
+    id: "scramble-string",
+    title: "Scramble String",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"isScramble","params":[{"name":"s1","type":"string"},{"name":"s2","type":"string"}],"returns":"boolean"},
+    description: "We can scramble a string s to get a string t using the following algorithm: If the length of the string is 1, stop. If the length of the string is > 1, do the following: Split the string into two non-empty substrings at a random index. Decide to swap the two substrings or to keep them in the same order. Apply the steps recursively.",
+    examples: [{"input":"s1 = \"great\", s2 = \"rgeat\"","output":"true"},{"input":"s1 = \"abcde\", s2 = \"caebd\"","output":"false"}],
+    constraints: ["1 <= s1.length <= 10^5","s1 consists of printable ASCII characters.","1 <= s2.length <= 10^5","s2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function isScramble(s1, s2) {\n  \n}","python":"def isScramble(s1, s2):\n    pass","cpp":"class Solution {\npublic:\n    bool isScramble(string s1, string s2) {\n        \n    }\n};"},
+    testCases: [{"input":["great","rgeat"],"expected":true},{"input":["abcde","caebd"],"expected":false}]
+  },
+  {
+    id: "valid-sudoku",
+    title: "Valid Sudoku",
+    difficulty: "Medium",
+    topic: "Array, Hash Table, Matrix",
+    signature: {"name":"isValidSudoku","params":[{"name":"board","type":"string[][]"}],"returns":"boolean"},
+    description: "Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the Sudoku rules.",
+    examples: [{"input":"board = [[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]","output":"true"}],
+    constraints: ["board.length == 9","board[i].length == 9","board[i][j] is a digit 1-9 or '.'."],
+    starterCode: {"javascript":"function isValidSudoku(board) {\n  \n}","python":"def isValidSudoku(board):\n    pass","cpp":"class Solution {\npublic:\n    bool isValidSudoku(vector<vector<string>>& board) {\n        \n    }\n};"},
+    testCases: [{"input":[[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]],"expected":true}]
+  },
+  {
+    id: "integer-replacement",
+    title: "Integer Replacement",
+    difficulty: "Medium",
+    topic: "Math, Dynamic Programming, Greedy, Memoization, Bit Manipulation",
+    signature: {"name":"integerReplacement","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given a positive integer n, you can apply one of the following operations: If n is even, replace n with n / 2. If n is odd, replace n with either n + 1 or n - 1. Return the minimum number of operations needed for n to become 1.",
+    examples: [{"input":"n = 8","output":"3"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function integerReplacement(n) {\\n  \\n}","python":"def integerReplacement(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int integerReplacement(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[8],"expected":3}]
+  },
+  {
+    id: "binary-tree-maximum-path-sum",
+    title: "Binary Tree Maximum Path Sum",
+    difficulty: "Hard",
+    topic: "Dynamic Programming, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"maxPathSum","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. For this problem, a path is considered any sequence of nodes from some starting node to any node in the tree along the parent-child connections. Return the maximum path sum of any non-empty path.",
+    examples: [{"input":"root = [1,2,3]","output":"6"},{"input":"root = [-10,9,20,null,null,15,7]","output":"42"}],
+    constraints: ["1 <= root.length <= 10^5","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function maxPathSum(root) {\n  \n}","python":"def maxPathSum(root):\n    pass","cpp":"class Solution {\npublic:\n    int maxPathSum(vector<int>& root) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":6},{"input":[[-10,9,20,null,null,15,7]],"expected":42}]
+  },
+  {
+    id: "max-points-on-a-line",
+    title: "Max Points on a Line",
+    difficulty: "Hard",
+    topic: "Array, Hash Table, Math, Geometry",
+    signature: {"name":"maxPoints","params":[{"name":"points","type":"integer[][]"}],"returns":"integer"},
+    description: "Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane, return the maximum number of points that lie on the same straight line.",
+    examples: [{"input":"points = [[1,1],[2,2],[3,3]]","output":"3"},{"input":"points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]","output":"4"}],
+    constraints: ["1 <= points.length, points[i].length <= 200"],
+    starterCode: {"javascript":"function maxPoints(points) {\n  \n}","python":"def maxPoints(points):\n    pass","cpp":"class Solution {\npublic:\n    int maxPoints(vector<vector<int>>& points) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,1],[2,2],[3,3]]],"expected":3},{"input":[[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]],"expected":4}]
+  },
+  {
+    id: "sqrtx",
+    title: "Sqrt(x)",
+    difficulty: "Easy",
+    topic: "Math, Binary Search",
+    signature: {"name":"mySqrt","params":[{"name":"x","type":"integer"}],"returns":"integer"},
+    description: "Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.",
+    examples: [{"input":"x = 4","output":"2"},{"input":"x = 8","output":"2"}],
+    constraints: ["-10^9 <= x <= 10^9"],
+    starterCode: {"javascript":"function mySqrt(x) {\\n  \\n}","python":"def mySqrt(x):\\n    pass","cpp":"class Solution {\\npublic:\\n    int mySqrt(int x) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4],"expected":2},{"input":[8],"expected":2}]
+  },
+  {
+    id: "same-tree",
+    title: "Same Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"isSameTree","params":[{"name":"p","type":"integer[]"},{"name":"q","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the roots of two binary trees p and q, write a function to check if they are the same or not.",
+    examples: [{"input":"p = [1,2,3], q = [1,2,3]","output":"true"}],
+    constraints: ["1 <= p.length <= 10^3","-10^4 <= p[i] <= 10^4","1 <= q.length <= 10^3","-10^4 <= q[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isSameTree(p, q) {\\n  \\n}","python":"def isSameTree(p, q):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSameTree(vector<int>& p, vector<int>& q) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3],[1,2,3]],"expected":true}]
+  },
+  {
+    id: "house-robber-ii",
+    title: "House Robber II",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"rob","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are a professional robber planning to rob houses along a street. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one.",
+    examples: [{"input":"nums = [2,3,2]","output":"3"},{"input":"nums = [1,2,3,1]","output":"4"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function rob(nums) {\\n  \\n}","python":"def rob(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int rob(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,3,2]],"expected":3},{"input":[[1,2,3,1]],"expected":4}]
+  },
+  {
+    id: "construct-string-from-binary-tree",
+    title: "Construct String from Binary Tree",
+    difficulty: "Easy",
+    topic: "String, Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"tree2str","params":[{"name":"root","type":"integer[]"}],"returns":"string"},
+    description: "Given the root of a binary tree, construct a string consisting of parenthesis and integers from a binary tree with the preorder traversal way, and return it.",
+    examples: [{"input":"root = [1,2,3,4]","output":"\"1(2(4))(3)\""}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function tree2str(root) {\\n  \\n}","python":"def tree2str(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    string tree2str(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4]],"expected":"1(2(4))(3)"}]
+  },
+  {
+    id: "valid-palindrome-ii",
+    title: "Valid Palindrome II",
+    difficulty: "Easy",
+    topic: "Two Pointers, String, Greedy",
+    signature: {"name":"validPalindrome","params":[{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "Given a string s, return true if the s can be palindrome after deleting at most one character from it.",
+    examples: [{"input":"s = \"aba\"","output":"true"},{"input":"s = \"abca\"","output":"true"},{"input":"s = \"abc\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function validPalindrome(s) {\\n  \\n}","python":"def validPalindrome(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool validPalindrome(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["aba"],"expected":true},{"input":["abca"],"expected":true},{"input":["abc"],"expected":false}]
+  },
+  {
+    id: "island-perimeter",
+    title: "Island Perimeter",
+    difficulty: "Easy",
+    topic: "Array, Depth-First Search, Breadth-First Search, Matrix",
+    signature: {"name":"islandPerimeter","params":[{"name":"grid","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.",
+    examples: [{"input":"grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]","output":"16"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function islandPerimeter(grid) {\\n  \\n}","python":"def islandPerimeter(grid):\\n    pass","cpp":"class Solution {\\npublic:\\n    int islandPerimeter(vector<vector<int>>& grid) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]],"expected":16}]
+  },
+  {
+    id: "buddy-strings",
+    title: "Buddy Strings",
+    difficulty: "Easy",
+    topic: "Hash Table, String",
+    signature: {"name":"buddyStrings","params":[{"name":"s","type":"string"},{"name":"goal","type":"string"}],"returns":"boolean"},
+    description: "Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.",
+    examples: [{"input":"s = \"ab\", goal = \"ba\"","output":"true"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= goal.length <= 10^3","goal consists of printable ASCII characters."],
+    starterCode: {"javascript":"function buddyStrings(s, goal) {\\n  \\n}","python":"def buddyStrings(s, goal):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool buddyStrings(string s, string goal) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["ab","ba"],"expected":true}]
+  },
+  {
+    id: "letter-combinations-of-a-phone-number",
+    title: "Letter Combinations of a Phone Number",
+    difficulty: "Medium",
+    topic: "Hash Table, String, Backtracking",
+    signature: {"name":"letterCombinations","params":[{"name":"digits","type":"string"}],"returns":"string[]"},
+    description: "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.",
+    examples: [{"input":"digits = \"23\"","output":"[\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]"},{"input":"digits = \"\"","output":"[]"}],
+    constraints: ["1 <= digits.length <= 10^4","digits consists of printable ASCII characters."],
+    starterCode: {"javascript":"function letterCombinations(digits) {\n  \n}","python":"def letterCombinations(digits):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        \n    }\n};"},
+    testCases: [{"input":["23"],"expected":["ad","ae","af","bd","be","bf","cd","ce","cf"]},{"input":[""],"expected":[]}]
+  },
+  {
+    id: "sliding-window-maximum",
+    title: "Sliding Window Maximum",
+    difficulty: "Hard",
+    topic: "Array, Queue, Sliding Window, Heap (Priority Queue), Monotonic Queue",
+    signature: {"name":"maxSlidingWindow","params":[{"name":"nums","type":"integer[]"},{"name":"k","type":"integer"}],"returns":"integer[]"},
+    description: "You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.",
+    examples: [{"input":"nums = [1,3,-1,-3,5,3,6,7], k = 3","output":"[3,3,5,5,6,7]"},{"input":"nums = [1], k = 1","output":"[1]"}],
+    constraints: ["1 <= nums.length <= 10^5","-10^4 <= nums[i] <= 10^4","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function maxSlidingWindow(nums, k) {\n  \n}","python":"def maxSlidingWindow(nums, k):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> maxSlidingWindow(vector<int>& nums, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,3,-1,-3,5,3,6,7],3],"expected":[3,3,5,5,6,7]},{"input":[[1],1],"expected":[1]}]
+  },
+  {
+    id: "decompress-run-length-encoded-list",
+    title: "Decompress Run-Length Encoded List",
+    difficulty: "Easy",
+    topic: "Array",
+    signature: {"name":"decompressRLElist","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "We are given a list nums of integers representing a list compressed with run-length encoding. Return the decompressed list.",
+    examples: [{"input":"nums = [1,2,3,4]","output":"[2,4,4,4]"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function decompressRLElist(nums) {\\n  \\n}","python":"def decompressRLElist(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> decompressRLElist(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4]],"expected":[2,4,4,4]}]
+  },
+  {
+    id: "contains-duplicate",
+    title: "Contains Duplicate",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Sorting",
+    signature: {"name":"containsDuplicate","params":[{"name":"nums","type":"integer[]"}],"returns":"boolean"},
+    description: "Given an integer array nums, return true if any value appears at least twice in the array.",
+    examples: [{"input":"nums = [1,2,3,1]","output":"true"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function containsDuplicate(nums) {\\n  \\n}","python":"def containsDuplicate(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool containsDuplicate(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,1]],"expected":true}]
+  },
+  {
+    id: "count-binary-substrings",
+    title: "Count Binary Substrings",
+    difficulty: "Easy",
+    topic: "Two Pointers, String",
+    signature: {"name":"countBinarySubstrings","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a binary string s, return the number of non-empty substrings that have the same number of 0's and 1's.",
+    examples: [{"input":"s = \"00110011\"","output":"6"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function countBinarySubstrings(s) {\\n  \\n}","python":"def countBinarySubstrings(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int countBinarySubstrings(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["00110011"],"expected":6}]
+  },
+  {
+    id: "longest-substring-without-repeating-characters",
+    title: "Longest Substring Without Repeating Characters",
+    difficulty: "Medium",
+    topic: "Hash Table, String, Sliding Window",
+    signature: {"name":"lengthOfLongestSubstring","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s, find the length of the longest substring without repeating characters.",
+    examples: [{"input":"s = \"abcabcbb\"","output":"3"},{"input":"s = \"bbbbb\"","output":"1"},{"input":"s = \"pwwkew\"","output":"3"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function lengthOfLongestSubstring(s) {\n  \n}","python":"def lengthOfLongestSubstring(s):\n    pass","cpp":"class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["abcabcbb"],"expected":3},{"input":["bbbbb"],"expected":1}]
+  },
+  {
+    id: "merge-two-binary-trees-easy",
+    title: "Merge Two Binary Trees Easy",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"mergeTreesEasy","params":[{"name":"root1","type":"integer[]"},{"name":"root2","type":"integer[]"}],"returns":"integer[]"},
+    description: "You are given two binary trees root1 and root2. Merge them into a new binary tree.",
+    examples: [{"input":"root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]","output":"[3,4,5,5,4,null,7]"}],
+    constraints: ["1 <= root1.length <= 10^3","-10^4 <= root1[i] <= 10^4","1 <= root2.length <= 10^3","-10^4 <= root2[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function mergeTreesEasy(root1, root2) {\\n  \\n}","python":"def mergeTreesEasy(root1, root2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> mergeTreesEasy(vector<int>& root1, vector<int>& root2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,3,2,5],[2,1,3,null,4,null,7]],"expected":[3,4,5,5,4,null,7]}]
+  },
+  {
+    id: "implement-trie-prefix-tree",
+    title: "Implement Trie (Prefix Tree)",
+    difficulty: "Medium",
+    topic: "Hash Table, String, Design, Trie",
+    signature: {"name":"trie","params":[{"name":"operations","type":"string[]"},{"name":"args","type":"string[][]"}],"returns":"boolean[]"},
+    description: "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings.",
+    examples: [{"input":"operations = [\"Trie\",\"insert\",\"search\",\"startsWith\",\"insert\",\"search\"], args = [[],[\"apple\"],[\"apple\"],[\"app\"],[\"app\"],[\"app\"]]","output":"[null,null,true,true,null,true]"}],
+    constraints: ["1 <= operations.length <= 10^4","operations[i].length <= 100","1 <= args.length, args[i].length <= 200"],
+    starterCode: {"javascript":"function trie(operations, args) {\\n  \\n}","python":"def trie(operations, args):\\n    pass","cpp":"class Solution {\\npublic:\\n    int trie(vector<string>& operations, vector<vector<string>>& args) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["Trie","insert","search","startsWith","insert","search"],[[],["apple"],["apple"],["app"],["app"],["app"]]],"expected":[null,null,true,true,null,true]}]
+  },
+  {
+    id: "trapping-rain-water",
+    title: "Trapping Rain Water",
+    difficulty: "Hard",
+    topic: "Array, Two Pointers, Dynamic Programming, Stack",
+    signature: {"name":"trap","params":[{"name":"height","type":"integer[]"}],"returns":"integer"},
+    description: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    examples: [{"input":"height = [0,1,0,2,1,0,1,3,2,1,2,1]","output":"6"},{"input":"height = [4,2,0,3,2,5]","output":"9"}],
+    constraints: ["1 <= height.length <= 10^5","-10^4 <= height[i] <= 10^4"],
+    starterCode: {"javascript":"function trap(height) {\n  \n}","python":"def trap(height):\n    pass","cpp":"class Solution {\npublic:\n    int trap(vector<int>& height) {\n        \n    }\n};"},
+    testCases: [{"input":[[0,1,0,2,1,0,1,3,2,1,2,1]],"expected":6},{"input":[[4,2,0,3,2,5]],"expected":9}]
+  },
+  {
+    id: "find-first-and-last-position-of-element-in-sorted-array",
+    title: "Find First and Last Position of Element in Sorted Array",
+    difficulty: "Medium",
+    topic: "Array, Binary Search",
+    signature: {"name":"searchRange","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer[]"},
+    description: "Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.",
+    examples: [{"input":"nums = [5,7,7,8,8,10], target = 8","output":"[3,4]"},{"input":"nums = [5,7,7,8,8,10], target = 6","output":"[-1,-1]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function searchRange(nums, target) {\n  \n}","python":"def searchRange(nums, target):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> searchRange(vector<int>& nums, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[5,7,7,8,8,10],8],"expected":[3,4]},{"input":[[5,7,7,8,8,10],6],"expected":[-1,-1]}]
+  },
+  {
+    id: "symmetric-tree",
+    title: "Symmetric Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"isSymmetric","params":[{"name":"root","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the root of a binary tree, check whether it is a mirror of itself.",
+    examples: [{"input":"root = [1,2,2,3,4,4,3]","output":"true"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isSymmetric(root) {\\n  \\n}","python":"def isSymmetric(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isSymmetric(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,3,4,4,3]],"expected":true}]
+  },
+  {
+    id: "number-of-islands",
+    title: "Number of Islands",
+    difficulty: "Medium",
+    topic: "Array, Depth-First Search, Breadth-First Search, Union Find, Matrix",
+    signature: {"name":"numIslands","params":[{"name":"grid","type":"string[][]"}],"returns":"integer"},
+    description: "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.",
+    examples: [{"input":"grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]","output":"1"}],
+    constraints: ["1 <= grid.length, grid[i].length <= 200"],
+    starterCode: {"javascript":"function numIslands(grid) {\\n  \\n}","python":"def numIslands(grid):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numIslands(vector<vector<string>>& grid) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]],"expected":1}]
+  },
+  {
+    id: "self-dividing-numbers",
+    title: "Self Dividing Numbers",
+    difficulty: "Easy",
+    topic: "Math",
+    signature: {"name":"selfDividingNumbers","params":[{"name":"left","type":"integer"},{"name":"right","type":"integer"}],"returns":"integer[]"},
+    description: "A self-dividing number is a number that is divisible by every digit it contains.",
+    examples: [{"input":"left = 1, right = 22","output":"[1,2,3,4,5,6,7,8,9,11,12,15,22]"}],
+    constraints: ["-10^9 <= left <= 10^9","-10^9 <= right <= 10^9"],
+    starterCode: {"javascript":"function selfDividingNumbers(left, right) {\\n  \\n}","python":"def selfDividingNumbers(left, right):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> selfDividingNumbers(int left, int right) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1,22],"expected":[1,2,3,4,5,6,7,8,9,11,12,15,22]}]
+  },
+  {
+    id: "minimum-ascii-delete-sum-for-two-strings",
+    title: "Minimum ASCII Delete Sum for Two Strings",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"minimumDeleteSum","params":[{"name":"s1","type":"string"},{"name":"s2","type":"string"}],"returns":"integer"},
+    description: "Given two strings s1 and s2, return the lowest ASCII sum of deleted characters to make two strings equal.",
+    examples: [{"input":"s1 = \"sea\", s2 = \"eat\"","output":"231"}],
+    constraints: ["1 <= s1.length <= 10^4","s1 consists of printable ASCII characters.","1 <= s2.length <= 10^4","s2 consists of printable ASCII characters."],
+    starterCode: {"javascript":"function minimumDeleteSum(s1, s2) {\\n  \\n}","python":"def minimumDeleteSum(s1, s2):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minimumDeleteSum(string s1, string s2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["sea","eat"],"expected":231}]
+  },
+  {
+    id: "word-break-ii",
+    title: "Word Break II",
+    difficulty: "Hard",
+    topic: "Hash Table, String, Dynamic Programming, Backtracking, Trie, Memoization",
+    signature: {"name":"wordBreak","params":[{"name":"s","type":"string"},{"name":"wordDict","type":"string[]"}],"returns":"string[]"},
+    description: "Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in any order.",
+    examples: [{"input":"s = \"catsanddog\", wordDict = [\"cat\",\"cats\",\"and\",\"sand\",\"dog\"]","output":"[\"cats and dog\",\"cat sand dog\"]"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters.","1 <= wordDict.length <= 10^5","wordDict[i].length <= 100"],
+    starterCode: {"javascript":"function wordBreak(s, wordDict) {\n  \n}","python":"def wordBreak(s, wordDict):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> wordBreak(string s, vector<string>& wordDict) {\n        \n    }\n};"},
+    testCases: [{"input":["catsanddog",["cat","cats","and","sand","dog"]],"expected":["cats and dog","cat sand dog"]}]
+  },
+  {
+    id: "hamming-distance",
+    title: "Hamming Distance",
+    difficulty: "Easy",
+    topic: "Bit Manipulation",
+    signature: {"name":"hammingDistance","params":[{"name":"x","type":"integer"},{"name":"y","type":"integer"}],"returns":"integer"},
+    description: "The Hamming distance between two integers is the number of positions at which the corresponding bits are different.",
+    examples: [{"input":"x = 1, y = 4","output":"2"}],
+    constraints: ["-10^9 <= x <= 10^9","-10^9 <= y <= 10^9"],
+    starterCode: {"javascript":"function hammingDistance(x, y) {\\n  \\n}","python":"def hammingDistance(x, y):\\n    pass","cpp":"class Solution {\\npublic:\\n    int hammingDistance(int x, int y) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1,4],"expected":2}]
+  },
+  {
+    id: "fibonacci-number",
+    title: "Fibonacci Number",
+    difficulty: "Easy",
+    topic: "Math, Dynamic Programming, Recursion, Memoization",
+    signature: {"name":"fib","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence.",
+    examples: [{"input":"n = 2","output":"1"},{"input":"n = 3","output":"2"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function fib(n) {\\n  \\n}","python":"def fib(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int fib(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":1},{"input":[3],"expected":2}]
+  },
+  {
+    id: "intersection-of-two-arrays-ii",
+    title: "Intersection of Two Arrays II",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Two Pointers, Binary Search, Sorting",
+    signature: {"name":"intersect","params":[{"name":"nums1","type":"integer[]"},{"name":"nums2","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays.",
+    examples: [{"input":"nums1 = [1,2,2,1], nums2 = [2,2]","output":"[2,2]"}],
+    constraints: ["1 <= nums1.length <= 10^3","-10^4 <= nums1[i] <= 10^4","1 <= nums2.length <= 10^3","-10^4 <= nums2[i] <= 10^4"],
+    starterCode: {"javascript":"function intersect(nums1, nums2) {\\n  \\n}","python":"def intersect(nums1, nums2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1],[2,2]],"expected":[2,2]}]
+  },
+  {
+    id: "subsets",
+    title: "Subsets",
+    difficulty: "Medium",
+    topic: "Array, Backtracking, Bit Manipulation",
+    signature: {"name":"subsets","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.",
+    examples: [{"input":"nums = [1,2,3]","output":"[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]"},{"input":"nums = [0]","output":"[[],[0]]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function subsets(nums) {\n  \n}","python":"def subsets(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]},{"input":[[0]],"expected":[[],[0]]}]
+  },
+  {
+    id: "happy-number",
+    title: "Happy Number",
+    difficulty: "Easy",
+    topic: "Hash Table, Math, Two Pointers",
+    signature: {"name":"isHappy","params":[{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "Write an algorithm to determine if a number n is happy.",
+    examples: [{"input":"n = 19","output":"true"},{"input":"n = 2","output":"false"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function isHappy(n) {\\n  \\n}","python":"def isHappy(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isHappy(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[19],"expected":true},{"input":[2],"expected":false}]
+  },
+  {
+    id: "target-sum",
+    title: "Target Sum",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Backtracking",
+    signature: {"name":"findTargetSumWays","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer"},
+    description: "You are given an integer array nums and an integer target. You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.",
+    examples: [{"input":"nums = [1,1,1,1,1], target = 3","output":"5"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function findTargetSumWays(nums, target) {\\n  \\n}","python":"def findTargetSumWays(nums, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findTargetSumWays(vector<int>& nums, int target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,1,1,1,1],3],"expected":5}]
+  },
+  {
+    id: "dijkstra-shortest-path",
+    title: "Dijkstra Shortest Path",
+    difficulty: "Medium",
+    topic: "Graph, Shortest Path, Heap (Priority Queue)",
+    signature: {"name":"dijkstra","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][][]"},{"name":"S","type":"integer"}],"returns":"integer[]"},
+    description: "Given a weighted, undirected and connected graph of V vertices and an adjacency list adj where adj[i] is a list of lists containing two integers where the first integer of each list j denotes the bounding vertex, and the second integer corresponds to the weight of edge, find the shortest distance of all the vertex's from the source vertex S.",
+    examples: [{"input":"V = 2, adj = [[[1,9]],[[0,9]]], S = 0","output":"[0,9]"}],
+    constraints: ["-10^9 <= V <= 10^9","-10^9 <= S <= 10^9"],
+    starterCode: {"javascript":"function dijkstra(V, adj, S) {\\n  \\n}","python":"def dijkstra(V, adj, S):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> dijkstra(int V, int adj, int S) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2,[[[1,9]],[[0,9]]],0],"expected":[0,9]}]
+  },
+  {
+    id: "counting-bits",
+    title: "Counting Bits",
+    difficulty: "Easy",
+    topic: "Dynamic Programming, Bit Manipulation",
+    signature: {"name":"countBits","params":[{"name":"n","type":"integer"}],"returns":"integer[]"},
+    description: "Given an integer n, return an array ans of length n + 1 such that for each i, ans[i] is the number of 1's in the binary representation of i.",
+    examples: [{"input":"n = 2","output":"[0,1,1]"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function countBits(n) {\\n  \\n}","python":"def countBits(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> countBits(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[2],"expected":[0,1,1]}]
+  },
+  {
+    id: "bipartite-graph-bfs",
+    title: "Bipartite Graph (BFS)",
+    difficulty: "Medium",
+    topic: "Graph, Breadth-First Search",
+    signature: {"name":"isBipartiteBFS","params":[{"name":"V","type":"integer"},{"name":"adj","type":"integer[][]"}],"returns":"boolean"},
+    description: "Given an adjacency list of a graph adj of V no. of vertices having 0 based index. Check whether the graph is Bipartite or not using BFS.",
+    examples: [{"input":"V = 3, adj = [[1],[0,2],[1]]","output":"true"}],
+    constraints: ["-10^9 <= V <= 10^9","1 <= adj.length, adj[i].length <= 200"],
+    starterCode: {"javascript":"function isBipartiteBFS(V, adj) {\\n  \\n}","python":"def isBipartiteBFS(V, adj):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isBipartiteBFS(int V, vector<vector<int>>& adj) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,[[1],[0,2],[1]]],"expected":true}]
+  },
+  {
+    id: "word-search-ii",
+    title: "Word Search II",
+    difficulty: "Hard",
+    topic: "Array, String, Backtracking, Trie, Matrix",
+    signature: {"name":"findWords","params":[{"name":"board","type":"string[][]"},{"name":"words","type":"string[]"}],"returns":"string[]"},
+    description: "Given an m x n board of characters and a list of strings words, return all words on the board.",
+    examples: [{"input":"board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]","output":"[\"eat\",\"oath\"]"}],
+    constraints: ["1 <= board.length, board[i].length <= 200","1 <= words.length <= 10^5","words[i].length <= 100"],
+    starterCode: {"javascript":"function findWords(board, words) {\n  \n}","python":"def findWords(board, words):\n    pass","cpp":"class Solution {\npublic:\n    vector<string> findWords(vector<vector<string>>& board, vector<string>& words) {\n        \n    }\n};"},
+    testCases: [{"input":[[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],["oath","pea","eat","rain"]],"expected":["eat","oath"]}]
+  },
+  {
+    id: "can-place-flowers",
+    title: "Can Place Flowers",
+    difficulty: "Easy",
+    topic: "Array, Greedy",
+    signature: {"name":"canPlaceFlowers","params":[{"name":"flowerbed","type":"integer[]"},{"name":"n","type":"integer"}],"returns":"boolean"},
+    description: "You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.",
+    examples: [{"input":"flowerbed = [1,0,0,0,1], n = 1","output":"true"}],
+    constraints: ["1 <= flowerbed.length <= 10^3","-10^4 <= flowerbed[i] <= 10^4","-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function canPlaceFlowers(flowerbed, n) {\\n  \\n}","python":"def canPlaceFlowers(flowerbed, n):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool canPlaceFlowers(vector<int>& flowerbed, int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,0,0,0,1],1],"expected":true}]
+  },
+  {
+    id: "maximum-depth-of-n-ary-tree",
+    title: "Maximum Depth of N-ary Tree",
+    difficulty: "Easy",
+    topic: "Tree, Depth-First Search, Breadth-First Search",
+    signature: {"name":"maxDepthNary","params":[{"name":"root","type":"integer[]"}],"returns":"integer"},
+    description: "Given a n-ary tree, find its maximum depth.",
+    examples: [{"input":"root = [1,null,3,2,4,null,5,6]","output":"3"}],
+    constraints: ["1 <= root.length <= 10^3","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function maxDepthNary(root) {\\n  \\n}","python":"def maxDepthNary(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    int maxDepthNary(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,null,3,2,4,null,5,6]],"expected":3}]
+  },
+  {
+    id: "binary-tree-right-side-view",
+    title: "Binary Tree Right Side View",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Breadth-First Search, Binary Tree",
+    signature: {"name":"rightSideView","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.",
+    examples: [{"input":"root = [1,2,3,null,5,null,4]","output":"[1,3,4]"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function rightSideView(root) {\\n  \\n}","python":"def rightSideView(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> rightSideView(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,null,5,null,4]],"expected":[1,3,4]}]
+  },
+  {
+    id: "find-all-anagrams-in-a-string-easy",
+    title: "Find All Anagrams in a String Easy",
+    difficulty: "Easy",
+    topic: "Hash Table, String, Sliding Window",
+    signature: {"name":"findAnagramsEasy","params":[{"name":"s","type":"string"},{"name":"p","type":"string"}],"returns":"integer[]"},
+    description: "Given two strings s and p, return an array of all the start indices of p's anagrams in s.",
+    examples: [{"input":"s = \"cbaebabacd\", p = \"abc\"","output":"[0,6]"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters.","1 <= p.length <= 10^3","p consists of printable ASCII characters."],
+    starterCode: {"javascript":"function findAnagramsEasy(s, p) {\\n  \\n}","python":"def findAnagramsEasy(s, p):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> findAnagramsEasy(string s, string p) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["cbaebabacd","abc"],"expected":[0,6]}]
+  },
+  {
+    id: "minimum-spanning-tree",
+    title: "Minimum Spanning Tree (Kruskal)",
+    difficulty: "Hard",
+    topic: "Graph, Union Find, Minimum Spanning Tree",
+    signature: {"name":"minimumSpanningTree","params":[{"name":"n","type":"integer"},{"name":"edges","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a weighted undirected graph, find the sum of weights of edges of the Minimum Spanning Tree.",
+    examples: [{"input":"n = 4, edges = [[0,1,10],[1,2,15],[0,2,5],[1,3,2],[2,3,40]]","output":"17"}],
+    constraints: ["-10^9 <= n <= 10^9","1 <= edges.length, edges[i].length <= 200","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function minimumSpanningTree(n, edges) {\\n  \\n}","python":"def minimumSpanningTree(n, edges):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minimumSpanningTree(int n, vector<vector<int>>& edges) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,[[0,1,10],[1,2,15],[0,2,5],[1,3,2],[2,3,40]]],"expected":17}]
+  },
+  {
+    id: "divide-two-integers",
+    title: "Divide Two Integers",
+    difficulty: "Medium",
+    topic: "Math, Bit Manipulation",
+    signature: {"name":"divide","params":[{"name":"dividend","type":"integer"},{"name":"divisor","type":"integer"}],"returns":"integer"},
+    description: "Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.",
+    examples: [{"input":"dividend = 10, divisor = 3","output":"3"},{"input":"dividend = 7, divisor = -3","output":"-2"}],
+    constraints: ["-10^9 <= dividend <= 10^9","-10^9 <= divisor <= 10^9"],
+    starterCode: {"javascript":"function divide(dividend, divisor) {\n  \n}","python":"def divide(dividend, divisor):\n    pass","cpp":"class Solution {\npublic:\n    int divide(int dividend, int divisor) {\n        \n    }\n};"},
+    testCases: [{"input":[10,3],"expected":3},{"input":[7,-3],"expected":-2}]
+  },
+  {
+    id: "path-sum-iii",
+    title: "Path Sum III",
+    difficulty: "Medium",
+    topic: "Tree, Depth-First Search, Binary Tree",
+    signature: {"name":"pathSum3","params":[{"name":"root","type":"integer[]"},{"name":"targetSum","type":"integer"}],"returns":"integer"},
+    description: "Given the root of a binary tree and an integer targetSum, return the number of paths where the sum of the values along the path equals targetSum.",
+    examples: [{"input":"root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8","output":"3"}],
+    constraints: ["1 <= root.length <= 10^4","-10^4 <= root[i] <= 10^4","-10^9 <= targetSum <= 10^9","The number of nodes in the list/tree is in the range [0, 10^4].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function pathSum3(root, targetSum) {\\n  \\n}","python":"def pathSum3(root, targetSum):\\n    pass","cpp":"class Solution {\\npublic:\\n    int pathSum3(vector<int>& root, int targetSum) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,5,-3,3,2,null,11,3,-2,null,1],8],"expected":3}]
+  },
+  {
+    id: "excel-sheet-column-title",
+    title: "Excel Sheet Column Title",
+    difficulty: "Easy",
+    topic: "Math, String",
+    signature: {"name":"convertToTitle","params":[{"name":"columnNumber","type":"integer"}],"returns":"string"},
+    description: "Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.",
+    examples: [{"input":"columnNumber = 1","output":"\"A\""},{"input":"columnNumber = 28","output":"\"AB\""}],
+    constraints: ["-10^9 <= columnNumber <= 10^9"],
+    starterCode: {"javascript":"function convertToTitle(columnNumber) {\\n  \\n}","python":"def convertToTitle(columnNumber):\\n    pass","cpp":"class Solution {\\npublic:\\n    string convertToTitle(int columnNumber) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[1],"expected":"A"},{"input":[28],"expected":"AB"}]
+  },
+  {
+    id: "knight-probability-in-chessboard",
+    title: "Knight Probability in Chessboard",
+    difficulty: "Medium",
+    topic: "Dynamic Programming",
+    signature: {"name":"knightProbability","params":[{"name":"n","type":"integer"},{"name":"k","type":"integer"},{"name":"row","type":"integer"},{"name":"column","type":"integer"}],"returns":"integer"},
+    description: "On an n x n chessboard, a knight starts at the cell (row, column) and attempts to make exactly k moves. Return the probability that the knight remains on the board after it has stopped moving.",
+    examples: [{"input":"n = 3, k = 2, row = 0, column = 0","output":"0.0625"}],
+    constraints: ["-10^9 <= n <= 10^9","-10^9 <= k <= 10^9","-10^9 <= row <= 10^9","-10^9 <= column <= 10^9"],
+    starterCode: {"javascript":"function knightProbability(n, k, row, column) {\\n  \\n}","python":"def knightProbability(n, k, row, column):\\n    pass","cpp":"class Solution {\\npublic:\\n    int knightProbability(int n, int k, int row, int column) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,2,0,0],"expected":0.0625}]
+  },
+  {
+    id: "reverse-vowels-of-a-string",
+    title: "Reverse Vowels of a String",
+    difficulty: "Easy",
+    topic: "Two Pointers, String",
+    signature: {"name":"reverseVowels","params":[{"name":"s","type":"string"}],"returns":"string"},
+    description: "Given a string s, reverse only all the vowels in the string and return it.",
+    examples: [{"input":"s = \"hello\"","output":"\"holle\""},{"input":"s = \"leetcode\"","output":"\"leotcede\""}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function reverseVowels(s) {\\n  \\n}","python":"def reverseVowels(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    string reverseVowels(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["hello"],"expected":"holle"},{"input":["leetcode"],"expected":"leotcede"}]
+  },
+  {
+    id: "travelling-salesman-problem",
+    title: "Travelling Salesman Problem",
+    difficulty: "Hard",
+    topic: "Dynamic Programming, Graph, Bitmasking",
+    signature: {"name":"tsp","params":[{"name":"cost","type":"integer[][]"}],"returns":"integer"},
+    description: "Given a matrix cost of size n x n, where cost[i][j] denotes the cost of moving from city i to city j. Your task is to complete a tour from the city 0 (0 based index) to all other cities such that you visit each city exactly once and then at the end come back to city 0 in min cost.",
+    examples: [{"input":"cost = [[0,111],[112,0]]","output":"223"}],
+    constraints: ["1 <= cost.length, cost[i].length <= 200"],
+    starterCode: {"javascript":"function tsp(cost) {\\n  \\n}","python":"def tsp(cost):\\n    pass","cpp":"class Solution {\\npublic:\\n    int tsp(vector<vector<int>>& cost) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[0,111],[112,0]]],"expected":223}]
+  },
+  {
+    id: "longest-palindromic-substring",
+    title: "Longest Palindromic Substring",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"longestPalindrome","params":[{"name":"s","type":"string"}],"returns":"string"},
+    description: "Given a string s, return the longest palindromic substring in s.",
+    examples: [{"input":"s = \"babad\"","output":"\"bab\""},{"input":"s = \"cbbd\"","output":"\"bb\""}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function longestPalindrome(s) {\n  \n}","python":"def longestPalindrome(s):\n    pass","cpp":"class Solution {\npublic:\n    string longestPalindrome(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["babad"],"expected":"bab"},{"input":["cbbd"],"expected":"bb"}]
+  },
+  {
+    id: "spiral-matrix-ii",
+    title: "Spiral Matrix II",
+    difficulty: "Medium",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"generateMatrix","params":[{"name":"n","type":"integer"}],"returns":"integer[][]"},
+    description: "Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.",
+    examples: [{"input":"n = 3","output":"[[1,2,3],[8,9,4],[7,6,5]]"},{"input":"n = 1","output":"[[1]]"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function generateMatrix(n) {\n  \n}","python":"def generateMatrix(n):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> generateMatrix(int n) {\n        \n    }\n};"},
+    testCases: [{"input":[3],"expected":[[1,2,3],[8,9,4],[7,6,5]]},{"input":[1],"expected":[[1]]}]
+  },
+  {
+    id: "palindrome-linked-list",
+    title: "Palindrome Linked List",
+    difficulty: "Easy",
+    topic: "Linked List, Two Pointers, Stack, Recursion",
+    signature: {"name":"isPalindrome","params":[{"name":"head","type":"integer[]"}],"returns":"boolean"},
+    description: "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.",
+    examples: [{"input":"head = [1,2,2,1]","output":"true"}],
+    constraints: ["1 <= head.length <= 10^3","-10^4 <= head[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^3].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function isPalindrome(head) {\\n  \\n}","python":"def isPalindrome(head):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isPalindrome(vector<int>& head) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,2,1]],"expected":true}]
+  },
+  {
+    id: "jump-game",
+    title: "Jump Game",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Greedy",
+    signature: {"name":"canJump","params":[{"name":"nums","type":"integer[]"}],"returns":"boolean"},
+    description: "You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return true if you can reach the last index, or false otherwise.",
+    examples: [{"input":"nums = [2,3,1,1,4]","output":"true"},{"input":"nums = [3,2,1,0,4]","output":"false"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function canJump(nums) {\n  \n}","python":"def canJump(nums):\n    pass","cpp":"class Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,3,1,1,4]],"expected":true},{"input":[[3,2,1,0,4]],"expected":false}]
+  },
+  {
+    id: "reshape-the-matrix",
+    title: "Reshape the Matrix",
+    difficulty: "Easy",
+    topic: "Array, Matrix, Simulation",
+    signature: {"name":"matrixReshape","params":[{"name":"mat","type":"integer[][]"},{"name":"r","type":"integer"},{"name":"c","type":"integer"}],"returns":"integer[][]"},
+    description: "In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.",
+    examples: [{"input":"mat = [[1,2],[3,4]], r = 1, c = 4","output":"[[1,2,3,4]]"}],
+    constraints: ["1 <= mat.length, mat[i].length <= 200","-10^9 <= r <= 10^9","-10^9 <= c <= 10^9"],
+    starterCode: {"javascript":"function matrixReshape(mat, r, c) {\\n  \\n}","python":"def matrixReshape(mat, r, c):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2],[3,4]],1,4],"expected":[[1,2,3,4]]}]
+  },
+  {
+    id: "number-of-segments-in-a-string",
+    title: "Number of Segments in a String",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"countSegments","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string s, return the number of segments in the string. A segment is defined to be a contiguous sequence of non-space characters.",
+    examples: [{"input":"s = \"Hello, my name is John\"","output":"5"},{"input":"s = \"Hello\"","output":"1"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function countSegments(s) {\\n  \\n}","python":"def countSegments(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int countSegments(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["Hello, my name is John"],"expected":5},{"input":["Hello"],"expected":1}]
+  },
+  {
+    id: "cheapest-flights-within-k-stops",
+    title: "Cheapest Flights Within K Stops",
+    difficulty: "Medium",
+    topic: "Depth-First Search, Breadth-First Search, Graph, Heap (Priority Queue), Shortest Path",
+    signature: {"name":"findCheapestPrice","params":[{"name":"n","type":"integer"},{"name":"flights","type":"integer[][]"},{"name":"src","type":"integer"},{"name":"dst","type":"integer"},{"name":"k","type":"integer"}],"returns":"integer"},
+    description: "There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei]. Return the cheapest price from src to dst with at most k stops.",
+    examples: [{"input":"n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1","output":"200"}],
+    constraints: ["-10^9 <= n <= 10^9","1 <= flights.length, flights[i].length <= 200","-10^9 <= src <= 10^9","-10^9 <= dst <= 10^9","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function findCheapestPrice(n, flights, src, dst, k) {\\n  \\n}","python":"def findCheapestPrice(n, flights, src, dst, k):\\n    pass","cpp":"class Solution {\\npublic:\\n    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[3,[[0,1,100],[1,2,100],[0,2,500]],0,2,1],"expected":200}]
+  },
+  {
+    id: "toeplitz-matrix",
+    title: "Toeplitz Matrix",
+    difficulty: "Easy",
+    topic: "Array, Matrix",
+    signature: {"name":"isToeplitzMatrix","params":[{"name":"matrix","type":"integer[][]"}],"returns":"boolean"},
+    description: "Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false. A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.",
+    examples: [{"input":"matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]","output":"true"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function isToeplitzMatrix(matrix) {\\n  \\n}","python":"def isToeplitzMatrix(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool isToeplitzMatrix(vector<vector<int>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,2,3,4],[5,1,2,3],[9,5,1,2]]],"expected":true}]
+  },
+  {
+    id: "two-sum-ii",
+    title: "Two Sum II - Input Array Is Sorted",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Binary Search",
+    signature: {"name":"twoSum","params":[{"name":"numbers","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer[]"},
+    description: "Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number.",
+    examples: [{"input":"numbers = [2,7,11,15], target = 9","output":"[1,2]"}],
+    constraints: ["1 <= numbers.length <= 10^4","-10^4 <= numbers[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function twoSum(numbers, target) {\\n  \\n}","python":"def twoSum(numbers, target):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> twoSum(vector<int>& numbers, int target) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,7,11,15],9],"expected":[1,2]}]
+  },
+  {
+    id: "snakes-and-ladders",
+    title: "Snakes and Ladders",
+    difficulty: "Medium",
+    topic: "Array, Breadth-First Search, Matrix",
+    signature: {"name":"snakesAndLadders","params":[{"name":"board","type":"integer[][]"}],"returns":"integer"},
+    description: "You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style. Return the least number of moves required to reach the square n2.",
+    examples: [{"input":"board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]","output":"4"}],
+    constraints: ["1 <= board.length, board[i].length <= 200"],
+    starterCode: {"javascript":"function snakesAndLadders(board) {\\n  \\n}","python":"def snakesAndLadders(board):\\n    pass","cpp":"class Solution {\\npublic:\\n    int snakesAndLadders(vector<vector<int>>& board) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]],"expected":4}]
+  },
+  {
+    id: "lemonade-change",
+    title: "Lemonade Change",
+    difficulty: "Easy",
+    topic: "Array, Greedy",
+    signature: {"name":"lemonadeChange","params":[{"name":"bills","type":"integer[]"}],"returns":"boolean"},
+    description: "At a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you and order one at a time (in the order specified by bills).",
+    examples: [{"input":"bills = [5,5,5,10,20]","output":"true"}],
+    constraints: ["1 <= bills.length <= 10^3","-10^4 <= bills[i] <= 10^4"],
+    starterCode: {"javascript":"function lemonadeChange(bills) {\\n  \\n}","python":"def lemonadeChange(bills):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool lemonadeChange(vector<int>& bills) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[5,5,5,10,20]],"expected":true}]
+  },
+  {
+    id: "duplicate-zeros",
+    title: "Duplicate Zeros",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers",
+    signature: {"name":"duplicateZeros","params":[{"name":"arr","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given a fixed-length integer array arr, duplicate each occurrence of zero, shifting the remaining elements to the right. Note that elements beyond the length of the original array are not written.",
+    examples: [{"input":"arr = [1,0,2,3,0,4,5,0]","output":"[1,0,0,2,3,0,0,4]"}],
+    constraints: ["1 <= arr.length <= 10^3","-10^4 <= arr[i] <= 10^4"],
+    starterCode: {"javascript":"function duplicateZeros(arr) {\\n  \\n}","python":"def duplicateZeros(arr):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> duplicateZeros(vector<int>& arr) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,0,2,3,0,4,5,0]],"expected":[1,0,0,2,3,0,0,4]}]
+  },
+  {
+    id: "minimum-falling-path-sum",
+    title: "Minimum Falling Path Sum",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming, Matrix",
+    signature: {"name":"minFallingPathSum","params":[{"name":"matrix","type":"integer[][]"}],"returns":"integer"},
+    description: "Given an n x n array of integers matrix, return the minimum sum of any falling path through matrix.",
+    examples: [{"input":"matrix = [[2,1,3],[6,5,4],[7,8,9]]","output":"13"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200"],
+    starterCode: {"javascript":"function minFallingPathSum(matrix) {\\n  \\n}","python":"def minFallingPathSum(matrix):\\n    pass","cpp":"class Solution {\\npublic:\\n    int minFallingPathSum(vector<vector<int>>& matrix) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[2,1,3],[6,5,4],[7,8,9]]],"expected":13}]
+  },
+  {
+    id: "longest-valid-parentheses",
+    title: "Longest Valid Parentheses",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming, Stack",
+    signature: {"name":"longestValidParentheses","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.",
+    examples: [{"input":"s = \"(()\"","output":"2"},{"input":"s = \")()())\"","output":"4"},{"input":"s = \"\"","output":"0"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function longestValidParentheses(s) {\n  \n}","python":"def longestValidParentheses(s):\n    pass","cpp":"class Solution {\npublic:\n    int longestValidParentheses(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["(()"],"expected":2},{"input":[")()())"],"expected":4},{"input":[""],"expected":0}]
+  },
+  {
+    id: "relative-sort-array",
+    title: "Relative Sort Array",
+    difficulty: "Easy",
+    topic: "Array, Hash Table, Sorting, Counting Sort",
+    signature: {"name":"relativeSortArray","params":[{"name":"arr1","type":"integer[]"},{"name":"arr2","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given two arrays arr1 and arr2, the elements of arr2 are distinct, and all elements in arr2 are also in arr1. Sort the elements of arr1 such that the relative ordering of items in arr1 are the same as in arr2.",
+    examples: [{"input":"arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]","output":"[2,2,2,1,4,3,3,9,6,7,19]"}],
+    constraints: ["1 <= arr1.length <= 10^3","-10^4 <= arr1[i] <= 10^4","1 <= arr2.length <= 10^3","-10^4 <= arr2[i] <= 10^4"],
+    starterCode: {"javascript":"function relativeSortArray(arr1, arr2) {\\n  \\n}","python":"def relativeSortArray(arr1, arr2):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[2,3,1,3,2,4,6,7,9,2,19],[2,1,4,3,9,6]],"expected":[2,2,2,1,4,3,3,9,6,7,19]}]
+  },
+  {
+    id: "sudoku-solver",
+    title: "Sudoku Solver",
+    difficulty: "Hard",
+    topic: "Array, Backtracking, Matrix",
+    signature: {"name":"solveSudoku","params":[{"name":"board","type":"string[][]"}],"returns":"string[][]"},
+    description: "Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules: Each of the digits 1-9 must occur exactly once in each row, each column, and each of the 9 3x3 sub-boxes of the grid.",
+    examples: [{"input":"board = [[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]","output":"[[\"5\",\"3\",\"4\",\"6\",\"7\",\"8\",\"9\",\"1\",\"2\"],[\"6\",\"7\",\"2\",\"1\",\"9\",\"5\",\"3\",\"4\",\"8\"],[\"1\",\"9\",\"8\",\"3\",\"4\",\"2\",\"5\",\"6\",\"7\"],[\"8\",\"5\",\"9\",\"7\",\"6\",\"1\",\"4\",\"2\",\"3\"],[\"4\",\"2\",\"6\",\"8\",\"5\",\"3\",\"7\",\"9\",\"1\"],[\"7\",\"1\",\"3\",\"9\",\"2\",\"4\",\"8\",\"5\",\"6\"],[\"9\",\"6\",\"1\",\"5\",\"3\",\"7\",\"2\",\"8\",\"4\"],[\"2\",\"8\",\"7\",\"4\",\"1\",\"9\",\"6\",\"3\",\"5\"],[\"3\",\"4\",\"5\",\"2\",\"8\",\"6\",\"1\",\"7\",\"9\"]]"}],
+    constraints: ["board.length == 9","board[i].length == 9","board[i][j] is a digit 1-9 or '.'."],
+    starterCode: {"javascript":"function solveSudoku(board) {\n  \n}","python":"def solveSudoku(board):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<string>> solveSudoku(vector<vector<string>>& board) {\n        \n    }\n};"},
+    testCases: [{"input":[[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]],"expected":[["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]]}]
+  },
+  {
+    id: "word-search",
+    title: "Word Search",
+    difficulty: "Medium",
+    topic: "Array, Backtracking, Matrix",
+    signature: {"name":"exist","params":[{"name":"board","type":"string[][]"},{"name":"word","type":"string"}],"returns":"boolean"},
+    description: "Given an m x n grid of characters board and a string word, return true if word exists in the grid.",
+    examples: [{"input":"board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"","output":"true"},{"input":"board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"","output":"true"}],
+    constraints: ["1 <= board.length, board[i].length <= 200","1 <= word.length <= 10^4","word consists of printable ASCII characters."],
+    starterCode: {"javascript":"function exist(board, word) {\n  \n}","python":"def exist(board, word):\n    pass","cpp":"class Solution {\npublic:\n    bool exist(vector<vector<string>>& board, string word) {\n        \n    }\n};"},
+    testCases: [{"input":[[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCCED"],"expected":true},{"input":[[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"SEE"],"expected":true}]
+  },
+  {
+    id: "serialize-and-deserialize-binary-tree",
+    title: "Serialize and Deserialize Binary Tree",
+    difficulty: "Hard",
+    topic: "String, Tree, Depth-First Search, Breadth-First Search, Design, Binary Tree",
+    signature: {"name":"serializeDeserialize","params":[{"name":"root","type":"integer[]"}],"returns":"integer[]"},
+    description: "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer.",
+    examples: [{"input":"root = [1,2,3,null,null,4,5]","output":"[1,2,3,null,null,4,5]"}],
+    constraints: ["1 <= root.length <= 10^5","-10^4 <= root[i] <= 10^4","The number of nodes in the list/tree is in the range [0, 10^5].","-100 <= Node.val <= 100"],
+    starterCode: {"javascript":"function serializeDeserialize(root) {\\n  \\n}","python":"def serializeDeserialize(root):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<int> serializeDeserialize(vector<int>& root) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,null,null,4,5]],"expected":[1,2,3,null,null,4,5]}]
+  },
+  {
+    id: "student-attendance-record-i",
+    title: "Student Attendance Record I",
+    difficulty: "Easy",
+    topic: "String",
+    signature: {"name":"checkRecord","params":[{"name":"s","type":"string"}],"returns":"boolean"},
+    description: "You are given a string s representing an attendance record for a student where each character signifies whether the student was absent, late, or present.",
+    examples: [{"input":"s = \"PPALLP\"","output":"true"},{"input":"s = \"PPALLL\"","output":"false"}],
+    constraints: ["1 <= s.length <= 10^3","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function checkRecord(s) {\\n  \\n}","python":"def checkRecord(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool checkRecord(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["PPALLP"],"expected":true},{"input":["PPALLL"],"expected":false}]
+  },
+  {
+    id: "binary-gap",
+    title: "Binary Gap",
+    difficulty: "Easy",
+    topic: "Bit Manipulation",
+    signature: {"name":"binaryGap","params":[{"name":"n","type":"integer"}],"returns":"integer"},
+    description: "Given a positive integer n, find and return the longest distance between any two adjacent 1's in the binary representation of n.",
+    examples: [{"input":"n = 22","output":"2"}],
+    constraints: ["-10^9 <= n <= 10^9"],
+    starterCode: {"javascript":"function binaryGap(n) {\\n  \\n}","python":"def binaryGap(n):\\n    pass","cpp":"class Solution {\\npublic:\\n    int binaryGap(int n) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[22],"expected":2}]
+  },
+  {
+    id: "arithmetic-slices",
+    title: "Arithmetic Slices",
+    difficulty: "Medium",
+    topic: "Array, Dynamic Programming",
+    signature: {"name":"numberOfArithmeticSlices","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "An integer array is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same. Given an integer array nums, return the number of arithmetic subarrays of nums.",
+    examples: [{"input":"nums = [1,2,3,4]","output":"3"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function numberOfArithmeticSlices(nums) {\\n  \\n}","python":"def numberOfArithmeticSlices(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numberOfArithmeticSlices(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,2,3,4]],"expected":3}]
+  },
+  {
+    id: "sort-colors",
+    title: "Sort Colors",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers, Sorting",
+    signature: {"name":"sortColors","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.",
+    examples: [{"input":"nums = [2,0,2,1,1,0]","output":"[0,0,1,1,2,2]"},{"input":"nums = [2,0,1]","output":"[0,1,2]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function sortColors(nums) {\n  \n}","python":"def sortColors(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> sortColors(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,0,2,1,1,0]],"expected":[0,0,1,1,2,2]},{"input":[[2,0,1]],"expected":[0,1,2]}]
+  },
+  {
+    id: "hamiltonian-path",
+    title: "Hamiltonian Path",
+    difficulty: "Medium",
+    topic: "Graph, Backtracking",
+    signature: {"name":"checkHamiltonianPath","params":[{"name":"N","type":"integer"},{"name":"M","type":"integer"},{"name":"edges","type":"integer[][]"}],"returns":"boolean"},
+    description: "A Hamiltonian path, is a path in an undirected or directed graph that visits every vertex exactly once. Given an undirected graph, the task is to check if a Hamiltonian path is present in it or not.",
+    examples: [{"input":"N = 4, M = 4, edges = [[1,2],[2,3],[3,4],[2,4]]","output":"true"}],
+    constraints: ["-10^9 <= N <= 10^9","-10^9 <= M <= 10^9","1 <= edges.length, edges[i].length <= 200"],
+    starterCode: {"javascript":"function checkHamiltonianPath(N, M, edges) {\\n  \\n}","python":"def checkHamiltonianPath(N, M, edges):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool checkHamiltonianPath(int N, int M, vector<vector<int>>& edges) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[4,4,[[1,2],[2,3],[3,4],[2,4]]],"expected":true}]
+  },
+  {
+    id: "reverse-string",
+    title: "Reverse String",
+    difficulty: "Easy",
+    topic: "Two Pointers, String",
+    signature: {"name":"reverseString","params":[{"name":"s","type":"string[]"}],"returns":"string[]"},
+    description: "Write a function that reverses a string. The input string is given as an array of characters s. You must do this by modifying the input array in-place with O(1) extra memory.",
+    examples: [{"input":"s = [\"h\",\"e\",\"l\",\"l\",\"o\"]","output":"[\"o\",\"l\",\"l\",\"e\",\"h\"]"}],
+    constraints: ["1 <= s.length <= 10^3","s[i].length <= 100"],
+    starterCode: {"javascript":"function reverseString(s) {\\n  \\n}","python":"def reverseString(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<string> reverseString(vector<string>& s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[["h","e","l","l","o"]],"expected":["o","l","l","e","h"]}]
+  },
+  {
+    id: "flipping-an-image",
+    title: "Flipping an Image",
+    difficulty: "Easy",
+    topic: "Array, Two Pointers, Matrix, Simulation",
+    signature: {"name":"flipAndInvertImage","params":[{"name":"image","type":"integer[][]"}],"returns":"integer[][]"},
+    description: "Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.",
+    examples: [{"input":"image = [[1,1,0],[1,0,1],[0,0,0]]","output":"[[1,0,0],[0,1,0],[1,1,1]]"}],
+    constraints: ["1 <= image.length, image[i].length <= 200"],
+    starterCode: {"javascript":"function flipAndInvertImage(image) {\\n  \\n}","python":"def flipAndInvertImage(image):\\n    pass","cpp":"class Solution {\\npublic:\\n    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[[1,1,0],[1,0,1],[0,0,0]]],"expected":[[1,0,0],[0,1,0],[1,1,1]]}]
+  },
+  {
+    id: "largest-number-at-least-twice-of-others-easy",
+    title: "Largest Number At Least Twice of Others Easy",
+    difficulty: "Easy",
+    topic: "Array, Sorting",
+    signature: {"name":"dominantIndexEasy","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "You are given an integer array nums where the largest integer is unique. Determine whether the largest element in the array is at least twice as much as every other number in the array.",
+    examples: [{"input":"nums = [3,6,1,0]","output":"1"}],
+    constraints: ["1 <= nums.length <= 10^3","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function dominantIndexEasy(nums) {\\n  \\n}","python":"def dominantIndexEasy(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int dominantIndexEasy(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[3,6,1,0]],"expected":1}]
+  },
+  {
+    id: "longest-increasing-subsequence",
+    title: "Longest Increasing Subsequence",
+    difficulty: "Medium",
+    topic: "Dynamic Programming, Binary Search",
+    signature: {"name":"lengthOfLIS","params":[{"name":"nums","type":"integer[]"}],"returns":"integer"},
+    description: "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+    examples: [{"input":"nums = [10,9,2,5,3,7,101,18]","output":"4"},{"input":"nums = [0,1,0,3,2,3]","output":"4"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function lengthOfLIS(nums) {\\n  \\n}","python":"def lengthOfLIS(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    int lengthOfLIS(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[10,9,2,5,3,7,101,18]],"expected":4},{"input":[[0,1,0,3,2,3]],"expected":4}]
+  },
+  {
+    id: "decode-ways",
+    title: "Decode Ways",
+    difficulty: "Medium",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"numDecodings","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "A message containing letters from A-Z can be encoded into numbers using the following mapping: 'A' -> 1, 'B' -> 2... 'Z' -> 26. Given a string s containing only digits, return the number of ways to decode it.",
+    examples: [{"input":"s = \"12\"","output":"2"},{"input":"s = \"226\"","output":"3"},{"input":"s = \"0\"","output":"0"}],
+    constraints: ["1 <= s.length <= 10^4","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function numDecodings(s) {\n  \n}","python":"def numDecodings(s):\n    pass","cpp":"class Solution {\npublic:\n    int numDecodings(string s) {\n        \n    }\n};"},
+    testCases: [{"input":["12"],"expected":2},{"input":["226"],"expected":3},{"input":["0"],"expected":0}]
+  },
+  {
+    id: "search-in-rotated-sorted-array-ii",
+    title: "Search in Rotated Sorted Array II",
+    difficulty: "Medium",
+    topic: "Array, Binary Search",
+    signature: {"name":"search","params":[{"name":"nums","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"boolean"},
+    description: "There is an integer array nums sorted in non-decreasing order (not necessarily with distinct values). Before being passed to your function, nums is rotated at an unknown pivot index k. Given target, return true if target is in nums, or false if it is not in nums.",
+    examples: [{"input":"nums = [2,5,6,0,0,1,2], target = 0","output":"true"},{"input":"nums = [2,5,6,0,0,1,2], target = 3","output":"false"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function search(nums, target) {\n  \n}","python":"def search(nums, target):\n    pass","cpp":"class Solution {\npublic:\n    bool search(vector<int>& nums, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[2,5,6,0,0,1,2],0],"expected":true},{"input":[[2,5,6,0,0,1,2],3],"expected":false}]
+  },
+  {
+    id: "4d9b945b-f679-4a29-b6ca-0fc7524cea1a",
+    title: "Daily Temperatures",
+    difficulty: "Medium",
+    topic: "Array, Stack, Monotonic Stack",
+    signature: {"name":"dailyTemperatures","params":[{"name":"temperatures","type":"integer[]"}],"returns":"integer[]"},
+    description: "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.",
+    examples: [{"input":"temperatures = [73,74,75,71,69,72,76,73]","output":"[1,1,4,2,1,1,0,0]"}],
+    constraints: ["1 <= temperatures.length <= 10^4","-10^4 <= temperatures[i] <= 10^4"],
+    starterCode: {"javascript":"function dailyTemperatures(temperatures) {\n  \n}","python":"def dailyTemperatures(temperatures):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n        \n    }\n};"},
+    testCases: [{"input":[[73,74,75,71,69,72,76,73]],"expected":[1,1,4,2,1,1,0,0]}]
+  },
+  {
+    id: "next-permutation",
+    title: "Next Permutation",
+    difficulty: "Medium",
+    topic: "Array, Two Pointers",
+    signature: {"name":"nextPermutation","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[]"},
+    description: "A permutation of an array of integers is an arrangement of its members into a sequence or linear order. Find the next lexicographically greater permutation of its integer.",
+    examples: [{"input":"nums = [1,2,3]","output":"[1,3,2]"},{"input":"nums = [3,2,1]","output":"[1,2,3]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function nextPermutation(nums) {\n  \n}","python":"def nextPermutation(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<int> nextPermutation(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,2,3]],"expected":[1,3,2]},{"input":[[3,2,1]],"expected":[1,2,3]}]
+  },
+  {
+    id: "search-a-2d-matrix",
+    title: "Search a 2D Matrix",
+    difficulty: "Medium",
+    topic: "Array, Binary Search, Matrix",
+    signature: {"name":"searchMatrix","params":[{"name":"matrix","type":"integer[][]"},{"name":"target","type":"integer"}],"returns":"boolean"},
+    description: "Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties: Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row.",
+    examples: [{"input":"matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3","output":"true"},{"input":"matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13","output":"false"}],
+    constraints: ["1 <= matrix.length, matrix[i].length <= 200","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function searchMatrix(matrix, target) {\n  \n}","python":"def searchMatrix(matrix, target):\n    pass","cpp":"class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[[1,3,5,7],[10,11,16,20],[23,30,34,60]],3],"expected":true},{"input":[[[1,3,5,7],[10,11,16,20],[23,30,34,60]],13],"expected":false}]
+  },
+  {
+    id: "predict-the-winner",
+    title: "Predict the Winner",
+    difficulty: "Medium",
+    topic: "Array, Math, Dynamic Programming, Recursion, Game Theory",
+    signature: {"name":"PredictTheWinner","params":[{"name":"nums","type":"integer[]"}],"returns":"boolean"},
+    description: "You are given an integer array nums. Two players are playing a game with this array: player 1 and player 2. Return true if Player 1 can win the game.",
+    examples: [{"input":"nums = [1,5,2]","output":"false"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function PredictTheWinner(nums) {\\n  \\n}","python":"def PredictTheWinner(nums):\\n    pass","cpp":"class Solution {\\npublic:\\n    bool PredictTheWinner(vector<int>& nums) {\\n        \\n    }\\n};"},
+    testCases: [{"input":[[1,5,2]],"expected":false}]
+  },
+  {
+    id: "permutations-ii",
+    title: "Permutations II",
+    difficulty: "Medium",
+    topic: "Array, Backtracking",
+    signature: {"name":"permuteUnique","params":[{"name":"nums","type":"integer[]"}],"returns":"integer[][]"},
+    description: "Given a collection of numbers, nums, that might contain duplicates, return all possible unique permutations in any order.",
+    examples: [{"input":"nums = [1,1,2]","output":"[[1,1,2],[1,2,1],[2,1,1]]"},{"input":"nums = [1,2,3]","output":"[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"}],
+    constraints: ["1 <= nums.length <= 10^4","-10^4 <= nums[i] <= 10^4"],
+    starterCode: {"javascript":"function permuteUnique(nums) {\n  \n}","python":"def permuteUnique(nums):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> permuteUnique(vector<int>& nums) {\n        \n    }\n};"},
+    testCases: [{"input":[[1,1,2]],"expected":[[1,1,2],[1,2,1],[2,1,1]]},{"input":[[1,2,3]],"expected":[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]}]
+  },
+  {
+    id: "combinations",
+    title: "Combinations",
+    difficulty: "Medium",
+    topic: "Backtracking",
+    signature: {"name":"combine","params":[{"name":"n","type":"integer"},{"name":"k","type":"integer"}],"returns":"integer[][]"},
+    description: "Given two integers n and k, return all possible combinations of k numbers out of the range [1, n]. You may return the answer in any order.",
+    examples: [{"input":"n = 4, k = 2","output":"[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]"},{"input":"n = 1, k = 1","output":"[[1]]"}],
+    constraints: ["-10^9 <= n <= 10^9","-10^9 <= k <= 10^9"],
+    starterCode: {"javascript":"function combine(n, k) {\n  \n}","python":"def combine(n, k):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> combine(int n, int k) {\n        \n    }\n};"},
+    testCases: [{"input":[4,2],"expected":[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]},{"input":[1,1],"expected":[[1]]}]
+  },
+  {
+    id: "combination-sum-ii",
+    title: "Combination Sum II",
+    difficulty: "Medium",
+    topic: "Array, Backtracking",
+    signature: {"name":"combinationSum2","params":[{"name":"candidates","type":"integer[]"},{"name":"target","type":"integer"}],"returns":"integer[][]"},
+    description: "Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.",
+    examples: [{"input":"candidates = [10,1,2,7,6,1,5], target = 8","output":"[[1,1,6],[1,2,5],[1,7],[2,6]]"},{"input":"candidates = [2,5,2,1,2], target = 5","output":"[[1,2,2],[5]]"}],
+    constraints: ["1 <= candidates.length <= 10^4","-10^4 <= candidates[i] <= 10^4","-10^9 <= target <= 10^9"],
+    starterCode: {"javascript":"function combinationSum2(candidates, target) {\n  \n}","python":"def combinationSum2(candidates, target):\n    pass","cpp":"class Solution {\npublic:\n    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\n        \n    }\n};"},
+    testCases: [{"input":[[10,1,2,7,6,1,5],8],"expected":[[1,1,6],[1,2,5],[1,7],[2,6]]},{"input":[[2,5,2,1,2],5],"expected":[[1,2,2],[5]]}]
+  },
+  {
+    id: "decode-ways-ii",
+    title: "Decode Ways II",
+    difficulty: "Hard",
+    topic: "String, Dynamic Programming",
+    signature: {"name":"numDecodings","params":[{"name":"s","type":"string"}],"returns":"integer"},
+    description: "A message containing letters from A-Z can be encoded into numbers using the mapping A->1 to Z->26. Beyond that, the message may contain '*' which represents any digit from 1 to 9. Return the number of ways to decode it modulo 10^9+7.",
+    examples: [{"input":"s = \"*\"","output":"9"},{"input":"s = \"1*\"","output":"18"}],
+    constraints: ["1 <= s.length <= 10^5","s consists of printable ASCII characters."],
+    starterCode: {"javascript":"function numDecodings(s) {\\n  \\n}","python":"def numDecodings(s):\\n    pass","cpp":"class Solution {\\npublic:\\n    int numDecodings(string s) {\\n        \\n    }\\n};"},
+    testCases: [{"input":["*"],"expected":9},{"input":["1*"],"expected":18}]
+  },
 ];

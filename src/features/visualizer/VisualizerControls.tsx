@@ -15,6 +15,7 @@ interface VisualizerControlsProps {
   onDsSelect: (ds: string) => void;
   showUI?: boolean;
   onToggleUI?: () => void;
+  hidePlaybackControls?: boolean;
 }
 
 export default function VisualizerControls({
@@ -30,11 +31,12 @@ export default function VisualizerControls({
   activeDs,
   onDsSelect,
   showUI = true,
-  onToggleUI
+  onToggleUI,
+  hidePlaybackControls = false
 }: VisualizerControlsProps) {
-  const [isDsTabsMinimized, setIsDsTabsMinimized] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
-    <div className="absolute top-0 left-0 right-0 z-10 p-6 flex justify-between items-start pointer-events-none">
+    <div className="flex-shrink-0 relative z-50 p-4 border-b border-white/10 bg-[#0B1120]/60 backdrop-blur-xl flex justify-between items-center shadow-lg">
       
       {/* Title */}
       {showUI && (
@@ -48,47 +50,53 @@ export default function VisualizerControls({
         </div>
       )}
         
-      {/* Data Structure Tabs (Center) */}
+      {/* Algorithm Selector Dropdown (Center) */}
       {showUI && (
-        <div className="pointer-events-auto flex flex-col items-center gap-1">
-          {!isDsTabsMinimized ? (
-            <div className="flex gap-2 bg-black/40 backdrop-blur-md border border-[var(--color-border-subtle)] rounded-xl p-2 shadow-xl flex-wrap justify-center max-w-[600px]">
-              {dsList.map(ds => (
-                <button
-                  key={ds}
-                  onClick={() => onDsSelect(ds)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                    activeDs === ds 
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-glass-hover)] hover:text-white'
-                  }`}
-                >
-                  {ds}
-                </button>
-              ))}
-              <button 
-                onClick={() => setIsDsTabsMinimized(true)}
-                className="px-2 text-[var(--color-text-muted)] hover:text-white"
-                title="Minimize Tabs"
-              >
-                <ChevronUp size={16} />
-              </button>
-            </div>
-          ) : (
-            <div className="flex bg-black/40 backdrop-blur-md border border-[var(--color-border-subtle)] rounded-xl p-1 shadow-xl">
-               <button 
-                onClick={() => setIsDsTabsMinimized(false)}
-                className="px-4 py-1 flex items-center gap-2 text-[var(--color-text-secondary)] hover:text-white text-sm font-medium"
-              >
-                <ChevronDown size={16} /> Show {activeDs}
-              </button>
-            </div>
+        <div className="pointer-events-auto flex flex-col items-center gap-1 relative">
+          <button 
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 px-6 py-2.5 bg-black/40 backdrop-blur-md border border-[var(--color-border-subtle)] rounded-xl text-white text-sm font-bold hover:bg-white/10 transition-colors shadow-xl"
+          >
+            {activeDs} {isDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+          
+          {isDropdownOpen && (
+            <>
+              {/* Backdrop for closing dropdown */}
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setIsDropdownOpen(false)}
+              ></div>
+              
+              <div className="absolute top-full mt-2 w-[480px] left-1/2 -translate-x-1/2 bg-[#0B1120] border border-[var(--color-border-subtle)] rounded-xl p-3 shadow-2xl z-50 grid grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                {dsList.map(ds => (
+                  <button
+                    key={ds}
+                    onClick={() => {
+                      onDsSelect(ds);
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left truncate ${
+                      activeDs === ds 
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'text-[var(--color-text-secondary)] hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {ds}
+                  </button>
+                ))}
+              </div>
+            </>
           )}
         </div>
       )}
-      <div className="pointer-events-auto flex items-center gap-3 bg-black/40 backdrop-blur-md border border-[var(--color-border-subtle)] rounded-xl p-3 shadow-xl">
-        <button 
-          onClick={onPrev}
+
+      {/* Right Controls */}
+      <div className="pointer-events-auto flex items-center gap-3">
+        {!hidePlaybackControls && (
+          <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-[var(--color-border-subtle)] rounded-xl p-2 shadow-xl">
+            <button 
+              onClick={onPrev}
           disabled={currentStep === 0}
           className="p-2 rounded-lg bg-[var(--color-surface-glass)] hover:bg-[var(--color-surface-glass-hover)] transition-colors text-[var(--color-text-secondary)] hover:text-white disabled:opacity-50"
         >
@@ -128,6 +136,8 @@ export default function VisualizerControls({
         >
           {showUI ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
+          </div>
+        )}
       </div>
     </div>
   );

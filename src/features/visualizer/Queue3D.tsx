@@ -4,7 +4,7 @@ import { Text, RoundedBox, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface Queue3DProps {
-  data?: number[];
+  data?: any[];
   activeIndex?: number | number[] | null;
   variant?: string;
   baseColor?: string;

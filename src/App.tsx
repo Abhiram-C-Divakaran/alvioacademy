@@ -42,7 +42,7 @@ import DynamicProgrammingPage from './features/learn/DynamicProgrammingPage';
 import GreedyPage from './features/learn/GreedyPage';
 import GraphAlgorithmsPage from './features/learn/GraphAlgorithmsPage';
 import TopicDetailsPage from './features/learn/TopicDetailsPage';
-import AIVisualizerPage from './features/ai-visualizer/AIVisualizerPage';
+import AIVisualizerPage from './features/visualizer/AIVisualizerPage';
 
 
 import './index.css';

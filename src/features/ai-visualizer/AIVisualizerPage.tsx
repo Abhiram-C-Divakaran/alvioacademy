@@ -37,6 +37,7 @@ const mapPromptToAlgo = (prompt: string): AlgoType => {
   if (p.includes('floyd') || p.includes('all pairs')) return 'floyd-warshall';
   if (p.includes('kruskal') || p.includes('minimum spanning') || p.includes('mst')) return 'kruskal';
   if (p.includes('prim')) return 'prim';
+  if (p.includes('kahn')) return 'kahns-algorithm';
   if (p.includes('topological') || p.includes('course schedule') || p.includes('order')) return 'topological-sort';
   if (p.includes('knapsack') || p.includes('0/1')) return 'knapsack';
   if (p.includes('fibonacci') || p.includes('climbing stairs')) return 'fibonacci';

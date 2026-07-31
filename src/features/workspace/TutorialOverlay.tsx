@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, ChevronRight, X, GraduationCap, Info } from 'lucide-react';
 import type { TutorialScript, TutorialStep } from '../../data/tutorialScripts';
 import Button from '../../components/ui/Button';
+import useVisualizationStore from '../../stores/useVisualizationStore';
 
 interface TutorialOverlayProps {
   script: TutorialScript;
@@ -45,7 +46,7 @@ export default function TutorialOverlay({ script, onClose, onPerformAction, onCl
     if (autoPlay && !isFinished) {
       timer = setTimeout(() => {
         handleNext();
-      }, 3500);
+      }, 3500 / (useVisualizationStore.getState().timeline.speed || 1));
     }
     return () => clearTimeout(timer);
   }, [currentStepIndex, autoPlay, isFinished]);

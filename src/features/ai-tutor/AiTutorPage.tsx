@@ -109,9 +109,7 @@ export default function AiTutorPage() {
   };
 
   const handleSend = async () => {
-    if (!input.trim()) {
-      return;
-    }
+    if (!input.trim()) return;
 
     const generateId = () => Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
 
@@ -127,6 +125,15 @@ export default function AiTutorPage() {
     setInput('');
     setIsTyping(true);
 
+    // Add a placeholder assistant message that we'll fill in as tokens stream in
+    const assistantId = generateId();
+    setMessages((prev) => [...prev, {
+      id: assistantId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    }]);
+
     try {
       const history = messages.filter(m => m.id !== '1').map(m => ({
         role: m.role,
@@ -138,7 +145,6 @@ export default function AiTutorPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
             ...history,
             { role: 'user', content: currentInput }
           ]
@@ -150,24 +156,43 @@ export default function AiTutorPage() {
         throw new Error(errorData.error || 'Network response was not ok');
       }
 
-      const data = await response.json();
-      const text = data.text;
+      // Read the SSE stream token by token
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
 
-      const aiMsg: Message = {
-        id: generateId(),
-        role: 'assistant',
-        content: text,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, aiMsg]);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const payload = JSON.parse(line.slice(6));
+            if (payload.delta) {
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === assistantId ? { ...m, content: m.content + payload.delta } : m
+                )
+              );
+            }
+          } catch {
+            // ignore parse errors on partial chunks
+          }
+        }
+      }
     } catch (error: any) {
-      const errorMsg: Message = {
-        id: generateId(),
-        role: 'assistant',
-        content: `**Error:** Failed to get response from AI API. Please check if your API key is valid. \n\nDetails: \`${error.message}\``,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === assistantId
+            ? { ...m, content: `**Error:** Failed to connect to AI. Please check your API key.\n\nDetails: \`${error.message}\`` }
+            : m
+        )
+      );
     } finally {
       setIsTyping(false);
     }
@@ -284,7 +309,7 @@ export default function AiTutorPage() {
             </motion.div>
           ))}
           
-          {isTyping && (
+          {isTyping && messages[messages.length - 1]?.content === '' && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

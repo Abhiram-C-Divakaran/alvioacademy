@@ -69,6 +69,7 @@ export async function executePython(userCode: string, testCases: TestCase[], fun
   const escapedTestCases = JSON.stringify(testCases).replace(/\\/g, '\\\\');
   const runner = `
 import json, sys, time
+from typing import *
 ${userCode}
 test_cases = json.loads("""${escapedTestCases}""")
 passed = 0
@@ -79,10 +80,17 @@ class StdoutCapture:
     def flush(self): pass
 sys.stdout = StdoutCapture()
 try:
-    func = globals().get('${functionName}')
+    func = None
+    if 'Solution' in globals():
+        obj = globals()['Solution']()
+        if hasattr(obj, '${functionName}'):
+            func = getattr(obj, '${functionName}')
+    if not func:
+        func = globals().get('${functionName}')
+    
     if not func:
         sys.stdout = sys.__stdout__
-        print(json.dumps({"status": "Error", "message": f"Function ${functionName} not found", "passedCount": 0}))
+        print(json.dumps({"status": "Error", "message": f"Function ${functionName} not found. Please ensure it's defined at the top level or inside 'class Solution:'.", "passedCount": 0}))
         sys.exit(0)
     start_time = time.time()
     for i, tc in enumerate(test_cases):
@@ -103,21 +111,7 @@ except Exception as e:
     sys.stdout = sys.__stdout__
     print(json.dumps({"status": "Error", "message": str(e), "passedCount": passed, "stdout": [], "executionTimeMs": 0}))
 `;
-  try {
-    const response = await fetch('https://emkc.org/api/v2/piston/execute', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ language: 'python', version: '*', files: [{ content: runner }] })
-    });
-    const data = await response.json();
-    if (data.message) return { status: 'Error', message: data.message, passedCount: 0, totalCount: testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    if (!data.run) return { status: 'Error', message: JSON.stringify(data), passedCount: 0, totalCount: testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    if (data.compile && data.compile.code !== 0) return { status: 'Error', message: data.compile.output, passedCount: 0, totalCount: testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    const outLines = data.run.output.trim().split('\n');
-    const res = JSON.parse(outLines[outLines.length - 1]);
-    return { status: res.status || 'Error', message: res.message, passedCount: res.passedCount || 0, totalCount: testCases.length, stdout: res.stdout || [], executionTimeMs: res.executionTimeMs || Math.round(performance.now() - startTime) };
-  } catch (err: any) {
-    return { status: 'Error', message: err.message || 'Execution failed', passedCount: 0, totalCount: testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-  }
+  return await executeOnWandbox('cpython-3.14.0', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
 }
 
 function getCppType(type: DataType): string {
@@ -179,26 +173,7 @@ function generateCppRunner(userCode: string, problem: CodingProblem): string {
 export async function executeCpp(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateCppRunner(userCode, problem);
-    try {
-        const response = await fetch('https://emkc.org/api/v2/piston/execute', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ language: 'c++', version: '*', files: [{ content: runner }] })
-        });
-        const data = await response.json();
-        if (data.message) return { status: 'Error', message: data.message, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        if (!data.run) return { status: 'Error', message: JSON.stringify(data), passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        if (data.compile && data.compile.code !== 0) return { status: 'Error', message: data.compile.output, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        const output = data.run.output.trim();
-        if (output.startsWith('Passed|')) return { status: 'Passed', passedCount: parseInt(output.split('|')[1]), totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        else if (output.startsWith('Failed|')) {
-            const tcIndex = parseInt(output.split('|')[1]);
-            const tc = problem.testCases[tcIndex];
-            return { status: 'Failed', message: `Test Case ${tcIndex + 1} Failed.\nInput: ${JSON.stringify(tc.input)}\nExpected: ${JSON.stringify(tc.expected)}`, passedCount: tcIndex, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        }
-        return { status: 'Error', message: output || 'Unknown error (Make sure class is Solution)', passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    } catch (err: any) {
-        return { status: 'Error', message: err.message, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    }
+    return await executeOnWandbox('gcc-head', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
 }
 
 function generateCRunner(userCode: string, problem: CodingProblem): string {
@@ -274,24 +249,199 @@ function generateCRunner(userCode: string, problem: CodingProblem): string {
 export async function executeC(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateCRunner(userCode, problem);
-    try {
-        const response = await fetch('https://emkc.org/api/v2/piston/execute', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ language: 'c', version: '*', files: [{ content: runner }] })
-        });
-        const data = await response.json();
-        if (data.message) return { status: 'Error', message: data.message, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        if (!data.run) return { status: 'Error', message: JSON.stringify(data), passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        if (data.compile && data.compile.code !== 0) return { status: 'Error', message: data.compile.output, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        const output = data.run.output.trim();
-        if (output.startsWith('Passed|')) return { status: 'Passed', passedCount: parseInt(output.split('|')[1]), totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        else if (output.startsWith('Failed|')) {
-            const tcIndex = parseInt(output.split('|')[1]);
-            const tc = problem.testCases[tcIndex];
-            return { status: 'Failed', message: `Test Case ${tcIndex + 1} Failed.\nInput: ${JSON.stringify(tc.input)}\nExpected: ${JSON.stringify(tc.expected)}`, passedCount: tcIndex, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-        }
-        return { status: 'Error', message: output || 'Unknown execution error', passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
-    } catch (err: any) {
-        return { status: 'Error', message: err.message, passedCount: 0, totalCount: problem.testCases.length, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+    return await executeOnWandbox('gcc-head-c', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
+}
+
+
+async function executeOnWandbox(compiler: string, code: string, testCasesLength: number, startTime: number): Promise<ExecutionResult> {
+  try {
+    const response = await fetch('https://wandbox.org/api/compile.json', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ compiler, code, save: false })
+    });
+    const data = await response.json();
+    if (data.compiler_error) {
+      return { status: 'Error', message: data.compiler_error, passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
     }
+    if (!data.program_output) {
+      return { status: 'Error', message: data.program_error || data.program_message || 'Unknown execution error', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+    }
+    const outLines = data.program_output.trim().split('\n');
+    const res = JSON.parse(outLines[outLines.length - 1]);
+    return { status: res.status || 'Error', message: res.message, passedCount: res.passedCount || 0, totalCount: testCasesLength, stdout: res.stdout || [], executionTimeMs: Math.round(performance.now() - startTime) };
+  } catch (err: any) {
+    return { status: 'Error', message: err.message || 'Execution failed', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+  }
+}
+
+export async function executeTypescript(userCode: string, testCases: any[], functionName: string): Promise<ExecutionResult> {
+  const stdout: string[] = [];
+  let passedCount = 0;
+  
+  const escapedUserCode = userCode.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'");
+  const escapedTestCases = JSON.stringify(testCases).replace(/\\/g, '\\\\');
+  
+  const runner = `
+const testCases = JSON.parse(\`${escapedTestCases}\`);
+${userCode}
+
+let passed = 0;
+const stdout = [];
+const originalLog = console.log;
+console.log = (...args) => {
+    stdout.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '));
+};
+
+try {
+    const userFunc = eval(\`(${functionName})\`);
+    if (typeof userFunc !== 'function') {
+        throw new Error('Function ' + functionName + ' not found.');
+    }
+    
+    for (let i = 0; i < testCases.length; i++) {
+        const tc = testCases[i];
+        const res = userFunc(...tc.input);
+        if (JSON.stringify(res) === JSON.stringify(tc.expected)) {
+            passed++;
+        } else {
+            originalLog(JSON.stringify({
+                status: 'Failed',
+                message: \`Test Case \${i + 1} Failed.\\nInput: \${JSON.stringify(tc.input)}\\nExpected: \${JSON.stringify(tc.expected)}\\nOutput: \${JSON.stringify(res)}\`,
+                passedCount: passed,
+                stdout
+            }));
+            process.exit(0);
+        }
+    }
+    originalLog(JSON.stringify({status: 'Passed', passedCount: passed, stdout}));
+} catch(e) {
+    originalLog(JSON.stringify({status: 'Error', message: String(e), passedCount: passed, stdout}));
+}
+`;
+  
+  const startTime = performance.now();
+  return await executeOnWandbox('typescript-5.6.2', runner, testCases.length, startTime);
+}
+
+function getJavaType(type: DataType): string {
+    if (type === 'integer') return 'int';
+    if (type === 'string') return 'String';
+    if (type === 'boolean') return 'boolean';
+    if (type === 'integer[]') return 'int[]';
+    if (type === 'char[]') return 'char[]';
+    if (type === 'integer[][]') return 'int[][]';
+    return 'Object';
+}
+
+function getJavaVal(type: DataType, val: any): string {
+    if (type === 'integer') return String(val);
+    if (type === 'string') return `"${val}"`;
+    if (type === 'boolean') return val ? 'true' : 'false';
+    if (type === 'integer[]') return `new int[]{${val.join(',')}}`;
+    if (type === 'char[]') return `new char[]{${val.map((c:string)=>`'${c}'`).join(',')}}`;
+    if (type === 'integer[][]') return `new int[][]{${val.map((r:any)=>`{${r.join(',')}}`).join(',')}}`;
+    return 'null';
+}
+
+function generateJavaRunner(userCode: string, problem: CodingProblem): string {
+    const sig = problem.signature;
+    if (!sig) return '#error "Missing signature"';
+    
+    let runner = `import java.util.*;\nimport java.util.stream.*;\n\n${userCode}\n\npublic class Main {\n    public static void main(String[] args) {\n        Solution sol = new Solution();\n        int passed = 0;\n`;
+    
+    problem.testCases.forEach((tc, i) => {
+        runner += `        {\n`;
+        sig.params.forEach((param, j) => {
+            runner += `            ${getJavaType(param.type)} ${param.name} = ${getJavaVal(param.type, tc.input[j])};\n`;
+        });
+        
+        const callArgs = sig.params.map(p => p.name).join(', ');
+        runner += `            ${getJavaType(sig.returns)} res = sol.${sig.name}(${callArgs});\n`;
+        runner += `            ${getJavaType(sig.returns)} exp = ${getJavaVal(sig.returns, tc.expected)};\n`;
+        
+        if (sig.returns.endsWith('[]')) {
+            if (sig.returns === 'integer[][]') {
+                runner += `            if (Arrays.deepEquals(res, exp)) passed++;\n`;
+            } else {
+                runner += `            if (Arrays.equals(res, exp)) passed++;\n`;
+            }
+        } else {
+            if (sig.returns === 'string') {
+                runner += `            if (res.equals(exp)) passed++;\n`;
+            } else {
+                runner += `            if (res == exp) passed++;\n`;
+            }
+        }
+        runner += `            else { System.out.println("Failed|" + ${i}); return; }\n        }\n`;
+    });
+    
+    runner += `        System.out.println("Passed|" + passed);\n    }\n}\n`;
+    return runner;
+}
+
+export async function executeJava(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
+    const startTime = performance.now();
+    const runner = generateJavaRunner(userCode, problem);
+    return await executeOnWandbox('openjdk-jdk-22+36', runner, problem ? problem.testCases.length : 0, startTime);
+}
+
+function getCsharpType(type: DataType): string {
+    if (type === 'integer') return 'int';
+    if (type === 'string') return 'string';
+    if (type === 'boolean') return 'bool';
+    if (type === 'integer[]') return 'int[]';
+    if (type === 'char[]') return 'char[]';
+    if (type === 'integer[][]') return 'int[][]';
+    return 'object';
+}
+
+function getCsharpVal(type: DataType, val: any): string {
+    if (type === 'integer') return String(val);
+    if (type === 'string') return `"${val}"`;
+    if (type === 'boolean') return val ? 'true' : 'false';
+    if (type === 'integer[]') return `new int[]{${val.join(',')}}`;
+    if (type === 'char[]') return `new char[]{${val.map((c:string)=>`'${c}'`).join(',')}}`;
+    if (type === 'integer[][]') return `new int[][]{${val.map((r:any)=>`new int[]{${r.join(',')}}`).join(',')}}`;
+    return 'null';
+}
+
+function generateCsharpRunner(userCode: string, problem: CodingProblem): string {
+    const sig = problem.signature;
+    if (!sig) return '#error "Missing signature"';
+    
+    let runner = `using System;\nusing System.Linq;\nusing System.Collections.Generic;\n\n${userCode}\n\npublic class Program {\n    public static void Main(string[] args) {\n        Solution sol = new Solution();\n        int passed = 0;\n`;
+    
+    problem.testCases.forEach((tc, i) => {
+        runner += `        {\n`;
+        sig.params.forEach((param, j) => {
+            runner += `            ${getCsharpType(param.type)} ${param.name} = ${getCsharpVal(param.type, tc.input[j])};\n`;
+        });
+        
+        const callArgs = sig.params.map(p => p.name).join(', ');
+        runner += `            ${getCsharpType(sig.returns)} res = sol.${sig.name}(${callArgs});\n`;
+        runner += `            ${getCsharpType(sig.returns)} exp = ${getCsharpVal(sig.returns, tc.expected)};\n`;
+        
+        if (sig.returns.endsWith('[]')) {
+            if (sig.returns === 'integer[][]') {
+                runner += `            bool ok = true;\n`;
+                runner += `            if(res.Length != exp.Length) ok = false;\n`;
+                runner += `            else for(int k=0; k<res.Length; k++) if(!res[k].SequenceEqual(exp[k])) ok = false;\n`;
+                runner += `            if (ok) passed++;\n`;
+            } else {
+                runner += `            if (res.SequenceEqual(exp)) passed++;\n`;
+            }
+        } else {
+            runner += `            if (res == exp) passed++;\n`;
+        }
+        runner += `            else { Console.WriteLine("Failed|" + ${i}); return; }\n        }\n`;
+    });
+    
+    runner += `        Console.WriteLine("Passed|" + passed);\n    }\n}\n`;
+    return runner;
+}
+
+export async function executeCsharp(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
+    const startTime = performance.now();
+    const runner = generateCsharpRunner(userCode, problem);
+    return await executeOnWandbox('dotnetcore-8.0.402', runner, problem ? problem.testCases.length : 0, startTime);
 }

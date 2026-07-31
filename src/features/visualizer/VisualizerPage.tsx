@@ -241,7 +241,9 @@ const tutorials: Record<string, TutorialStep[]> = {
 
 export default function VisualizerPage({ initialDs, hideUI = false }: { initialDs?: string, hideUI?: boolean } = {}) {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const paramDs = searchParams.get('ds');
+  const planetColor = location.state?.planetColor;
   const [activeDs, setActiveDs] = useState(initialDs || paramDs || 'Array');
   const [activeVariant, setActiveVariant] = useState('Static Array');
   const [currentStep, setCurrentStep] = useState(0);
@@ -403,9 +405,6 @@ export default function VisualizerPage({ initialDs, hideUI = false }: { initialD
       
     // Extract for linked list
     const llData = dsState.type === 'linked-list' ? dsState.nodes.map(n => Number(n.value)) : [];
-
-    const location = useLocation();
-    const planetColor = location.state?.planetColor;
 
     switch (activeDs) {
       case 'Array': return <Array3D data={linearData} activeIndex={activeIndex as number} variant={activeVariant} capacity={dsState?.type === 'array' ? dsState.capacity : undefined} baseColor={planetColor} />;

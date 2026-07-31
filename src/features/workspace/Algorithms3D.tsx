@@ -9,9 +9,10 @@ interface AlgoTile3DProps {
   yTarget: number;
   color: string;
   isActive: boolean;
+  speed?: number;
 }
 
-function AlgoTile3D({ val, xTarget, yTarget, color, isActive }: AlgoTile3DProps) {
+function AlgoTile3D({ val, xTarget, yTarget, color, isActive, speed = 1 }: AlgoTile3DProps) {
   const ref = useRef<THREE.Group>(null);
 
   // Instantly place on mount so it doesn't animate from (0, 0, 0)
@@ -24,8 +25,9 @@ function AlgoTile3D({ val, xTarget, yTarget, color, isActive }: AlgoTile3DProps)
   useFrame(() => {
     if (ref.current) {
       // Smoothly interpolate position towards target coordinates
-      ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, xTarget, 0.12);
-      ref.current.position.y = THREE.MathUtils.lerp(ref.current.position.y, yTarget, 0.12);
+      const lerpFactor = 0.12 * speed;
+      ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, xTarget, lerpFactor);
+      ref.current.position.y = THREE.MathUtils.lerp(ref.current.position.y, yTarget, lerpFactor);
     }
   });
 
@@ -74,9 +76,10 @@ function AlgoTile3D({ val, xTarget, yTarget, color, isActive }: AlgoTile3DProps)
 interface Algorithms3DProps {
   step: any;
   algoType: string;
+  speed?: number;
 }
 
-export default function Algorithms3D({ step, algoType }: Algorithms3DProps) {
+export default function Algorithms3D({ step, algoType, speed = 1 }: Algorithms3DProps) {
   const groupRef = useRef<THREE.Group>(null);
 
   const array = step ? step.array : [];
@@ -105,44 +108,52 @@ export default function Algorithms3D({ step, algoType }: Algorithms3DProps) {
   return (
     <group ref={groupRef} scale={scale} position={[0, -0.5, 0]}>
       {/* Animated Array Tiles */}
-      {array.map((val: number, i: number) => {
-        const isSearching = algoType === 'linear-search' || algoType === 'binary-search';
-        let color = isSearching ? '#ec4899' : '#3b82f6'; // pink for searching, blue for sorting
-        let isActive = false;
-        
-        if (sorted.includes(i) || foundIndex === i) {
-          color = '#10b981'; // green for sorted/found
-          isActive = true;
-        } else if (swapping.includes(i)) {
-          color = '#f59e0b'; // amber for swapping
-          isActive = true;
-        } else if (comparing.includes(i)) {
-          color = '#f43f5e'; // rose for comparing
-          isActive = true;
-        } else if (algoType === 'binary-search' && i >= low && i <= high) {
-          color = '#ec4899'; // pink for active search space
-          isActive = true;
-        } else if (i === currentIndex) {
-          color = '#eab308'; // yellow for current pointer
-          isActive = true;
-        } else if (algoType === 'binary-search') {
-          color = '#475569'; // grayed out if outside search space
-        }
+      {(() => {
+        const seenCount = new Map<number, number>();
+        return array.map((val: number, i: number) => {
+          const count = seenCount.get(val) || 0;
+          seenCount.set(val, count + 1);
+          const uniqueKey = `${val}-${count}`;
+          
+          const isSearching = algoType === 'linear-search' || algoType === 'binary-search';
+          let color = isSearching ? '#ec4899' : '#3b82f6'; // pink for searching, blue for sorting
+          let isActive = false;
+          
+          if (sorted.includes(i) || foundIndex === i) {
+            color = '#10b981'; // green for sorted/found
+            isActive = true;
+          } else if (swapping.includes(i)) {
+            color = '#f59e0b'; // amber for swapping
+            isActive = true;
+          } else if (comparing.includes(i)) {
+            color = '#f43f5e'; // rose for comparing
+            isActive = true;
+          } else if (algoType === 'binary-search' && i >= low && i <= high) {
+            color = '#ec4899'; // pink for active search space
+            isActive = true;
+          } else if (i === currentIndex) {
+            color = '#eab308'; // yellow for current pointer
+            isActive = true;
+          } else if (algoType === 'binary-search') {
+            color = '#475569'; // grayed out if outside search space
+          }
 
-        const xPos = startX + i * spacing;
-        const yPos = isActive ? 0.4 : 0; // Lift active item slightly
+          const xPos = startX + i * spacing;
+          const yPos = isActive ? 0.4 : 0; // Lift active item slightly
 
-        return (
-          <AlgoTile3D
-            key={val}
-            val={val}
-            xTarget={xPos}
-            yTarget={yPos}
-            color={color}
-            isActive={isActive}
-          />
-        );
-      })}
+          return (
+            <AlgoTile3D
+              key={uniqueKey}
+              val={val}
+              xTarget={xPos}
+              yTarget={yPos}
+              color={color}
+              isActive={isActive}
+              speed={speed}
+            />
+          );
+        });
+      })()}
 
       {/* Fixed Index Labels below Slots */}
       {array.map((_, i: number) => {

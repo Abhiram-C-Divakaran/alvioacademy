@@ -234,6 +234,25 @@ export default function WorkspacePage() {
                 ))}
               </div>
             )}
+
+            {/* Speed Toggle for Data Structures */}
+            {(activeTab === 'viz' || activeTab === 'split') && (
+              <div className="flex items-center p-1 rounded-lg bg-[var(--color-bg-tertiary)] ml-2">
+                {[0.5, 1, 2].map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => useVisualizationStore.getState().setSpeed(s)}
+                    className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase transition-colors"
+                    style={{
+                      background: useVisualizationStore(state => state.timeline.speed) === s ? 'var(--gradient-accent)' : 'transparent',
+                      color: useVisualizationStore(state => state.timeline.speed) === s ? 'white' : 'var(--color-text-muted)',
+                    }}
+                  >
+                    {s}x
+                  </button>
+                ))}
+              </div>
+            )}
             
             {(activeTab === 'viz' || activeTab === 'split') && activeScript && !isTutorialMode && (
               <Button 

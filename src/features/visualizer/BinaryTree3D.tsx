@@ -99,9 +99,9 @@ export default function BinaryTree3D({ activeIndex = null, visitedIndex = null, 
         const isActive = (Array.isArray(activeIndex) ? (activeIndex as any[]).includes(node.id) || (activeIndex as any[]).includes(node.val) : activeIndex === node.id || activeIndex === node.val);
         const isVisited = (Array.isArray(visitedIndex) ? (visitedIndex as any[]).includes(node.id) || (visitedIndex as any[]).includes(node.val) : false);
         
-        let color = baseColor || '#3b82f6'; // baseColor or Blue normal
-        if (isActive) color = '#ec4899'; // Pink active
-        else if (isVisited) color = '#10b981'; // Green visited
+        let color = baseColor || '#8B5CF6'; // Purple base
+        if (isActive) color = '#3B82F6'; // Blue active
+        else if (isVisited) color = '#22C55E'; // Green visited
 
         return (
           <group key={node.id} position={[node.x, node.y, 0]}>

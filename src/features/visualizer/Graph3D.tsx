@@ -15,9 +15,7 @@ export default function Graph3D({ activeIndex = null, variant = 'Directed Graph'
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-    }
+    // Intentionally removed auto-rotation so the user can manually inspect the graph smoothly
   });
 
   const isDirected = variant === 'Directed Graph';
@@ -116,20 +114,21 @@ export default function Graph3D({ activeIndex = null, variant = 'Directed Graph'
       {/* Nodes */}
       {nodes.map((node) => {
         const isActive = activeIndex === node.id || (Array.isArray(activeIndex) && activeIndex.includes(node.id));
-        const color = isActive ? '#f97316' : (baseColor || '#6366f1'); // Orange active, baseColor normal
+        const color = isActive ? '#3B82F6' : (baseColor || '#8B5CF6'); // Blue active, Purple normal
 
         return (
           <group key={node.id} position={[node.x, node.y, node.z]}>
             <Sphere args={[0.5, 32, 32]}>
-              <meshStandardMaterial
-                color={color}
-                roughness={0.1}
-                metalness={0.8}
-                envMapIntensity={3}
-                transparent
-                opacity={0.8}
-                emissive={color}
-                emissiveIntensity={isActive ? 1 : 0.2}
+              <meshPhysicalMaterial
+                  color={color}
+                  emissive={color}
+                  emissiveIntensity={isActive ? 0.8 : 0.4}
+                  roughness={0.15}
+                  metalness={0.2}
+                  transmission={0.4}
+                  thickness={0.5}
+                  clearcoat={1}
+                  clearcoatRoughness={0.1}
               />
             </Sphere>
             <mesh rotation={[Math.PI / 2, 0, 0]}>

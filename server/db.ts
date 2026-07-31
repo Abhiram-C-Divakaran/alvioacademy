@@ -43,6 +43,59 @@ db.exec(`
     FOREIGN KEY(user_id) REFERENCES users(id),
     UNIQUE(user_id, course_name)
   );
+
+  CREATE TABLE IF NOT EXISTS problems (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    topic TEXT,
+    difficulty TEXT NOT NULL,
+    description TEXT NOT NULL,
+    examples TEXT NOT NULL,
+    constraints TEXT NOT NULL,
+    signature TEXT NOT NULL,
+    starterCode TEXT NOT NULL,
+    testCases TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS user_problem_interactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    problem_id TEXT NOT NULL,
+    interaction_type TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(problem_id) REFERENCES problems(id),
+    UNIQUE(user_id, problem_id, interaction_type)
+  );
+
+  CREATE TABLE IF NOT EXISTS problem_feedback (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    problem_id TEXT NOT NULL,
+    issues TEXT NOT NULL,
+    additional_feedback TEXT,
+    rating INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(problem_id) REFERENCES problems(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS user_submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    problem_id TEXT NOT NULL,
+    status TEXT NOT NULL,
+    language TEXT NOT NULL,
+    code TEXT NOT NULL,
+    runtime_ms INTEGER,
+    memory_mb REAL,
+    passed_testcases INTEGER,
+    total_testcases INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(problem_id) REFERENCES problems(id)
+  );
 `);
 
 export default db;

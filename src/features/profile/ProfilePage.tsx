@@ -15,7 +15,8 @@ import {
   Zap,
   TrendingUp,
   Cpu,
-  Trophy
+  Trophy,
+  Star
 } from 'lucide-react';
 import useAuthStore from '../../stores/useAuthStore';
 
@@ -76,8 +77,9 @@ export default function ProfilePage() {
   const { user, token } = useAuthStore();
   const [profileData, setProfileData] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [favourites, setFavourites] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'activity'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'activity' | 'favourites'>('overview');
   
   // Edit Profile State
   const [isEditing, setIsEditing] = useState(false);
@@ -92,7 +94,23 @@ export default function ProfilePage() {
   useEffect(() => {
     fetchProfile();
     fetchLeaderboard();
+    fetchFavourites();
   }, [token]);
+
+  const fetchFavourites = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/profile/favourites', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setFavourites(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchLeaderboard = async () => {
     try {
@@ -159,7 +177,7 @@ export default function ProfilePage() {
     );
   }
 
-  const { user: profileUser, activity, courses } = profileData || { user: {}, activity: [], courses: [] };
+  const { user: profileUser, activity, courses, solvedProblems } = profileData || { user: {}, activity: [], courses: [], solvedProblems: [] };
   
   // Stats calculations
   const totalPoints = profileUser?.xp || activity?.reduce((sum: number, a: any) => sum + (a.points || 0), 0) || 0;
@@ -339,7 +357,8 @@ export default function ProfilePage() {
             {[
               { id: 'overview', label: 'Dashboard Overview', icon: <TrendingUp size={14} /> },
               { id: 'skills', label: 'DSA Mastery Checklist', icon: <Cpu size={14} /> },
-              { id: 'activity', label: 'Activity Logs', icon: <Activity size={14} /> }
+              { id: 'activity', label: 'Activity Logs', icon: <Activity size={14} /> },
+              { id: 'favourites', label: 'Favourites', icon: <Star size={14} /> }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -366,6 +385,7 @@ export default function ProfilePage() {
             >
               {/* TAB 1: OVERVIEW */}
               {activeTab === 'overview' && (
+                <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Courses Status */}
                   <div className="space-y-4">
@@ -429,6 +449,45 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Recently Solved Problems */}
+                <div className="space-y-4 mt-6">
+                  <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                    <CheckCircle2 size={20} className="text-green-400" /> Recently Solved
+                  </h2>
+                  <div className="bg-[var(--color-surface-glass)] rounded-3xl p-6 border border-white/5 shadow-2xl">
+                    {solvedProblems && solvedProblems.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {solvedProblems.map((p: any, i: number) => (
+                          <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-green-500/30 transition-all group">
+                            <div className="flex flex-col gap-1">
+                              <span className="font-bold text-sm text-gray-200 group-hover:text-green-400 transition-colors">{p.title}</span>
+                              <span className="text-[10px] text-[var(--color-text-muted)]">
+                                {new Date(p.solved_at).toLocaleDateString()}
+                              </span>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-1 rounded-md ${
+                              p.difficulty === 'Easy' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
+                              p.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                              'bg-red-500/10 text-red-400 border border-red-500/20'
+                            }`}>
+                              {p.difficulty}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8">
+                        <div className="w-12 h-12 bg-white/[0.02] rounded-2xl flex items-center justify-center text-[var(--color-text-muted)] mb-4 border border-white/5 mx-auto">
+                          <CheckCircle2 size={20} />
+                        </div>
+                        <h3 className="text-sm font-semibold text-white mb-2">No problems solved yet</h3>
+                        <p className="text-xs text-[var(--color-text-muted)] max-w-sm mx-auto">Start practicing data structures and algorithms to build up your profile.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                </>
               )}
 
               {/* TAB 2: SKILLS CHECKLIST */}
@@ -495,6 +554,32 @@ export default function ProfilePage() {
                   ) : (
                     <div className="p-8 text-center text-sm font-medium text-[var(--color-text-muted)]">
                       No activity recorded yet.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TAB 4: FAVOURITES */}
+              {activeTab === 'favourites' && (
+                <div className="bg-[var(--color-surface-glass)] rounded-3xl border border-white/5 shadow-2xl overflow-hidden p-6">
+                  <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
+                    <Star size={18} className="text-yellow-400" /> Starred Problems
+                  </h3>
+                  {favourites && favourites.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {favourites.map((fav: any, i: number) => (
+                        <div key={i} className="flex flex-col justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-yellow-500/30 transition-all group cursor-pointer" onClick={() => window.location.href='/practice'}>
+                           <div className="flex justify-between items-start">
+                             <span className="font-bold text-gray-200 group-hover:text-yellow-400 transition-colors">{fav.problem_id.split('-').map((w:string)=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ')}</span>
+                             <Star size={14} className="text-yellow-400 fill-yellow-400" />
+                           </div>
+                           <div className="text-xs text-gray-500 mt-2 font-medium">Starred on {new Date(fav.created_at).toLocaleDateString()}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-8 text-center text-sm font-medium text-[var(--color-text-muted)]">
+                      No starred problems yet.
                     </div>
                   )}
                 </div>

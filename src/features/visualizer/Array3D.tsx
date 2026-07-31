@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { Text, RoundedBox, Billboard, Edges } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSpring, animated } from '@react-spring/three';
+import useVisualizationStore from '../../stores/useVisualizationStore';
 
 interface Array3DProps {
   data?: number[];
@@ -136,9 +137,10 @@ export default function Array3D({ data = [], activeIndex = null, variant = 'Stat
 }
 
 function AnimatedArrayItem({ index, value, xPos, yPos, color, isActive, isGhost, isDynamic, baseColor }: any) {
+  const speed = useVisualizationStore((s) => s.timeline.speed);
   const { position } = useSpring({
     position: [xPos, yPos, 0],
-    config: { mass: 1, tension: 170, friction: 20 }
+    config: { tension: 120 * speed, friction: 14 / speed }
   });
 
   return (
