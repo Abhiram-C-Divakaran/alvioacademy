@@ -267,8 +267,18 @@ async function executeOnWandbox(compiler: string, code: string, testCasesLength:
       return { status: 'Error', message: data.program_error || data.program_message || 'Unknown execution error', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
     }
     const outLines = data.program_output.trim().split('\n');
-    const res = JSON.parse(outLines[outLines.length - 1]);
-    return { status: res.status || 'Error', message: res.message, passedCount: res.passedCount || 0, totalCount: testCasesLength, stdout: res.stdout || [], executionTimeMs: Math.round(performance.now() - startTime) };
+    const lastLine = outLines[outLines.length - 1];
+    let res: any = {};
+    if (lastLine.startsWith('{')) {
+      res = JSON.parse(lastLine);
+    } else if (lastLine.startsWith('Passed|')) {
+      res = { status: 'Passed', passedCount: parseInt(lastLine.split('|')[1], 10), message: '' };
+    } else if (lastLine.startsWith('Failed|')) {
+      res = { status: 'Failed', passedCount: parseInt(lastLine.split('|')[1], 10), message: 'Wrong Answer' };
+    } else {
+      res = { status: 'Error', message: lastLine };
+    }
+    return { status: res.status || 'Error', message: res.message, passedCount: res.passedCount || 0, totalCount: testCasesLength, stdout: res.stdout || outLines.slice(0, -1), executionTimeMs: Math.round(performance.now() - startTime) };
   } catch (err: any) {
     return { status: 'Error', message: err.message || 'Execution failed', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
   }

@@ -41,6 +41,16 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
         ]
       };
     }
+    if (['/coding', '/quiz', '/workspace/pvp'].some(p => location.pathname.startsWith(p))) {
+      return {
+        title: 'Practice',
+        items: [
+          { label: 'Coding Area', path: '/coding', icon: <Terminal size={18} />, badge: 'New', badgeColor: 'bg-blue-500' },
+          { label: 'PvP Coding Duel', path: '/workspace/pvp', icon: <Swords size={18} />, badge: 'LIVE', badgeColor: 'bg-red-500' },
+          { label: 'Quizzes', path: '/quiz', icon: <HelpCircle size={18} /> }
+        ]
+      };
+    }
     if (['/catalog', '/learn', '/workspace', '/video-learning', '/3d-visualizer', '/algorithms-visualizer'].some(p => location.pathname.startsWith(p))) {
       return {
         title: 'Learn',
@@ -53,16 +63,6 @@ export default function Sidebar({ collapsed }: { collapsed?: boolean }) {
           { label: 'Video Lessons', path: '/video-learning', icon: <Video size={18} />, badge: 'AI', badgeColor: 'bg-indigo-500' },
           { label: '3D Data Structures', path: '/3d-visualizer', icon: <Box size={18} /> },
           { label: '3D Algorithms', path: '/algorithms-visualizer', icon: <Box size={18} /> },
-        ]
-      };
-    }
-    if (['/coding', '/quiz', '/workspace/pvp'].some(p => location.pathname.startsWith(p))) {
-      return {
-        title: 'Practice',
-        items: [
-          { label: 'Coding Area', path: '/coding', icon: <Terminal size={18} />, badge: 'New', badgeColor: 'bg-blue-500' },
-          { label: 'PvP Coding Duel', path: '/workspace/pvp', icon: <Swords size={18} />, badge: 'LIVE', badgeColor: 'bg-red-500' },
-          { label: 'Quizzes', path: '/quiz', icon: <HelpCircle size={18} /> }
         ]
       };
     }

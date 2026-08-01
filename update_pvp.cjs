@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+const fs = require('fs');
+
+const code = `import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Play, Trophy, ShieldAlert, Cpu, Code2, Zap, ArrowLeft, RefreshCw, User, Users, AlertTriangle } from 'lucide-react';
 import Editor from '@monaco-editor/react';
@@ -12,7 +14,7 @@ export default function PvPShowdown() {
   // Game states
   const [gameState, setGameState] = useState<'lobby' | 'hosting' | 'joining' | 'playing' | 'ended'>('lobby');
   const [role, setRole] = useState<'host' | 'guest' | null>(null);
-  const [userCode, setUserCode] = useState('// Solve the challenge here:\nfunction reverseList(head) {\n  let prev = null;\n  let curr = head;\n  // Write your code here...\n}');
+  const [userCode, setUserCode] = useState('// Solve the challenge here:\\nfunction reverseList(head) {\\n  let prev = null;\\n  let curr = head;\\n  // Write your code here...\\n}');
   const [opponentCode, setOpponentCode] = useState('');
   
   const [userProgress, setUserProgress] = useState(0);
@@ -87,7 +89,7 @@ export default function PvPShowdown() {
   }, [gameState, role]);
 
   const resetMatch = () => {
-    setUserCode('// Solve the challenge here:\nfunction reverseList(head) {\n  let prev = null;\n  let curr = head;\n  // Write your code here...\n}');
+    setUserCode('// Solve the challenge here:\\nfunction reverseList(head) {\\n  let prev = null;\\n  let curr = head;\\n  // Write your code here...\\n}');
     setOpponentCode('// Waiting for opponent to type...');
     setUserProgress(0);
     setOpponentProgress(0);
@@ -189,13 +191,13 @@ export default function PvPShowdown() {
             <button
               onClick={deploySabotage}
               disabled={cooldown > 0 || isSabotaged}
-              className={`px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-all border ${
+              className={\`px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-all border \${
                 cooldown > 0 || isSabotaged
                   ? 'bg-white/5 border-transparent text-gray-500 cursor-not-allowed' 
                   : 'bg-red-600 hover:bg-red-500 text-white border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.25)]'
-              }`}
+              }\`}
             >
-              <Zap size={13} /> {cooldown > 0 ? `Sabotage CD (${cooldown}s)` : 'Deploy Freeze (Sabotage)'}
+              <Zap size={13} /> {cooldown > 0 ? \`Sabotage CD (\${cooldown}s)\` : 'Deploy Freeze (Sabotage)'}
             </button>
           </div>
         )}
@@ -259,11 +261,11 @@ export default function PvPShowdown() {
           </div>
         ) : gameState === 'ended' ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center p-8 gap-6 relative">
-            <div className={`w-24 h-24 rounded-3xl flex items-center justify-center border shadow-2xl relative z-10 ${
+            <div className={\`w-24 h-24 rounded-3xl flex items-center justify-center border shadow-2xl relative z-10 \${
               winner === 'me' 
                 ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400 shadow-[0_0_50px_rgba(16,185,129,0.3)]' 
                 : 'bg-red-500/20 border-red-500/40 text-red-400 shadow-[0_0_50px_rgba(239,68,68,0.3)]'
-            }`}>
+            }\`}>
               <Trophy size={48} />
             </div>
             <div className="space-y-4 relative z-10">
@@ -293,7 +295,7 @@ export default function PvPShowdown() {
           <div className="flex-1 flex overflow-hidden">
             
             {/* Left Column: Local User Editor */}
-            <div className={`flex-1 flex flex-col h-full border-r border-white/5 relative min-w-0 transition-all duration-300 ${isSabotaged ? 'bg-red-950/40' : ''}`}>
+            <div className={\`flex-1 flex flex-col h-full border-r border-white/5 relative min-w-0 transition-all duration-300 \${isSabotaged ? 'bg-red-950/40' : ''}\`}>
               {/* Sabotage Overlay overlay */}
               <AnimatePresence>
                 {isSabotaged && (
@@ -317,7 +319,7 @@ export default function PvPShowdown() {
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] font-mono text-gray-400">Progress: {Math.round(userProgress)}%</span>
                   <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-400 transition-all duration-300" style={{ width: `${userProgress}%` }} />
+                    <div className="h-full bg-emerald-400 transition-all duration-300" style={{ width: \`\${userProgress}%\` }} />
                   </div>
                 </div>
               </div>
@@ -342,7 +344,7 @@ export default function PvPShowdown() {
                 <button
                   onClick={handleUserCompile}
                   disabled={isSabotaged}
-                  className={`px-6 py-3 rounded-2xl text-white text-xs font-black uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-2 ${isSabotaged ? 'bg-gray-700 cursor-not-allowed opacity-50' : 'bg-emerald-600 hover:bg-emerald-500'}`}
+                  className={\`px-6 py-3 rounded-2xl text-white text-xs font-black uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-2 \${isSabotaged ? 'bg-gray-700 cursor-not-allowed opacity-50' : 'bg-emerald-600 hover:bg-emerald-500'}\`}
                 >
                   <Play size={12} fill="currentColor" /> Run & Pass Test Case
                 </button>
@@ -359,7 +361,7 @@ export default function PvPShowdown() {
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] font-mono text-gray-400">Progress: {Math.round(opponentProgress)}%</span>
                   <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-red-500 transition-all duration-300" style={{ width: `${opponentProgress}%` }} />
+                    <div className="h-full bg-red-500 transition-all duration-300" style={{ width: \`\${opponentProgress}%\` }} />
                   </div>
                 </div>
               </div>
@@ -394,3 +396,7 @@ export default function PvPShowdown() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/features/workspace/PvPShowdown.tsx', code);
+console.log("Successfully rewrote PvPShowdown.tsx");

@@ -51,6 +51,104 @@ import type { CodingProblem } from '../../data/codingProblems';
 import { executeJavaScript, executePython, executeCpp, executeC, executeJava, executeTypescript, executeCsharp, extractFunctionName } from './CodeExecutionEngine';
 import type { ExecutionResult } from './CodeExecutionEngine';
 
+const generateStarterCode = (problem: CodingProblem, lang: string): string => {
+  if (problem.starterCode && problem.starterCode[lang as keyof typeof problem.starterCode]) {
+    return problem.starterCode[lang as keyof typeof problem.starterCode]!;
+  }
+  
+  if (!problem.signature) return `// Implement your solution in ${lang}\n`;
+
+  const { name, params, returns } = problem.signature;
+  
+  const mapType = (type: string, l: string) => {
+    switch(l) {
+      case 'java':
+        if (type === 'integer') return 'int';
+        if (type === 'integer[]') return 'int[]';
+        if (type === 'integer[][]') return 'int[][]';
+        if (type === 'boolean') return 'boolean';
+        if (type === 'string') return 'String';
+        if (type === 'string[]') return 'String[]';
+        if (type === 'char[]') return 'char[]';
+        return 'Object';
+      case 'csharp':
+        if (type === 'integer') return 'int';
+        if (type === 'integer[]') return 'int[]';
+        if (type === 'integer[][]') return 'int[][]';
+        if (type === 'boolean') return 'bool';
+        if (type === 'string') return 'string';
+        if (type === 'string[]') return 'string[]';
+        if (type === 'char[]') return 'char[]';
+        return 'object';
+      case 'cpp':
+        if (type === 'integer') return 'int';
+        if (type === 'integer[]') return 'vector<int>';
+        if (type === 'integer[][]') return 'vector<vector<int>>';
+        if (type === 'boolean') return 'bool';
+        if (type === 'string') return 'string';
+        if (type === 'string[]') return 'vector<string>';
+        if (type === 'char[]') return 'vector<char>';
+        return 'auto';
+      case 'c':
+        if (type === 'integer') return 'int';
+        if (type === 'integer[]') return 'int*';
+        if (type === 'integer[][]') return 'int**';
+        if (type === 'boolean') return 'bool';
+        if (type === 'string') return 'char*';
+        if (type === 'string[]') return 'char**';
+        if (type === 'char[]') return 'char*';
+        return 'void*';
+      case 'typescript':
+        if (type === 'integer') return 'number';
+        if (type === 'integer[]') return 'number[]';
+        if (type === 'integer[][]') return 'number[][]';
+        if (type === 'boolean') return 'boolean';
+        if (type === 'string') return 'string';
+        if (type === 'string[]') return 'string[]';
+        if (type === 'char[]') return 'string[]';
+        return 'any';
+      default: return 'any';
+    }
+  };
+
+  const tsParams = params.map(p => `${p.name}: ${mapType(p.type, 'typescript')}`).join(', ');
+  const tsReturn = mapType(returns, 'typescript');
+
+  const javaParams = params.map(p => `${mapType(p.type, 'java')} ${p.name}`).join(', ');
+  const javaReturn = mapType(returns, 'java');
+
+  const csParams = params.map(p => `${mapType(p.type, 'csharp')} ${p.name}`).join(', ');
+  const csReturn = mapType(returns, 'csharp');
+
+  const cppParams = params.map(p => `${mapType(p.type, 'cpp')}& ${p.name}`).join(', '); // pass vector by reference
+  const cppReturn = mapType(returns, 'cpp');
+
+  const cParams = params.map(p => {
+    let t = mapType(p.type, 'c');
+    return `${t} ${p.name}${p.type.includes('[]') ? ', int '+p.name+'Size' : ''}`;
+  }).join(', ');
+  const cReturn = mapType(returns, 'c');
+
+  switch(lang) {
+    case 'typescript':
+      return `function ${name}(${tsParams}): ${tsReturn} {\n    \n}`;
+    case 'java':
+      return `class Solution {\n    public ${javaReturn} ${name}(${javaParams}) {\n        \n    }\n}`;
+    case 'csharp':
+      return `public class Solution {\n    public ${csReturn} ${name}(${csParams}) {\n        \n    }\n}`;
+    case 'cpp':
+      return `#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    ${cppReturn} ${name}(${cppParams}) {\n        \n    }\n};`;
+    case 'c':
+      return `#include <stdbool.h>\n#include <stdlib.h>\n\n${cReturn} ${name}(${cParams}) {\n    \n}`;
+    case 'python':
+    case 'python3':
+      return `def ${name}(${params.map(p => p.name).join(', ')}):\n    pass`;
+    case 'javascript':
+    default:
+      return `function ${name}(${params.map(p => p.name).join(', ')}) {\n    \n}`;
+  }
+};
+
 interface CodingWorkspaceProps {
   problem: CodingProblem;
   problemNumber: number;
@@ -68,6 +166,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showTopics, setShowTopics] = useState(false);
+  const [showHints, setShowHints] = useState(false);
   
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
@@ -219,7 +318,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
   const handleLanguageChange = (newLang: 'javascript' | 'python' | 'python3' | 'cpp' | 'c' | 'java' | 'typescript' | 'csharp') => {
     setLanguage(newLang);
     const key = newLang === 'python3' ? 'python' : newLang;
-    setCode(problem.starterCode[key as keyof typeof problem.starterCode] || '');
+    setCode(generateStarterCode(problem, key));
     setResult(null);
   };
 
@@ -350,19 +449,19 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
 
   const resetCode = () => {
     const key = language === 'python3' ? 'python' : language;
-    setCode(problem.starterCode[key as keyof typeof problem.starterCode] || '');
+    setCode(generateStarterCode(problem, key));
     setResult(null);
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] w-full overflow-hidden bg-[#0a0a0a] text-gray-200 p-2 gap-2">
+    <div className="flex h-[calc(100vh-4rem)] w-full overflow-hidden bg-transparent text-gray-200 p-2 gap-2">
       <PanelGroup direction="horizontal" className="w-full h-full">
 
         {/* ── LEFT PANEL: Description / Submissions ── */}
-        <Panel defaultSize={45} minSize={28} className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+        <Panel defaultSize={45} minSize={28} className="flex flex-col bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden shadow-2xl">
 
           {/* Left Tab Bar */}
-          <div className="flex items-center justify-between px-4 border-b border-white/5 bg-[#1e1e1e] shrink-0">
+          <div className="flex items-center justify-between px-4 border-b border-white/5 bg-black/20 backdrop-blur-sm shrink-0">
             <div className="flex items-center gap-1.5 h-12">
               <div className="flex items-center mr-2 bg-white/5 rounded-lg border border-white/10 overflow-hidden">
                 <button
@@ -481,12 +580,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                       <span className={`text-[12px] font-medium px-2.5 py-0.5 rounded-full ${problem.difficulty === 'Easy' ? 'text-[#00b8a3] bg-[#00b8a3]/10' : problem.difficulty === 'Medium' ? 'text-[#ffc01e] bg-[#ffc01e]/10' : 'text-[#ef4743] bg-[#ef4743]/10'}`}>
                         {problem.difficulty}
                       </span>
-                      <button
-                        onClick={handleTopHintClick}
-                        className="flex items-center gap-1 text-[12px] font-medium text-gray-400 hover:text-gray-200 transition-colors bg-white/5 hover:bg-white/10 px-2 py-0.5 rounded-full"
-                      >
-                        <Lightbulb size={12} /> Hint
-                      </button>
+
                       <span className="text-[12px] text-gray-400 font-medium bg-white/5 px-2.5 py-0.5 rounded-full">
                         Acceptance Rate: {(() => {
                           const sub = problem.stats?.submissions || 0;
@@ -519,7 +613,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   <div className="space-y-4">
                     <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Examples</h3>
                     {problem.examples.map((ex, i) => (
-                      <div key={i} className="bg-[#1E1E22] border border-[#242428] rounded-xl p-5 text-sm font-mono space-y-3 shadow-inner">
+                      <div key={i} className="bg-white/5 border border-[#242428] rounded-xl p-5 text-sm font-mono space-y-3 shadow-inner">
                         <div className="text-xs font-extrabold text-blue-400">Example {i + 1}</div>
                         <div className="flex items-start">
                           <span className="text-gray-500 w-16 shrink-0 font-bold text-xs mt-0.5">Input:</span>
@@ -602,51 +696,61 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   </div>
 
                   {/* Static Hints Section */}
-                  <div className="pt-6 mt-6 border-t border-white/10 space-y-3">
-                    <div className="text-[15px] font-bold text-white flex items-center gap-2">
-                      <Lightbulb size={16} className="text-yellow-500" /> Hints
-                    </div>
-                    <div className="space-y-2">
-                      {(() => {
-                        const topics = problem.topic ? problem.topic.toLowerCase() : '';
-                        const hints = [];
-                        
-                        if (topics.includes('array')) {
-                          hints.push("Consider using two pointers or a sliding window if you need to track a subarray or pair of elements.");
-                          hints.push("If the array is unsorted, think about whether sorting it first would simplify the problem.");
-                          hints.push("Can you use a Hash Table to keep track of elements you've already seen to reduce time complexity?");
-                        } else if (topics.includes('string')) {
-                          hints.push("Strings are immutable in many languages. Consider converting it to a character array if you need frequent modifications.");
-                          hints.push("Can you use a sliding window approach to track substrings?");
-                          hints.push("Think about using a Hash Map to count character frequencies.");
-                        } else if (topics.includes('dynamic programming')) {
-                          hints.push("Identify the base cases first. What is the solution for the smallest possible input?");
-                          hints.push("Try to define the state for your DP table. What does dp[i] represent in the context of the problem?");
-                          hints.push("Is there a way to optimize space? Often you only need the last one or two states instead of the entire table.");
-                        } else if (topics.includes('tree') || topics.includes('graph')) {
-                          hints.push("Decide whether Depth-First Search (DFS) or Breadth-First Search (BFS) is more appropriate for traversing.");
-                          hints.push("Don't forget to keep track of visited nodes to avoid infinite loops if there are cycles.");
-                          hints.push("Can you solve this recursively? Think about what each node should return to its parent.");
-                        } else {
-                          hints.push("Start by writing out a few manual test cases on paper to look for a pattern.");
-                          hints.push("What is the brute-force approach? Once you have that, look for redundant work you can eliminate.");
-                          hints.push("Consider the time and space complexity tradeoffs. Can you use extra memory to save execution time?");
-                        }
-                        
-                        if (problem.difficulty === 'Hard') {
-                          hints[2] = "This is a Hard problem. Don't be afraid to combine multiple advanced data structures (like a Trie + DFS, or Priority Queue + HashMap).";
-                        } else if (problem.difficulty === 'Easy') {
-                          hints[0] = "This is an Easy problem. A simple loop or basic data structure is likely all you need.";
-                        }
+                  <div className="pt-6 mt-6 border-t border-white/10">
+                    <button
+                      onClick={() => setShowHints(!showHints)}
+                      className="flex items-center justify-between w-full py-1 text-[#bfc6ce] hover:text-white transition-colors"
+                    >
+                      <div className="flex items-center gap-2 text-[15px] font-medium">
+                        <Lightbulb size={16} className="text-yellow-500" /> Hints
+                      </div>
+                      <motion.div animate={{ rotate: showHints ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                        <ChevronRight size={16} className="rotate-90" />
+                      </motion.div>
+                    </button>
+                    {showHints && (
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-2 mt-4 space-y-2">
+                        {(() => {
+                          const topics = problem.topic ? problem.topic.toLowerCase() : '';
+                          const hints = [];
+                          
+                          if (topics.includes('array')) {
+                            hints.push("Consider using two pointers or a sliding window if you need to track a subarray or pair of elements.");
+                            hints.push("If the array is unsorted, think about whether sorting it first would simplify the problem.");
+                            hints.push("Can you use a Hash Table to keep track of elements you've already seen to reduce time complexity?");
+                          } else if (topics.includes('string')) {
+                            hints.push("Strings are immutable in many languages. Consider converting it to a character array if you need frequent modifications.");
+                            hints.push("Can you use a sliding window approach to track substrings?");
+                            hints.push("Think about using a Hash Map to count character frequencies.");
+                          } else if (topics.includes('dynamic programming')) {
+                            hints.push("Identify the base cases first. What is the solution for the smallest possible input?");
+                            hints.push("Try to define the state for your DP table. What does dp[i] represent in the context of the problem?");
+                            hints.push("Is there a way to optimize space? Often you only need the last one or two states instead of the entire table.");
+                          } else if (topics.includes('tree') || topics.includes('graph')) {
+                            hints.push("Decide whether Depth-First Search (DFS) or Breadth-First Search (BFS) is more appropriate for traversing.");
+                            hints.push("Don't forget to keep track of visited nodes to avoid infinite loops if there are cycles.");
+                            hints.push("Can you solve this recursively? Think about what each node should return to its parent.");
+                          } else {
+                            hints.push("Start by writing out a few manual test cases on paper to look for a pattern.");
+                            hints.push("What is the brute-force approach? Once you have that, look for redundant work you can eliminate.");
+                            hints.push("Consider the time and space complexity tradeoffs. Can you use extra memory to save execution time?");
+                          }
+                          
+                          if (problem.difficulty === 'Hard') {
+                            hints[2] = "This is a Hard problem. Don't be afraid to combine multiple advanced data structures (like a Trie + DFS, or Priority Queue + HashMap).";
+                          } else if (problem.difficulty === 'Easy') {
+                            hints[0] = "This is an Easy problem. A simple loop or basic data structure is likely all you need.";
+                          }
 
-                        return hints.map((hint, idx) => (
-                          <div key={idx} className="bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-[#bfc6ce] leading-relaxed flex gap-3">
-                            <span className="font-bold text-gray-500">{(idx + 1)}.</span>
-                            <span>{hint}</span>
-                          </div>
-                        ));
-                      })()}
-                    </div>
+                          return hints.map((hint, idx) => (
+                            <div key={idx} className="bg-white/5 border border-white/10 rounded-lg p-3 text-sm text-[#bfc6ce] leading-relaxed flex gap-3">
+                              <span className="font-bold text-gray-500">{(idx + 1)}.</span>
+                              <span>{hint}</span>
+                            </div>
+                          ));
+                        })()}
+                      </motion.div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-4 pt-6 border-t border-white/5">
@@ -755,9 +859,9 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                       </div>
 
                       {/* Stats Cards */}
-                      <div className="flex flex-col gap-6 bg-[#262626] rounded-xl border border-white/5 p-4">
+                      <div className="flex flex-col gap-6 bg-white/5 rounded-xl border border-white/5 p-4">
                         <div className="flex gap-4">
-                          <div className="flex-1 bg-[#323232] rounded-lg p-4">
+                          <div className="flex-1 bg-white/5 rounded-lg p-4">
                             <div className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-300 mb-2">
                               <Clock size={14} /> Runtime
                             </div>
@@ -768,7 +872,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                               Beats 100.00% 🔥
                             </div>
                           </div>
-                          <div className="flex-1 bg-[#323232] rounded-lg p-4">
+                          <div className="flex-1 bg-white/5 rounded-lg p-4">
                             <div className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-300 mb-2">
                               <Cpu size={14} /> Memory
                             </div>
@@ -783,13 +887,13 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
 
                         <div className="space-y-2">
                           <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Code ({latestSubmission.language})</div>
-                          <pre className="bg-[#1e1e1e] rounded-lg p-4 text-[12px] text-gray-300 font-mono overflow-x-auto whitespace-pre-wrap border border-white/5">
+                          <pre className="bg-black/20 backdrop-blur-sm rounded-lg p-4 text-[12px] text-gray-300 font-mono overflow-x-auto whitespace-pre-wrap border border-white/5">
                             {latestSubmission.code}
                           </pre>
                         </div>
 
                         {aiAnalysis && (
-                          <div className="bg-[#1e1e1e] rounded-lg p-4 border border-[#a48ee6]/20">
+                          <div className="bg-black/20 backdrop-blur-sm rounded-lg p-4 border border-[#a48ee6]/20">
                             <div className="text-[10px] font-bold text-[#a48ee6] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                               <Sparkles size={10} /> AI Analysis
                             </div>
@@ -820,16 +924,34 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
           <div ref={rightPanelRef} className="h-full flex flex-col gap-0.5">
 
             {/* ── TOP: Code Editor ── */}
-            <div className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl min-h-0" style={{ flexBasis: `${rightSplitPercent}%`, flexShrink: 0 }}>
+            <div className="flex flex-col bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden shadow-2xl min-h-0" style={{ flexBasis: `${rightSplitPercent}%`, flexShrink: 0 }}>
               <div ref={editorContainerRef} className="flex flex-col w-full h-full">
 
                 {/* Editor Top Bar */}
-                <div className="h-10 bg-[#282828] flex items-center justify-between px-3 border-b border-[#363636] shrink-0">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold">
+                <div className="h-11 bg-white/5 flex items-center justify-between px-3 border-b border-[#363636] shrink-0">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold w-1/3">
                     <span className="text-[#2cbb5d] text-[14px]">{'</>'}</span>
                     <span className="text-gray-200">Code</span>
                   </div>
-                  <div className="flex items-center gap-3 text-gray-400">
+                  
+                  <div className="flex items-center justify-center gap-3 w-1/3">
+                    <button
+                      onClick={handleRun}
+                      disabled={isExecuting || isSubmitting}
+                      className="px-4 py-1.5 rounded-lg bg-white/10 hover:bg-[#3F3F46] border border-white/10 text-gray-200 text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5"
+                    >
+                      <Play size={12} className={isExecuting ? "text-gray-400 animate-pulse" : "text-gray-400"} /> Run
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={isExecuting || isSubmitting}
+                      className="px-5 py-1.5 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-1.5"
+                    >
+                      {isSubmitting ? <Loader2 size={12} className="animate-spin" /> : <Code size={12} />} Submit
+                    </button>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-3 text-gray-400 w-1/3">
                     <button onClick={toggleFullScreen} className="hover:text-gray-200 transition-colors">
                       <Maximize2 size={14} />
                     </button>
@@ -837,21 +959,21 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                 </div>
 
                 {/* Editor Toolbar */}
-                <div className="h-9 bg-[#1e1e1e] flex items-center justify-between px-3 border-b border-[#363636] shrink-0">
+                <div className="h-9 bg-black/20 backdrop-blur-sm flex items-center justify-between px-3 border-b border-[#363636] shrink-0">
                   <div className="flex items-center gap-4">
                     <select
                       value={language}
                       onChange={(e) => handleLanguageChange(e.target.value as any)}
                       className="bg-transparent text-xs text-gray-300 font-medium outline-none cursor-pointer hover:text-white transition-colors border-none"
                     >
-                      <option value="cpp" className="bg-[#282828] text-gray-300">C++</option>
-                      <option value="java" className="bg-[#282828] text-gray-300">Java</option>
-                      <option value="python3" className="bg-[#282828] text-gray-300">Python 3</option>
-                      <option value="python" className="bg-[#282828] text-gray-300">Python</option>
-                      <option value="c" className="bg-[#282828] text-gray-300">C</option>
-                      <option value="csharp" className="bg-[#282828] text-gray-300">C#</option>
-                      <option value="javascript" className="bg-[#282828] text-gray-300">JavaScript</option>
-                      <option value="typescript" className="bg-[#282828] text-gray-300">TypeScript</option>
+                      <option value="cpp" className="bg-white/5 text-gray-300">C++</option>
+                      <option value="java" className="bg-white/5 text-gray-300">Java</option>
+                      <option value="python3" className="bg-white/5 text-gray-300">Python 3</option>
+                      <option value="python" className="bg-white/5 text-gray-300">Python</option>
+                      <option value="c" className="bg-white/5 text-gray-300">C</option>
+                      <option value="csharp" className="bg-white/5 text-gray-300">C#</option>
+                      <option value="javascript" className="bg-white/5 text-gray-300">JavaScript</option>
+                      <option value="typescript" className="bg-white/5 text-gray-300">TypeScript</option>
                     </select>
                   </div>
                   <div className="flex items-center gap-3.5 text-gray-400">
@@ -862,11 +984,21 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                 </div>
 
                 {/* Monaco Editor */}
-                <div className="flex-1 overflow-hidden relative bg-[#1e1e1e]">
+                <div className="flex-1 overflow-hidden relative bg-black/20 backdrop-blur-sm">
                   <Editor
                     height="100%"
                     language={language}
-                    theme="vs-dark"
+                    theme="transparent-dark"
+                    beforeMount={(monaco) => {
+                      monaco.editor.defineTheme('transparent-dark', {
+                        base: 'vs-dark',
+                        inherit: true,
+                        rules: [],
+                        colors: {
+                          'editor.background': '#00000000',
+                        }
+                      });
+                    }}
                     value={code}
                     onChange={(val) => setCode(val || '')}
                     options={{
@@ -882,7 +1014,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                 </div>
 
                 {/* Editor Footer */}
-                <div className="h-8 bg-[#1e1e1e] flex items-center justify-between px-4 text-[11px] text-gray-500 font-medium shrink-0">
+                <div className="h-8 bg-black/20 backdrop-blur-sm flex items-center justify-between px-4 text-[11px] text-gray-500 font-medium shrink-0">
                   <div></div>
                   <div>Ln 1, Col 1</div>
                 </div>
@@ -898,10 +1030,10 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
             </div>
 
             {/* ── BOTTOM: Console / Testcases / Results ── */}
-            <div className="flex flex-col bg-[#1e1e1e] rounded-xl border border-white/10 overflow-hidden shadow-2xl min-h-0 flex-1">
+            <div className="flex flex-col bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden shadow-2xl min-h-0 flex-1">
 
               {/* Console Tab Bar */}
-              <div className="h-10 bg-[#262626] flex items-center justify-between px-4 border-b border-white/5 shrink-0">
+              <div className="h-10 bg-white/5 flex items-center justify-between px-4 border-b border-white/5 shrink-0">
                 <div className="flex items-center gap-4 h-full">
                   {[
                     { id: 'results', label: 'Test Result', icon: <span className="font-bold text-emerald-500 font-mono text-[14px] leading-none">{'>_'}</span> },
@@ -922,8 +1054,18 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   ))}
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
-                  <Maximize2 size={13} className="hover:text-gray-300 cursor-pointer transition-colors" />
-                  <ChevronUp size={16} className="hover:text-gray-300 cursor-pointer transition-colors" />
+                  <Maximize2 
+                    size={13} 
+                    className="hover:text-gray-300 cursor-pointer transition-colors" 
+                    onClick={() => setRightSplitPercent(prev => prev < 20 ? 60 : 5)}
+                    title={rightSplitPercent < 20 ? "Restore" : "Maximize Console"}
+                  />
+                  <ChevronUp 
+                    size={16} 
+                    className={`hover:text-gray-300 cursor-pointer transition-colors transform ${rightSplitPercent > 85 ? 'rotate-0' : 'rotate-180'}`} 
+                    onClick={() => setRightSplitPercent(prev => prev > 85 ? 60 : 92)}
+                    title={rightSplitPercent > 85 ? "Restore Console" : "Minimize Console"}
+                  />
                 </div>
               </div>
 
@@ -1011,7 +1153,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                             {problem.testCases.map((_, idx) => {
                               const isSelected = selectedCaseIdx === idx;
                               const isPassed = result.status === 'Passed' || idx < result.passedCount;
-                              const isFailed = result.status === 'Failed' && idx === result.passedCount;
+                              const isFailed = result.status === 'Failed' && idx >= result.passedCount;
                               const Icon = isPassed ? <CheckSquare size={15} className="text-emerald-500" /> : isFailed ? <XSquare size={15} className="text-rose-500" /> : <div className="w-[15px] h-[15px] rounded-sm bg-white/5 border border-white/10" />;
                               return (
                                 <button
@@ -1068,7 +1210,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                         {result.status === 'Error' && result.stdout && result.stdout.length > 0 && (
                           <div className="space-y-1.5 mt-4">
                             <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Stdout</span>
-                            <div className="bg-[#1E1E22] text-gray-300 p-3.5 rounded-xl text-xs font-medium whitespace-pre-wrap border border-[#242428]">
+                            <div className="bg-white/5 text-gray-300 p-3.5 rounded-xl text-xs font-medium whitespace-pre-wrap border border-[#242428]">
                               {result.stdout.join('\n')}
                             </div>
                           </div>
@@ -1077,58 +1219,10 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                     )}
                   </div>
                 )}
-                      ) : (
-                        <button
-                          onClick={() => setAiHint(null)}
-                          className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
-                        >
-                          Clear
-                        </button>
-                      )}
-                    </div>
 
-                    {loadingHint && (
-                      <div className="flex items-center gap-2 text-gray-400 italic text-sm">
-                        <Loader2 size={12} className="animate-spin" /> Consulting AI Tutor...
-                      </div>
-                    )}
-
-                    {aiHint && !loadingHint && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-200 font-sans text-sm leading-relaxed"
-                      >
-                        {aiHint}
-                      </motion.div>
-                    )}
-
-                    {!aiHint && !loadingHint && (
-                      <div className="text-gray-500 italic text-center py-6 text-sm">
-                        Click "Generate Hint" for a one-sentence nudge from the AI Tutor.
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
 
-              {/* Run / Submit Bar */}
-              <div className="h-14 bg-[#1E1E22] border-t border-white/5 flex items-center justify-end px-4 gap-3 shrink-0">
-                <button
-                  onClick={handleRun}
-                  disabled={isExecuting || isSubmitting}
-                  className="px-5 py-2 rounded-lg bg-[#2C2C32] hover:bg-[#3F3F46] border border-white/10 text-gray-200 text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
-                >
-                  <Play size={14} className="text-gray-400" /> Run
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={isExecuting || isSubmitting}
-                  className="px-6 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white text-xs font-bold transition-all disabled:opacity-50 flex items-center gap-2"
-                >
-                  {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <Code size={14} />} Submit
-                </button>
-              </div>
+
             </div>
 
           </div>
@@ -1148,9 +1242,9 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="bg-[#2D2D2D] rounded-xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col"
+              className="bg-black/40 backdrop-blur-md rounded-xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col"
             >
-              <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#333333]">
+              <div className="flex items-center justify-between p-4 border-b border-white/10 bg-white/10">
                 <h3 className="text-white font-bold text-lg">Feedback</h3>
                 <button onClick={() => setShowFeedbackModal(false)} className="text-gray-400 hover:text-white transition-colors">
                   <X size={20} />
@@ -1215,21 +1309,21 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   <textarea 
                     value={additionalFeedback}
                     onChange={e => setAdditionalFeedback(e.target.value)}
-                    className="w-full bg-[#3A3A3A] border border-transparent rounded-lg p-3 text-white text-sm focus:outline-none focus:border-blue-500 resize-none h-24 transition-colors"
+                    className="w-full bg-white/10 border border-transparent rounded-lg p-3 text-white text-sm focus:outline-none focus:border-blue-500 resize-none h-24 transition-colors"
                     placeholder="Tell us more about your experience..."
                   />
                 </div>
 
               </div>
 
-              <div className="flex items-center justify-between p-4 border-t border-white/10 bg-[#333333]">
+              <div className="flex items-center justify-between p-4 border-t border-white/10 bg-white/10">
                 <div className="text-xs text-gray-400">
                   You may also <a href="https://github.com" target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">submit via Github</a> to get feedback in real time.
                 </div>
                 <div className="flex items-center gap-3">
                   <button 
                     onClick={() => setShowFeedbackModal(false)}
-                    className="px-5 py-2 rounded-lg text-sm font-bold text-white bg-[#4A4A4A] hover:bg-[#5A5A5A] transition-colors"
+                    className="px-5 py-2 rounded-lg text-sm font-bold text-white bg-white/10 hover:bg-[#5A5A5A] transition-colors"
                   >
                     Cancel
                   </button>

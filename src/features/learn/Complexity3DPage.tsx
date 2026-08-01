@@ -20,6 +20,15 @@ function CurveParticle({
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
+  const maxValidN = useMemo(() => {
+    for (let i = 0; i <= 100; i += 0.5) {
+      if (equation(i) > 10100) {
+        return i;
+      }
+    }
+    return 100;
+  }, [equation]);
+
   useFrame((state) => {
     if (!meshRef.current) return;
     
@@ -27,10 +36,12 @@ function CurveParticle({
     const progress = (state.clock.getElapsedTime() * speedMultiplier) % cycle;
     const normalizedProgress = progress / cycle; // 0 to 1
     
-    const currentN = normalizedProgress * inputSize;
+    const activeDomain = Math.min(inputSize, maxValidN);
+    const currentN = normalizedProgress * activeDomain;
+    
     const xVal = (currentN / 100) * 10 - 5;
     const rawOps = equation(currentN);
-    const yVal = Math.min((rawOps / 10000) * 10 - 5, 5);
+    const yVal = (rawOps / 10000) * 10 - 5;
     
     meshRef.current.position.set(xVal, yVal, 0);
   });

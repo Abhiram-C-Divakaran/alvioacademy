@@ -11,7 +11,7 @@ import RankBadge from '../ui/RankBadge';
 const mainNavGroups = [
   { label: 'Dashboard', path: '/dashboard', matches: ['/dashboard', '/progress', '/profile'] },
   { label: 'Learn', path: '/learn', matches: ['/catalog', '/learn', '/workspace', '/video-learning', '/3d-visualizer'] },
-  { label: 'Practice', path: '/coding', matches: ['/coding', '/quiz'] },
+  { label: 'Practice', path: '/coding', matches: ['/coding', '/quiz', '/workspace/pvp'] },
   { label: 'AI Tools', path: '/ai-tutor', matches: ['/ai-tutor', '/mock-interview'] },
 ];
 
@@ -63,7 +63,10 @@ export default function TopBar({ onToggleSidebar }: { onToggleSidebar?: () => vo
         {/* Main Nav Links */}
         <nav className="hidden md:flex items-center gap-1">
           {mainNavGroups.map((group) => {
-            const isActive = group.matches.some(m => location.pathname.startsWith(m) || location.search.includes(m));
+            const isActive = group.matches.some(m => {
+              if (m === '/workspace' && location.pathname.startsWith('/workspace/pvp')) return false;
+              return location.pathname.startsWith(m) || location.search.includes(m);
+            });
             return (
               <NavLink
                 key={group.label}

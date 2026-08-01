@@ -1,4 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
+const fs = require('fs');
+
+const code = `import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, RefreshCw, Trophy, Skull, Circle, Triangle, Square, X } from 'lucide-react';
@@ -36,7 +38,7 @@ const TypewriterHeading = ({ text }: { text: string }) => {
   }, [text]);
 
   return (
-    <h1 className="text-4xl md:text-5xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 uppercase drop-shadow-md">
+    <h1 className="text-5xl md:text-7xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 uppercase drop-shadow-md">
       {displayed}
       <span className="animate-pulse">_</span>
     </h1>
@@ -83,7 +85,7 @@ export default function QuizPage() {
 
   const handleStartQuiz = () => {
     if (availableQuestions.length === 0) return;
-    const shuffled = [...availableQuestions].sort(() => Math.random() - 0.5).slice(0, 30).map(q => ({
+    const shuffled = [...availableQuestions].sort(() => Math.random() - 0.5).slice(0, 10).map(q => ({
       ...q,
       options: [...q.options].sort(() => Math.random() - 0.5)
     }));
@@ -129,8 +131,23 @@ export default function QuizPage() {
     setPhase('setup');
   };
 
+  // Background Pattern Element
+  const BackgroundShapes = () => (
+    <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0 overflow-hidden flex flex-wrap gap-12 justify-around items-center p-8 mix-blend-screen">
+      {[...Array(40)].map((_, i) => {
+        const shape = i % 3 === 0 ? <Circle size={64} strokeWidth={3} /> : i % 3 === 1 ? <Triangle size={64} strokeWidth={3} /> : <Square size={64} strokeWidth={3} />;
+        return (
+          <div key={i} className="text-white opacity-50 flex items-center justify-center">
+            {shape}
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div className="min-h-full w-full relative overflow-hidden bg-transparent font-sans">
+      <BackgroundShapes />
 
       {phase === 'setup' && (
         <div className="relative min-h-[80vh] flex flex-col items-center justify-center p-6 z-10">
@@ -153,8 +170,9 @@ export default function QuizPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Topic Selection */}
-              <div className="bg-[#0a0515]/50 border border-white/5 backdrop-blur-xl rounded-3xl p-6 shadow-2xl relative overflow-hidden group">
-                <h2 className="text-lg font-black mb-5 text-white uppercase tracking-widest text-left">
+              <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500 opacity-50" />
+                <h2 className="text-xl font-black mb-6 text-white uppercase tracking-widest text-left">
                   1. Choose Topic
                 </h2>
                 <div className="flex flex-wrap gap-3 max-h-48 overflow-y-auto custom-scrollbar pr-2">
@@ -162,11 +180,11 @@ export default function QuizPage() {
                     <button
                       key={topic}
                       onClick={() => setSelectedTopic(topic as Topic | 'All')}
-                      className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider border transition-all rounded-full ${
+                      className={\`px-5 py-2.5 text-xs font-bold uppercase tracking-wider border transition-all rounded-full \${
                         selectedTopic === topic
                           ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_15px_rgba(79,70,229,0.5)]'
                           : 'bg-white/5 border-white/10 text-gray-400 hover:border-indigo-500 hover:text-indigo-400'
-                      }`}
+                      }\`}
                     >
                       {topic}
                     </button>
@@ -175,8 +193,9 @@ export default function QuizPage() {
               </div>
 
               {/* Difficulty Selection */}
-              <div className="bg-[#0a0515]/50 border border-white/5 backdrop-blur-xl rounded-3xl p-6 shadow-2xl relative overflow-hidden group">
-                <h2 className="text-lg font-black mb-5 text-white uppercase tracking-widest text-left">
+              <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1 bg-purple-500 opacity-50" />
+                <h2 className="text-xl font-black mb-6 text-white uppercase tracking-widest text-left">
                   2. Select Difficulty
                 </h2>
                 <div className="flex flex-col gap-3">
@@ -184,11 +203,11 @@ export default function QuizPage() {
                     <button
                       key={diff}
                       onClick={() => setSelectedDifficulty(diff as Difficulty | 'All')}
-                      className={`w-full py-3 text-xs font-bold uppercase tracking-widest border transition-all rounded-full ${
+                      className={\`w-full py-4 text-sm font-bold uppercase tracking-widest border transition-all rounded-full \${
                         selectedDifficulty === diff
                           ? 'bg-purple-600 border-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)]'
                           : 'bg-white/5 border-white/10 text-gray-400 hover:border-purple-500 hover:text-purple-400'
-                      }`}
+                      }\`}
                     >
                       {diff}
                     </button>
@@ -200,9 +219,9 @@ export default function QuizPage() {
             <button 
               onClick={handleStartQuiz}
               disabled={availableQuestions.length === 0}
-              className="px-10 py-4 font-black text-lg text-white uppercase tracking-widest bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full disabled:opacity-50 hover:scale-[1.03] border border-white/10 transition-all shadow-[0_10px_30px_rgba(99,102,241,0.4)]"
+              className="px-14 py-5 font-black text-xl text-white uppercase tracking-widest bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full disabled:opacity-50 hover:scale-[1.03] border border-white/10 transition-all shadow-[0_10px_30px_rgba(99,102,241,0.4)]"
             >
-              LET'S GO
+              ENTER GAME ({availableQuestions.length} Qs)
             </button>
           </motion.div>
         </div>
@@ -215,14 +234,14 @@ export default function QuizPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center max-w-2xl w-full"
           >
-            <div className={`p-12 border rounded-[3rem] shadow-2xl backdrop-blur-md ${score / activeQuestions.length >= 0.7 ? 'bg-emerald-900/20 border-emerald-500/50' : 'bg-red-900/20 border-red-500/50'}`}>
+            <div className={\`p-12 border rounded-[3rem] shadow-2xl backdrop-blur-md \${score / activeQuestions.length >= 0.7 ? 'bg-emerald-900/20 border-emerald-500/50' : 'bg-red-900/20 border-red-500/50'}\`}>
               {score / activeQuestions.length >= 0.7 ? (
                 <Trophy size={80} className="mx-auto mb-6 text-emerald-400" />
               ) : (
                 <Skull size={80} className="mx-auto mb-6 text-red-400" />
               )}
               
-              <h2 className={`text-5xl md:text-6xl font-black mb-4 tracking-widest uppercase ${score / activeQuestions.length >= 0.7 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]' : 'text-red-400 drop-shadow-[0_0_15px_rgba(248,113,113,0.5)]'}`}>
+              <h2 className={\`text-5xl md:text-6xl font-black mb-4 tracking-widest uppercase \${score / activeQuestions.length >= 0.7 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]' : 'text-red-400 drop-shadow-[0_0_15px_rgba(248,113,113,0.5)]'}\`}>
                 {score / activeQuestions.length >= 0.7 ? 'SURVIVED' : 'ELIMINATED'}
               </h2>
               
@@ -234,7 +253,7 @@ export default function QuizPage() {
               
               <button 
                 onClick={handleRestart} 
-                className={`px-10 py-4 font-black text-sm rounded-full uppercase tracking-widest transition-all flex items-center justify-center gap-3 mx-auto shadow-lg ${score / activeQuestions.length >= 0.7 ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-red-600 hover:bg-red-500 text-white'}`}
+                className={\`px-10 py-4 font-black text-sm rounded-full uppercase tracking-widest transition-all flex items-center justify-center gap-3 mx-auto shadow-lg \${score / activeQuestions.length >= 0.7 ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-red-600 hover:bg-red-500 text-white'}\`}
               >
                 <RefreshCw size={20} /> PLAY AGAIN
               </button>
@@ -272,7 +291,7 @@ export default function QuizPage() {
             <div className="w-full h-1.5 bg-white/5 rounded-full mb-10 overflow-hidden shadow-inner border border-white/10">
               <motion.div
                 className="h-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.8)]"
-                animate={{ width: `${((currentIdx + 1) / activeQuestions.length) * 100}%` }}
+                animate={{ width: \`\${((currentIdx + 1) / activeQuestions.length) * 100}%\` }}
                 transition={{ duration: 0.4 }}
               />
             </div>
@@ -330,7 +349,7 @@ export default function QuizPage() {
                             key={option.id}
                             onClick={() => handleSelectOption(option.id)}
                             disabled={showExplanation}
-                            className={`w-full flex items-center p-4 rounded-full transition-all font-semibold text-left ${optionStyle}`}
+                            className={\`w-full flex items-center p-4 rounded-full transition-all font-semibold text-left \${optionStyle}\`}
                           >
                             <span className="w-10 h-10 shrink-0 bg-black/40 text-gray-400 flex items-center justify-center rounded-full border border-white/5 shadow-inner mr-4">
                               {shapes[idx % 4]}
@@ -358,11 +377,11 @@ export default function QuizPage() {
               {/* Next Button */}
               <button 
                 onClick={handleNext}
-                className={`hidden md:flex w-14 h-14 rounded-full items-center justify-center transition-colors shrink-0 mt-20 ${
+                className={\`hidden md:flex w-14 h-14 rounded-full items-center justify-center transition-colors shrink-0 mt-20 \${
                   showExplanation 
                     ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_15px_rgba(79,70,229,0.5)]' 
                     : 'bg-white/5 hover:bg-white/10 border border-white/10 text-gray-400 hover:text-white'
-                }`}
+                }\`}
               >
                 <ArrowRight size={24} strokeWidth={2.5} />
               </button>
@@ -392,3 +411,7 @@ export default function QuizPage() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/features/quiz/QuizPage.tsx', code);
+console.log("Successfully rewrote QuizPage.tsx to use SVG icons and typewriter animations");
