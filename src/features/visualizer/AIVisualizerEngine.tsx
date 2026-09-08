@@ -1,142 +1,67 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useTransition, a } from '@react-spring/three';
-import { RoundedBox, Text, Stars, OrbitControls } from '@react-three/drei';
+import { useTransition, useSpring, a } from '@react-spring/three';
+import { RoundedBox, Text, Stars, OrbitControls, Line } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import GraphAlgorithms3D from '../workspace/GraphAlgorithms3D';
-import BinaryTree3D from './BinaryTree3D';
 
-// ─── Universal data-state parser ────────────────────────────────────────────
-function parseElements(state: any): any[] {
-  if (!state) return [];
-  if (Array.isArray(state.elements)) return state.elements;
-  if (typeof state.elements === 'string') return state.elements.split('');
-  if (Array.isArray(state.stack)) return state.stack;
-  if (Array.isArray(state.queue)) return state.queue;
-  if (Array.isArray(state.array)) return state.array;
-  if (Array.isArray(state.heap)) return state.heap;
-  // For hashmap problems, LLM might incorrectly put map entries as elements
-  // We prefer the raw input array; if entries is all we have, show keys
-  if (Array.isArray(state.entries)) return state.entries.map((e: any) => `${e.key}:${e.value}`);
-  if (typeof state.string === 'string') return state.string.split('');
-  for (const v of Object.values(state)) {
-    if (Array.isArray(v) && (v as any[]).every((x) => typeof x !== 'object')) return v as any[];
-  }
-  for (const v of Object.values(state)) {
-    if (Array.isArray(v)) return v as any[];
-  }
-  return [];
-}
+// Import interfaces from page
+import type { AIPrimitive } from './AIVisualizerPage';
+import { linkedListLayout, treeLayout, graphLayout, matrixLayout } from './aiScene';
+import type { SceneEdge, ScenePosition } from './aiScene';
 
-function parseActiveIndices(state: any): number[] {
-  if (!state) return [];
-  if (Array.isArray(state.activeIndices)) return state.activeIndices;
-  if (typeof state.activeIndex === 'number') return [state.activeIndex];
-  return [];
-}
+// Color map for solid, glossy material states
+const STATE_COLORS = {
+  idle: { body: '#0d9488', emissive: '#0f766e', intensity: 0.6 },
+  active: { body: '#3b82f6', emissive: '#2563eb', intensity: 1.0 },
+  comparing: { body: '#f59e0b', emissive: '#d97706', intensity: 1.0 },
+  visited: { body: '#10b981', emissive: '#059669', intensity: 0.8 },
+  rejected: { body: '#ef4444', emissive: '#dc2626', intensity: 1.0 },
+  found: { body: '#10b981', emissive: '#10b981', intensity: 1.5 },
+  swapping: { body: '#d946ef', emissive: '#c026d3', intensity: 1.2 }
+};
 
-function parsePointers(state: any): Record<string, number> {
-  if (!state?.pointers || typeof state.pointers !== 'object') return {};
-  return state.pointers;
-}
+type ElementState = keyof typeof STATE_COLORS;
 
-function parseMapEntries(state: any): { key: string; value: string }[] {
-  if (!state) return [];
-  if (Array.isArray(state.mapEntries)) return state.mapEntries;
-  if (Array.isArray(state.hashmap)) return state.hashmap;
-  return [];
-}
-
-// ─── Single Cube ─────────────────────────────────────────────────────────────
-// Matches the reference: dark teal body, bright teal rim, opaque, solid.
-function GlowCube({ value, index, isActive, totalCount, life }: {
+// ─── Single Primitive Element ────────────────────────────────────────────────
+function GlowCube({
+  value,
+  targetPos,
+  state = 'idle',
+  pointers = [],
+  life
+}: {
   value: any;
-  index: number;
-  isActive: boolean;
-  totalCount: number;
+  targetPos: [number, number, number];
+  state?: ElementState;
+  pointers?: string[];
   life?: any;
 }) {
-  const groupRef = useRef<THREE.Group>(null!);
-  const SPACING = 2.6;
-  const offset = ((totalCount - 1) * SPACING) / 2;
-  const targetX = index * SPACING - offset;
-  
-  const [target, setTarget] = useState(targetX);
-  const anim = useRef({ startX: targetX, progress: 1 });
+  const colors = STATE_COLORS[state] || STATE_COLORS.idle;
 
-  if (targetX !== target) {
-    anim.current = { startX: groupRef.current?.position.x || targetX, progress: 0 };
-    setTarget(targetX);
-  }
-
-  useFrame((state, delta) => {
-    if (!groupRef.current) return;
-    
-    let yOffset = 0;
-    
-    // Handle Enter/Leave (Fly away and Scale)
-    if (life) {
-      const l = life.get();
-      groupRef.current.scale.setScalar(l);
-      yOffset += (1 - l) * 5; // Fly up when dying, drop down when spawning
-    }
-
-    // Handle Swapping Arc
-    if (anim.current.progress < 1) {
-      anim.current.progress += delta * 2.5; // Animation speed
-      if (anim.current.progress > 1) anim.current.progress = 1;
-      
-      const p = anim.current.progress;
-      const smoothP = p * p * (3 - 2 * p); // smoothstep
-      
-      groupRef.current.position.x = THREE.MathUtils.lerp(anim.current.startX, targetX, smoothP);
-      
-      const arcHeight = Math.abs(targetX - anim.current.startX) * 0.4;
-      yOffset += Math.sin(p * Math.PI) * Math.min(arcHeight, 3); // Parabolic jump
-    } else {
-      groupRef.current.position.x = targetX;
-    }
-    
-    groupRef.current.position.y = yOffset;
+  // Use a spring to smoothly transition position, color, emissive, and intensity
+  const { position, color, emissive, intensity } = useSpring({
+    position: [targetPos[0], targetPos[1] + (state === 'active' || state === 'comparing' || state === 'found' ? 0.3 : 0), targetPos[2]],
+    color: colors.body,
+    emissive: colors.emissive,
+    intensity: colors.intensity,
+    config: { mass: 1, tension: 120, friction: 14 }
   });
 
-  // Update colors to match SaaS palette: Purple base, Blue active
-  const bodyColor  = isActive ? '#1e3a8a' : '#2e1065';
-  const edgeColor  = isActive ? '#3B82F6' : '#8B5CF6';
-  const emissive   = isActive ? '#60A5FA' : '#A78BFA';
-  const emissiveInt= isActive ? 1.5 : 0.6;
-
   return (
-    <a.group ref={groupRef as any}>
-      {/* Outer slightly-larger shell for the rim glow effect */}
-      <RoundedBox args={[2.02, 2.02, 2.02]} radius={0.22} smoothness={6}>
-        <meshStandardMaterial
-          color={edgeColor}
-          emissive={edgeColor}
-          emissiveIntensity={isActive ? 1.6 : 0.9}
-          transparent
-          opacity={0.35}
-          side={THREE.BackSide}
-        />
-      </RoundedBox>
-
-      {/* Main body cube */}
-      <RoundedBox args={[1.92, 1.92, 1.92]} radius={0.22} smoothness={6}>
-        <meshStandardMaterial
-          color={bodyColor}
+    <a.group position={position as any} scale={life || 1}>
+      <RoundedBox args={[1.9, 1.9, 1.9]} radius={0.15} smoothness={4}>
+        <a.meshPhysicalMaterial
+          color={color}
           emissive={emissive}
-          emissiveIntensity={emissiveInt}
+          emissiveIntensity={intensity}
+          metalness={0.1}
           roughness={0.15}
-          metalness={0.2}
-          transmission={0.4}
-          thickness={0.5}
           clearcoat={1}
           clearcoatRoughness={0.1}
         />
       </RoundedBox>
 
-      {/* Front face number */}
       <Text
         position={[0, 0, 0.98]}
         fontSize={0.72}
@@ -150,253 +75,530 @@ function GlowCube({ value, index, isActive, totalCount, life }: {
         {String(value)}
       </Text>
 
-      {/* Index label */}
-      <Text
-        position={[0, -1.35, 0]}
-        fontSize={0.28}
-        color={isActive ? '#93c5fd' : '#5eead4'}
-        anchorX="center"
-      >
-        [{index}]
-      </Text>
+      {/* Pointers mapping */}
+      {(pointers?.length || 0) > 0 && (
+        <group position={[0, -1.8, 0]}>
+          <Text
+            fontSize={0.4}
+            color="#A78BFA"
+            anchorX="center"
+            anchorY="top"
+          >
+            {pointers.join(', ')}
+          </Text>
+          <mesh position={[0, 0.4, 0]}>
+            <coneGeometry args={[0.2, 0.4, 4]} />
+            <meshStandardMaterial color="#A78BFA" emissive="#A78BFA" emissiveIntensity={1} />
+          </mesh>
+        </group>
+      )}
     </a.group>
   );
 }
 
-// ─── Pointer arrow ────────────────────────────────────────────────────────────
-function PointerArrow({
-  name,
+// ─── HashBucket Element ──────────────────────────────────────────────────────
+function HashBucket({
+  value,
+  targetPos,
+  state = 'idle',
+  pointers = [],
   index,
-  row = 0,
-  totalCount,
+  life
 }: {
-  name: string;
+  value: any;
+  targetPos: [number, number, number];
+  state?: ElementState;
+  pointers?: string[];
   index: number;
-  row?: number;
-  totalCount: number;
+  life?: any;
 }) {
-  const ref = useRef<THREE.Group>(null!);
-  const SPACING = 2.6;
-  const safeCount = Math.max(1, totalCount);
-  const offset = ((safeCount - 1) * SPACING) / 2;
-  
-  // Failsafe for invalid indices (null/undefined/NaN) to prevent WebGL corruption
-  const safeIndex = typeof index === 'number' && !isNaN(index) ? index : 0;
-  const targetX = safeIndex * SPACING - offset;
-  const [initialX] = useState(targetX);
-  
-  const pointerColor = name.toLowerCase().includes('fast') ? '#F59E0B' // Gold
-                     : name.toLowerCase().includes('slow') ? '#22C55E' // Green
-                     : '#3B82F6'; // Blue
+  const isActive = state === 'active' || state === 'comparing' || state === 'found';
 
-  useFrame(() => {
-    if (!ref.current) return;
-    ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, targetX, 0.1);
+  const boxColor = isActive ? '#06b6d4' : '#111827';
+  const boxEmissive = isActive ? '#06b6d4' : '#000000';
+  const boxIntensity = isActive ? 0.8 : 0;
+
+  const ringColor = isActive ? '#22d3ee' : '#4b5563';
+  const ringEmissive = isActive ? '#22d3ee' : '#000000';
+
+  const { position, bColor, bEmissive, bInt, rColor, rEmissive, rInt, opacity } = useSpring({
+    position: targetPos,
+    bColor: boxColor,
+    bEmissive: boxEmissive,
+    bInt: boxIntensity,
+    rColor: ringColor,
+    rEmissive: ringEmissive,
+    rInt: isActive ? 2 : 0.5,
+    opacity: isActive ? 0.4 : 0.8,
+    config: { mass: 1, tension: 120, friction: 14 }
   });
 
   return (
-    <group ref={ref} position={[initialX, -1.9 - row * 0.6, 0]}>
-      <mesh rotation={[0, 0, Math.PI]}>
-        <coneGeometry args={[0.18, 0.45, 8]} />
-        <meshStandardMaterial color={pointerColor} emissive={pointerColor} emissiveIntensity={1.5} />
-      </mesh>
-      <Text position={[0, 0.55, 0]} fontSize={0.27} color="#fb7185" fontWeight="bold" anchorX="center">
-        {name}
-      </Text>
-    </group>
-  );
-}
-
-// ─── Environment ─────────────────────────────────────────────────────────────
-function Environment() {
-  return (
-    <>
-      {/* Space backdrop matching the reference */}
-      <color attach="background" args={['#071a26']} />
-      <Stars radius={80} depth={60} count={2500} factor={3} fade speed={0.4} />
-
-      {/* Lighting: key top-right, fill bottom-left, teal accent */}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[6, 10, 6]} intensity={1.4} color="#ffffff" />
-      <pointLight position={[-6, 4, 6]} color="#2dd4bf" intensity={3} distance={20} />
-      <pointLight position={[6, -4, -6]} color="#0ea5e9" intensity={1.5} distance={20} />
-      
-      <OrbitControls
-        makeDefault
-        enableDamping={true}
-        dampingFactor={0.05}
-      />
-
-      {/* Subtle bloom — only the bright emissive edges glow, body does not */}
-      <EffectComposer>
-        <Bloom
-          luminanceThreshold={0.65}
-          luminanceSmoothing={0.4}
-          intensity={0.8}
-          mipmapBlur
+    <a.group position={position as any} scale={life || 1}>
+      <RoundedBox args={[1.9, 1.9, 1.9]} radius={0.1} smoothness={4} position={[0, 0, 0]}>
+        <a.meshPhysicalMaterial
+          color={bColor}
+          emissive={bEmissive}
+          emissiveIntensity={bInt}
+          transparent
+          opacity={opacity}
+          metalness={0.2}
+          roughness={0.1}
+          side={THREE.DoubleSide}
+          depthWrite={false}
         />
-      </EffectComposer>
-    </>
+      </RoundedBox>
+
+      <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.05, 0.05, 16, 64]} />
+        <a.meshStandardMaterial
+          color={rColor}
+          emissive={rEmissive}
+          emissiveIntensity={rInt}
+        />
+      </mesh>
+
+      <Text position={[0, -1.6, 0]} fontSize={0.35} color="#94a3b8" anchorX="center">
+        Index [{index}]
+      </Text>
+
+      {value !== undefined && value !== null && value !== '' && (
+        <Text position={[0, 0, 0]} fontSize={0.6} color="#ffffff" fontWeight="bold" anchorX="center" anchorY="middle">
+          {String(value)}
+        </Text>
+      )}
+
+      {(pointers?.length || 0) > 0 && (
+        <group position={[0, -2.2, 0]}>
+          <Text fontSize={0.35} color="#A78BFA" anchorX="center" anchorY="top">
+            {pointers.join(', ')}
+          </Text>
+          <mesh position={[0, 0.4, 0]}>
+            <coneGeometry args={[0.2, 0.4, 4]} />
+            <meshStandardMaterial color="#A78BFA" emissive="#A78BFA" emissiveIntensity={1} />
+          </mesh>
+        </group>
+      )}
+    </a.group>
   );
 }
 
-// ─── Default Scene (Arrays, HashMaps) ─────────────────────────────────────────
-function DefaultScene({ state, dataStructureType }: { state: any; dataStructureType: string }) {
-  const elements = parseElements(state);
-  const activeIndices = parseActiveIndices(state);
-  const pointers = parsePointers(state);
-  const mapEntries = parseMapEntries(state);
-  const isHashmap = dataStructureType === 'hashmap';
-  const seenCount = new Map<any, number>();
-  
-  const mappedElements = elements.map((item, i) => {
-    let id = item?.id !== undefined ? item.id : null;
-    const val = item?.val !== undefined ? item.val : item;
-    
-    // If the LLM just returns an array of numbers without IDs, create stable keys 
-    // based on the value to enable physical block swapping animations!
-    if (id === null) {
-      const count = seenCount.get(val) || 0;
-      seenCount.set(val, count + 1);
-      id = `${val}-${count}`;
-    }
-    
-    return { item, index: i, id, val };
-  });
+// ─── Primitive Renderers ─────────────────────────────────────────────────────
 
-  const transitions = useTransition(mappedElements, {
-    keys: (mappedItem) => mappedItem.id,
+function ArrayRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const elements = primitive?.initialElements || [];
+  const SPACING = 2.6;
+  const totalCount = elements?.length || 0;
+  const offset = ((totalCount - 1) * SPACING) / 2;
+
+  const transitions = useTransition(elements, {
+    keys: (item: any) => item.id,
     from: { life: 0 },
     enter: { life: 1 },
     update: { life: 1 },
     leave: { life: 0 },
-    config: { mass: 1, tension: 200, friction: 20 }
+    config: { mass: 1, tension: 170, friction: 20 }
   });
 
+  const plateWidth = totalCount > 0 ? totalCount * SPACING + 0.4 : 0;
+
   return (
-    <>
+    <group position={[0, offsetY, 0]}>
+      {/* Primitive Label */}
+      <Text position={[0, 2.5, 0]} fontSize={0.8} color="white" anchorX="center">
+        {primitive.id}
+      </Text>
 
-      {/* Primary array row */}
-      {!isHashmap && transitions((styles, { item, index, id, val }) => {
-        return (
-          <GlowCube
-            key={id} // Stable ID enables physical sliding animations!
-            value={val}
-            index={index}
-            isActive={activeIndices.includes(index) || activeIndices.includes(id)}
-            totalCount={elements.length}
-            life={styles.life}
-          />
-        );
-      })}
-
-      {/* Pointer arrows */}
-      {Object.entries(pointers).map(([name, idx], row) => {
-        // Prevent rendering arrows for undefined/null/NaN pointers
-        if (idx === null || idx === undefined || isNaN(Number(idx))) return null;
-        
-        return (
-          <PointerArrow
-            key={name}
-            name={name}
-            index={Number(idx)}
-            row={row}
-            totalCount={elements.length}
-          />
-        );
-      })}
-
-      {/* HashMap entries row — shown as smaller amber cubes below the main array */}
-      {(mapEntries.length > 0 || isHashmap) && (
-        <group position={[0, isHashmap ? 0 : -4.2, 0]}>
-          <Text position={[-((mapEntries.length * 2.1) / 2) - 0.5, 0, 0]} fontSize={0.28} color="#94a3b8" anchorX="right">
-            HashMap:
-          </Text>
-          {mapEntries.map((entry: any, i: number) => {
-            const total = mapEntries.length;
-            const offsetX = ((total - 1) * 2.1) / 2;
-            const label = `${entry.key}→${entry.value}`;
-            return (
-              <group key={entry.key} position={[i * 2.1 - offsetX, 0, 0]}>
-                <RoundedBox args={[1.8, 0.9, 0.3]} radius={0.1} smoothness={4}>
-                  <meshPhysicalMaterial
-                    color="#000000"
-                    emissive="#000000"
-                    roughness={0.1}
-                    metalness={0.8}
-                    transmission={0.9}
-                    thickness={1}
-                    clearcoat={1}
-                  />
-                </RoundedBox>
-                <Text position={[0, 0, 0.2]} fontSize={0.26} color="#ffffff" fontWeight="bold" anchorX="center">
-                  {label}
-                </Text>
-              </group>
-            );
-          })}
-        </group>
+      {/* Base Plate */}
+      {totalCount > 0 && (
+        <mesh position={[0, -1.1, 0]}>
+          <boxGeometry args={[plateWidth, 0.15, 2.2]} />
+          <meshPhysicalMaterial color="#06b6d4" emissive="#06b6d4" emissiveIntensity={0.6} transparent opacity={0.9} />
+        </mesh>
       )}
 
-      {elements.length > 0 && (
-        <Text
-          position={[0, mapEntries.length > 0 ? -2.9 : -2.9, 0]}
-          fontSize={0.35}
-          color="#5eead4"
-          anchorX="center"
-          fontStyle="italic"
-        >
-          {`Size: ${elements.length}`}
+      {/* Size Indicator */}
+      {totalCount > 0 && (
+        <Text position={[0, -2.0, 0]} fontSize={0.4} color="#06b6d4" anchorX="center">
+          Size: {totalCount}
         </Text>
       )}
 
-    </>
+      {transitions((style, item, t, i) => {
+        const targetX = i * SPACING - offset;
+        return (
+          <group key={item.id}>
+            <GlowCube
+              value={item.value !== undefined ? item.value : item.val}
+              targetPos={[targetX, 0, 0]}
+              state={item.state}
+              pointers={item.pointerLabels}
+              life={style.life}
+            />
+            {/* Array Index */}
+            <Text position={[targetX, -1.6, 1.2]} fontSize={0.32} color="#94a3b8" anchorX="center">
+              [{i}]
+            </Text>
+          </group>
+        );
+      })}
+    </group>
   );
 }
 
-// ─── Main export ─────────────────────────────────────────────────────────────
-interface AIVisualizerEngineProps {
-  dataStructureType: string;
-  currentDataState: any;
-  cameraPosition?: [number, number, number];
-}
+function HashMapRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const elements = primitive?.initialElements || [];
+  const SPACING_X = 2.4;
+  const SPACING_Y = 3.5;
+  const COLS = 7;
 
-export default function AIVisualizerEngine({
-  dataStructureType,
-  currentDataState,
-  cameraPosition,
-}: AIVisualizerEngineProps) {
-  const isGraph = dataStructureType === 'graph';
-  const isTree = dataStructureType === 'binary-tree';
+  const totalCount = elements?.length || 0;
+  const offsetTotalX = ((Math.min(totalCount, COLS) - 1) * SPACING_X) / 2;
+
+  const transitions = useTransition(elements, {
+    keys: (item: any) => item.id,
+    from: { life: 0 },
+    enter: { life: 1 },
+    update: { life: 1 },
+    leave: { life: 0 },
+    config: { mass: 1, tension: 170, friction: 20 }
+  });
 
   return (
-    <div className="w-full h-full">
-      <Canvas
-        camera={{ position: [0, 1.5, 11], fov: 48 }}
-        gl={{
-          antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.0,
-        }}
-      >
-        <Environment />
-        
-        {isGraph ? (
-          <GraphAlgorithms3D 
-            algoType={dataStructureType} 
-            activeNodes={currentDataState?.activeNodes || []}
-            visitedNodes={currentDataState?.visitedNodes || []}
-            activeEdges={currentDataState?.activeEdges || []}
-            queue={currentDataState?.queue}
+    <group position={[0, offsetY, 0]}>
+      <Text position={[0, 3, 0]} fontSize={0.8} color="white" anchorX="center">
+        {primitive.id} (HashMap)
+      </Text>
+
+      {transitions((style, item, t, i) => {
+        const row = Math.floor(i / COLS);
+        const col = i % COLS;
+        const targetX = col * SPACING_X - offsetTotalX;
+        const targetY = -row * SPACING_Y;
+
+        // Show key:value
+        const displayVal = item.key !== undefined ? `${item.key}:${item.value}` : item.value;
+
+        return (
+          <HashBucket
+            key={item.id}
+            value={displayVal}
+            targetPos={[targetX, targetY, 0]}
+            state={item.state}
+            pointers={item.pointerLabels}
+            index={i}
+            life={style.life}
           />
-        ) : isTree ? (
-          <BinaryTree3D 
-            dsState={currentDataState} 
-            activeIndex={currentDataState?.activeIndices || []} 
-          />
-        ) : (
-          <DefaultScene state={currentDataState} dataStructureType={dataStructureType} />
+        );
+      })}
+    </group>
+  );
+}
+
+// ─── LinkedList Element ────────────────────────────────────────────────────────
+function LinkedListNode({
+  value,
+  targetPos,
+  state = 'idle',
+  pointers = [],
+  isHead,
+  isTail,
+  hasNext,
+  life
+}: {
+  value: any;
+  targetPos: [number, number, number];
+  state?: ElementState;
+  pointers?: string[];
+  isHead: boolean;
+  isTail: boolean;
+  hasNext: boolean;
+  life?: any;
+}) {
+  const groupRef = useRef<THREE.Group>(null!);
+
+  useFrame((stateObj, delta) => {
+    // Rotate ring smoothly using frame
+    if (groupRef.current && groupRef.current.children[1]) {
+       groupRef.current.children[1].rotation.z += delta * 0.5;
+    }
+  });
+
+  const isActive = state === 'active' || state === 'comparing' || state === 'found';
+  const sphereColor = isActive ? '#06b6d4' : '#0284c7';
+  const ringColor = isActive ? '#22d3ee' : '#38bdf8';
+
+  const { position, sColor, rColor, ringInt } = useSpring({
+    position: targetPos,
+    sColor: sphereColor,
+    rColor: ringColor,
+    ringInt: isActive ? 2 : 1,
+    config: { mass: 1, tension: 120, friction: 14 }
+  });
+
+  return (
+    <a.group ref={groupRef as any} position={position as any} scale={life || 1}>
+      <mesh position={[0, 0, 0]}>
+        <sphereGeometry args={[1.2, 32, 32]} />
+        <a.meshPhysicalMaterial color={sColor} emissive={sColor} emissiveIntensity={0.2} transparent opacity={0.6} roughness={0.1} metalness={0.1} clearcoat={1} clearcoatRoughness={0.1} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+
+      <mesh position={[0, 0, 0]} rotation={[Math.PI / 3.5, 0, 0]}>
+        <torusGeometry args={[1.6, 0.04, 16, 64]} />
+        <a.meshStandardMaterial color={rColor} emissive={rColor} emissiveIntensity={ringInt} />
+      </mesh>
+
+      {value !== undefined && value !== null && value !== '' && (
+        <Text position={[0, 0, 1.25]} fontSize={0.7} color="#ffffff" fontWeight="bold" anchorX="center" anchorY="middle" outlineWidth={0.02} outlineColor="#000000">
+          {String(value)}
+        </Text>
+      )}
+
+      {hasNext && (
+        <group position={[2.0, 0, 0]}>
+          <mesh rotation={[0, 0, -Math.PI / 2]}>
+            <cylinderGeometry args={[0.05, 0.05, 1.6]} />
+            <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={1.5} />
+          </mesh>
+          <mesh position={[0.8, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
+            <coneGeometry args={[0.2, 0.4, 16]} />
+            <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={1.5} />
+          </mesh>
+        </group>
+      )}
+
+      {!hasNext && isTail && (
+        <group position={[2.0, 0, 0]}>
+          <mesh rotation={[0, 0, -Math.PI / 2]}>
+            <cylinderGeometry args={[0.05, 0.05, 1.6]} />
+            <meshStandardMaterial color="#ef4444" emissive="#ef4444" emissiveIntensity={1.5} />
+          </mesh>
+          <mesh position={[0.8, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
+            <coneGeometry args={[0.2, 0.4, 16]} />
+            <meshStandardMaterial color="#ef4444" emissive="#ef4444" emissiveIntensity={1.5} />
+          </mesh>
+          <Text position={[2.0, 0, 0]} fontSize={0.5} color="#ef4444" fontStyle="italic" anchorX="center" anchorY="middle">
+            null
+          </Text>
+        </group>
+      )}
+
+      {/* Head/Tail Labels */}
+      <group position={[0, -2, 0]}>
+        {isHead && (
+          <Text position={[0, 0, 0]} fontSize={0.35} color="#22c55e" anchorX="center" anchorY="top">
+            HEAD ➔
+          </Text>
         )}
+        {isTail && !isHead && (
+          <Text position={[0, 0, 0]} fontSize={0.35} color="#ef4444" anchorX="center" anchorY="top">
+            TAIL ➔
+          </Text>
+        )}
+      </group>
+
+      {(pointers?.length || 0) > 0 && (
+        <group position={[0, -2.8, 0]}>
+          <Text fontSize={0.35} color="#A78BFA" anchorX="center" anchorY="top">
+            {pointers.join(', ')}
+          </Text>
+          <mesh position={[0, 0.4, 0]}>
+            <coneGeometry args={[0.2, 0.4, 4]} />
+            <meshStandardMaterial color="#A78BFA" emissive="#A78BFA" emissiveIntensity={1} />
+          </mesh>
+        </group>
+      )}
+    </a.group>
+  );
+}
+
+// ─── Knapsack Element ──────────────────────────────────────────────────────────
+function KnapsackRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const elements = primitive.initialElements || [];
+  const capacity = (primitive as any).capacity;
+
+  const transitions = useTransition(elements, {
+    keys: (item: any) => item.id,
+    from: { life: 0 },
+    enter: { life: 1 },
+    update: { life: 1 },
+    leave: { life: 0 },
+    config: { mass: 1, tension: 170, friction: 20 }
+  });
+
+  return (
+    <group position={[0, offsetY, 0]}>
+      <Text position={[0, 4, 0]} fontSize={0.8} color="white" anchorX="center">
+        {primitive.id} (Knapsack{capacity !== undefined ? ` Cap: ${capacity}` : ''})
+      </Text>
+
+      {/* The Backpack / Container */}
+      <mesh position={[0, 0, -1]}>
+        <boxGeometry args={[10, 4, 3]} />
+        <meshPhysicalMaterial color="#a855f7" transparent opacity={0.15} depthWrite={false} side={THREE.DoubleSide} />
+      </mesh>
+
+      {/* Container base */}
+      <mesh position={[0, -1.9, -1]}>
+        <boxGeometry args={[10.2, 0.2, 3.2]} />
+        <meshStandardMaterial color="#9333ea" />
+      </mesh>
+
+      {transitions((style, item, t, i) => {
+        const isActive = item.state === 'active' || item.state === 'found';
+
+        // Items outside the knapsack are laid out in a row in front
+        const outsideX = (i - elements.length / 2) * 2.2 + 1;
+        const outsideY = -4;
+        const outsideZ = 2;
+
+        // Items inside the bag
+        const insideX = (i % 4 - 1.5) * 2;
+        const insideY = Math.floor(i / 4) * 1.5 - 1;
+        const insideZ = -1;
+
+        const targetX = isActive ? insideX : outsideX;
+        const targetY = isActive ? insideY : outsideY;
+        const targetZ = isActive ? insideZ : outsideZ;
+
+        const displayVal = item.value !== undefined ? item.value : '';
+
+        return (
+          <group key={item.id}>
+             <GlowCube
+               value={displayVal}
+               targetPos={[targetX, targetY, targetZ]}
+               state={item.state}
+               pointers={item.pointerLabels}
+               life={style.life}
+             />
+             {(item.weight !== undefined || item.value !== undefined) && (
+               <Text position={[targetX, targetY - 1.4, targetZ + 1]} fontSize={0.3} color="#cbd5e1" anchorX="center">
+                 {item.weight !== undefined ? `W: ${item.weight}` : ''} {item.value !== undefined ? `V: ${item.value}` : ''}
+               </Text>
+             )}
+          </group>
+        );
+      })}
+    </group>
+  );
+}
+
+function RelationshipLines({ edges, positions }: { edges: SceneEdge[], positions: Map<string, ScenePosition> }) {
+  return <>{edges.map(edge => {
+    const from = positions.get(edge.from);
+    const to = positions.get(edge.to);
+    if (!from || !to) return null;
+    const start = new THREE.Vector3(...from);
+    const end = new THREE.Vector3(...to);
+    const direction = end.clone().sub(start).normalize();
+    start.addScaledVector(direction, 1.1);
+    end.addScaledVector(direction, -1.1);
+    const rotation = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction);
+    const color = STATE_COLORS[edge.state as ElementState]?.body ?? '#94a3b8';
+    return <group key={edge.id}>
+      <Line points={[start, end]} color={color} lineWidth={2} />
+      {edge.directed && <mesh position={end} quaternion={rotation}><coneGeometry args={[0.16, 0.4, 8]} /><meshStandardMaterial color={color} /></mesh>}
+      {edge.weight !== undefined && <Text position={start.clone().lerp(end, 0.5).add(new THREE.Vector3(0, 0.3, 0))} fontSize={0.3}>{String(edge.weight)}</Text>}
+    </group>;
+  })}</>;
+}
+
+function ConnectedRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const layout = primitive.type === 'linkedlist' ? linkedListLayout(primitive) : primitive.type === 'tree' ? treeLayout(primitive) : graphLayout(primitive);
+  return <group position={[0, offsetY, 0]}>
+    <RelationshipLines edges={layout.edges} positions={layout.positions} />
+    {layout.elements.map((node: any) => <GlowCube key={node.id} value={node.value} targetPos={layout.positions.get(node.id)!} state={node.state} pointers={node.pointerLabels} />)}
+  </group>;
+}
+
+function LinkedListRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const layout = linkedListLayout(primitive);
+  return <group position={[0, offsetY, 0]}>
+    <RelationshipLines edges={layout.edges} positions={layout.positions} />
+    {layout.elements.map((node: any) => <LinkedListNode key={node.id} value={node.value}
+      targetPos={layout.positions.get(node.id)!} state={node.state} pointers={node.pointerLabels}
+      isHead={node.id === layout.head} isTail={layout.tails.has(node.id)} hasNext={false} />)}
+  </group>;
+}
+
+function MatrixRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  const layout = matrixLayout(primitive);
+  return <group position={[0, offsetY, 0]}>{layout.elements.map((cell: any) =>
+    <GlowCube key={cell.id} value={cell.value} targetPos={layout.positions.get(cell.id)!} state={cell.state} pointers={cell.pointerLabels} />
+  )}</group>;
+}
+
+// Render supported relationships rather than flattening them into hash buckets.
+function GenericRenderer({ primitive, offsetY }: { primitive: AIPrimitive, offsetY: number }) {
+  if (primitive.type === 'tree' || primitive.type === 'graph') return <ConnectedRenderer primitive={primitive} offsetY={offsetY} />;
+  return <HashMapRenderer primitive={primitive} offsetY={offsetY} />;
+}
+
+// ─── Camera Controller ───────────────────────────────────────────────────────
+// We removed manual camera overrides here to allow OrbitControls to work properly.
+// The floating/alive effect is now handled by autoRotate on the OrbitControls.
+function CameraController({ cameraFocus }: { cameraFocus?: string }) {
+  return null;
+}
+
+// ─── Main Engine ─────────────────────────────────────────────────────────────
+export default function AIVisualizerEngine({ primitives = [], cameraFocus }: { primitives: AIPrimitive[], cameraFocus?: string }) {
+  return (
+    <div className="w-full h-full relative bg-[#09090B]">
+      <Canvas camera={{ position: [0, 2, 14], fov: 45 }} dpr={[1, 2]}>
+
+        <color attach="background" args={['#09090B']} />
+
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[10, 20, 10]} intensity={1.5} color="#8B5CF6" />
+        <directionalLight position={[-10, 20, -10]} intensity={1} color="#3B82F6" />
+        <pointLight position={[0, 0, 5]} intensity={2} color="#D946EF" distance={20} />
+
+        <Stars radius={50} depth={20} count={3000} factor={4} saturation={1} fade speed={1} />
+
+        <CameraController cameraFocus={cameraFocus} />
+
+        <group position={[0, ((primitives.length - 1) * 6) / 2, 0]}>
+          {primitives.map((prim, idx) => {
+            // Stack primitives on Y-axis if multiple exist
+            const offsetY = idx * -6;
+
+            if (prim.type === 'array' || prim.type === 'stack' || prim.type === 'queue') {
+              return <ArrayRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+            }
+            if (prim.type === 'matrix') return <MatrixRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+            if (prim.type === 'hashmap') {
+              return <HashMapRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+            }
+            if (prim.type === 'knapsack') {
+              return <KnapsackRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+            }
+            if (prim.type === 'linkedlist') {
+              return <LinkedListRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+            }
+            return <GenericRenderer key={prim.id} primitive={prim} offsetY={offsetY} />;
+          })}
+        </group>
+
+        <EffectComposer multisampling={4}>
+          <Bloom
+            luminanceThreshold={0.2}
+            luminanceSmoothing={0.9}
+            intensity={1.2}
+            mipmapBlur
+          />
+        </EffectComposer>
+
+        <OrbitControls
+          enableZoom={true}
+          enablePan={true}
+          maxPolarAngle={Math.PI / 1.5}
+          minPolarAngle={Math.PI / 4}
+          minDistance={5}
+          maxDistance={40}
+          autoRotate={false}
+        />
       </Canvas>
     </div>
   );

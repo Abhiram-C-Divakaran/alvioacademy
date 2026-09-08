@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import useAuthStore from '../../stores/useAuthStore';
 import Logo from '../../components/ui/Logo';
+import { restoreSessionProgress } from '../../services/sessionProgress';
 
 export default function AuthPage() {
-  const [tab, setTab] = useState<'login' | 'signup'>('signup');
+  const [tab, setTab] = useState<'login' | 'signup'>(() => new URLSearchParams(window.location.search).get('mode') === 'login' ? 'login' : 'signup');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +17,8 @@ export default function AuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const from = (location.state as any)?.from?.pathname || '/dashboard';
+  const requestedDestination = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname || new URLSearchParams(location.search).get('next');
+  const from = requestedDestination?.startsWith('/') && !requestedDestination.startsWith('//') ? requestedDestination : '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ export default function AuthPage() {
         throw new Error(data.error || 'Authentication failed.');
       }
 
+      await restoreSessionProgress(String(data.user.id));
       setUser(data.user, data.token);
       navigate(from, { replace: true });
     } catch (err: any) {
@@ -62,7 +65,7 @@ export default function AuthPage() {
       {/* Left side: Computer monitor code glow setup */}
       <div 
         className="hidden lg:block lg:w-1/2 relative bg-cover bg-center"
-        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1587831990711-23ca6441447b?q=80&w=2000&auto=format&fit=crop)' }}
+        style={{ backgroundImage: 'url(/landing/coder-1400.webp)' }}
       >
         {/* Neon Purple/Blue overlay matching homepage theme */}
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0A051B] via-[#6366f1]/20 to-transparent" />
@@ -83,27 +86,6 @@ export default function AuthPage() {
             </h2>
           </div>
 
-          {/* Google SSO Button */}
-          <button 
-            type="button" 
-            className="w-full py-3 px-4 bg-[#231743] hover:bg-[#2d1e57] border border-white/5 rounded-xl flex items-center justify-center gap-2.5 font-bold text-sm text-gray-200 shadow-sm transition-all"
-          >
-            {tab === 'signup' ? 'Create account with Google' : 'Sign in with Google'}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-            </svg>
-          </button>
-
-          {/* Divider */}
-          <div className="flex items-center">
-            <div className="flex-grow border-t border-white/5"></div>
-            <span className="mx-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Or</span>
-            <div className="flex-grow border-t border-white/5"></div>
-          </div>
-
           {/* Validation Alert */}
           {error && (
             <motion.div
@@ -121,9 +103,11 @@ export default function AuthPage() {
             
             {tab === 'signup' && (
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-wide">Full Name</label>
+                <label htmlFor="auth-name" className="text-xs font-bold text-gray-400 uppercase tracking-wide">Full Name</label>
                 <input 
                   type="text"
+                  id="auth-name"
+                  autoComplete="name"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -134,9 +118,11 @@ export default function AuthPage() {
             )}
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-wide">Email Address</label>
+              <label htmlFor="auth-email" className="text-xs font-bold text-gray-400 uppercase tracking-wide">Email Address</label>
               <input 
-                type="email" 
+                type="email"
+                id="auth-email"
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -146,9 +132,11 @@ export default function AuthPage() {
             </div>
 
             <div className="space-y-1.5 relative">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-wide">Password</label>
+              <label htmlFor="auth-password" className="text-xs font-bold text-gray-400 uppercase tracking-wide">Password</label>
               <div className="relative">
                 <input 
+                  id="auth-password"
+                  autoComplete={tab === 'signup' ? 'new-password' : 'current-password'}
                   type={showPassword ? 'text' : 'password'} 
                   required
                   value={password}
@@ -158,6 +146,7 @@ export default function AuthPage() {
                 />
                 <button
                   type="button"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                 >

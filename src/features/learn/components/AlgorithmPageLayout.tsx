@@ -243,7 +243,7 @@ export default function AlgorithmPageLayout({
                     initialAlgo={type} 
                     hideSidebar 
                     hideCode 
-                    viewMode="2d" 
+                    viewMode="3d"
                     hideViewModeToggle={true} 
                   />
                 </div>

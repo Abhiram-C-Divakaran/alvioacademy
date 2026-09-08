@@ -1,29 +1,60 @@
-import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, SkipForward, SkipBack, RefreshCcw, Loader2, ChevronDown, CheckCircle2, Circle, Zap, Activity, Brain, Box, Copy, Download, UserCircle, Crown, Sparkles, ArrowRight, Search } from 'lucide-react';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import { Play, Pause, SkipForward, SkipBack, RefreshCcw, Loader2, ChevronDown, CheckCircle2, Circle, Activity, Brain, Box, Copy, Sparkles, ArrowRight, Search } from 'lucide-react';
 import AIVisualizerEngine from './AIVisualizerEngine';
+import { computePrimitives } from './aiScene';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-interface TraceStep {
-  step: number;
-  line: number;
-  description: string;
-  narration?: string;
-  cameraPosition?: [number, number, number];
-  dataState: any;
+export interface AIElementUpdate {
+  primitiveId: string;
+  elementId: string;
+  state: 'idle' | 'active' | 'comparing' | 'visited' | 'rejected' | 'found' | 'swapping';
+  pointerLabels: string[];
+  valueChange: { from: any; to: any } | null;
+  changes?: Record<string, any>;
+  remove?: boolean;
 }
 
-interface LLMResponse {
-  language: string;
-  dataStructureType: string;
-  code: string;
-  trace: TraceStep[];
+export interface AIStep {
+  stepIndex: number;
+  title: string;
+  codeLineActive: number | number[];
+  elementUpdates: AIElementUpdate[];
+  cameraFocus: string;
+  narration: { text: string; estimatedDurationSeconds: number };
+}
+
+export interface AIPrimitive {
+  id: string;
+  type: 'array' | 'linkedlist' | 'tree' | 'graph' | 'stack' | 'queue' | 'hashmap' | 'matrix' | 'knapsack';
+  initialElements: any[];
+  nodes?: any[];
+  edges?: any[];
+  items?: any[];
+  cells?: any[];
+  directed?: boolean;
+  head?: string | number | null;
+  root?: string | number | null;
+  rows?: number;
+  cols?: number;
+  capacity?: number;
+}
+
+export interface LLMResponse {
+  problem: { title: string; difficulty: string; statement: string; constraints: string[] };
+  approach: { name: string; dataStructuresUsed: string[]; timeComplexity: string; spaceComplexity: string; whyThisApproach: string };
+  code: { language: string; lines: { line: number; text: string }[] };
+  scene: { primitives: AIPrimitive[] };
+  steps: AIStep[];
+  summary: { narration: string; keyTakeaway: string };
 }
 
 export default function AIVisualizerPage() {
+  const navigate = useNavigate();
   const [problemText, setProblemText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [llmResult, setLlmResult] = useState<LLMResponse | null>(null);
-  
+
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
@@ -32,27 +63,40 @@ export default function AIVisualizerPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef<HTMLPreElement>(null);
 
+  const computedPrimitives = useMemo(() => computePrimitives(
+    llmResult?.scene?.primitives ?? [], llmResult?.steps ?? [], currentStepIdx,
+  ), [llmResult, currentStepIdx]);
+
+  const handleNewProblem = () => {
+    window.speechSynthesis?.cancel();
+    setIsPlaying(false);
+    setLlmResult(null);
+    setCurrentStepIdx(0);
+    setShowSpeedMenu(false);
+  };
+
   // Synchronize TTS and Playback
   useEffect(() => {
     if (!isPlaying || !llmResult) return;
-    const currentStep = llmResult.trace[currentStepIdx];
-    
+    const currentStep = llmResult.steps[currentStepIdx];
+
     window.speechSynthesis.cancel();
-    
-    const textToSpeak = currentStep.narration || currentStep.description || "Next step.";
+
+    const textToSpeak = currentStep?.narration?.text || currentStep?.title || "Next step.";
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.rate = speed;
-    
-    let fallbackTimer: any;
+
+    let fallbackTimer: ReturnType<typeof setTimeout>;
+    let endTimer: ReturnType<typeof setTimeout>;
     const fallbackDuration = Math.max(2000, textToSpeak.length * 60) / speed;
-    
+
     let hasAdvanced = false;
     const advance = () => {
       if (hasAdvanced) return;
       hasAdvanced = true;
       clearTimeout(fallbackTimer);
       setCurrentStepIdx(prev => {
-        if (prev >= llmResult.trace.length - 1) {
+        if (prev >= (llmResult.steps?.length || 0) - 1) {
           setIsPlaying(false);
           return prev;
         }
@@ -60,17 +104,20 @@ export default function AIVisualizerPage() {
       });
     };
 
-    utterance.onend = () => setTimeout(advance, 800 / speed);
+    utterance.onend = () => { endTimer = setTimeout(advance, 800 / speed); };
     utterance.onerror = (e) => console.warn("TTS Error, falling back to timer:", e);
 
     (window as any)._currentUtterance = utterance;
     window.speechSynthesis.speak(utterance);
-    
+
     fallbackTimer = setTimeout(advance, fallbackDuration + 500);
 
     return () => {
+      hasAdvanced = true;
+      utterance.onend = null;
       window.speechSynthesis.cancel();
       clearTimeout(fallbackTimer);
+      clearTimeout(endTimer);
     };
   }, [isPlaying, currentStepIdx, llmResult, speed]);
 
@@ -83,9 +130,11 @@ export default function AIVisualizerPage() {
       }
     }
     if (codeRef.current && llmResult) {
-      const activeLine = llmResult.trace[currentStepIdx]?.line;
-      if (activeLine) {
-        const lineEl = codeRef.current.querySelector(`[data-line="${activeLine}"]`);
+      const active = llmResult.steps?.[currentStepIdx]?.codeLineActive;
+      const activeLines = Array.isArray(active) ? active : [active];
+
+      if (activeLines && activeLines.length > 0) {
+        const lineEl = codeRef.current.querySelector(`[data-line="${activeLines[0]}"]`);
         if (lineEl) {
           lineEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -95,7 +144,7 @@ export default function AIVisualizerPage() {
 
   const handleGenerate = async () => {
     if (!problemText.trim()) return;
-    
+
     setIsGenerating(true);
     setLlmResult(null);
     setCurrentStepIdx(0);
@@ -119,12 +168,12 @@ export default function AIVisualizerPage() {
     }
   };
 
-  const currentStep = llmResult?.trace[currentStepIdx];
-  const progressPercent = llmResult ? ((currentStepIdx + 1) / llmResult.trace.length) * 100 : 0;
+  const currentStep = llmResult?.steps?.[currentStepIdx];
+  const progressPercent = (llmResult && Array.isArray(llmResult.steps)) ? ((currentStepIdx + 1) / Math.max(1, (llmResult.steps?.length || 0))) * 100 : 0;
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] w-full bg-[#09090B] overflow-hidden text-[#E2E8F0] font-sans">
-      
+
       {/* Empty State / Search Engine View */}
       {!llmResult && !isGenerating ? (
         <div className="flex-1 flex flex-col items-center justify-center relative w-full h-full">
@@ -154,7 +203,7 @@ export default function AIVisualizerPage() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-fuchsia-600 to-blue-600 rounded-full blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
               <div className="relative flex items-center bg-[#18181B] rounded-full p-1.5 pr-1.5 pl-6">
                 <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
-                <input 
+                <input
                   type="text"
                   value={problemText}
                   onChange={(e) => setProblemText(e.target.value)}
@@ -162,7 +211,7 @@ export default function AIVisualizerPage() {
                   placeholder="e.g., How does the Two Sum algorithm work?"
                   className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 text-base md:text-lg py-3 min-w-0"
                 />
-                <button 
+                <button
                   onClick={handleGenerate}
                   className="w-12 h-12 rounded-full bg-gradient-to-r from-[#c026d3] to-[#d946ef] hover:from-[#a21caf] hover:to-[#c026d3] flex items-center justify-center transition-all shadow-[0_0_15px_rgba(217,70,239,0.5)] shrink-0 ml-2"
                 >
@@ -173,8 +222,8 @@ export default function AIVisualizerPage() {
 
             {/* Suggested Pills */}
             <div className="flex flex-wrap items-center justify-center gap-3">
-              {["Two Sum", "Fibonacci Sequence", "Dijkstra shortest path", "Tower of Hanoi", "Binary Search"].map(tag => (
-                <button 
+              {["Two Sum", "Merge Intervals", "LRU Cache", "Binary Search"].map(tag => (
+                <button
                   key={tag}
                   onClick={() => { setProblemText(tag); }}
                   className="px-4 py-2 rounded-full bg-[#18181B] border border-white/5 text-gray-300 text-xs md:text-sm hover:bg-white/10 transition-colors"
@@ -186,157 +235,192 @@ export default function AIVisualizerPage() {
           </div>
         </div>
       ) : (
-        /* Main Workspace (Top Bar + Visualization) */
-        <div className="flex-1 flex flex-col p-6 gap-6 max-w-[2000px] mx-auto w-full min-h-0">
-          
-          {/* Input Card Area */}
-          <div className="flex-shrink-0 bg-[#111827] rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-6 flex flex-col gap-4 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#8B5CF6]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            
-            <div className="flex flex-col md:flex-row gap-6 items-stretch">
-              <div className="flex-1 flex flex-col gap-3">
-                <h2 className="text-[18px] font-semibold text-white tracking-tight flex items-center gap-2">
-                  <Box className="w-5 h-5 text-[#8B5CF6]" /> Define Problem
-                </h2>
-                <textarea 
-                  value={problemText}
-                  onChange={(e) => setProblemText(e.target.value)}
-                  placeholder="Paste any algorithm problem (e.g. Restore IP Addresses) here..."
-                  className="w-full h-[72px] bg-[#09090B] border border-white/[0.08] rounded-xl p-4 text-[15px] text-white/90 focus:outline-none focus:border-[#8B5CF6]/50 focus:ring-1 focus:ring-[#8B5CF6]/50 transition-all resize-none shadow-inner placeholder:text-white/20 custom-scrollbar"
-                />
-                <div className="flex gap-2 items-center flex-wrap">
-                  <span className="px-2.5 py-1 rounded-md bg-[#1F2937] border border-white/5 text-[12px] font-medium text-white/60">Length ≤ 20</span>
-                  <span className="px-2.5 py-1 rounded-md bg-[#1F2937] border border-white/5 text-[12px] font-medium text-white/60">Digits Only</span>
-                  <span className="px-2.5 py-1 rounded-md bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 text-[12px] font-medium text-[#8B5CF6]">Backtracking</span>
-                  <span className="px-2.5 py-1 rounded-md bg-[#3B82F6]/10 border border-[#3B82F6]/20 text-[12px] font-medium text-[#3B82F6]">DFS</span>
-                </div>
-              </div>
+        /* Main Workspace (Full Screen 3D + Floating Widgets) */
+        <div className="flex-1 relative w-full h-full overflow-hidden">
 
-              <div className="flex flex-col justify-end gap-3 min-w-[200px]">
-                <button 
-                  onClick={handleGenerate}
-                  disabled={isGenerating || !problemText.trim()}
-                  className="w-full h-[52px] bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] hover:from-[#7C3AED] hover:to-[#2563EB] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_20px_rgba(139,92,246,0.3)] hover:shadow-[0_4px_24px_rgba(139,92,246,0.5)] disabled:opacity-50 disabled:grayscale active:scale-[0.98]"
-                >
-                  {isGenerating ? <><Loader2 className="w-5 h-5 animate-spin" /> Analyzing...</> : <><Zap className="w-5 h-5 fill-white/20" /> Visualize</>}
-                </button>
-                <div className="flex gap-3">
-                  <button 
-                    onClick={() => { setProblemText(""); setLlmResult(null); }}
-                    className="flex-1 h-[40px] bg-[#1F2937] hover:bg-white/10 text-white/70 hover:text-white text-[13px] font-medium rounded-xl transition-colors border border-white/5"
-                  >
-                    Clear
-                  </button>
-                  <button className="flex-1 h-[40px] bg-[#1F2937] hover:bg-white/10 text-white/70 hover:text-white text-[13px] font-medium rounded-xl transition-colors border border-white/5">
-                    Options
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        {/* Core Visualization Area */}
-        {llmResult && (
-          <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0">
-            
-            {/* Left Column (22%): Timeline */}
-            <div className="w-full md:w-[22%] bg-[#111827] rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden relative">
-              <div className="p-5 border-b border-white/[0.08] bg-[#09090B]/40 flex justify-between items-center backdrop-blur-sm z-10">
-                <h3 className="font-semibold text-[16px] text-white flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-[#22C55E]" /> Execution Steps
-                </h3>
-                <span className="text-[12px] font-mono text-white/40">{currentStepIdx + 1}/{llmResult.trace.length}</span>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto p-5 custom-scrollbar relative" ref={timelineRef}>
-                <div className="absolute left-[31px] top-6 bottom-6 w-[2px] bg-white/[0.05]" />
-                
-                <div className="flex flex-col gap-6 relative z-10">
-                  {llmResult.trace.map((step, idx) => {
-                    const isCompleted = idx < currentStepIdx;
-                    const isCurrent = idx === currentStepIdx;
-                    
-                    return (
-                      <div 
-                        key={idx} 
-                        className={`flex gap-4 cursor-pointer group ${isCurrent ? 'timeline-active' : ''}`}
-                        onClick={() => {
-                          setCurrentStepIdx(idx);
-                          setIsPlaying(false);
-                        }}
-                      >
-                        <div className="flex flex-col items-center gap-2 mt-1">
-                          <div className={`w-6 h-6 rounded-full flex items-center justify-center bg-[#111827] z-10 transition-colors duration-300 ${
-                            isCompleted ? 'ring-2 ring-[#22C55E]' : 
-                            isCurrent ? 'ring-2 ring-[#3B82F6] shadow-[0_0_12px_rgba(59,130,246,0.5)]' : 
-                            'ring-2 ring-white/10 group-hover:ring-white/30'
-                          }`}>
-                            {isCompleted ? <CheckCircle2 className="w-4 h-4 text-[#22C55E]" /> : 
-                             isCurrent ? <div className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" /> : 
-                             <Circle className="w-2.5 h-2.5 text-white/20" />}
-                          </div>
-                        </div>
-                        <div className={`flex-1 flex flex-col gap-1 p-3 rounded-xl border transition-all duration-300 ${
-                          isCurrent ? 'bg-[#3B82F6]/5 border-[#3B82F6]/30 shadow-inner' : 'bg-transparent border-transparent group-hover:bg-white/[0.02]'
-                        }`}>
-                          <span className={`text-[12px] font-bold tracking-wide uppercase ${isCompleted ? 'text-[#22C55E]' : isCurrent ? 'text-[#3B82F6]' : 'text-white/40'}`}>
-                            Step {idx + 1}
-                          </span>
-                          <span className={`text-[14px] leading-snug ${isCurrent ? 'text-white' : 'text-white/60'}`}>
-                            {step.description.length > 50 ? step.description.substring(0, 50) + '...' : step.description}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Center Column (53%): Hero Canvas */}
-            <div className="w-full md:w-[53%] bg-[#111827] rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden relative group">
-              <AIVisualizerEngine 
-                 dataStructureType={llmResult.dataStructureType} 
-                 currentDataState={currentStep?.dataState} 
-                 cameraPosition={currentStep?.cameraPosition}
-              />
-              
-              {/* Floating Explanation Card */}
+          {/* Background 3D Viewer */}
+          {llmResult ? (
+            <div className="absolute inset-0 z-0 bg-[#09090B]">
               <AnimatePresence mode="wait">
+                <AIVisualizerEngine
+                  primitives={computedPrimitives}
+                  cameraFocus={currentStep?.cameraFocus}
+                />
+              </AnimatePresence>
+            </div>
+          ) : (
+            <div className="absolute inset-0 z-0 flex flex-col items-center justify-center bg-[#09090B]">
+              <Loader2 className="w-12 h-12 text-[#8B5CF6] animate-spin mb-4" />
+              <p className="text-white/70 text-lg">AI is storyboarding your visualization...</p>
+            </div>
+          )}
+
+          {/* Floating UI Layer (Only visible when loaded) */}
+          {llmResult && (
+            <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+
+              {/* Question & Complexity Box (Draggable) */}
+              <motion.div
+                drag
+                dragMomentum={false}
+                className="absolute top-6 left-6 pointer-events-auto bg-[#111827]/80 backdrop-blur-md rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] p-4 flex flex-col gap-3 w-80 cursor-grab active:cursor-grabbing hover:border-white/[0.15] transition-colors"
+              >
+                <h2 className="text-[16px] font-semibold text-white tracking-tight flex items-start gap-2">
+                  <Box className="w-4 h-4 text-[#8B5CF6] mt-1 shrink-0" />
+                  <span className="leading-tight">{llmResult.problem?.title || 'Unknown Problem'}</span>
+                </h2>
+
+                <button
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={handleNewProblem}
+                  className="self-start flex items-center gap-2 rounded-lg bg-white/5 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <Search className="w-3.5 h-3.5" /> New visualization
+                </button>
+
+                <div className="flex gap-2 text-[11px] font-mono mt-1 w-full">
+                  <button
+                    onClick={() => navigate('/learn/complexity')}
+                    className="flex-1 bg-white/5 hover:bg-white/10 px-2 py-1.5 rounded text-white/80 transition-colors text-center border border-white/5 hover:border-white/20 shadow-sm"
+                  >
+                    ⏱️ {llmResult.approach?.timeComplexity || 'O(?)'}
+                  </button>
+                  <button
+                    onClick={() => navigate('/learn/complexity')}
+                    className="flex-1 bg-white/5 hover:bg-white/10 px-2 py-1.5 rounded text-white/80 transition-colors text-center border border-white/5 hover:border-white/20 shadow-sm"
+                  >
+                    💾 {llmResult.approach?.spaceComplexity || 'O(?)'}
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* Trace Steps Box (Draggable) */}
+              <motion.div
+                drag
+                dragMomentum={false}
+                className="absolute bottom-[100px] left-6 pointer-events-auto bg-[#111827]/80 backdrop-blur-md rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex flex-col w-72 h-80 overflow-hidden cursor-grab active:cursor-grabbing"
+              >
+                <div className="p-3 border-b border-white/[0.08] bg-[#09090B]/60 flex justify-between items-center z-10">
+                  <span className="text-[13px] font-semibold text-white tracking-tight flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-[#8B5CF6]" /> Trace Steps
+                  </span>
+                  <span className="text-[10px] font-mono text-white/40">{(llmResult.steps?.length || 0)} frames</span>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-3 custom-scrollbar bg-[#09090B]/40" ref={timelineRef}>
+                  <div className="relative">
+                    <div className="absolute top-4 bottom-4 left-[11px] w-px bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
+
+                    {(llmResult.steps || []).map((step, idx) => {
+                      const isActive = idx === currentStepIdx;
+                      const isPast = idx < currentStepIdx;
+                      return (
+                        <div
+                          key={idx}
+                          onClick={() => setCurrentStepIdx(idx)}
+                          className={`relative pl-8 pr-2 py-2 mb-1.5 rounded-lg cursor-pointer transition-all duration-300 ${isActive ? 'bg-white/[0.06] timeline-active' : 'hover:bg-white/[0.04]'}`}
+                        >
+                          <div className="absolute left-[3px] top-[14px] -translate-y-1/2 z-10">
+                            {isActive ? (
+                              <div className="relative flex items-center justify-center">
+                                <div className="absolute inset-0 bg-[#8B5CF6] rounded-full blur-[6px] opacity-60 animate-pulse" />
+                                <Circle className="w-3 h-3 fill-[#8B5CF6] text-[#8B5CF6] relative z-10" />
+                              </div>
+                            ) : isPast ? (
+                              <CheckCircle2 className="w-3 h-3 text-white/30" />
+                            ) : (
+                              <Circle className="w-3 h-3 text-white/10" />
+                            )}
+                          </div>
+
+                          <span className={`text-[12px] font-semibold tracking-tight transition-colors leading-tight block ${isActive ? 'text-white' : isPast ? 'text-white/60' : 'text-white/40'}`}>
+                            {step.stepIndex}. {step.title}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Code Editor Box (Draggable) */}
+              <motion.div
+                drag
+                dragMomentum={false}
+                className="absolute top-6 right-6 pointer-events-auto bg-[#111827]/80 backdrop-blur-md rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex flex-col w-96 h-[500px] overflow-hidden cursor-grab active:cursor-grabbing"
+              >
+                <div className="p-3 border-b border-white/[0.08] bg-[#09090B]/60 flex justify-between items-center z-10">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] font-semibold text-white tracking-tight">Solution</span>
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-[4px] bg-[#3B82F6]/20 text-[#3B82F6] uppercase border border-[#3B82F6]/30">
+                      {llmResult.code?.language}
+                    </span>
+                  </div>
+                  <button className="p-1.5 hover:bg-white/10 rounded-md text-white/50 hover:text-white transition-colors" title="Copy Code">
+                    <Copy className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto bg-[#09090B]/60 p-3 custom-scrollbar">
+                  <pre className="text-[12px] font-mono leading-[1.6]" ref={codeRef}>
+                    {llmResult.code?.lines?.map((lineObj) => {
+                      const idx = lineObj.line - 1;
+                      const line = lineObj.text;
+                      const activeLines = Array.isArray(currentStep?.codeLineActive) ? currentStep.codeLineActive : [currentStep?.codeLineActive];
+                      const isCurrentLine = activeLines.includes(idx + 1);
+                      return (
+                        <div
+                          key={idx}
+                          data-line={idx + 1}
+                          className={`flex px-2 py-0.5 rounded-[4px] transition-all duration-300 ${
+                            isCurrentLine
+                              ? 'bg-[#3B82F6]/20 border-l-[2px] border-[#3B82F6] shadow-[inset_10px_0_20px_rgba(59,130,246,0.1)]'
+                              : 'border-l-[2px] border-transparent hover:bg-white/[0.04]'
+                          }`}
+                        >
+                          <span className="text-white/20 select-none inline-block w-6 text-right pr-3 text-[11px]">{idx + 1}</span>
+                          <span className={isCurrentLine ? 'text-white' : 'text-white/70'}>{line || ' '}</span>
+                        </div>
+                      );
+                    })}
+                  </pre>
+                </div>
+              </motion.div>
+
+              {/* Subtitles Overlay (Not draggable, fixed bottom) */}
+              <AnimatePresence>
                 <motion.div
                   key={currentStepIdx}
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute top-6 left-1/2 -translate-x-1/2 w-[85%] max-w-[600px] z-20 pointer-events-none"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="absolute bottom-[100px] left-0 w-full px-12 pointer-events-none flex justify-center"
                 >
-                  <div className="bg-[#111827]/80 backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex items-start gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-inner">
+                  <div className="max-w-2xl bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl flex items-start gap-4 text-center justify-center">
+                     <div className="mt-0.5 opacity-80 hidden md:block">
                        <Brain className="w-5 h-5 text-[#8B5CF6]" />
                      </div>
-                     <p className="text-[16px] text-white/90 leading-relaxed font-medium">
-                       {currentStep?.narration || currentStep?.description}
+                     <p className="text-[15px] text-white/90 leading-relaxed font-medium">
+                       {currentStep?.narration?.text || currentStep?.title}
                      </p>
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Floating Playback Controls */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+              {/* Floating Playback Controls (Not draggable, fixed bottom center) */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-auto">
                 <div className="bg-[#111827]/90 backdrop-blur-xl border border-white/[0.12] rounded-[24px] p-2 flex flex-col gap-2 shadow-[0_16px_40px_rgba(0,0,0,0.6)] min-w-[340px]">
-                  
+
                   {/* Progress Bar */}
                   <div className="px-4 pt-2">
                     <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden relative cursor-pointer" onClick={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const x = e.clientX - rect.left;
                       const ratio = Math.max(0, Math.min(1, x / rect.width));
-                      setCurrentStepIdx(Math.floor(ratio * (llmResult.trace.length - 1)));
+                      setCurrentStepIdx(Math.floor(ratio * ((llmResult.steps?.length || 0) - 1)));
                     }}>
-                      <motion.div 
-                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6]" 
+                      <motion.div
+                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6]"
                         initial={{ width: 0 }}
                         animate={{ width: `${progressPercent}%` }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -355,7 +439,7 @@ export default function AIVisualizerPage() {
                       </button>
                     </div>
 
-                    <button 
+                    <button
                       onClick={() => setIsPlaying(!isPlaying)}
                       className="w-12 h-12 rounded-full bg-white hover:bg-white/90 text-black flex items-center justify-center transition-transform active:scale-95 shadow-[0_4px_16px_rgba(255,255,255,0.2)]"
                     >
@@ -363,20 +447,20 @@ export default function AIVisualizerPage() {
                     </button>
 
                     <div className="flex items-center gap-1 relative">
-                      <button onClick={() => setCurrentStepIdx(prev => Math.min(llmResult.trace.length - 1, prev + 1))} disabled={currentStepIdx === llmResult.trace.length - 1} className="p-2.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white disabled:opacity-30 transition-colors">
+                      <button onClick={() => setCurrentStepIdx(prev => Math.min((llmResult.steps?.length || 0) - 1, prev + 1))} disabled={currentStepIdx === (llmResult.steps?.length || 0) - 1} className="p-2.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white disabled:opacity-30 transition-colors">
                         <SkipForward className="w-4 h-4 fill-current" />
                       </button>
-                      
-                      <button 
+
+                      <button
                         onClick={() => setShowSpeedMenu(!showSpeedMenu)}
                         className="flex items-center gap-1 px-3 py-1.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white text-[13px] font-mono transition-colors"
                       >
                         {speed}x <ChevronDown className="w-3 h-3" />
                       </button>
-                      
+
                       <AnimatePresence>
                         {showSpeedMenu && (
-                          <motion.div 
+                          <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -399,52 +483,7 @@ export default function AIVisualizerPage() {
                 </div>
               </div>
             </div>
-
-            {/* Right Column (25%): Code Editor */}
-            <div className="w-full md:w-[25%] bg-[#111827] rounded-[18px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden relative">
-              <div className="p-4 border-b border-white/[0.08] bg-[#09090B]/40 flex justify-between items-center backdrop-blur-sm z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-[14px] font-semibold text-white tracking-tight">Solution.js</span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-[4px] bg-[#3B82F6]/20 text-[#3B82F6] uppercase border border-[#3B82F6]/30">
-                    {llmResult.language}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/50 hover:text-white transition-colors" title="Copy Code">
-                    <Copy className="w-4 h-4" />
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg text-white/50 hover:text-white transition-colors" title="Download">
-                    <Download className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto bg-[#09090B]/60 p-4 custom-scrollbar">
-                <pre className="text-[13px] font-mono leading-[1.6]" ref={codeRef}>
-                  {llmResult.code?.split('\n').map((line, idx) => {
-                    const isCurrentLine = currentStep?.line === idx + 1;
-                    return (
-                      <div 
-                        key={idx} 
-                        data-line={idx + 1}
-                        className={`flex px-2 py-0.5 rounded-[6px] transition-all duration-300 ${
-                          isCurrentLine 
-                            ? 'bg-[#3B82F6]/10 border-l-[3px] border-[#3B82F6] shadow-[inset_20px_0_40px_rgba(59,130,246,0.05)]' 
-                            : 'border-l-[3px] border-transparent hover:bg-white/[0.02]'
-                        }`}
-                      >
-                        <span className="text-white/20 select-none inline-block w-8 text-right pr-4 text-[12px]">{idx + 1}</span>
-                        <span className={isCurrentLine ? 'text-white' : 'text-white/70'}>{line || ' '}</span>
-                      </div>
-                    );
-                  })}
-                </pre>
-              </div>
-            </div>
-
-          </div>
-        )}
-
+          )}
         </div>
       )}
     </div>

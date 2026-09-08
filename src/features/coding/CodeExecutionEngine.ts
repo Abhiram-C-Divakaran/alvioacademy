@@ -38,7 +38,9 @@ export async function executeJavaScript(userCode: string, testCases: TestCase[],
     const userFn = evaluator(mockConsole);
     for (let i = 0; i < testCases.length; i++) {
       const tc = testCases[i];
-      const inputClone = JSON.parse(JSON.stringify(tc.input));
+      const rawInput = tc?.input;
+      const inputArr = Array.isArray(rawInput) ? rawInput : (rawInput !== undefined && rawInput !== null ? [rawInput] : []);
+      const inputClone = JSON.parse(JSON.stringify(inputArr));
       const result = userFn(...inputClone);
       if (JSON.stringify(result) === JSON.stringify(tc.expected)) {
         passedCount++;
@@ -59,19 +61,20 @@ export async function executeJavaScript(userCode: string, testCases: TestCase[],
   }
 }
 
-export function extractFunctionName(code: string): string {
-  const match = code.match(/(?:function|def)\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s*\(/);
-  return match ? match[1] : 'solution';
+export function extractFunctionName(code: string, preferredName?: string): string {
+  const declarations = /\b(?:function|def)\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s*\(|\b(?:const|let|var)\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s*(?::[^=;\n]+)?=\s*(?:async\s+)?(?:function\b|(?:\([^)]*\)|[a-zA-Z_$][0-9a-zA-Z_$]*)(?:\s*:[^=;\n]+)?\s*=>)/g;
+  const names = Array.from(code.matchAll(declarations), match => match[1] || match[2]);
+  return (preferredName && names.includes(preferredName) ? preferredName : names[0]) || 'solution';
 }
 
 export async function executePython(userCode: string, testCases: TestCase[], functionName: string): Promise<ExecutionResult> {
   const startTime = performance.now();
-  const escapedTestCases = JSON.stringify(testCases).replace(/\\/g, '\\\\');
+  const escapedTestCases = JSON.stringify(JSON.stringify(testCases));
   const runner = `
 import json, sys, time
 from typing import *
 ${userCode}
-test_cases = json.loads("""${escapedTestCases}""")
+test_cases = json.loads(${escapedTestCases})
 passed = 0
 stdout = []
 class StdoutCapture:
@@ -95,7 +98,9 @@ try:
     start_time = time.time()
     for i, tc in enumerate(test_cases):
         try:
-            result = func(*tc['input'])
+            raw_inp = tc.get('input') if isinstance(tc, dict) else tc
+            inp = raw_inp if isinstance(raw_inp, list) else ([raw_inp] if raw_inp is not None else [])
+            result = func(*inp)
             if result == tc['expected']: passed += 1
             else:
                 sys.stdout = sys.__stdout__
@@ -111,7 +116,7 @@ except Exception as e:
     sys.stdout = sys.__stdout__
     print(json.dumps({"status": "Error", "message": str(e), "passedCount": passed, "stdout": [], "executionTimeMs": 0}))
 `;
-  return await executeOnWandbox('cpython-3.14.0', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
+  return await executeOnPaiza('python3', runner, testCases.length, startTime);
 }
 
 function getCppType(type: DataType): string {
@@ -154,9 +159,10 @@ function generateCppRunner(userCode: string, problem: CodingProblem): string {
     let runner = `#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\n\n${userCode}\n\nint main() {\n    Solution sol;\n    int passed = 0;\n`;
     
     problem.testCases.forEach((tc, i) => {
+        const inputArr = Array.isArray(tc?.input) ? tc.input : (tc?.input !== undefined && tc?.input !== null ? [tc.input] : []);
         runner += `    {\n`;
         sig.params.forEach((param, j) => {
-            runner += `        ${getCppType(param.type)} ${param.name} = ${getCppVal(param.type, tc.input[j])};\n`;
+            runner += `        ${getCppType(param.type)} ${param.name} = ${getCppVal(param.type, inputArr[j])};\n`;
         });
         
         const callArgs = sig.params.map(p => p.name).join(', ');
@@ -173,7 +179,7 @@ function generateCppRunner(userCode: string, problem: CodingProblem): string {
 export async function executeCpp(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateCppRunner(userCode, problem);
-    return await executeOnWandbox('gcc-head', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
+    return await executeOnPaiza('cpp', runner, problem.testCases.length, startTime);
 }
 
 function generateCRunner(userCode: string, problem: CodingProblem): string {
@@ -183,27 +189,31 @@ function generateCRunner(userCode: string, problem: CodingProblem): string {
     let runner = `#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <string.h>\n\n${userCode}\n\nint main() {\n    int passed = 0;\n`;
     
     problem.testCases.forEach((tc, i) => {
+        const inputArr = Array.isArray(tc?.input) ? tc.input : (tc?.input !== undefined && tc?.input !== null ? [tc.input] : []);
         runner += `    {\n`;
         
         let callArgs = [];
         sig.params.forEach((param, j) => {
+            const val = inputArr[j];
             if (param.type === 'integer') {
-                runner += `        int ${param.name} = ${tc.input[j]};\n`;
+                runner += `        int ${param.name} = ${val};\n`;
                 callArgs.push(param.name);
             } else if (param.type === 'string') {
-                runner += `        char ${param.name}[] = "${tc.input[j]}";\n`;
+                runner += `        char ${param.name}[] = "${val}";\n`;
                 callArgs.push(param.name);
             } else if (param.type === 'integer[]') {
-                let init = tc.input[j].length ? `{${tc.input[j].join(', ')}}` : `{}`;
+                const arr = Array.isArray(val) ? val : [];
+                let init = arr.length ? `{${arr.join(', ')}}` : `{}`;
                 runner += `        int ${param.name}Data[] = ${init};\n`;
-                runner += `        int* ${param.name} = ${tc.input[j].length ? param.name + "Data" : "NULL"};\n`;
+                runner += `        int* ${param.name} = ${arr.length ? param.name + "Data" : "NULL"};\n`;
                 callArgs.push(param.name);
-                callArgs.push(tc.input[j].length);
+                callArgs.push(arr.length);
             } else if (param.type === 'char[]') {
-                let chars = tc.input[j].map((c:string)=>`'${c}'`).join(', ');
+                const arr = Array.isArray(val) ? val : [];
+                let chars = arr.map((c:string)=>`'${c}'`).join(', ');
                 runner += `        char ${param.name}[] = {${chars}${chars ? ',' : ''} '\\0'};\n`;
                 callArgs.push(param.name);
-                callArgs.push(tc.input[j].length);
+                callArgs.push(arr.length);
             }
         });
         
@@ -249,50 +259,98 @@ function generateCRunner(userCode: string, problem: CodingProblem): string {
 export async function executeC(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateCRunner(userCode, problem);
-    return await executeOnWandbox('gcc-head-c', runner, typeof problem !== 'undefined' ? problem.testCases.length : testCases.length, startTime);
+    return await executeOnPaiza('c', runner, problem.testCases.length, startTime);
 }
 
 
-async function executeOnWandbox(compiler: string, code: string, testCasesLength: number, startTime: number): Promise<ExecutionResult> {
+type PaizaLanguage = 'python3' | 'c' | 'cpp' | 'typescript' | 'java' | 'csharp';
+
+async function executeOnPaiza(language: PaizaLanguage, code: string, testCasesLength: number, startTime: number): Promise<ExecutionResult> {
+  const errorResult = (message: string): ExecutionResult => ({
+    status: 'Error', message, passedCount: 0, totalCount: testCasesLength,
+    stdout: [], executionTimeMs: Math.round(performance.now() - startTime)
+  });
+  if (testCasesLength === 0) return errorResult('No test cases are available for this problem.');
+
+  // Bound the requests themselves as well as the polling loop.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  const request = async (url: string, init?: RequestInit) => {
+    const response = await fetch(url, { ...init, signal: controller.signal });
+    let data: any;
+    try { data = await response.json(); } catch {
+      throw new Error(`Execution service returned an invalid response (HTTP ${response.status}).`);
+    }
+    if (!response.ok || data?.error) {
+      throw new Error(data?.error || `Execution service request failed (HTTP ${response.status}).`);
+    }
+    if (!data || typeof data !== 'object') throw new Error('Execution service returned an invalid response.');
+    return data;
+  };
+
   try {
-    const response = await fetch('https://wandbox.org/api/compile.json', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ compiler, code, save: false })
+    const createData = await request('https://api.paiza.io/runners/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source_code: code, language, api_key: 'guest' })
     });
-    const data = await response.json();
-    if (data.compiler_error) {
-      return { status: 'Error', message: data.compiler_error, passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+    if (typeof createData.id !== 'string' || !createData.id) {
+      throw new Error('Execution service did not return a runner ID.');
     }
-    if (!data.program_output) {
-      return { status: 'Error', message: data.program_error || data.program_message || 'Unknown execution error', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+
+    let details: any;
+    for (let i = 0; i < 15; i++) {
+      if (controller.signal.aborted) throw new Error('Execution timed out');
+      details = await request(`https://api.paiza.io/runners/get_details?id=${encodeURIComponent(createData.id)}&api_key=guest`);
+      if (details.status === 'completed') break;
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    const outLines = data.program_output.trim().split('\n');
+    if (details?.status !== 'completed') return errorResult('Execution timed out');
+
+    if (details.build_result && details.build_result !== 'success') {
+      return errorResult(details.build_stderr || details.build_stdout || 'Build Error');
+    }
+
+    const output = typeof details.stdout === 'string' ? details.stdout.trim() : '';
+    if (details.result !== 'success' || (details.exit_code != null && Number(details.exit_code) !== 0)) {
+      return errorResult(details.stderr || output || 'Runtime Error');
+    }
+    if (!output) return errorResult(details.stderr || 'Execution completed without a test result.');
+
+    const outLines = output.split(/\r?\n/);
     const lastLine = outLines[outLines.length - 1];
-    let res: any = {};
+    const marker = /^(Passed|Failed)\|(\d+)$/.exec(lastLine);
+    let result: any;
     if (lastLine.startsWith('{')) {
-      res = JSON.parse(lastLine);
-    } else if (lastLine.startsWith('Passed|')) {
-      res = { status: 'Passed', passedCount: parseInt(lastLine.split('|')[1], 10), message: '' };
-    } else if (lastLine.startsWith('Failed|')) {
-      res = { status: 'Failed', passedCount: parseInt(lastLine.split('|')[1], 10), message: 'Wrong Answer' };
-    } else {
-      res = { status: 'Error', message: lastLine };
+      result = JSON.parse(lastLine);
+    } else if (marker) {
+      result = { status: marker[1], passedCount: Number(marker[2]), message: marker[1] === 'Failed' ? 'Wrong Answer' : '' };
     }
-    return { status: res.status || 'Error', message: res.message, passedCount: res.passedCount || 0, totalCount: testCasesLength, stdout: res.stdout || outLines.slice(0, -1), executionTimeMs: Math.round(performance.now() - startTime) };
+    if (!result || !['Passed', 'Failed', 'Error'].includes(result.status)) {
+      return errorResult('Execution completed without a valid test result.');
+    }
+    const passedCount = result.passedCount ?? 0;
+    if (!Number.isInteger(passedCount) || passedCount < 0 || passedCount > testCasesLength ||
+        (result.status === 'Passed' && passedCount !== testCasesLength)) {
+      return errorResult('Execution returned an invalid test count.');
+    }
+    return {
+      status: result.status, message: result.message, passedCount, totalCount: testCasesLength,
+      stdout: Array.isArray(result.stdout) ? result.stdout : outLines.slice(0, -1),
+      executionTimeMs: Math.round(performance.now() - startTime)
+    };
   } catch (err: any) {
-    return { status: 'Error', message: err.message || 'Execution failed', passedCount: 0, totalCount: testCasesLength, stdout: [], executionTimeMs: Math.round(performance.now() - startTime) };
+    return errorResult(controller.signal.aborted ? 'Execution timed out' : err.message || 'Execution failed');
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
 export async function executeTypescript(userCode: string, testCases: any[], functionName: string): Promise<ExecutionResult> {
-  const stdout: string[] = [];
-  let passedCount = 0;
-  
-  const escapedUserCode = userCode.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'");
-  const escapedTestCases = JSON.stringify(testCases).replace(/\\/g, '\\\\');
+  const escapedTestCases = JSON.stringify(JSON.stringify(testCases));
   
   const runner = `
-const testCases = JSON.parse(\`${escapedTestCases}\`);
+const testCases = JSON.parse(${escapedTestCases});
 ${userCode}
 
 let passed = 0;
@@ -305,12 +363,13 @@ console.log = (...args) => {
 try {
     const userFunc = eval(\`(${functionName})\`);
     if (typeof userFunc !== 'function') {
-        throw new Error('Function ' + functionName + ' not found.');
+        throw new Error('Function ${functionName} not found.');
     }
     
     for (let i = 0; i < testCases.length; i++) {
         const tc = testCases[i];
-        const res = userFunc(...tc.input);
+        const tcInput = Array.isArray(tc.input) ? tc.input : (tc.input !== undefined && tc.input !== null ? [tc.input] : []);
+        const res = userFunc(...tcInput);
         if (JSON.stringify(res) === JSON.stringify(tc.expected)) {
             passed++;
         } else {
@@ -330,7 +389,7 @@ try {
 `;
   
   const startTime = performance.now();
-  return await executeOnWandbox('typescript-5.6.2', runner, testCases.length, startTime);
+  return await executeOnPaiza('typescript', runner, testCases.length, startTime);
 }
 
 function getJavaType(type: DataType): string {
@@ -360,9 +419,10 @@ function generateJavaRunner(userCode: string, problem: CodingProblem): string {
     let runner = `import java.util.*;\nimport java.util.stream.*;\n\n${userCode}\n\npublic class Main {\n    public static void main(String[] args) {\n        Solution sol = new Solution();\n        int passed = 0;\n`;
     
     problem.testCases.forEach((tc, i) => {
+        const inputArr = Array.isArray(tc?.input) ? tc.input : (tc?.input !== undefined && tc?.input !== null ? [tc.input] : []);
         runner += `        {\n`;
         sig.params.forEach((param, j) => {
-            runner += `            ${getJavaType(param.type)} ${param.name} = ${getJavaVal(param.type, tc.input[j])};\n`;
+            runner += `            ${getJavaType(param.type)} ${param.name} = ${getJavaVal(param.type, inputArr[j])};\n`;
         });
         
         const callArgs = sig.params.map(p => p.name).join(', ');
@@ -392,7 +452,7 @@ function generateJavaRunner(userCode: string, problem: CodingProblem): string {
 export async function executeJava(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateJavaRunner(userCode, problem);
-    return await executeOnWandbox('openjdk-jdk-22+36', runner, problem ? problem.testCases.length : 0, startTime);
+    return await executeOnPaiza('java', runner, problem.testCases.length, startTime);
 }
 
 function getCsharpType(type: DataType): string {
@@ -422,9 +482,10 @@ function generateCsharpRunner(userCode: string, problem: CodingProblem): string 
     let runner = `using System;\nusing System.Linq;\nusing System.Collections.Generic;\n\n${userCode}\n\npublic class Program {\n    public static void Main(string[] args) {\n        Solution sol = new Solution();\n        int passed = 0;\n`;
     
     problem.testCases.forEach((tc, i) => {
+        const inputArr = Array.isArray(tc?.input) ? tc.input : (tc?.input !== undefined && tc?.input !== null ? [tc.input] : []);
         runner += `        {\n`;
         sig.params.forEach((param, j) => {
-            runner += `            ${getCsharpType(param.type)} ${param.name} = ${getCsharpVal(param.type, tc.input[j])};\n`;
+            runner += `            ${getCsharpType(param.type)} ${param.name} = ${getCsharpVal(param.type, inputArr[j])};\n`;
         });
         
         const callArgs = sig.params.map(p => p.name).join(', ');
@@ -453,5 +514,5 @@ function generateCsharpRunner(userCode: string, problem: CodingProblem): string 
 export async function executeCsharp(userCode: string, problem: CodingProblem): Promise<ExecutionResult> {
     const startTime = performance.now();
     const runner = generateCsharpRunner(userCode, problem);
-    return await executeOnWandbox('dotnetcore-8.0.402', runner, problem ? problem.testCases.length : 0, startTime);
+    return await executeOnPaiza('csharp', runner, problem.testCases.length, startTime);
 }

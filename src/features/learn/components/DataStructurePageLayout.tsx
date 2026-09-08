@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createDefaultStructure, insertValue, deleteValue, searchValue } from '../../workspace/dataStructureOps';
+import Visualization3D from '../../workspace/Visualization3D';
 import Visualization2D from '../../workspace/Visualization2D';
 import VisualizerToolbar from '../../visualizer/VisualizerToolbar';
 import Editor from '@monaco-editor/react';
@@ -121,7 +122,7 @@ export default function DataStructurePageLayout({
            <div className="border-b border-[var(--color-border-subtle)] bg-black/20 p-4 flex justify-between items-center">
             <h2 className="text-xl font-bold flex items-center gap-2 m-0">
               <Box className="text-blue-400" size={24} />
-              Interactive 2D Visualization
+              Interactive {type === 'heap' ? '2D' : '3D'} Visualization
             </h2>
             <button 
               onClick={() => setIsVisualizerExpanded(!isVisualizerExpanded)}
@@ -141,7 +142,7 @@ export default function DataStructurePageLayout({
             <div className="flex-1 flex items-center justify-center overflow-hidden relative min-h-[400px]">
               {structure ? (
                 <div className={`transition-all duration-300 ease-in-out ${isVisualizerExpanded ? 'w-full h-full flex items-center justify-center scale-150 origin-center' : 'w-full h-full scale-110 origin-center'}`}>
-                  <Visualization2D structure={structure} />
+                  {type === 'heap' ? <Visualization2D structure={structure} /> : <Visualization3D structure={structure} />}
                 </div>
               ) : null}
             </div>

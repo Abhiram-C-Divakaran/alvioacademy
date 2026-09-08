@@ -1,12 +1,17 @@
+import '../../configure3DText';
 import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { BrainCircuit } from 'lucide-react';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
+import DashboardShell from '../../features/dashboard/DashboardShell';
 
 export default function AppLayout() {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const location = useLocation();
+
+  if (location.pathname === '/dashboard') return <DashboardShell><Outlet /></DashboardShell>;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[var(--color-bg-primary)] text-white font-sans relative">

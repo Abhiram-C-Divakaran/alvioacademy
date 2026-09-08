@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from 'react-resizable-panels';
 import Editor from '@monaco-editor/react';
-import { 
-  Play, 
-  CheckCircle2, 
-  XCircle, 
-  AlertCircle, 
-  RefreshCw, 
-  Loader2, 
+import {
+  Play,
+  CheckCircle2,
+  XCircle,
+  AlertCircle,
+  RefreshCw,
+  Loader2,
   ChevronLeft,
   ThumbsUp,
   ThumbsDown,
@@ -50,16 +50,17 @@ import useAuthStore from '../../stores/useAuthStore';
 import type { CodingProblem } from '../../data/codingProblems';
 import { executeJavaScript, executePython, executeCpp, executeC, executeJava, executeTypescript, executeCsharp, extractFunctionName } from './CodeExecutionEngine';
 import type { ExecutionResult } from './CodeExecutionEngine';
+import { formatInputAsArray, getLocalTestCasesFromProblem, parseEditableTestCases } from './EditableTestCases';
 
 const generateStarterCode = (problem: CodingProblem, lang: string): string => {
   if (problem.starterCode && problem.starterCode[lang as keyof typeof problem.starterCode]) {
     return problem.starterCode[lang as keyof typeof problem.starterCode]!;
   }
-  
+
   if (!problem.signature) return `// Implement your solution in ${lang}\n`;
 
   const { name, params, returns } = problem.signature;
-  
+
   const mapType = (type: string, l: string) => {
     switch(l) {
       case 'java':
@@ -167,7 +168,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showTopics, setShowTopics] = useState(false);
   const [showHints, setShowHints] = useState(false);
-  
+
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const isDraggingVertical = useRef(false);
@@ -198,7 +199,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
       document.exitFullscreen().catch(err => console.error(err));
     }
   };
-  
+
   // Feedback Modal State
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackIssues, setFeedbackIssues] = useState<string[]>([]);
@@ -216,12 +217,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [latestSubmission, setLatestSubmission] = useState<any>(null);
   const [loadingSubmission, setLoadingSubmission] = useState(false);
-  const [localTestCases, setLocalTestCases] = useState(() => 
-    problem.testCases.map(tc => ({
-      input: tc.input.map(val => JSON.stringify(val)),
-      expected: JSON.stringify(tc.expected)
-    }))
-  );
+  const [localTestCases, setLocalTestCases] = useState(() => getLocalTestCasesFromProblem(problem));
   const [selectedCaseIdx, setSelectedCaseIdx] = useState(0);
 
   // Interaction states
@@ -273,12 +269,9 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
   }, [problem.id, token]);
 
   useEffect(() => {
-    setLocalTestCases(problem.testCases.map(tc => ({
-      input: tc.input.map(val => JSON.stringify(val)),
-      expected: JSON.stringify(tc.expected)
-    })));
+    setLocalTestCases(getLocalTestCasesFromProblem(problem));
     setSelectedCaseIdx(0);
-  }, [problem.id, problem.testCases]);
+  }, [problem?.id, problem?.testCases]);
 
 
 
@@ -331,17 +324,10 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
       await new Promise(r => setTimeout(r, 600));
     }
 
-    const functionName = extractFunctionName(code);
+    const functionName = extractFunctionName(code, problem.signature?.name);
     let execResult: ExecutionResult;
-    
-    const parsedTestCases = localTestCases.map(tc => ({
-      input: tc.input.map(val => {
-        try { return JSON.parse(val); } catch (e) { return val; }
-      }),
-      expected: (() => {
-        try { return JSON.parse(tc.expected); } catch (e) { return tc.expected; }
-      })()
-    }));
+
+    const parsedTestCases = parseEditableTestCases(localTestCases);
 
     if (language === 'javascript') {
       execResult = await executeJavaScript(code, parsedTestCases, functionName);
@@ -377,17 +363,10 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
       await new Promise(r => setTimeout(r, 600));
     }
 
-    const functionName = extractFunctionName(code);
+    const functionName = extractFunctionName(code, problem.signature?.name);
     let execResult: ExecutionResult;
 
-    const parsedTestCases = localTestCases.map(tc => ({
-      input: tc.input.map(val => {
-        try { return JSON.parse(val); } catch (e) { return val; }
-      }),
-      expected: (() => {
-        try { return JSON.parse(tc.expected); } catch (e) { return tc.expected; }
-      })()
-    }));
+    const parsedTestCases = parseEditableTestCases(localTestCases);
 
     if (language === 'javascript') {
       execResult = await executeJavaScript(code, parsedTestCases, functionName);
@@ -713,7 +692,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                         {(() => {
                           const topics = problem.topic ? problem.topic.toLowerCase() : '';
                           const hints = [];
-                          
+
                           if (topics.includes('array')) {
                             hints.push("Consider using two pointers or a sliding window if you need to track a subarray or pair of elements.");
                             hints.push("If the array is unsorted, think about whether sorting it first would simplify the problem.");
@@ -735,7 +714,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                             hints.push("What is the brute-force approach? Once you have that, look for redundant work you can eliminate.");
                             hints.push("Consider the time and space complexity tradeoffs. Can you use extra memory to save execution time?");
                           }
-                          
+
                           if (problem.difficulty === 'Hard') {
                             hints[2] = "This is a Hard problem. Don't be afraid to combine multiple advanced data structures (like a Trie + DFS, or Priority Queue + HashMap).";
                           } else if (problem.difficulty === 'Easy') {
@@ -933,7 +912,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                     <span className="text-[#2cbb5d] text-[14px]">{'</>'}</span>
                     <span className="text-gray-200">Code</span>
                   </div>
-                  
+
                   <div className="flex items-center justify-center gap-3 w-1/3">
                     <button
                       onClick={handleRun}
@@ -1054,15 +1033,15 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   ))}
                 </div>
                 <div className="flex items-center gap-3 text-gray-500">
-                  <Maximize2 
-                    size={13} 
-                    className="hover:text-gray-300 cursor-pointer transition-colors" 
+                  <Maximize2
+                    size={13}
+                    className="hover:text-gray-300 cursor-pointer transition-colors"
                     onClick={() => setRightSplitPercent(prev => prev < 20 ? 60 : 5)}
                     title={rightSplitPercent < 20 ? "Restore" : "Maximize Console"}
                   />
-                  <ChevronUp 
-                    size={16} 
-                    className={`hover:text-gray-300 cursor-pointer transition-colors transform ${rightSplitPercent > 85 ? 'rotate-0' : 'rotate-180'}`} 
+                  <ChevronUp
+                    size={16}
+                    className={`hover:text-gray-300 cursor-pointer transition-colors transform ${rightSplitPercent > 85 ? 'rotate-0' : 'rotate-180'}`}
                     onClick={() => setRightSplitPercent(prev => prev > 85 ? 60 : 92)}
                     title={rightSplitPercent > 85 ? "Restore Console" : "Minimize Console"}
                   />
@@ -1090,7 +1069,8 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                         onClick={() => {
                           if (localTestCases.length >= 8) return;
                           const lastCase = localTestCases[localTestCases.length - 1] || { input: problem.signature?.params.map(() => '') || [], expected: '' };
-                          setLocalTestCases([...localTestCases, { ...lastCase, input: [...lastCase.input] }]);
+                          const lastInput = formatInputAsArray(lastCase.input);
+                          setLocalTestCases([...localTestCases, { ...lastCase, input: [...lastInput] }]);
                           setSelectedCaseIdx(localTestCases.length);
                         }}
                         className="flex items-center justify-center w-8 h-8 rounded-lg text-gray-500 hover:text-gray-300 hover:bg-white/5 transition-colors ml-1"
@@ -1101,21 +1081,31 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
 
                     {localTestCases[selectedCaseIdx] && (
                       <div className="space-y-4 mt-2">
-                        {problem.signature?.params.map((p, idx) => (
-                          <div key={p.name} className="space-y-2">
-                            <div className="text-gray-400 text-[12px] ml-1">{p.name} =</div>
-                            <input
-                              type="text"
-                              value={localTestCases[selectedCaseIdx].input[idx]}
-                              onChange={(e) => {
-                                const newTestCases = [...localTestCases];
-                                newTestCases[selectedCaseIdx].input[idx] = e.target.value;
-                                setLocalTestCases(newTestCases);
-                              }}
-                              className="w-full bg-white/5 border border-white/10 focus:border-blue-500 rounded-xl p-3.5 text-gray-200 text-[13px] font-mono outline-none transition-colors"
-                            />
-                          </div>
-                        ))}
+                        {problem.signature?.params.map((p, idx) => {
+                          const currentCase = localTestCases[selectedCaseIdx];
+                          const inputArr = formatInputAsArray(currentCase?.input);
+                          const currentVal = inputArr[idx] ?? '';
+                          return (
+                            <div key={p.name} className="space-y-2">
+                              <div className="text-gray-400 text-[12px] ml-1">{p.name} =</div>
+                              <input
+                                type="text"
+                                value={currentVal}
+                                onChange={(e) => {
+                                  const newTestCases = [...localTestCases];
+                                  const tcInputArr = [...formatInputAsArray(newTestCases[selectedCaseIdx]?.input)];
+                                  tcInputArr[idx] = e.target.value;
+                                  newTestCases[selectedCaseIdx] = {
+                                    ...newTestCases[selectedCaseIdx],
+                                    input: tcInputArr
+                                  };
+                                  setLocalTestCases(newTestCases);
+                                }}
+                                className="w-full bg-white/5 border border-white/10 focus:border-blue-500 rounded-xl p-3.5 text-gray-200 text-[13px] font-mono outline-none transition-colors"
+                              />
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -1175,12 +1165,17 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                             <div className="space-y-2">
                               <div className="text-[12px] text-gray-400 font-medium ml-1">Input</div>
                               <div className="space-y-2">
-                                {problem.signature?.params.map((p, idx) => (
-                                  <div key={p.name} className="bg-white/5 rounded-xl p-3.5 space-y-2">
-                                    <div className="text-gray-400 text-[12px]">{p.name} =</div>
-                                    <div className="text-gray-200 text-[13px] font-mono">{JSON.stringify(problem.testCases[selectedCaseIdx].input[idx])}</div>
-                                  </div>
-                                ))}
+                                {problem.signature?.params.map((p, idx) => {
+                                  const rawTc = problem.testCases?.[selectedCaseIdx];
+                                  const tcInputArr = formatInputAsArray(rawTc?.input);
+                                  const val = tcInputArr[idx];
+                                  return (
+                                    <div key={p.name} className="bg-white/5 rounded-xl p-3.5 space-y-2">
+                                      <div className="text-gray-400 text-[12px]">{p.name} =</div>
+                                      <div className="text-gray-200 text-[13px] font-mono">{JSON.stringify(val ?? '')}</div>
+                                    </div>
+                                  );
+                                })}
                               </div>
                             </div>
                             <div className="space-y-2">
@@ -1251,7 +1246,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                 </button>
               </div>
               <div className="p-6 space-y-5 overflow-y-auto max-h-[80vh]">
-                
+
                 <div>
                   <div className="text-gray-400 text-sm font-medium mb-1">Problem:</div>
                   <div className="text-white text-base">{problem.title}</div>
@@ -1275,8 +1270,8 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                           {feedbackIssues.includes(issue) && <CheckCircle2 size={14} className="text-white" />}
                         </div>
                         <span className="text-gray-300 text-sm select-none">{issue}</span>
-                        <input 
-                          type="checkbox" 
+                        <input
+                          type="checkbox"
                           className="hidden"
                           checked={feedbackIssues.includes(issue)}
                           onChange={(e) => {
@@ -1306,7 +1301,7 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
 
                 <div>
                   <div className="text-gray-300 text-sm font-medium mb-2">Additional Feedback:</div>
-                  <textarea 
+                  <textarea
                     value={additionalFeedback}
                     onChange={e => setAdditionalFeedback(e.target.value)}
                     className="w-full bg-white/10 border border-transparent rounded-lg p-3 text-white text-sm focus:outline-none focus:border-blue-500 resize-none h-24 transition-colors"
@@ -1321,13 +1316,13 @@ export default function CodingWorkspace({ problem, problemNumber, isSolved, onBa
                   You may also <a href="https://github.com" target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">submit via Github</a> to get feedback in real time.
                 </div>
                 <div className="flex items-center gap-3">
-                  <button 
+                  <button
                     onClick={() => setShowFeedbackModal(false)}
                     className="px-5 py-2 rounded-lg text-sm font-bold text-white bg-white/10 hover:bg-[#5A5A5A] transition-colors"
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     onClick={async () => {
                       setIsSubmittingFeedback(true);
                       try {

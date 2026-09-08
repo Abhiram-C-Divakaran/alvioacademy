@@ -1,61 +1,66 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AppLayout from './components/layout/AppLayout';
 import AuthGuard from './components/layout/AuthGuard';
 import LandingPage from './features/landing/LandingPage';
-import AuthPage from './features/auth/AuthPage';
-import DashboardPage from './features/dashboard/DashboardPage';
-import WorkspacePage from './features/workspace/WorkspacePage';
-import AiTutorPage from './features/ai-tutor/AiTutorPage';
-import MockInterviewPage from './features/ai-tutor/MockInterviewPage';
-import QuizPage from './features/quiz/QuizPage';
-import ProfilePage from './features/profile/ProfilePage';
-import ProgressPage from './features/progress/ProgressPage';
-import CatalogPage from './features/catalog/CatalogPage';
-import CodingPage from './features/coding/CodingPage';
-import VisualizerPage from './features/visualizer/VisualizerPage';
-import VideoLearningPage from './features/video-learning/VideoLearningPage';
-import SkillTreeMap from './features/learn/SkillTreeMap';
-import PvPShowdown from './features/workspace/PvPShowdown';
-
-import DataStructuresHubPage from './features/learn/DataStructuresHubPage';
-import ArrayPage from './features/learn/ArrayPage';
-import LinkedListPage from './features/learn/LinkedListPage';
-import StackPage from './features/learn/StackPage';
-import QueuePage from './features/learn/QueuePage';
-import BinaryTreePage from './features/learn/BinaryTreePage';
-import AvlTreePage from './features/learn/AvlTreePage';
-import GraphPage from './features/learn/GraphPage';
-import HashTablePage from './features/learn/HashTablePage';
-import HeapPage from './features/learn/HeapPage';
-
-import AlgorithmsHubPage from './features/learn/AlgorithmsHubPage';
-
-import SortingHubPage from './features/learn/SortingHubPage';
-import SearchingHubPage from './features/learn/SearchingHubPage';
-import AlgorithmDetailsPage from './features/learn/AlgorithmDetailsPage';
-import AlgorithmVisualizerPage from './features/visualizer/AlgorithmVisualizerPage';
-import Complexity3DPage from './features/learn/Complexity3DPage';
 
 
-import DivideConquerPage from './features/learn/DivideConquerPage';
-import DynamicProgrammingPage from './features/learn/DynamicProgrammingPage';
-import GreedyPage from './features/learn/GreedyPage';
-import GraphAlgorithmsPage from './features/learn/GraphAlgorithmsPage';
-import TopicDetailsPage from './features/learn/TopicDetailsPage';
-import AIVisualizerPage from './features/visualizer/AIVisualizerPage';
+
+
+
+
 
 
 import './index.css';
 
+const AppLayout = lazy(() => import('./components/layout/AppLayout'));
+const AuthPage = lazy(() => import('./features/auth/AuthPage'));
+const DashboardPage = lazy(() => import('./features/dashboard/DashboardPage'));
+const WorkspacePage = lazy(() => import('./features/workspace/WorkspacePage'));
+const AiTutorPage = lazy(() => import('./features/ai-tutor/AiTutorPage'));
+const MockInterviewPage = lazy(() => import('./features/ai-tutor/MockInterviewPage'));
+const QuizPage = lazy(() => import('./features/quiz/QuizPage'));
+const ProfilePage = lazy(() => import('./features/profile/ProfilePage'));
+const ProgressPage = lazy(() => import('./features/progress/ProgressPage'));
+const CatalogPage = lazy(() => import('./features/catalog/CatalogPage'));
+const CodingPage = lazy(() => import('./features/coding/CodingPage'));
+const VisualizerPage = lazy(() => import('./features/visualizer/VisualizerPage'));
+const VideoLearningPage = lazy(() => import('./features/video-learning/VideoLearningPage'));
+const SkillTreeMap = lazy(() => import('./features/learn/SkillTreeMap'));
+const PvPShowdown = lazy(() => import('./features/workspace/PvPShowdown'));
+const DataStructuresHubPage = lazy(() => import('./features/learn/DataStructuresHubPage'));
+const ArrayPage = lazy(() => import('./features/learn/ArrayPage'));
+const LinkedListPage = lazy(() => import('./features/learn/LinkedListPage'));
+const StackPage = lazy(() => import('./features/learn/StackPage'));
+const QueuePage = lazy(() => import('./features/learn/QueuePage'));
+const BinaryTreePage = lazy(() => import('./features/learn/BinaryTreePage'));
+const AvlTreePage = lazy(() => import('./features/learn/AvlTreePage'));
+const GraphPage = lazy(() => import('./features/learn/GraphPage'));
+const HashTablePage = lazy(() => import('./features/learn/HashTablePage'));
+const HeapPage = lazy(() => import('./features/learn/HeapPage'));
+const AlgorithmsHubPage = lazy(() => import('./features/learn/AlgorithmsHubPage'));
+const SortingHubPage = lazy(() => import('./features/learn/SortingHubPage'));
+const SearchingHubPage = lazy(() => import('./features/learn/SearchingHubPage'));
+const AlgorithmDetailsPage = lazy(() => import('./features/learn/AlgorithmDetailsPage'));
+const AlgorithmVisualizerPage = lazy(() => import('./features/visualizer/AlgorithmVisualizerPage'));
+const Complexity3DPage = lazy(() => import('./features/learn/Complexity3DPage'));
+const DivideConquerPage = lazy(() => import('./features/learn/DivideConquerPage'));
+const DynamicProgrammingPage = lazy(() => import('./features/learn/DynamicProgrammingPage'));
+const GreedyPage = lazy(() => import('./features/learn/GreedyPage'));
+const GraphAlgorithmsPage = lazy(() => import('./features/learn/GraphAlgorithmsPage'));
+const TopicDetailsPage = lazy(() => import('./features/learn/TopicDetailsPage'));
+const AIVisualizerPage = lazy(() => import('./features/visualizer/AIVisualizerPage'));
+const DataStructuresUniversePage = lazy(() => import('./features/learn/DataStructuresUniversePage'));
+
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Suspense fallback={<div className="min-h-screen bg-[#050812] text-slate-300 grid place-items-center" role="status">Opening Alvio…</div>}><Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
 
         {/* Protected/App Routes wrapped in Layout & Auth Guard */}
         <Route element={<AuthGuard />}>
+          <Route path="/learn" element={<DataStructuresUniversePage />} />
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/skill-tree" element={<SkillTreeMap />} />
@@ -72,7 +77,6 @@ function App() {
             <Route path="/algorithms-visualizer" element={<AlgorithmVisualizerPage />} />
             <Route path="/video-learning" element={<VideoLearningPage />} />
             
-            <Route path="/learn" element={<SkillTreeMap />} />
             <Route path="/learn/data-structures" element={<DataStructuresHubPage />} />
             <Route path="/learn/ai-visualizer" element={<AIVisualizerPage />} />
             <Route path="/learn/array" element={<ArrayPage />} />
@@ -109,7 +113,7 @@ function App() {
             <Route path="/progress" element={<ProgressPage />} />
           </Route>
         </Route>
-      </Routes>
+      </Routes></Suspense>
     </BrowserRouter>
   );
 }

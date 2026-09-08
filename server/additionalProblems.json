@@ -1,0 +1,4403 @@
+[
+  {
+    "id": "find-all-anagrams-in-a-string",
+    "title": "Find All Anagrams in a String",
+    "topic": "Hash Table, String",
+    "difficulty": "Medium",
+    "description": "Given a string s and a non-empty string p, find all the start indices of p's anagrams in s...",
+    "examples": [
+      {
+        "input": "s = \"cbaebabacd\", p = \"abc\"",
+        "output": "[0,6]"
+      },
+      {
+        "input": "s = \"abab\", p = \"ab\"",
+        "output": "[0,1,2]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findAnagrams",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "p",
+          "type": "string"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function findAnagrams(s, p) {\n  \n}",
+      "python": "def findAnagrams(s, p):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "cbaebabacd",
+          "abc"
+        ],
+        "expected": [
+          0,
+          6
+        ]
+      },
+      {
+        "input": [
+          "abab",
+          "ab"
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": "valid-tic-tac-toe",
+    "title": "Valid Tic Tac Toe State",
+    "topic": "Array, Matrix",
+    "difficulty": "Medium",
+    "description": "Write a function to determine if a given tic tac toe board is valid.",
+    "examples": [
+      {
+        "input": "board = [\"XOX\",\"OX \",\"X  \"]",
+        "output": "false"
+      },
+      {
+        "input": "board = [\"XXX\",\"   \",\"   \"]",
+        "output": "false"
+      },
+      {
+        "input": "board = [\"XOX\",\" X \",\"   \"]",
+        "output": "true"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "validTicTacToe",
+      "params": [
+        {
+          "name": "board",
+          "type": "string[]"
+        }
+      ],
+      "returns": "boolean"
+    },
+    "starterCode": {
+      "javascript": "function validTicTacToe(board) {\n  \n}",
+      "python": "def validTicTacToe(board):\n    pass",
+      "cpp": "class Solution {\npublic:\n    bool validTicTacToe(vector<string>& board) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "XOX",
+            "OX ",
+            "X  "
+          ]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [
+            "XXX",
+            "   ",
+            "   "
+          ]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [
+            "XOX",
+            " X ",
+            "   "
+          ]
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "max-increase-to-fit-integer-array",
+    "title": "Max Increase to Fit Integer Array",
+    "topic": "Array, Greedy",
+    "difficulty": "Medium",
+    "description": "Given an array of integers, find the maximum increase to fit...",
+    "examples": [
+      {
+        "input": "nums = [123]",
+        "output": "2"
+      },
+      {
+        "input": "nums = [1212121212]",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxIncrement",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxIncrement(nums) {\n  \n}",
+      "python": "def maxIncrement(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxIncrement(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            123
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            1212121212
+          ]
+        ],
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "id": "minimum-size-subarray-sum",
+    "title": "Minimum Size Subarray Sum",
+    "topic": "Array, Binary Search",
+    "difficulty": "Medium",
+    "description": "Given an array of integers and a target sum, find the minimum size...",
+    "examples": [
+      {
+        "input": "target = 7, nums = [231243]",
+        "output": "2"
+      },
+      {
+        "input": "target = 4, nums = [144]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minSubArrayLen",
+      "params": [
+        {
+          "name": "target",
+          "type": "integer"
+        },
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minSubArrayLen(target, nums) {\n  \n}",
+      "python": "def minSubArrayLen(target, nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          7,
+          [
+            231243
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          4,
+          [
+            144
+          ]
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "subarray-product-less-than-k",
+    "title": "Subarray Product Less Than K",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Medium",
+    "description": "Given an array of integers and a target product, find the number of...",
+    "examples": [
+      {
+        "input": "nums = [10526], k = 100",
+        "output": "8"
+      },
+      {
+        "input": "nums = [123], k = 0",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numSubarrayProductLessThanK",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function numSubarrayProductLessThanK(nums, k) {\n  \n}",
+      "python": "def numSubarrayProductLessThanK(nums, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int numSubarrayProductLessThanK(vector<int>& nums, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            10526
+          ],
+          100
+        ],
+        "expected": 8
+      },
+      {
+        "input": [
+          [
+            123
+          ],
+          0
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "find-and-replace-pattern",
+    "title": "Find and Replace Pattern",
+    "topic": "Array, String",
+    "difficulty": "Medium",
+    "description": "You are given a list of words and a pattern, find the words that match...",
+    "examples": [
+      {
+        "input": "words = [\"abc\",\"deq\",\"mee\",\"aqq\",\"dkd\",\"ccc\"], pattern = \"abb\"",
+        "output": "[\"mee\",\"aqq\"]"
+      },
+      {
+        "input": "words = [\"a\",\"b\",\"c\"], pattern = \"a\"",
+        "output": "[\"a\",\"b\",\"c\"]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findAndReplacePattern",
+      "params": [
+        {
+          "name": "words",
+          "type": "string[]"
+        },
+        {
+          "name": "pattern",
+          "type": "string"
+        }
+      ],
+      "returns": "string[]"
+    },
+    "starterCode": {
+      "javascript": "function findAndReplacePattern(words, pattern) {\n  \n}",
+      "python": "def findAndReplacePattern(words, pattern):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "abc",
+            "deq",
+            "mee",
+            "aqq",
+            "dkd",
+            "ccc"
+          ],
+          "abb"
+        ],
+        "expected": [
+          "mee",
+          "aqq"
+        ]
+      },
+      {
+        "input": [
+          [
+            "a",
+            "b",
+            "c"
+          ],
+          "a"
+        ],
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "longest-word-in-dictionary-through-deleting",
+    "title": "Longest Word in Dictionary through Deleting",
+    "topic": "Array, String",
+    "difficulty": "Medium",
+    "description": "Given a string and a list of words, find the longest word that can be formed...",
+    "examples": [
+      {
+        "input": "s = \"abpcplea\", d = [\"ale\",\"apple\",\"monkey\",\"plea\"]",
+        "output": "\"apple\""
+      },
+      {
+        "input": "s = \"abpcplea\", d = [\"a\",\"b\",\"c\"]",
+        "output": "\"a\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findLongestWord",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "d",
+          "type": "string[]"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function findLongestWord(s, d) {\n  \n}",
+      "python": "def findLongestWord(s, d):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string findLongestWord(string s, vector<string>& d) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "abpcplea",
+          [
+            "ale",
+            "apple",
+            "monkey",
+            "plea"
+          ]
+        ],
+        "expected": "apple"
+      },
+      {
+        "input": [
+          "abpcplea",
+          [
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": "a"
+      }
+    ]
+  },
+  {
+    "id": "longest-substring-with-at-most-k-distinct-characters",
+    "title": "Longest Substring with At Most K Distinct Characters",
+    "topic": "String, Sliding Window, Hash Map",
+    "difficulty": "Hard",
+    "description": "Given a string s and an integer k, return the length of the longest substring...",
+    "examples": [
+      {
+        "input": "s = \"eceba\", k = 2",
+        "output": "3"
+      },
+      {
+        "input": "s = \"aa\", k = 1",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "longestSubstring",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function longestSubstring(s, k) {\n  \n}",
+      "python": "def longestSubstring(s, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int longestSubstring(string s, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "eceba",
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "aa",
+          1
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "longest-subsequence-repeated-k",
+    "title": "Longest Subsequence Repeated K",
+    "topic": "String, Dynamic Programming",
+    "difficulty": "Hard",
+    "description": "Given a string s and an integer k, find the longest subsequence that can be repeated k times.",
+    "examples": [
+      {
+        "input": "s = \"letslearn\", k = 2",
+        "output": "\"letslearn\""
+      },
+      {
+        "input": "s = \"letslearn\", k = 3",
+        "output": "\"\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "longestSubsequence",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function longestSubsequence(s, k) {\n  \n}",
+      "python": "def longestSubsequence(s, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string longestSubsequence(string s, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "letslearn",
+          2
+        ],
+        "expected": "letslearn"
+      },
+      {
+        "input": [
+          "letslearn",
+          3
+        ],
+        "expected": ""
+      }
+    ]
+  },
+  {
+    "id": "subarray-sum-equals-k",
+    "title": "Subarray Sum Equals K",
+    "topic": "Array, Hash Table",
+    "difficulty": "Medium",
+    "description": "Given an array of integers and an integer k, return the total number of continuous subarrays whose sum equals to k.",
+    "examples": [
+      {
+        "input": "nums = [111], k = 2",
+        "output": "2"
+      },
+      {
+        "input": "nums = [123], k = 3",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "subarraySum",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function subarraySum(nums, k) {\n  \n}",
+      "python": "def subarraySum(nums, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            111
+          ],
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            123
+          ],
+          3
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "valid-palindrome",
+    "title": "Valid Palindrome",
+    "topic": "String, Two Pointers",
+    "difficulty": "Easy",
+    "description": "Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.",
+    "examples": [
+      {
+        "input": "s = \"A man, a plan, a canal: Panama\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"race a car\"",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "isPalindrome",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "boolean"
+    },
+    "starterCode": {
+      "javascript": "function isPalindrome(s) {\n  \n}",
+      "python": "def isPalindrome(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    bool isPalindrome(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "A man, a plan, a canal: Panama"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "race a car"
+        ],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "max-subarray",
+    "title": "Max Subarray",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Easy",
+    "description": "Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
+    "examples": [
+      {
+        "input": "nums = [-21,-34,-121,-54]",
+        "output": "6"
+      },
+      {
+        "input": "nums = [1]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxSubArray",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxSubArray(nums) {\n  \n}",
+      "python": "def maxSubArray(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            -21,
+            -34,
+            -121,
+            -54
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          [
+            1
+          ]
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "first-bad-version",
+    "title": "First Bad Version",
+    "topic": "Binary Search",
+    "difficulty": "Easy",
+    "description": "You are a product manager and you want to find out the first bad version after a certain version. The isBadVersion API will return true if version is bad, otherwise it will return false.",
+    "examples": [
+      {
+        "input": "n = 5",
+        "output": "4"
+      },
+      {
+        "input": "n = 1",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "firstBadVersion",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function firstBadVersion(n) {\n  \n}",
+      "python": "def firstBadVersion(n):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int firstBadVersion(int n) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          5
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          1
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "reverse-words-in-a-string",
+    "title": "Reverse Words in a String",
+    "topic": "Array, String",
+    "difficulty": "Easy",
+    "description": "Given an input string, reverse the order of the words...",
+    "examples": [
+      {
+        "input": "s = \"  hello world! \"",
+        "output": "\"world! hello\""
+      },
+      {
+        "input": "s = \"a good example\"",
+        "output": "\"example good a\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "reverseWords",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function reverseWords(s) {\n  \n}",
+      "python": "def reverseWords(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string reverseWords(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "  hello world! "
+        ],
+        "expected": "world! hello"
+      },
+      {
+        "input": [
+          "a good example"
+        ],
+        "expected": "example good a"
+      }
+    ]
+  },
+  {
+    "id": "find-all-anagrams",
+    "title": "Find All Anagrams in a String",
+    "topic": "String, Sliding Window",
+    "difficulty": "Medium",
+    "description": "Given a string s and a non-empty string p, find all the start indices of p's anagrams in s...",
+    "examples": [
+      {
+        "input": "s = \"cbaebabacd\", p = \"abc\"",
+        "output": "[0,6]"
+      },
+      {
+        "input": "s = \"abab\", p = \"ab\"",
+        "output": "[0,1,2]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findAnagrams",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        },
+        {
+          "name": "p",
+          "type": "string"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function findAnagrams(s, p) {\n  \n}",
+      "python": "def findAnagrams(s, p):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "cbaebabacd",
+          "abc"
+        ],
+        "expected": [
+          0,
+          6
+        ]
+      },
+      {
+        "input": [
+          "abab",
+          "ab"
+        ],
+        "expected": [
+          0,
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": "min-cost-to-connect-all-points",
+    "title": "Min Cost to Connect All Points",
+    "topic": "Array, Graph, Union Find",
+    "difficulty": "Medium",
+    "description": "You are given an array of points where each point is an integer array of two integers...",
+    "examples": [
+      {
+        "input": "points = [[\"00\"],[22],[310],[52],[70]]",
+        "output": "20"
+      },
+      {
+        "input": "points = [[\"00\"],[11],[22]]",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minCostConnectPoints",
+      "params": [
+        {
+          "name": "points",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minCostConnectPoints(points) {\n  \n}",
+      "python": "def minCostConnectPoints(points):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minCostConnectPoints(vector<vector<int>>& points) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              "00"
+            ],
+            [
+              22
+            ],
+            [
+              310
+            ],
+            [
+              52
+            ],
+            [
+              70
+            ]
+          ]
+        ],
+        "expected": 20
+      },
+      {
+        "input": [
+          [
+            [
+              "00"
+            ],
+            [
+              11
+            ],
+            [
+              22
+            ]
+          ]
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "subarrays-with-k-different-integers",
+    "title": "Subarrays with K Different Integers",
+    "topic": "Array, Hash Table, Sliding Window",
+    "difficulty": "Hard",
+    "description": "Given an array of integers and an integer k, return the number of contiguous subarrays where there are exactly k distinct integers...",
+    "examples": [
+      {
+        "input": "nums = [12123], k = 2",
+        "output": "7"
+      },
+      {
+        "input": "nums = [12134], k = 3",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "subarraysWithKDistinct",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function subarraysWithKDistinct(nums, k) {\n  \n}",
+      "python": "def subarraysWithKDistinct(nums, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int subarraysWithKDistinct(vector<int>& nums, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12123
+          ],
+          2
+        ],
+        "expected": 7
+      },
+      {
+        "input": [
+          [
+            12134
+          ],
+          3
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "super-ugly-number",
+    "title": "Super Ugly Number",
+    "topic": "Math, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Write a program to find the nth super ugly number...",
+    "examples": [
+      {
+        "input": "n = 12, primes = [271319]",
+        "output": "32"
+      },
+      {
+        "input": "n = 1, primes = [271319]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "nthSuperUglyNumber",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "primes",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function nthSuperUglyNumber(n, primes) {\n  \n}",
+      "python": "def nthSuperUglyNumber(n, primes):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int nthSuperUglyNumber(int n, vector<int>& primes) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          12,
+          [
+            271319
+          ]
+        ],
+        "expected": 32
+      },
+      {
+        "input": [
+          1,
+          [
+            271319
+          ]
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "longest-uncommon-subsequence-i",
+    "title": "Longest Uncommon Subsequence I",
+    "topic": "String, Hash Table",
+    "difficulty": "Easy",
+    "description": "You are given two strings, find the length of the longest uncommon subsequence...",
+    "examples": [
+      {
+        "input": "a = \"aba\", b = \"cdc\"",
+        "output": "3"
+      },
+      {
+        "input": "a = \"aaa\", b = \"aaa\"",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findLUSlength",
+      "params": [
+        {
+          "name": "a",
+          "type": "string"
+        },
+        {
+          "name": "b",
+          "type": "string"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function findLUSlength(a, b) {\n  \n}",
+      "python": "def findLUSlength(a, b):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int findLUSlength(string a, string b) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "aba",
+          "cdc"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "aaa",
+          "aaa"
+        ],
+        "expected": -1
+      }
+    ]
+  },
+  {
+    "id": "max-consecutive-ones-ii",
+    "title": "Max Consecutive Ones II",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Medium",
+    "description": "You are given an array of integers, find the maximum number of consecutive ones...",
+    "examples": [
+      {
+        "input": "nums = [110110111011]",
+        "output": "6"
+      },
+      {
+        "input": "nums = [111111]",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findMaxConsecutiveOnes",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function findMaxConsecutiveOnes(nums) {\n  \n}",
+      "python": "def findMaxConsecutiveOnes(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            110110111011
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          [
+            111111
+          ]
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "minimum-operations-to-make-array-equal",
+    "title": "Minimum Operations to Make Array Equal",
+    "topic": "Array, Math",
+    "difficulty": "Medium",
+    "description": "You are given an integer n, find the minimum number of operations to make the array equal...",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "2"
+      },
+      {
+        "input": "n = 6",
+        "output": "9"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minOperations",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minOperations(n) {\n  \n}",
+      "python": "def minOperations(n):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minOperations(int n) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          3
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          6
+        ],
+        "expected": 9
+      }
+    ]
+  },
+  {
+    "id": "minimum-number-of-operations-to-reinitialize-permutation",
+    "title": "Minimum Number of Operations to Reinitialize Permutation",
+    "topic": "Array, Math",
+    "difficulty": "Medium",
+    "description": "You are given an integer n, find the minimum number of operations to reinitialize the permutation...",
+    "examples": [
+      {
+        "input": "n = 6",
+        "output": "4"
+      },
+      {
+        "input": "n = 2",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "reinitializePermutation",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function reinitializePermutation(n) {\n  \n}",
+      "python": "def reinitializePermutation(n):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int reinitializePermutation(int n) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          6
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          2
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "minimum-cost-to-make-at-least-one-string-equal",
+    "title": "Minimum Cost to Make at Least One String Equal",
+    "topic": "String, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given two strings, find the minimum cost to make at least one string equal...",
+    "examples": [
+      {
+        "input": "s1 = \"abc\", s2 = \"bcd\"",
+        "output": "2"
+      },
+      {
+        "input": "s1 = \"abcd\", s2 = \"abcd\"",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimumCost",
+      "params": [
+        {
+          "name": "s1",
+          "type": "string"
+        },
+        {
+          "name": "s2",
+          "type": "string"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimumCost(s1, s2) {\n  \n}",
+      "python": "def minimumCost(s1, s2):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimumCost(string s1, string s2) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "abc",
+          "bcd"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "abcd",
+          "abcd"
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "maximum-binary-string",
+    "title": "Maximum Binary String",
+    "topic": "String, Greedy",
+    "difficulty": "Easy",
+    "description": "You are given a binary string, find the maximum binary string...",
+    "examples": [
+      {
+        "input": "binary = \"000111\"",
+        "output": "\"011111\""
+      },
+      {
+        "input": "binary = \"00110\"",
+        "output": "\"00111\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maximumBinaryString",
+      "params": [
+        {
+          "name": "binary",
+          "type": "string"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function maximumBinaryString(binary) {\n  \n}",
+      "python": "def maximumBinaryString(binary):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string maximumBinaryString(string binary) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "000111"
+        ],
+        "expected": "011111"
+      },
+      {
+        "input": [
+          "00110"
+        ],
+        "expected": "00111"
+      }
+    ]
+  },
+  {
+    "id": "count-substrings-with-only-one-distinct-letter",
+    "title": "Count Substrings with Only One Distinct Letter",
+    "topic": "String",
+    "difficulty": "Easy",
+    "description": "You are given a string, find the number of substrings with only one distinct letter...",
+    "examples": [
+      {
+        "input": "s = \"aaaa\"",
+        "output": "10"
+      },
+      {
+        "input": "s = \"abc\"",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "countLetters",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function countLetters(s) {\n  \n}",
+      "python": "def countLetters(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int countLetters(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "aaaa"
+        ],
+        "expected": 10
+      },
+      {
+        "input": [
+          "abc"
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "partition-labels",
+    "title": "Partition Labels",
+    "topic": "String, Greedy",
+    "difficulty": "Medium",
+    "description": "You are given a string S. We want to partition S into as many parts as possible so that each letter appears in at most one part...",
+    "examples": [
+      {
+        "input": "S = \"ababcbacadefegdehijhklij\"",
+        "output": "[978]"
+      },
+      {
+        "input": "S = \"eccbbbbdec\"",
+        "output": "[10]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "partitionLabels",
+      "params": [
+        {
+          "name": "S",
+          "type": "string"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function partitionLabels(S) {\n  \n}",
+      "python": "def partitionLabels(S):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> partitionLabels(string S) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "ababcbacadefegdehijhklij"
+        ],
+        "expected": [
+          978
+        ]
+      },
+      {
+        "input": [
+          "eccbbbbdec"
+        ],
+        "expected": [
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "id": "find-minimum-in-rotated-sorted-array",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "topic": "Array, Binary Search",
+    "difficulty": "Medium",
+    "description": "Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand...",
+    "examples": [
+      {
+        "input": "nums = [34512]",
+        "output": "1"
+      },
+      {
+        "input": "nums = [4567012]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "findMin",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function findMin(nums) {\n  \n}",
+      "python": "def findMin(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            34512
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            4567012
+          ]
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "number-of-ways-to-stay-stood",
+    "title": "Number of Ways to Stay Stood",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given a positive integer n, find the number of ways to stand on each stair.",
+    "examples": [
+      {
+        "input": "n = 4",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numWays",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function numWays(n) {\n  \n}",
+      "python": "def numWays(n):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int numWays(int n) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          4
+        ],
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "id": "construct-target-array-with-multiple-sums",
+    "title": "Construct Target Array With Multiple Sums",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Hard",
+    "description": "Given an array of distinct positive integers, determine if it is possible to construct the target array using the given operations.",
+    "examples": [
+      {
+        "input": "target = [935]",
+        "output": "true"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "isPossible",
+      "params": [
+        {
+          "name": "target",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "boolean"
+    },
+    "starterCode": {
+      "javascript": "function isPossible(target) {\n  \n}",
+      "python": "def isPossible(target):\n    pass",
+      "cpp": "class Solution {\npublic:\n    bool isPossible(vector<int>& target) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            935
+          ]
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "minimize-malware-spread",
+    "title": "Minimize Malware Spread",
+    "topic": "Array, Graph",
+    "difficulty": "Medium",
+    "description": "Given a graph and an array of initially infected nodes, find the node that minimizes the malware spread.",
+    "examples": [
+      {
+        "input": "graph = [[110],[110],[\"001\"]], initial = [\"01\"]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minMalwareSpread",
+      "params": [
+        {
+          "name": "graph",
+          "type": "integer[][]"
+        },
+        {
+          "name": "initial",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minMalwareSpread(graph, initial) {\n  \n}",
+      "python": "def minMalwareSpread(graph, initial):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minMalwareSpread(vector<vector<int>>& graph, vector<int>& initial) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              110
+            ],
+            [
+              110
+            ],
+            [
+              "001"
+            ]
+          ],
+          [
+            "01"
+          ]
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "min-cost-to-make-all-elements-equal-in-array",
+    "title": "Min Cost to Make All Elements Equal in Array",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given an array of integers, find the minimum cost to make all elements equal.",
+    "examples": [
+      {
+        "input": "nums = [1352]",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minCost",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minCost(nums) {\n  \n}",
+      "python": "def minCost(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minCost(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            1352
+          ]
+        ],
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "id": "minimize-the-difference-between-target-and-chosen-elements",
+    "title": "Minimize the Difference Between Target and Chosen Elements",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given a matrix and a target array, find the minimum difference between the target and chosen elements.",
+    "examples": [
+      {
+        "input": "mat = [[123],[456],[789]], target = [231]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimizeTheDifference",
+      "params": [
+        {
+          "name": "mat",
+          "type": "integer[][]"
+        },
+        {
+          "name": "target",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimizeTheDifference(mat, target) {\n  \n}",
+      "python": "def minimizeTheDifference(mat, target):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimizeTheDifference(vector<vector<int>>& mat, vector<int>& target) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              123
+            ],
+            [
+              456
+            ],
+            [
+              789
+            ]
+          ],
+          [
+            231
+          ]
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "count-the-number-of-ideal-arrays",
+    "title": "Count the Number of Ideal Arrays",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given a positive integer n and a maximum value, find the number of ideal arrays.",
+    "examples": [
+      {
+        "input": "n = 3, maxValue = 4",
+        "output": "10"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "countIdealArrays",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "maxValue",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function countIdealArrays(n, maxValue) {\n  \n}",
+      "python": "def countIdealArrays(n, maxValue):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int countIdealArrays(int n, int maxValue) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          3,
+          4
+        ],
+        "expected": 10
+      }
+    ]
+  },
+  {
+    "id": "find-k-th-smallest-pair",
+    "title": "Find K-th Smallest Pair",
+    "topic": "Array, Sorting",
+    "difficulty": "Hard",
+    "description": "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the k-th smallest pair...",
+    "examples": [
+      {
+        "input": "nums1 = [1711], nums2 = [246], k = 3",
+        "output": "[12]"
+      },
+      {
+        "input": "nums1 = [112], nums2 = [123], k = 2",
+        "output": "[11]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "kthSmallestPairs",
+      "params": [
+        {
+          "name": "nums1",
+          "type": "integer[]"
+        },
+        {
+          "name": "nums2",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function kthSmallestPairs(nums1, nums2, k) {\n  \n}",
+      "python": "def kthSmallestPairs(nums1, nums2, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> kthSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            1711
+          ],
+          [
+            246
+          ],
+          3
+        ],
+        "expected": [
+          12
+        ]
+      },
+      {
+        "input": [
+          [
+            112
+          ],
+          [
+            123
+          ],
+          2
+        ],
+        "expected": [
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "id": "max-consecutive-ones-iii",
+    "title": "Max Consecutive Ones III",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Medium",
+    "description": "Given an array A of 0s and 1s, we may change up to K 0s to 1s. Return the length of the longest (contiguous) subarray that contains only 1s...",
+    "examples": [
+      {
+        "input": "A = [11100011110], k = 2",
+        "output": "6"
+      },
+      {
+        "input": "A = [110], k = 2",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "longestOnes",
+      "params": [
+        {
+          "name": "A",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function longestOnes(A, k) {\n  \n}",
+      "python": "def longestOnes(A, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int longestOnes(vector<int>& A, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            11100011110
+          ],
+          2
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          [
+            110
+          ],
+          2
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "number-of-subsequences-that-satisfy-the-condition",
+    "title": "Number of Subsequences That Satisfy the Condition",
+    "topic": "Array, Two Pointers",
+    "difficulty": "Medium",
+    "description": "Given an array of integers nums and an integer target, return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on it is less than or equal to target...",
+    "examples": [
+      {
+        "input": "nums = [3567], target = 9",
+        "output": "4"
+      },
+      {
+        "input": "nums = [3368], target = 10",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numSubseq",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function numSubseq(nums, target) {\n  \n}",
+      "python": "def numSubseq(nums, target):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int numSubseq(vector<int>& nums, int target) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            3567
+          ],
+          9
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            3368
+          ],
+          10
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "maximize-distance-to-closest-person",
+    "title": "Maximize Distance to Closest Person",
+    "topic": "Array, Greedy",
+    "difficulty": "Medium",
+    "description": "In a row of seats, 1 represents a person sitting in that seat, and 0 represents that the seat is empty. There is at least one empty seat, and at least one person sitting...",
+    "examples": [
+      {
+        "input": "seats = [1000101]",
+        "output": "2"
+      },
+      {
+        "input": "seats = [1000]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxDistToClosest",
+      "params": [
+        {
+          "name": "seats",
+          "type": "string[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxDistToClosest(seats) {\n  \n}",
+      "python": "def maxDistToClosest(seats):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxDistToClosest(vector<string>& seats) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            1000101
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            1000
+          ]
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "minimum-length-of-string-after-deleting-similar-ends",
+    "title": "Minimum Length of String After Deleting Similar Ends",
+    "topic": "String, Two Pointers",
+    "difficulty": "Medium",
+    "description": "Given a string s, return the length of the string after deleting similar ends. The deletion is done by choosing a pair of similar characters from the ends of the string and then removing them...",
+    "examples": [
+      {
+        "input": "s = \"ca\"",
+        "output": "2"
+      },
+      {
+        "input": "s = \"cabaabac\"",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimumLength",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimumLength(s) {\n  \n}",
+      "python": "def minimumLength(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimumLength(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "ca"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "cabaabac"
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "kth-distinct-element-in-an-array",
+    "title": "Kth Distinct Element in an Array",
+    "topic": "Array, Hash Table",
+    "difficulty": "Medium",
+    "description": "You are given an array of integers and an integer k...",
+    "examples": [
+      {
+        "input": "arr = [12234445], k = 2",
+        "output": "3"
+      },
+      {
+        "input": "arr = [111], k = 2",
+        "output": "-1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "kthDistinct",
+      "params": [
+        {
+          "name": "arr",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function kthDistinct(arr, k) {\n  \n}",
+      "python": "def kthDistinct(arr, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int kthDistinct(vector<int>& arr, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12234445
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            111
+          ],
+          2
+        ],
+        "expected": -1
+      }
+    ]
+  },
+  {
+    "id": "subarray-sums-divisible-by-k",
+    "title": "Subarray Sum Equals K",
+    "topic": "Array, Hash Table",
+    "difficulty": "Medium",
+    "description": "Given an array of integers nums and an integer k...",
+    "examples": [
+      {
+        "input": "nums = [111], k = 2",
+        "output": "2"
+      },
+      {
+        "input": "nums = [123], k = 3",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "subarraySum",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function subarraySum(nums, k) {\n  \n}",
+      "python": "def subarraySum(nums, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            111
+          ],
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            123
+          ],
+          3
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "find-the-shortest-superstring",
+    "title": "Shortest Supersequence",
+    "topic": "String, Dynamic Programming",
+    "difficulty": "Hard",
+    "description": "Given a set of strings, find the shortest supersequence that contains all the strings...",
+    "examples": [
+      {
+        "input": "words = [\"abc\",\"bcd\",\"xyz\"]",
+        "output": "\"abcdxyz\""
+      },
+      {
+        "input": "words = [\"abc\",\"def\"]",
+        "output": "\"abcdef\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "shortestSuperstring",
+      "params": [
+        {
+          "name": "words",
+          "type": "string[]"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function shortestSuperstring(words) {\n  \n}",
+      "python": "def shortestSuperstring(words):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string shortestSuperstring(vector<string>& words) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "abc",
+            "bcd",
+            "xyz"
+          ]
+        ],
+        "expected": "abcdxyz"
+      },
+      {
+        "input": [
+          [
+            "abc",
+            "def"
+          ]
+        ],
+        "expected": "abcdef"
+      }
+    ]
+  },
+  {
+    "id": "reverse-words-in-a-string-iii",
+    "title": "Reverse Words in a String III",
+    "topic": "String",
+    "difficulty": "Easy",
+    "description": "Given a string, you need to reverse the order of characters in each word within a sentence, while still preserving the original order of the words.",
+    "examples": [
+      {
+        "input": "s = \"Let's take LeetCode contest\"",
+        "output": "\"s'teL ekat edoCteeL\""
+      },
+      {
+        "input": "s = \"God Ding\"",
+        "output": "\"doG gniD\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "reverseWords",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function reverseWords(s) {\n  \n}",
+      "python": "def reverseWords(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string reverseWords(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "Let's take LeetCode contest"
+        ],
+        "expected": "s'teL ekat edoCteeL"
+      },
+      {
+        "input": [
+          "God Ding"
+        ],
+        "expected": "doG gniD"
+      }
+    ]
+  },
+  {
+    "id": "number-of-islands-ii",
+    "title": "Number of Islands II",
+    "topic": "Array, Union Find",
+    "difficulty": "Hard",
+    "description": "You are given an integer array positions...",
+    "examples": [
+      {
+        "input": "m = 3, n = 3, positions = [[\"00\"],[\"01\"],[12],[21]]",
+        "output": "[1122]"
+      },
+      {
+        "input": "m = 3, n = 3, positions = [[\"00\"],[\"01\"],[12]]",
+        "output": "[123]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numIslands2",
+      "params": [
+        {
+          "name": "m",
+          "type": "integer"
+        },
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "positions",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function numIslands2(m, n, positions) {\n  \n}",
+      "python": "def numIslands2(m, n, positions):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> numIslands2(int m, int n, vector<vector<int>>& positions) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          3,
+          3,
+          [
+            [
+              "00"
+            ],
+            [
+              "01"
+            ],
+            [
+              12
+            ],
+            [
+              21
+            ]
+          ]
+        ],
+        "expected": [
+          1122
+        ]
+      },
+      {
+        "input": [
+          3,
+          3,
+          [
+            [
+              "00"
+            ],
+            [
+              "01"
+            ],
+            [
+              12
+            ]
+          ]
+        ],
+        "expected": [
+          123
+        ]
+      }
+    ]
+  },
+  {
+    "id": "insert-into-a-binary-search-tree",
+    "title": "Insert into a Binary Search Tree",
+    "topic": "Tree, Binary Search Tree",
+    "difficulty": "Medium",
+    "description": "You are given a binary search tree root...",
+    "examples": [
+      {
+        "input": "root = [42713], val = 5",
+        "output": "[427135]"
+      },
+      {
+        "input": "root = [], val = 5",
+        "output": "[5]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "insertIntoBST",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "val",
+          "type": "integer"
+        }
+      ],
+      "returns": "TreeNode"
+    },
+    "starterCode": {
+      "javascript": "function insertIntoBST(root, val) {\n  \n}",
+      "python": "def insertIntoBST(root, val):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int insertIntoBST(int root, int val) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            42713
+          ],
+          5
+        ],
+        "expected": [
+          427135
+        ]
+      },
+      {
+        "input": [
+          [],
+          5
+        ],
+        "expected": [
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": "max-sum-of-3-non-overlapping-subarrays",
+    "title": "Max Sum of 3 Non-Overlapping Subarrays",
+    "topic": "Array",
+    "difficulty": "Medium",
+    "description": "Given an array nums of 0s and 1s of size n, find the maximum sum of lengths of three non-overlapping subarrays with only 1s.",
+    "examples": [
+      {
+        "input": "nums = [\"0011\"]",
+        "output": "[]"
+      },
+      {
+        "input": "nums = [\"0001001010011000011010011101001101\"]",
+        "output": "[\"069\"]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxSumOfThreeSubarrays",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function maxSumOfThreeSubarrays(nums) {\n  \n}",
+      "python": "def maxSumOfThreeSubarrays(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> maxSumOfThreeSubarrays(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "0011"
+          ]
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            "0001001010011000011010011101001101"
+          ]
+        ],
+        "expected": [
+          "069"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "distant-barcodes",
+    "title": "Distant Barcodes",
+    "topic": "Array, Priority Queue",
+    "difficulty": "Medium",
+    "description": "You are given a list of barcodes, you need to rearrange them so that the same barcode is not adjacent...",
+    "examples": [
+      {
+        "input": "barcodes = [111222]",
+        "output": "[121212]"
+      },
+      {
+        "input": "barcodes = [77788877778888]",
+        "output": "[78787788787878]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "distantBarcodes",
+      "params": [
+        {
+          "name": "barcodes",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function distantBarcodes(barcodes) {\n  \n}",
+      "python": "def distantBarcodes(barcodes):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> distantBarcodes(vector<int>& barcodes) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            111222
+          ]
+        ],
+        "expected": [
+          121212
+        ]
+      },
+      {
+        "input": [
+          [
+            77788877778888
+          ]
+        ],
+        "expected": [
+          78787788787878
+        ]
+      }
+    ]
+  },
+  {
+    "id": "max-boxes-in-a-warehouse",
+    "title": "Max Boxes in a Warehouse",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given a list of boxes and a warehouse, you need to maximize the number of boxes in the warehouse...",
+    "examples": [
+      {
+        "input": "boxes = [[53],[54],[67],[23],[45]], warehouse = [45678910101010]",
+        "output": "8"
+      },
+      {
+        "input": "boxes = [[11],[22],[33],[12],[23],[34]], warehouse = [12345678910]",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxBoxesInWarehouse",
+      "params": [
+        {
+          "name": "boxes",
+          "type": "integer[][]"
+        },
+        {
+          "name": "warehouse",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxBoxesInWarehouse(boxes, warehouse) {\n  \n}",
+      "python": "def maxBoxesInWarehouse(boxes, warehouse):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxBoxesInWarehouse(vector<vector<int>>& boxes, vector<int>& warehouse) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              53
+            ],
+            [
+              54
+            ],
+            [
+              67
+            ],
+            [
+              23
+            ],
+            [
+              45
+            ]
+          ],
+          [
+            45678910101010
+          ]
+        ],
+        "expected": 8
+      },
+      {
+        "input": [
+          [
+            [
+              11
+            ],
+            [
+              22
+            ],
+            [
+              33
+            ],
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ]
+          ],
+          [
+            12345678910
+          ]
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "minimize-the-difference-between-target-and-chosen-integer",
+    "title": "Minimize the Difference Between Target and Chosen Integer",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given a target and a list of integers, you need to minimize the difference between the target and a chosen integer...",
+    "examples": [
+      {
+        "input": "target = [5,[12345]], arr = 1",
+        "output": "0"
+      },
+      {
+        "input": "target = [10,[591282]], arr = 1",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimizeTheDifferenceBetweenTargetAndChosenInteger",
+      "params": [
+        {
+          "name": "target",
+          "type": "integer"
+        },
+        {
+          "name": "arr",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimizeTheDifferenceBetweenTargetAndChosenInteger(target, arr) {\n  \n}",
+      "python": "def minimizeTheDifferenceBetweenTargetAndChosenInteger(target, arr):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimizeTheDifferenceBetweenTargetAndChosenInteger(int target, vector<int>& arr) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            5,
+            [
+              12345
+            ]
+          ],
+          1
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            10,
+            [
+              591282
+            ]
+          ],
+          1
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "minimize-the-total-price-of-the-tasks",
+    "title": "Minimize the Total Price of the Tasks",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given a list of tasks and prices, you need to minimize the total price of the tasks...",
+    "examples": [
+      {
+        "input": "tasks = [[12],[23],[34],[12],[23],[34]], prices = [102030405060]",
+        "output": "50"
+      },
+      {
+        "input": "tasks = [[12],[23],[34]], prices = [102030]",
+        "output": "30"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimizeTheTotalPriceOfTheTasks",
+      "params": [
+        {
+          "name": "tasks",
+          "type": "integer[][]"
+        },
+        {
+          "name": "prices",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimizeTheTotalPriceOfTheTasks(tasks, prices) {\n  \n}",
+      "python": "def minimizeTheTotalPriceOfTheTasks(tasks, prices):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimizeTheTotalPriceOfTheTasks(vector<vector<int>>& tasks, vector<int>& prices) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ],
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ]
+          ],
+          [
+            102030405060
+          ]
+        ],
+        "expected": 50
+      },
+      {
+        "input": [
+          [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ]
+          ],
+          [
+            102030
+          ]
+        ],
+        "expected": 30
+      }
+    ]
+  },
+  {
+    "id": "maximize-the-visibility-of-the-buildings",
+    "title": "Maximize the Visibility of the Buildings",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given a list of buildings and obstacles, you need to maximize the visibility of the buildings...",
+    "examples": [
+      {
+        "input": "buildings = [[12],[23],[34]], obstacles = [[11],[22]]",
+        "output": "2"
+      },
+      {
+        "input": "buildings = [[12],[23],[34],[12],[23],[34]], obstacles = [[11],[22],[33],[11],[22],[33]]",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maximizeTheVisibilityOfTheBuildings",
+      "params": [
+        {
+          "name": "buildings",
+          "type": "integer[][]"
+        },
+        {
+          "name": "obstacles",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maximizeTheVisibilityOfTheBuildings(buildings, obstacles) {\n  \n}",
+      "python": "def maximizeTheVisibilityOfTheBuildings(buildings, obstacles):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maximizeTheVisibilityOfTheBuildings(vector<vector<int>>& buildings, vector<vector<int>>& obstacles) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ]
+          ],
+          [
+            [
+              11
+            ],
+            [
+              22
+            ]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ],
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              34
+            ]
+          ],
+          [
+            [
+              11
+            ],
+            [
+              22
+            ],
+            [
+              33
+            ],
+            [
+              11
+            ],
+            [
+              22
+            ],
+            [
+              33
+            ]
+          ]
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "minimize-the-difference-between-the-max-and-min-values",
+    "title": "Minimize the Difference Between the Max and Min Values",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "You are given a list of integers, you need to minimize the difference between the max and min values...",
+    "examples": [
+      {
+        "input": "arr = [12345]",
+        "output": "3"
+      },
+      {
+        "input": "arr = [1020304050]",
+        "output": "40"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimizeTheDifferenceBetweenTheMaxAndMinValues",
+      "params": [
+        {
+          "name": "arr",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimizeTheDifferenceBetweenTheMaxAndMinValues(arr) {\n  \n}",
+      "python": "def minimizeTheDifferenceBetweenTheMaxAndMinValues(arr):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimizeTheDifferenceBetweenTheMaxAndMinValues(vector<int>& arr) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12345
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            1020304050
+          ]
+        ],
+        "expected": 40
+      }
+    ]
+  },
+  {
+    "id": "max-increase-to-fit",
+    "title": "Max Increase to Fit",
+    "topic": "Array, Sorting",
+    "difficulty": "Easy",
+    "description": "The sky line real estates phenomenon begins when a group of houses that form a straight line in the landscape have the same height.",
+    "examples": [
+      {
+        "input": "grid = [[2910],[3715],[51212],[152010],[19248]]",
+        "output": "35"
+      },
+      {
+        "input": "grid = [[3567451],[5552554],[1241112]]",
+        "output": "35"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxIncreaseKeepingSkyline",
+      "params": [
+        {
+          "name": "grid",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxIncreaseKeepingSkyline(grid) {\n  \n}",
+      "python": "def maxIncreaseKeepingSkyline(grid):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              2910
+            ],
+            [
+              3715
+            ],
+            [
+              51212
+            ],
+            [
+              152010
+            ],
+            [
+              19248
+            ]
+          ]
+        ],
+        "expected": 35
+      },
+      {
+        "input": [
+          [
+            [
+              3567451
+            ],
+            [
+              5552554
+            ],
+            [
+              1241112
+            ]
+          ]
+        ],
+        "expected": 35
+      }
+    ]
+  },
+  {
+    "id": "longest-consecutive-sequence",
+    "title": "Longest Consecutive Sequence",
+    "topic": "Array, Hash Table",
+    "difficulty": "Medium",
+    "description": "Given an unsorted array of integers, find the length of the longest consecutive elements sequence...",
+    "examples": [
+      {
+        "input": "nums = [100,4,200,1,3,2]",
+        "output": "4"
+      },
+      {
+        "input": "nums = [0,3,7,2,5,8,4,6,0,1]",
+        "output": "9"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "longestConsecutive",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function longestConsecutive(nums) {\n  \n}",
+      "python": "def longestConsecutive(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            100,
+            4,
+            200,
+            1,
+            3,
+            2
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            0,
+            3,
+            7,
+            2,
+            5,
+            8,
+            4,
+            6,
+            0,
+            1
+          ]
+        ],
+        "expected": 9
+      }
+    ]
+  },
+  {
+    "id": "coin-change-2",
+    "title": "Coin Change 2",
+    "topic": "Array, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money...",
+    "examples": [
+      {
+        "input": "amount = 5, coins = [1,2,5]",
+        "output": "4"
+      },
+      {
+        "input": "amount = 3, coins = [2]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "change",
+      "params": [
+        {
+          "name": "amount",
+          "type": "integer"
+        },
+        {
+          "name": "coins",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function change(amount, coins) {\n  \n}",
+      "python": "def change(amount, coins):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int change(int amount, vector<int>& coins) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          5,
+          [
+            1,
+            2,
+            5
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          3,
+          [
+            2
+          ]
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "delete-node-in-a-bst",
+    "title": "Delete Node in a BST",
+    "topic": "Tree, Binary Search Tree",
+    "difficulty": "Medium",
+    "description": "Given a root node reference of a BST and a key, delete the node with this given key in the BST.",
+    "examples": [
+      {
+        "input": "root = [53624,null,7], key = 3",
+        "output": "[5462,null,null,7]"
+      },
+      {
+        "input": "root = [53624,null,7], key = 0",
+        "output": "[53624,null,7]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "deleteNode",
+      "params": [
+        {
+          "name": "root",
+          "type": "TreeNode"
+        },
+        {
+          "name": "key",
+          "type": "integer"
+        }
+      ],
+      "returns": "TreeNode"
+    },
+    "starterCode": {
+      "javascript": "function deleteNode(root, key) {\n  \n}",
+      "python": "def deleteNode(root, key):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int deleteNode(int root, int key) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            53624,
+            null,
+            7
+          ],
+          3
+        ],
+        "expected": [
+          5462,
+          null,
+          null,
+          7
+        ]
+      },
+      {
+        "input": [
+          [
+            53624,
+            null,
+            7
+          ],
+          0
+        ],
+        "expected": [
+          53624,
+          null,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": "subsets-ii",
+    "title": "Subsets II",
+    "topic": "Array, Backtracking",
+    "difficulty": "Medium",
+    "description": "Given an integer array nums that may contain duplicates, return all possible subsets (the power set).",
+    "examples": [
+      {
+        "input": "nums = [122]",
+        "output": "[[],[1],[2],[12],[22],[122]]"
+      },
+      {
+        "input": "nums = [0]",
+        "output": "[[],[0]]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "subsetsWithDup",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer[][]"
+    },
+    "starterCode": {
+      "javascript": "function subsetsWithDup(nums) {\n  \n}",
+      "python": "def subsetsWithDup(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<vector<int>> subsetsWithDup(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            122
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            12
+          ],
+          [
+            22
+          ],
+          [
+            122
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            0
+          ]
+        ],
+        "expected": [
+          [],
+          [
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique-binary-search-trees-ii",
+    "title": "Unique Binary Search Trees II",
+    "topic": "Tree, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n.",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "[{\"val\":1,\"left\":null,\"right\":{\"val\":2,\"left\":null,\"right\":{\"val\":3,\"left\":null,\"right\":null}}},{\"val\":1,\"left\":null,\"right\":{\"val\":3,\"left\":{\"val\":2,\"left\":null,\"right\":null},\"right\":null}},{\"val\":2,\"left\":{\"val\":1,\"left\":null,\"right\":null},\"right\":{\"val\":3,\"left\":null,\"right\":null}},{\"val\":3,\"left\":{\"val\":1,\"left\":null,\"right\":{\"val\":2,\"left\":null,\"right\":null}},\"right\":null}]"
+      },
+      {
+        "input": "n = 1",
+        "output": "[{\"val\":1,\"left\":null,\"right\":null}]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "generateTrees",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        }
+      ],
+      "returns": "TreeNode[]"
+    },
+    "starterCode": {
+      "javascript": "function generateTrees(n) {\n  \n}",
+      "python": "def generateTrees(n):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int generateTrees(int n) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          3
+        ],
+        "expected": [
+          {
+            "val": 1,
+            "left": null,
+            "right": {
+              "val": 2,
+              "left": null,
+              "right": {
+                "val": 3,
+                "left": null,
+                "right": null
+              }
+            }
+          },
+          {
+            "val": 1,
+            "left": null,
+            "right": {
+              "val": 3,
+              "left": {
+                "val": 2,
+                "left": null,
+                "right": null
+              },
+              "right": null
+            }
+          },
+          {
+            "val": 2,
+            "left": {
+              "val": 1,
+              "left": null,
+              "right": null
+            },
+            "right": {
+              "val": 3,
+              "left": null,
+              "right": null
+            }
+          },
+          {
+            "val": 3,
+            "left": {
+              "val": 1,
+              "left": null,
+              "right": {
+                "val": 2,
+                "left": null,
+                "right": null
+              }
+            },
+            "right": null
+          }
+        ]
+      },
+      {
+        "input": [
+          1
+        ],
+        "expected": [
+          {
+            "val": 1,
+            "left": null,
+            "right": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "number-of-good-pairs",
+    "title": "Number of Good Pairs",
+    "topic": "Array, Hash Table",
+    "difficulty": "Easy",
+    "description": "Given an array of integers nums.",
+    "examples": [
+      {
+        "input": "nums = [123113]",
+        "output": "4"
+      },
+      {
+        "input": "nums = [123]",
+        "output": "0"
+      },
+      {
+        "input": "nums = [1111]",
+        "output": "6"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numIdenticalPairs",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function numIdenticalPairs(nums) {\n  \n}",
+      "python": "def numIdenticalPairs(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int numIdenticalPairs(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            123113
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            123
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            1111
+          ]
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "minimum-average-difference",
+    "title": "Minimum Average Difference",
+    "topic": "Array, Prefix Sum",
+    "difficulty": "Medium",
+    "description": "You are given an integer array nums.",
+    "examples": [
+      {
+        "input": "nums = [1]",
+        "output": "0"
+      },
+      {
+        "input": "nums = [\"021\",-66,-791,-2685]",
+        "output": "3"
+      },
+      {
+        "input": "nums = [42232444444444450]",
+        "output": "8"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minAverageDifference",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minAverageDifference(nums) {\n  \n}",
+      "python": "def minAverageDifference(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minAverageDifference(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            1
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            "021",
+            -66,
+            -791,
+            -2685
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            42232444444444450
+          ]
+        ],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "kth-distinct-element",
+    "title": "Kth Distinct Element",
+    "topic": "Array, Hash Table",
+    "difficulty": "Medium",
+    "description": "Given an array of integers arr and an integer k, return the kth distinct element...",
+    "examples": [
+      {
+        "input": "arr = [43215], k = 2",
+        "output": "3"
+      },
+      {
+        "input": "arr = [2121345], k = 4",
+        "output": "5"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "kthDistinct",
+      "params": [
+        {
+          "name": "arr",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function kthDistinct(arr, k) {\n  \n}",
+      "python": "def kthDistinct(arr, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int kthDistinct(vector<int>& arr, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            43215
+          ],
+          2
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            2121345
+          ],
+          4
+        ],
+        "expected": 5
+      }
+    ]
+  },
+  {
+    "id": "minimum-amount-of-time",
+    "title": "Minimum Amount of Time",
+    "topic": "Array, Sorting",
+    "difficulty": "Medium",
+    "description": "Given an integer n and an array of logs, return the minimum time it takes to finish all tasks...",
+    "examples": [
+      {
+        "input": "n = 3, logs = [125]",
+        "output": "5"
+      },
+      {
+        "input": "n = 4, logs = [45973]",
+        "output": "9"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minTime",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "logs",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minTime(n, logs) {\n  \n}",
+      "python": "def minTime(n, logs):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minTime(int n, vector<int>& logs) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          3,
+          [
+            125
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          4,
+          [
+            45973
+          ]
+        ],
+        "expected": 9
+      }
+    ]
+  },
+  {
+    "id": "longest-word-in-dictionary-through-removing",
+    "title": "Longest Word in Dictionary through Removing",
+    "topic": "String, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given a list of words, return the longest word that can be formed by removing one character at a time from the given words...",
+    "examples": [
+      {
+        "input": "wordlist = [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]",
+        "output": "\"wert\""
+      },
+      {
+        "input": "wordlist = [\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"]",
+        "output": "\"apple\""
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "longestWord",
+      "params": [
+        {
+          "name": "wordlist",
+          "type": "string[]"
+        }
+      ],
+      "returns": "string"
+    },
+    "starterCode": {
+      "javascript": "function longestWord(wordlist) {\n  \n}",
+      "python": "def longestWord(wordlist):\n    pass",
+      "cpp": "class Solution {\npublic:\n    string longestWord(vector<string>& wordlist) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "wrt",
+            "wrf",
+            "er",
+            "ett",
+            "rftt"
+          ]
+        ],
+        "expected": "wert"
+      },
+      {
+        "input": [
+          [
+            "a",
+            "banana",
+            "app",
+            "appl",
+            "ap",
+            "apply",
+            "apple"
+          ]
+        ],
+        "expected": "apple"
+      }
+    ]
+  },
+  {
+    "id": "minimum-length-of-string-after-deletions",
+    "title": "Minimum Length of String After Deletions",
+    "topic": "String, Dynamic Programming",
+    "difficulty": "Medium",
+    "description": "Given a string s, return the minimum length of the string after deleting all occurrences of an anagram of a given string...",
+    "examples": [
+      {
+        "input": "s = \"abcabc\"",
+        "output": "4"
+      },
+      {
+        "input": "s = \"aabaa\"",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minimumLength",
+      "params": [
+        {
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minimumLength(s) {\n  \n}",
+      "python": "def minimumLength(s):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minimumLength(string s) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          "abcabc"
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          "aabaa"
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "number-of-subarrays-with-bounded-maximum",
+    "title": "Number of Subarrays with Bounded Maximum",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Medium",
+    "description": "Given an array of integers nums and two integers left and right, return the number of subarrays that have a maximum value in the range [left, right]...",
+    "examples": [
+      {
+        "input": "nums = [2143], left = 2, right = 3",
+        "output": "3"
+      },
+      {
+        "input": "nums = [29256111], left = 2, right = 5",
+        "output": "10"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "numSubarrayBoundedMax",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "left",
+          "type": "integer"
+        },
+        {
+          "name": "right",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function numSubarrayBoundedMax(nums, left, right) {\n  \n}",
+      "python": "def numSubarrayBoundedMax(nums, left, right):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            2143
+          ],
+          2,
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          [
+            29256111
+          ],
+          2,
+          5
+        ],
+        "expected": 10
+      }
+    ]
+  },
+  {
+    "id": "minimum-window-subarray",
+    "title": "Minimum Window Subarray",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Hard",
+    "description": "Given an array of integers and a target sum, find the smallest subarray that sums up to the target...",
+    "examples": [
+      {
+        "input": "nums = [231243], target = 7",
+        "output": "[231243]"
+      },
+      {
+        "input": "nums = [111], target = 2",
+        "output": "[11]"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minWindow",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer[]"
+    },
+    "starterCode": {
+      "javascript": "function minWindow(nums, target) {\n  \n}",
+      "python": "def minWindow(nums, target):\n    pass",
+      "cpp": "class Solution {\npublic:\n    vector<int> minWindow(vector<int>& nums, int target) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            231243
+          ],
+          7
+        ],
+        "expected": [
+          231243
+        ]
+      },
+      {
+        "input": [
+          [
+            111
+          ],
+          2
+        ],
+        "expected": [
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "id": "max-consecutive-floors-without-occupied-rooms",
+    "title": "Max Consecutive Floors Without Occupied Rooms",
+    "topic": "Array, Sorting",
+    "difficulty": "Medium",
+    "description": "You are given an integer array floors...",
+    "examples": [
+      {
+        "input": "floors = [12345]",
+        "output": "0"
+      },
+      {
+        "input": "floors = [135]",
+        "output": "2"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxConsecutiveFloors",
+      "params": [
+        {
+          "name": "floors",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxConsecutiveFloors(floors) {\n  \n}",
+      "python": "def maxConsecutiveFloors(floors):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxConsecutiveFloors(vector<int>& floors) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12345
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            135
+          ]
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "maximum-number-of-non-overlapping-subarrays",
+    "title": "Maximum Number of Non-Overlapping Subarrays",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Medium",
+    "description": "You are given an integer array nums...",
+    "examples": [
+      {
+        "input": "nums = [111], target = 2",
+        "output": "2"
+      },
+      {
+        "input": "nums = [\"000\"], target = 0",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "maxNonOverlapping",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "target",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function maxNonOverlapping(nums, target) {\n  \n}",
+      "python": "def maxNonOverlapping(nums, target):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int maxNonOverlapping(vector<int>& nums, int target) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            111
+          ],
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            "000"
+          ],
+          0
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "count-subarrays-with-median-k",
+    "title": "Count Subarrays with Median K",
+    "topic": "Array, Sliding Window",
+    "difficulty": "Hard",
+    "description": "You are given an integer array nums...",
+    "examples": [
+      {
+        "input": "nums = [12345], k = 3",
+        "output": "5"
+      },
+      {
+        "input": "nums = [135], k = 5",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "countSubarrays",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        },
+        {
+          "name": "k",
+          "type": "integer"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function countSubarrays(nums, k) {\n  \n}",
+      "python": "def countSubarrays(nums, k):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int countSubarrays(vector<int>& nums, int k) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12345
+          ],
+          3
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            135
+          ],
+          5
+        ],
+        "expected": 1
+      }
+    ]
+  },
+  {
+    "id": "minimum-cost-to-make-at-least-one-vertex-in-each-trie",
+    "title": "Minimum Cost to Make at Least One Vertex in Each Trie",
+    "topic": "Trie, Depth-First Search",
+    "difficulty": "Hard",
+    "description": "You are given a list of strings trie...",
+    "examples": [
+      {
+        "input": "trie = [[\"a\",\"b\",\"c\"]], edgelist = [[\"01\"],[12],[20]]",
+        "output": "2"
+      },
+      {
+        "input": "trie = [[\"a\"]], edgelist = [[\"00\"]]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minCost",
+      "params": [
+        {
+          "name": "trie",
+          "type": "string[][]"
+        },
+        {
+          "name": "edgelist",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minCost(trie, edgelist) {\n  \n}",
+      "python": "def minCost(trie, edgelist):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minCost(vector<vector<string>>& trie, vector<vector<int>>& edgelist) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            [
+              "a",
+              "b",
+              "c"
+            ]
+          ],
+          [
+            [
+              "01"
+            ],
+            [
+              12
+            ],
+            [
+              20
+            ]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [
+              "a"
+            ]
+          ],
+          [
+            [
+              "00"
+            ]
+          ]
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "minimum-operations-to-make-all-elements-equal",
+    "title": "Minimum Operations to Make All Elements Equal",
+    "topic": "Array, Math",
+    "difficulty": "Medium",
+    "description": "You are given an integer array nums...",
+    "examples": [
+      {
+        "input": "nums = [12345]",
+        "output": "10"
+      },
+      {
+        "input": "nums = [55555]",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minOperations",
+      "params": [
+        {
+          "name": "nums",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minOperations(nums) {\n  \n}",
+      "python": "def minOperations(nums):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minOperations(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            12345
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "input": [
+          [
+            55555
+          ]
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "minimum-cost-to-connect-all-nodes",
+    "title": "Minimum Cost to Connect All Nodes",
+    "topic": "Graph, Union Find",
+    "difficulty": "Medium",
+    "description": "You are given an integer n...",
+    "examples": [
+      {
+        "input": "n = [4], edges = [[125],[236],[341]]",
+        "output": "6"
+      },
+      {
+        "input": "n = [5], edges = [[122],[233],[341],[452]]",
+        "output": "8"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "minCost",
+      "params": [
+        {
+          "name": "n",
+          "type": "integer"
+        },
+        {
+          "name": "edges",
+          "type": "integer[][]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function minCost(n, edges) {\n  \n}",
+      "python": "def minCost(n, edges):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int minCost(int n, vector<vector<int>>& edges) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            4
+          ],
+          [
+            [
+              125
+            ],
+            [
+              236
+            ],
+            [
+              341
+            ]
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          [
+            5
+          ],
+          [
+            [
+              122
+            ],
+            [
+              233
+            ],
+            [
+              341
+            ],
+            [
+              452
+            ]
+          ]
+        ],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "minimum-amount-of-time-to-collect-garbage",
+    "title": "Minimum Amount of Time to Collect Garbage",
+    "topic": "Array, Sorting",
+    "difficulty": "Hard",
+    "description": "You are given a list of strings garbage...",
+    "examples": [
+      {
+        "input": "garbage = [\"metal\",\"paper\",\"glass\",\"glass\",\"plastic\",\"glass\",\"metal\",\"paper\"], travel = [101574225]",
+        "output": "36"
+      },
+      {
+        "input": "garbage = [\"paper\"], travel = [10]",
+        "output": "11"
+      }
+    ],
+    "constraints": [
+      "Check problem description for constraints."
+    ],
+    "signature": {
+      "name": "garbageCollection",
+      "params": [
+        {
+          "name": "garbage",
+          "type": "string[]"
+        },
+        {
+          "name": "travel",
+          "type": "integer[]"
+        }
+      ],
+      "returns": "integer"
+    },
+    "starterCode": {
+      "javascript": "function garbageCollection(garbage, travel) {\n  \n}",
+      "python": "def garbageCollection(garbage, travel):\n    pass",
+      "cpp": "class Solution {\npublic:\n    int garbageCollection(vector<string>& garbage, vector<int>& travel) {\n        \n    }\n};"
+    },
+    "testCases": [
+      {
+        "input": [
+          [
+            "metal",
+            "paper",
+            "glass",
+            "glass",
+            "plastic",
+            "glass",
+            "metal",
+            "paper"
+          ],
+          [
+            101574225
+          ]
+        ],
+        "expected": 36
+      },
+      {
+        "input": [
+          [
+            "paper"
+          ],
+          [
+            10
+          ]
+        ],
+        "expected": 11
+      }
+    ]
+  }
+]

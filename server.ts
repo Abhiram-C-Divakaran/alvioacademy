@@ -30,7 +30,7 @@ function getEpicLevel(xp: number) {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   app.use(cors());
   app.use(express.json());
@@ -148,63 +148,112 @@ IMPORTANT:
 
       const groq = new Groq({ apiKey });
 
-      const systemPrompt = `You are a world-class algorithm visualizer engine and 3D Animation Director. Your role is to generate a step-by-step 3D video storyboard for any coding problem. You are powering a premium 3D educational platform.
+      const systemPrompt = `You are an expert Data Structures & Algorithms visualization architect. Your job is to take ANY coding problem (e.g. "Two Sum", "4Sum", "Merge Intervals", "LRU Cache") and output a single, strictly valid JSON object describing a step-by-step 3D visualization. You NEVER write raw 3D code, Three.js, or geometry. You ONLY select from a fixed set of visual primitives and describe how they change over time. You never include any text outside the JSON object.
 
-RESPOND WITH ONLY VALID JSON. No markdown. No explanation. No backticks.
+═══════════════════════════════════
+AVAILABLE VISUAL PRIMITIVES (do not invent new types)
+═══════════════════════════════════
+- "array"      : ordered cells, each with an index, value, and optional pointer labels (e.g. "i", "left", "target")
+- "linkedlist" : nodes with "value" and "next" links
+- "tree"       : nodes with "value", "left", "right" (or "children" for n-ary)
+- "graph"      : "nodes" and "edges" (directed/undirected), each node/edge can be visited/unvisited/active
+- "stack"      : ordered LIFO frames with "value"
+- "queue"      : ordered FIFO frames with "value"
+- "hashmap"    : key-value buckets, each with "key", "value", collision chain if needed
+- "matrix"     : 2D grid of cells with "row", "col", "value"
+- "knapsack"   : a 3D backpack with a "capacity", containing "items" each with "weight" and "value"
+- "pointer"    : a labeled marker attached to any element in any of the above (e.g. "left", "right", "slow", "fast")
 
-=== OUTPUT SCHEMA ===
+Every element in every primitive must have a stable "id" that persists across steps so the renderer can animate transitions (move/highlight/fade) instead of re-mounting.
+
+PRIMITIVE SHAPES
+- All primitives store their elements in "initialElements".
+- linkedlist: elements are {id, value, next: nodeId | null}; optional primitive.head identifies the first node.
+- tree: elements are {id, value, left: nodeId | null, right: nodeId | null}, or use children: [nodeId] for n-ary trees; optional primitive.root identifies the root.
+- graph: initialElements contains nodes {id, value}; primitive.edges contains {id, from: nodeId, to: nodeId, directed: boolean, weight?, state?}. Both endpoints must refer to node ids.
+- matrix: each element is {id, row, col, value}, with zero-based row and col coordinates; optional primitive.rows and primitive.cols give its dimensions.
+- knapsack: initialElements contains {id, weight, value}; primitive.capacity describes the bag capacity.
+- array, stack, queue: elements are {id, index, value}; index is the zero-based display order.
+- hashmap: elements are {id, key, value}.
+
+STRUCTURAL UPDATES
+An elementUpdate can include "changes" containing changed element fields (next, left, right, children, row, col, index, key, weight, or value). For a newly inserted id, include all fields needed to render it in changes. Set "remove": true to pop, dequeue, delete, or evict an element. Do not leave removed elements in later steps. Value changes alone use valueChange: {from, to}. Graph edges may be updated using their edge id with changes containing from/to/directed/weight, or removed with remove. Emit explicit link and index changes when reversing links or rearranging elements.
+
+═══════════════════════════════════
+VISUAL STATE VOCABULARY (per element, per step)
+═══════════════════════════════════
+Each element gets a "state" from: "idle" | "active" | "comparing" | "visited" | "rejected" | "found" | "swapping"
+
+═══════════════════════════════════
+OUTPUT JSON SCHEMA
+═══════════════════════════════════
 {
-  "language": "javascript",
-  "dataStructureType": <one of: "array", "stack", "queue", "hashmap", "binary-tree", "graph">,
-  "code": <full working JS solution as a string>,
-  "trace": [ <array of step objects, minimum 8 steps> ]
+  "problem": {
+    "title": "string",
+    "difficulty": "Easy",
+    "statement": "string",
+    "constraints": ["string"]
+  },
+  "approach": {
+    "name": "string",
+    "dataStructuresUsed": ["string"],
+    "timeComplexity": "string",
+    "spaceComplexity": "string",
+    "whyThisApproach": "string"
+  },
+  "code": {
+    "language": "python",
+    "lines": [ { "line": 1, "text": "string" } ]
+  },
+  "scene": {
+    "primitives": [
+      {
+        "id": "string",
+        "type": "array",
+        "initialElements": [ ... ]
+      }
+    ]
+  },
+  "steps": [
+    {
+      "stepIndex": 1,
+      "title": "string",
+      "codeLineActive": 1,
+      "elementUpdates": [
+        {
+          "primitiveId": "string",
+          "elementId": "string",
+          "state": "idle",
+          "pointerLabels": ["string"],
+          "valueChange": null,
+          "changes": {},
+          "remove": false
+        }
+      ],
+      "cameraFocus": "string",
+      "narration": {
+        "text": "string",
+        "estimatedDurationSeconds": 5
+      }
+    }
+  ],
+  "summary": {
+    "narration": "string",
+    "keyTakeaway": "string"
+  }
 }
 
-Each step object must be:
-{
-  "step": <integer, 1-indexed>,
-  "line": <integer: which line of your code is executing>,
-  "description": <string: a short label for the UI>,
-  "narration": <string: a conversational, teacher-like explanation to be spoken aloud via Text-to-Speech. Make it engaging!>,
-  "cameraPosition": <array of 3 numbers [x, y, z]: focus the 3D camera. Default is [0, 1.5, 11]. Zoom in for emphasis (e.g. [0, 1, 6]) or move left/right (e.g. [-3, 1, 8])>,
-  "dataState": <object: see rules below>
-}
-
-=== CRITICAL RULES FOR dataState ===
-
-RULE 1 — ALWAYS show the COMPLETE input structure at EVERY step.
-If the input is an array, every step must have "elements".
-If it's a binary-tree or graph, provide the full state in "nodes" or "elements".
-
-RULE 2 — "elements" (for arrays/queues/stacks/strings) MUST be an array of objects containing a unique string "id" and a "val". 
-Example: "elements": [{"id": "e1", "val": 5}, {"id": "e2", "val": 3}]
-You MUST keep the exact same "id" for an element as it moves around in the array across steps! This allows the frontend to animate its movement.
-
-RULE 3 — "activeIndices" is an array of integer indices (for arrays) or IDs (for graphs/trees) that should be highlighted.
-
-RULE 4 — For String parsing or Backtracking problems, map the string characters to the "elements" array, and use "pointers" (e.g., {"start": 0, "end": 2}) to show the boundaries of the segment currently being evaluated.
-
-RULE 4 — "pointers" maps label strings to integer indices. Use for named pointers like left, right, i, j, slow, fast.
-
-RULE 5 — For HASHMAP problems:
-- Put hashmap state in "mapEntries": an array of {key, value} objects.
-
-RULE 6 — For BINARY-TREE problems:
-- "dataState" should ideally have "nodes": [{ "id": 1, "value": 50, "position": {"x": 0, "y": 3}, "left": 2, "right": 3 }, ...] (format matching BinaryTreeStructure). 
-- If not full structure, at least provide "elements" as the BFS/level-order traversal. 
-- "activeIndices" should contain the IDs or values of active nodes.
-
-RULE 7 — For GRAPH problems:
-- "dataState" can just provide "activeNodes", "visitedNodes", and "activeEdges" (e.g. [["A","B"]]). We use a default graph if no nodes are explicitly provided, but you can provide "queue" array for BFS.
-
-RULE 8 — Step count: generate 8–30 steps. Skip trivial var declarations, BUT for sorting algorithms you MUST show EVERY single comparison and EVERY single swap step-by-step. Do not jump to the sorted array.
-
-=== CODE FORMAT RULES ===
-- Write clean, readable JavaScript.
-- The "code" field must be a plain string with real newlines (not escaped \\n).
-- Line numbers in "line" must exactly match the line number in the code string (1-indexed).
-
-Now solve the problem the user provides, following ALL rules above precisely.`;
+═══════════════════════════════════
+RULES
+═══════════════════════════════════
+1. Every step must correspond to one meaningful state change a learner would want paused on — not one line of code. Group trivial lines (variable init) into the same step as the first meaningful action.
+2. Narration must read like a teacher speaking aloud, never like a code comment. No "we set i to 0" — instead "we start our left pointer at the beginning of the array."
+3. Reuse element ids across steps — never regenerate the array/tree/graph from scratch each step. The renderer diffs state.
+4. If the problem needs backtracking (subsets, N-Queens, permutations), use "tree" as the recursion/decision tree primitive, with nodes appearing as active and turning "rejected" (pruned) or "found" (valid leaf).
+5. If multiple data structures are used (e.g. sliding window with hashmap), include both primitives in "scene.primitives" and update both across steps.
+6. Keep total steps between 8 and 25 for a typical Easy/Medium problem — enough to teach, not so many it drags.
+7. cameraFocus should change deliberately, not every step — only when attention should shift (e.g. from array to hashmap).
+8. Output ONLY the JSON object. No markdown fences, no prose before or after.`;
 
       const response = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
