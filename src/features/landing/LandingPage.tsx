@@ -1,250 +1,236 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Award, Lightbulb, Users, ArrowRight, Star, ShieldCheck, Cpu, Database, Play, HelpCircle, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  BrainCircuit,
+  Code2,
+  Cpu,
+  Database,
+  Lightbulb,
+  Play,
+  Sparkles,
+  Users,
+} from 'lucide-react';
 import Logo from '../../components/ui/Logo';
 import AuthModal from '../auth/AuthModal';
+import landingHeroImage from './landingHeroImage';
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const [activePlan, setActivePlan] = useState<'monthly' | 'yearly'>('monthly');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-fuchsia-500/30">
+    <div className="min-h-screen overflow-x-hidden bg-[#050812] font-sans text-white selection:bg-violet-500/30">
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-      
-      {/* Glow Backdrops - Neon Theme */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[80%] bg-[#1e3a8a]/40 rounded-full blur-[180px] pointer-events-none mix-blend-screen" />
-      <div className="absolute top-[10%] right-[-10%] w-[60%] h-[100%] bg-[#a21caf]/40 rounded-full blur-[200px] pointer-events-none mix-blend-screen" />
 
-      {/* Navbar Section */}
-      <section className="relative z-50 pt-8">
-        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-          <div className="text-xl font-black tracking-tighter flex items-center gap-3 cursor-pointer uppercase" onClick={() => navigate('/')}>
-            <Logo className="w-8 h-8" />
-            <span className="text-white">ALVIO</span>
-          </div>
-          
-          <nav className="hidden md:flex items-center gap-6">
-            <button 
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#050812]/78 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-10">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-3"
+            aria-label="Alvio home"
+          >
+            <Logo className="h-8 w-8" />
+            <div className="text-left">
+              <div className="text-[17px] font-extrabold tracking-tight text-white">Alvio</div>
+              <div className="text-[9px] font-semibold tracking-[0.18em] text-white/35">LEARN · BUILD · GROW</div>
+            </div>
+          </button>
+
+          <nav className="hidden items-center gap-7 md:flex">
+            <a href="#features" className="text-xs font-semibold text-white/55 transition-colors hover:text-white">Features</a>
+            <a href="#process" className="text-xs font-semibold text-white/55 transition-colors hover:text-white">How it works</a>
+            <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-widest transition-colors rounded-full border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+              className="rounded-xl border border-white/10 bg-white/[0.045] px-4 py-2 text-xs font-bold text-white transition-all hover:border-violet-400/25 hover:bg-white/[0.07]"
             >
-              Sign In / Sign Up
+              Sign in
+            </button>
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-[0_10px_30px_rgba(99,102,241,0.22)] transition-transform hover:-translate-y-0.5"
+            >
+              Start learning
             </button>
           </nav>
+
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="rounded-xl bg-violet-600 px-4 py-2 text-xs font-bold md:hidden"
+          >
+            Get started
+          </button>
         </div>
-      </section>
+      </header>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-        
-        {/* Left Hero Content */}
-        <div className="lg:col-span-6 space-y-8 text-left">
-          <div className="space-y-4">
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
-              Welcome to Alvio Academy
-            </div>
-            
-            <h1 className="text-7xl md:text-8xl lg:text-[100px] font-black tracking-tighter text-white leading-[0.9] uppercase break-words">
-              Master The <br/> Code <Sparkles className="inline-block text-white/50 -mt-8 ml-2 w-16 h-16" />
-            </h1>
+      <main>
+        <section className="relative isolate min-h-[780px] overflow-hidden pt-16 sm:min-h-[840px] lg:min-h-[760px]">
+          <div className="absolute inset-0 bg-[#050812]" />
 
-            <p className="text-sm md:text-base text-white/50 max-w-md leading-relaxed pt-6 font-light">
-              Master Data Structures and Algorithms through interactive 3D visualizers, turn-based AI mock interviews, and real-time coding challenges. Prepare for top-tier tech roles with confidence.
-            </p>
-          </div>
+          <div
+            className="absolute inset-y-0 right-0 hidden w-[66%] bg-cover bg-center bg-no-repeat lg:block"
+            style={{
+              backgroundImage: `url(${landingHeroImage})`,
+              backgroundPosition: '62% center',
+              WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,.2) 10%, black 35%, black 100%)',
+              maskImage: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,.2) 10%, black 35%, black 100%)',
+            }}
+          />
 
-          <div className="flex items-center gap-8 pt-8">
-            <button 
-              onClick={() => setIsAuthModalOpen(true)}
-              className="px-10 py-4 bg-[#c026d3] hover:bg-[#a21caf] text-white font-bold text-sm transition-colors rounded-full shadow-[0_0_30px_rgba(192,38,211,0.5)]"
+          <div
+            className="absolute inset-x-0 top-16 h-[390px] bg-cover bg-center bg-no-repeat opacity-65 lg:hidden"
+            style={{ backgroundImage: `url(${landingHeroImage})`, backgroundPosition: '66% center' }}
+          />
+
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#050812_0%,#050812_34%,rgba(5,8,18,.82)_48%,rgba(5,8,18,.16)_76%,rgba(5,8,18,.12)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,18,.03)_0%,rgba(5,8,18,.03)_66%,#050812_100%)]" />
+          <div className="absolute left-[8%] top-[18%] h-[360px] w-[360px] rounded-full bg-violet-600/[0.07] blur-[120px]" />
+
+          <div className="relative mx-auto grid min-h-[720px] max-w-[1440px] grid-cols-1 items-center px-5 pb-16 pt-[420px] sm:px-8 sm:pt-[430px] lg:min-h-[700px] lg:grid-cols-12 lg:px-10 lg:pb-12 lg:pt-10">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 max-w-2xl lg:col-span-7"
             >
-              Start Learning
-            </button>
-          </div>
-        </div>
-
-        {/* Right Hero Visuals */}
-        <div className="lg:col-span-6 relative flex items-center justify-center">
-          {/* Main Visualizer Preview Panel */}
-          <div className="relative w-full max-w-lg bg-[#2e0939]/80 border border-fuchsia-500/20 p-8 shadow-[0_0_80px_rgba(162,28,175,0.4)] backdrop-blur-xl space-y-6">
-            
-            {/* Mock Node List Widget */}
-            <div className="p-4 bg-white/[0.03] border border-white/5 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#c026d3]/20 border border-[#c026d3]/40 flex items-center justify-center text-[#c026d3]">
-                  <Database size={18} />
-                </div>
-                <div>
-                  <h4 className="text-xs font-black text-white uppercase tracking-wider">Linked List Structure</h4>
-                  <p className="text-[10px] text-white/50 mt-0.5">Contiguous node pointers</p>
-                </div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-300/10 bg-violet-400/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.17em] text-violet-200">
+                <Sparkles size={12} />
+                Interactive computer science learning
               </div>
-              <span className="text-[10px] font-black text-[#c026d3] tracking-widest">ACTIVE</span>
+
+              <h1 className="max-w-[760px] text-[48px] font-extrabold leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[72px]">
+                Better problem solvers
+                <span className="block bg-gradient-to-r from-violet-300 via-indigo-300 to-cyan-300 bg-clip-text text-transparent">build better futures.</span>
+              </h1>
+
+              <p className="mt-6 max-w-xl text-sm leading-7 text-[#aab4c5] sm:text-base">
+                Learn data structures and algorithms through interactive visualizations, guided coding practice, AI tutoring, and realistic technical interview training.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 px-6 text-sm font-bold text-white shadow-[0_16px_42px_rgba(99,102,241,0.26)] transition-all hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(99,102,241,0.34)]"
+                >
+                  Start learning free
+                  <ArrowRight size={16} />
+                </button>
+
+                <Link
+                  to="/auth"
+                  state={{ from: { pathname: '/3d-visualizer' } }}
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 text-sm font-bold text-white transition-all hover:border-white/20 hover:bg-white/[0.07]"
+                >
+                  <Play size={15} fill="currentColor" />
+                  Explore visualizers
+                </Link>
+              </div>
+
+              <div className="mt-9 flex flex-wrap gap-2.5">
+                {[
+                  { icon: <Code2 size={14} />, text: 'Real coding practice' },
+                  { icon: <Database size={14} />, text: '3D DSA visualizers' },
+                  { icon: <BrainCircuit size={14} />, text: 'AI-guided learning' },
+                ].map((item) => (
+                  <div
+                    key={item.text}
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/[0.065] bg-black/20 px-3 py-2 text-[11px] font-semibold text-white/65 backdrop-blur-md"
+                  >
+                    <span className="text-violet-300">{item.icon}</span>
+                    {item.text}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="features" className="relative border-t border-white/[0.055] bg-[#070b14] py-24">
+          <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
+            <div className="mx-auto mb-12 max-w-2xl text-center">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-300">Built for deliberate practice</span>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.035em] text-white sm:text-4xl">Understand it. Visualize it. Code it.</h2>
+              <p className="mt-4 text-sm leading-6 text-[#8894a8]">
+                Alvio connects explanation, visualization, practice, and feedback in one learning environment.
+              </p>
             </div>
 
-            {/* Mock Graph BFS Tracker */}
-            <div className="p-4 bg-white/[0.03] border border-white/5 space-y-3">
-              <div className="flex justify-between items-center">
-                <h4 className="text-xs font-black text-white uppercase tracking-wider">Shortest Path (Dijkstra)</h4>
-                <span className="text-[10px] font-mono text-[#c026d3]">O(V log V + E)</span>
-              </div>
-              <div className="h-1.5 w-full bg-white/5 overflow-hidden">
-                <div className="h-full w-[80%] bg-[#c026d3]" />
-              </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <FeatureCard
+                icon={<Cpu size={21} />}
+                title="Interactive Visuals"
+                desc="See nodes, pointers, trees, graphs, and algorithm state change as the concept runs."
+              />
+              <FeatureCard
+                icon={<BrainCircuit size={21} />}
+                title="AI Tutor"
+                desc="Ask questions in context and get explanations that match the topic you are studying."
+              />
+              <FeatureCard
+                icon={<Users size={21} />}
+                title="Mock Interviews"
+                desc="Practice technical communication and problem solving in realistic interview sessions."
+              />
+              <FeatureCard
+                icon={<Award size={21} />}
+                title="Progress That Matters"
+                desc="Track mastery, streaks, XP, quiz performance, and the skills that need more practice."
+              />
             </div>
-
-            {/* Mock Activity Sparkline */}
-            <div className="p-4 bg-white/[0.03] border border-white/5 flex items-center justify-between">
-              <div>
-                <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Performance Gain</span>
-                <h3 className="text-lg font-black text-white mt-0.5">-45.2% Complexity</h3>
-              </div>
-              <div className="text-[#c026d3] opacity-80 text-xl font-bold">📈</div>
-            </div>
-
           </div>
-        </div>
+        </section>
 
-      </section>
-
-      {/* Core Features Grid Section */}
-      <section id="features" className="py-24 border-t border-white/5 bg-[#090317]/50">
-        <div className="max-w-7xl mx-auto px-8 space-y-12">
-          
-          <div className="text-center space-y-4 max-w-lg mx-auto">
-            <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Core features</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Remembered Your Need</h2>
-            <p className="text-xs font-semibold text-gray-400 leading-relaxed">
-              We provide tools and personalized AI assistance designed to make your visual algorithms learning journey intuitive.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <FeatureCard 
-              icon={<Cpu size={22} />} 
-              title="Interactive Visuals" 
-              desc="View nodes, pointers, and memory blocks update in real-time 3D models."
-            />
-            <FeatureCard 
-              icon={<Award size={22} />} 
-              title="Expert AI Tutor" 
-              desc="Get line-by-line coding suggestions and dynamic reviews."
-            />
-            <FeatureCard 
-              icon={<Users size={22} />} 
-              title="Mock Interviews" 
-              desc="Practice senior engineer chats using integrated video/audio feeds."
-            />
-            <FeatureCard 
-              icon={<Lightbulb size={22} />} 
-              title="Syllabus Progress" 
-              desc="Follow standard curriculum lines matching top university targets."
-            />
-          </div>
-
-        </div>
-      </section>
-
-      {/* Simple Process Section */}
-      <section id="process" className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Text */}
-          <div className="lg:col-span-5 space-y-6 text-left">
-            <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Simple process</span>
-              <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">It's easy to get started right away.</h2>
-            </div>
-            <p className="text-xs font-semibold text-gray-400 leading-relaxed">
-              No long configurations or setups. Our tools load instantly on any modern browser environment.
-            </p>
-            <Link to="/auth" state={{ from: { pathname: '/dashboard' } }}>
-              <button className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold uppercase tracking-wider transition-all">
-                Get In Touch
+        <section id="process" className="relative border-t border-white/[0.055] bg-[#050812] py-24">
+          <div className="mx-auto grid max-w-[1320px] grid-cols-1 gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:px-10">
+            <div className="lg:col-span-5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">A clear learning loop</span>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.035em] sm:text-4xl">From confusion to intuition.</h2>
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#8894a8]">
+                Move from understanding a concept to seeing it work, writing the code yourself, and testing what you learned.
+              </p>
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-violet-300 transition-colors hover:text-violet-200"
+              >
+                Start your learning path <ArrowRight size={15} />
               </button>
-            </Link>
+            </div>
+
+            <div className="space-y-3 lg:col-span-7">
+              <StepRow num="01" title="Learn the idea" desc="Use concise lessons and AI guidance to understand the core concept before memorizing implementation details." />
+              <StepRow num="02" title="See the state change" desc="Open interactive visualizers to watch memory, pointers, nodes, and algorithm decisions evolve step by step." />
+              <StepRow num="03" title="Solve it yourself" desc="Move into coding practice and quizzes, then use your results to decide what to revisit next." />
+            </div>
           </div>
-
-          {/* Right Steps Grid */}
-          <div className="lg:col-span-7 space-y-6">
-            <StepRow num="01" title="Create an Account" desc="Sign up in seconds. No complex paperwork or credit cards needed to start exploring basic structures." />
-            <StepRow num="02" title="Select Your Module" desc="Pick stack arrays, circular queues, AVL trees, or graphs inside our interactive visualizer hub." />
-            <StepRow num="03" title="Start Practicing" desc="Follow along step-by-step with 3D visuals and complete tasks to earn XP and level up." />
-          </div>
-
-        </div>
-      </section>
-
+        </section>
+      </main>
     </div>
   );
 }
 
-function FeatureCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
-    <div className="bg-[#140D33]/60 border border-white/10 rounded-3xl p-8 hover:border-indigo-500/40 hover:bg-[#140D33]/85 transition-all text-left space-y-5">
-      <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+    <div className="group rounded-2xl border border-white/[0.07] bg-[linear-gradient(180deg,rgba(17,25,41,.9),rgba(9,15,27,.92))] p-6 transition-all hover:-translate-y-0.5 hover:border-violet-300/15">
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-300/10 bg-violet-400/[0.08] text-violet-300">
         {icon}
       </div>
-      <div className="space-y-2">
-        <h4 className="font-black text-white text-base">{title}</h4>
-        <p className="text-xs text-gray-400 font-semibold leading-relaxed">{desc}</p>
-      </div>
+      <h3 className="mt-5 text-sm font-bold text-white">{title}</h3>
+      <p className="mt-2 text-xs leading-6 text-[#7f8ba0]">{desc}</p>
     </div>
   );
 }
 
-function StepRow({ num, title, desc }: { num: string, title: string, desc: string }) {
+function StepRow({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
-    <div className="p-6 rounded-3xl bg-[#140D33]/40 border border-white/5 flex gap-5 hover:border-white/10 transition-colors text-left">
-      <div className="text-lg font-black text-indigo-400 shrink-0 mt-0.5">{num}</div>
-      <div className="space-y-1">
-        <h4 className="font-extrabold text-white text-sm">{title}</h4>
-        <p className="text-xs text-gray-400 font-semibold leading-relaxed">{desc}</p>
+    <div className="flex gap-5 rounded-2xl border border-white/[0.065] bg-white/[0.025] p-5 transition-colors hover:bg-white/[0.04]">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-300/10 bg-cyan-400/[0.07] text-[11px] font-extrabold text-cyan-300">
+        {num}
       </div>
-    </div>
-  );
-}
-
-function PricingCard({ name, price, period, desc, features, active = false }: { name: string, price: string, period: string, desc: string, features: string[], active?: boolean }) {
-  return (
-    <div className={`bg-[#140D33]/60 border rounded-[32px] p-8 space-y-8 text-left transition-all relative overflow-hidden ${active ? 'border-indigo-500 shadow-[0_0_30px_rgba(99,102,241,0.2)]' : 'border-white/10'}`}>
-      
-      {active && (
-        <div className="absolute top-0 right-0 bg-indigo-500 text-white text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl">
-          MOST POPULAR
-        </div>
-      )}
-
-      <div className="space-y-4">
-        <div className="space-y-1">
-          <span className="text-[10px] font-black uppercase tracking-wider text-gray-400">{name}</span>
-          <div className="flex items-baseline gap-1">
-            <span className="text-4xl font-black text-white">{price}</span>
-            <span className="text-xs font-bold text-gray-400">/ {period}</span>
-          </div>
-        </div>
-        <p className="text-xs text-gray-400 font-semibold leading-relaxed">{desc}</p>
-      </div>
-
-      <Link to="/auth" className="block">
-        <button className={`w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${active ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg' : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'}`}>
-          Subscribe Now
-        </button>
-      </Link>
-
-      <div className="space-y-3.5 pt-4 border-t border-white/5">
-        <span className="text-[10px] font-black uppercase tracking-wider text-gray-400">Features Included:</span>
-        <ul className="space-y-2.5">
-          {features.map((feat, idx) => (
-            <li key={idx} className="flex items-center gap-2 text-xs font-semibold text-gray-300">
-              <ShieldCheck size={14} className="text-indigo-400 shrink-0" />
-              {feat}
-            </li>
-          ))}
-        </ul>
+      <div>
+        <h3 className="text-sm font-bold text-white">{title}</h3>
+        <p className="mt-1.5 text-xs leading-6 text-[#7f8ba0]">{desc}</p>
       </div>
     </div>
   );
