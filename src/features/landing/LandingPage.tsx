@@ -8,7 +8,6 @@ import {
   Code2,
   Cpu,
   Database,
-  Lightbulb,
   Play,
   Sparkles,
   Users,
