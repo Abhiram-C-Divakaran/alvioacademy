@@ -9,32 +9,30 @@ export default function AppLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[var(--color-bg-primary)] text-white font-sans relative">
-      {/* Glow Backdrops - Neon Theme */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#1e3a8a]/40 rounded-full blur-[180px] pointer-events-none mix-blend-screen z-0" />
-      <div className="absolute top-[20%] right-[-20%] w-[70%] h-[80%] bg-[#a21caf]/40 rounded-full blur-[200px] pointer-events-none mix-blend-screen z-0" />
-      
-      {/* Grid Pattern overlay */}
-      <div 
-        className="absolute inset-0 opacity-20 pointer-events-none mix-blend-soft-light z-0"
-        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }}
-      />
-      
-      <TopBar onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />
-      <div className="flex-1 flex min-h-0 overflow-hidden">
+    <div className="relative flex h-screen flex-col overflow-hidden bg-[var(--color-bg-primary)] font-sans text-white">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute -left-40 -top-56 h-[520px] w-[520px] rounded-full bg-indigo-500/[0.09] blur-[150px]" />
+        <div className="absolute -right-44 top-[8%] h-[560px] w-[560px] rounded-full bg-cyan-500/[0.055] blur-[170px]" />
+        <div className="absolute inset-0 bg-grid opacity-[0.10]" />
+      </div>
+
+      <TopBar onToggleSidebar={() => setSidebarCollapsed((value) => !value)} />
+
+      <div className="relative z-10 flex min-h-0 flex-1 overflow-hidden">
         <Sidebar collapsed={sidebarCollapsed} />
-        <main className="flex-1 overflow-y-auto relative z-0">
+        <main className="relative flex-1 overflow-y-auto overscroll-contain">
           <Outlet />
         </main>
       </div>
 
-      {/* AI Tutor Floating Action Button */}
-      <button 
+      <button
         onClick={() => navigate('/ai-tutor')}
-        className="absolute bottom-8 right-8 w-14 h-14 bg-gradient-to-tr from-blue-500 to-indigo-500 text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(59,130,246,0.4)] hover:shadow-[0_4px_25px_rgba(59,130,246,0.6)] hover:scale-105 transition-all z-50 group border border-white/10"
-        title="Ask AI Tutor"
+        className="group absolute bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[rgba(18,25,42,0.92)] text-violet-200 shadow-[0_16px_45px_rgba(0,0,0,0.34)] backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-violet-300/20 hover:bg-[rgba(24,32,54,0.96)] hover:text-white"
+        title="Ask Alvio AI"
+        aria-label="Ask Alvio AI"
       >
-        <BrainCircuit size={26} className="group-hover:animate-pulse" />
+        <span className="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/10 to-cyan-400/[0.06] opacity-0 transition-opacity group-hover:opacity-100" />
+        <BrainCircuit size={21} className="relative" />
       </button>
     </div>
   );

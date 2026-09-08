@@ -1,36 +1,17 @@
-// ============================================================
-// Top Bar Component
-// ============================================================
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Bell, User, LogOut, Hexagon, Menu } from 'lucide-react';
+import { LogOut, Menu, User } from 'lucide-react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../ui/Logo';
+import RankBadge from '../ui/RankBadge';
 import useAuthStore from '../../stores/useAuthStore';
 import useProgressStore from '../../stores/useProgressStore';
-import RankBadge from '../ui/RankBadge';
+import { getRankProgress } from '../../utils/rank';
 
 const mainNavGroups = [
   { label: 'Dashboard', path: '/dashboard', matches: ['/dashboard', '/progress', '/profile'] },
-  { label: 'Learn', path: '/learn', matches: ['/catalog', '/learn', '/workspace', '/video-learning', '/3d-visualizer'] },
+  { label: 'Learn', path: '/learn', matches: ['/catalog', '/learn', '/workspace', '/video-learning', '/3d-visualizer', '/algorithms-visualizer'] },
   { label: 'Practice', path: '/coding', matches: ['/coding', '/quiz', '/workspace/pvp'] },
   { label: 'AI Tools', path: '/ai-tutor', matches: ['/ai-tutor', '/mock-interview'] },
 ];
-
-function getEpicLevel(xp: number) {
-  if (xp < 100) return 'Bronze V';
-  if (xp < 250) return 'Bronze IV';
-  if (xp < 500) return 'Bronze I';
-  if (xp < 800) return 'Silver V';
-  if (xp < 1200) return 'Silver I';
-  if (xp < 1800) return 'Gold V';
-  if (xp < 2500) return 'Gold I';
-  if (xp < 3500) return 'Platinum V';
-  if (xp < 4800) return 'Platinum I';
-  if (xp < 6200) return 'Diamond V';
-  if (xp < 7800) return 'Diamond I';
-  if (xp < 9500) return 'Crown';
-  if (xp < 12000) return 'Ace';
-  return 'Conqueror';
-}
 
 export default function TopBar({ onToggleSidebar }: { onToggleSidebar?: () => void }) {
   const user = useAuthStore((s) => s.user);
@@ -40,41 +21,51 @@ export default function TopBar({ onToggleSidebar }: { onToggleSidebar?: () => vo
   const location = useLocation();
 
   const xp = stats?.totalXp || 0;
-  const level = getEpicLevel(xp);
+  const rank = getRankProgress(xp);
 
   return (
-    <header className="topbar sticky top-0 flex items-center justify-between px-6 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)] backdrop-blur-md bg-opacity-80 h-14 shrink-0" style={{ zIndex: 'var(--z-sticky)' }}>
-      <div className="flex items-center gap-8 flex-1">
+    <header
+      className="topbar relative z-[100] flex h-16 shrink-0 items-center justify-between px-3 sm:px-5 lg:px-6"
+      style={{ zIndex: 'var(--z-sticky)' }}
+    >
+      <div className="flex min-w-0 flex-1 items-center gap-3 lg:gap-6">
         {onToggleSidebar && (
           <button
             onClick={onToggleSidebar}
-            className="p-1.5 hover:bg-[var(--color-bg-hover)] rounded-md transition-colors text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] -ml-2"
-            title="Toggle Sidebar"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[var(--color-text-muted)] transition-colors hover:bg-white/[0.05] hover:text-white"
+            title="Toggle sidebar"
+            aria-label="Toggle sidebar"
           >
             <Menu size={18} />
           </button>
         )}
-        {/* Logo Area */}
-        <div className="flex items-center gap-3 shrink-0 cursor-pointer" onClick={() => navigate('/dashboard')}>
-          <Logo className="w-8 h-8" />
-          <span className="font-semibold text-lg tracking-wide text-white">Alvio</span>
-        </div>
-        
-        {/* Main Nav Links */}
-        <nav className="hidden md:flex items-center gap-1">
+
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex shrink-0 items-center gap-2.5 rounded-xl"
+          aria-label="Go to dashboard"
+        >
+          <Logo className="h-8 w-8" />
+          <span className="hidden text-base font-extrabold tracking-[-0.025em] text-white sm:inline">Alvio</span>
+        </button>
+
+        <div className="hidden h-6 w-px bg-white/[0.065] lg:block" />
+
+        <nav className="hidden min-w-0 items-center gap-1 md:flex">
           {mainNavGroups.map((group) => {
-            const isActive = group.matches.some(m => {
-              if (m === '/workspace' && location.pathname.startsWith('/workspace/pvp')) return false;
-              return location.pathname.startsWith(m) || location.search.includes(m);
+            const isActive = group.matches.some((match) => {
+              if (match === '/workspace' && location.pathname.startsWith('/workspace/pvp')) return false;
+              return location.pathname.startsWith(match);
             });
+
             return (
               <NavLink
                 key={group.label}
                 to={group.path}
-                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                className={`rounded-xl px-3.5 py-2 text-[13px] font-semibold transition-all ${
                   isActive
-                    ? 'bg-[var(--color-surface-glass)] text-white shadow-sm'
-                    : 'text-[var(--color-text-muted)] hover:text-white hover:bg-white/5'
+                    ? 'bg-white/[0.07] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]'
+                    : 'text-[var(--color-text-muted)] hover:bg-white/[0.035] hover:text-[var(--color-text-primary)]'
                 }`}
               >
                 {group.label}
@@ -84,46 +75,47 @@ export default function TopBar({ onToggleSidebar }: { onToggleSidebar?: () => vo
         </nav>
       </div>
 
-      {/* Right Actions */}
-      <div className="flex items-center gap-4">
-
-        
-        {/* User Info */}
-        <div className="flex items-center gap-3 pl-4 border-l border-[var(--color-border-subtle)]">
-          <div className="flex items-center gap-2.5">
-            <div className="text-right hidden md:block">
-              <p className="text-sm font-medium text-[var(--color-text-primary)] leading-tight">
-                {user?.name || 'Student'}
-              </p>
-              <p className="text-[11px] text-[var(--color-text-muted)] font-medium tracking-wide flex items-center justify-end gap-1">
-                <RankBadge level={level} size={16} />
-                <span>{level}</span>
-                <span className="mx-1">•</span>
-                <span>{xp} XP</span>
-              </p>
-            </div>
-            <div
-              onClick={() => navigate('/profile')}
-              className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-[#3e3e3e] shadow-sm ring-2 ring-[#333] cursor-pointer hover:ring-[#555] transition-all"
-              title="View Profile"
-            >
-              {user ? (
-                <img src={user.avatar_url || `https://api.dicebear.com/7.x/notionists/svg?seed=${user.name}`} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <User size={14} className="text-white" />
-              )}
-            </div>
+      <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <button
+          onClick={() => navigate('/progress')}
+          className="hidden items-center gap-2 rounded-xl border border-white/[0.065] bg-white/[0.028] px-3 py-2 transition-colors hover:bg-white/[0.05] lg:flex"
+          title="View rank progress"
+        >
+          <RankBadge level={rank.name} size={22} />
+          <div className="text-left leading-tight">
+            <div className="text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--color-text-muted)]">{rank.name}</div>
+            <div className="mt-0.5 text-[11px] font-bold text-[var(--color-text-secondary)]">{xp.toLocaleString()} XP</div>
           </div>
-          
-          {/* Logout button */}
-          <button
-            onClick={logout}
-            className="p-1.5 hover:bg-[var(--color-bg-hover)] rounded-md transition-colors text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] ml-1"
-            title="Log Out"
-          >
-            <LogOut size={16} />
-          </button>
-        </div>
+        </button>
+
+        <div className="h-7 w-px bg-white/[0.065]" />
+
+        <button
+          onClick={() => navigate('/profile')}
+          className="flex items-center gap-2 rounded-xl p-1.5 pr-2 transition-colors hover:bg-white/[0.04]"
+          title="View profile"
+        >
+          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.05] shadow-sm">
+            {user?.avatar ? (
+              <img src={user.avatar} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <User size={15} className="text-[var(--color-text-secondary)]" />
+            )}
+          </div>
+          <div className="hidden max-w-28 text-left sm:block">
+            <p className="truncate text-xs font-bold text-white">{user?.name || 'Student'}</p>
+            <p className="truncate text-[10px] font-semibold text-[var(--color-text-muted)]">Learner profile</p>
+          </div>
+        </button>
+
+        <button
+          onClick={logout}
+          className="flex h-9 w-9 items-center justify-center rounded-xl text-[var(--color-text-muted)] transition-colors hover:bg-rose-400/[0.08] hover:text-rose-300"
+          title="Log out"
+          aria-label="Log out"
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </header>
   );
